@@ -5,7 +5,7 @@ const Assets: CollectionConfig = {
   slug: "assets",
   upload: {
     staticURL: "/assets",
-    staticDir: "assets",
+    staticDir: "../assets",
   },
   admin: {
     group: "Settings",
