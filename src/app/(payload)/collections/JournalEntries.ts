@@ -10,7 +10,6 @@ const JournalEntries: CollectionConfig = {
   },
   admin: {
     useAsTitle: "title",
-    disableDuplicate: true,
   },
   fields: [
     {

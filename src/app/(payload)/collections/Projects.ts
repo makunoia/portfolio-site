@@ -11,7 +11,6 @@ const Projects: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     description: "Manage your projects",
-    disableDuplicate: true,
   },
   fields: [
     {
@@ -119,9 +118,9 @@ const Projects: CollectionConfig = {
           blocks: [ContentBlock, Showcase],
         },
       ],
-      admin: {
-        components: { RowLabel: ({ data }) => data.name },
-      },
+      // admin: {
+      //   components: { RowLabel: ({ data }) => data.name },
+      // },
     },
   ],
 };
