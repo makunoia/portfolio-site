@@ -1,20 +1,38 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "strict": false,
-    "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "jsx": "react",
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "jsx": "preserve",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "isolatedModules": true,
     "paths": {
-      "payload/generated-types": ["./src/payload-types.ts"]
-    }
+      "payload/generated-types": ["./src/payload/payload-types.ts"],
+      "react": ["./node_modules/@types/react"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "build"],
+  "include": [
+    "src",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts",
+    "next-env.d.ts"
+  ],
+  "exclude": ["node_modules"],
   "ts-node": {
     "transpileOnly": true,
     "swc": true
