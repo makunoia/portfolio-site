@@ -2,11 +2,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -19,23 +15,24 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "isolatedModules": true,
+    "paths": {
+      "payload/generated-types": ["./src/payload/payload-types.ts"],
+      "react": ["./node_modules/@types/react"]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "react": ["./node_modules/@types/react"],
-    }
+    ]
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+    "src",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts",
+    "next-env.d.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "ts-node": {
     "transpileOnly": true,
     "swc": true
