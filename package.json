@@ -18,7 +18,6 @@
   "dependencies": {
     "@payloadcms/db-mongodb": "^3.0.0-beta.45",
     "@payloadcms/next": "^3.0.0-beta.45",
-    "@payloadcms/plugin-cloud": "^3.0.0-beta.45",
     "@payloadcms/richtext-lexical": "^3.0.0-beta.45",
     "babel-plugin-react-compiler": "^0.0.0-experimental-592953e-20240517",
     "cross-env": "^7.0.3",
