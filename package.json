@@ -12,8 +12,7 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "ci": "payload migrate && npm build",
-    "generate:types": "payload generate:types",
-    "standalone-script": "node ./src/scripts/standalone-script.js"
+    "generate:types": "payload generate:types"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "^3.0.0-beta.45",

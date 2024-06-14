@@ -5,8 +5,8 @@ const Page = () => {
   return (
     <>
       <main>
-        <article>
-          <h1>Payload 3.0</h1>
+        {/* <article>
+          <h1 className="bg dark:bg">Payload 3.0</h1>
           <p>
             This BETA is rapidly evolving, you can report any bugs against{" "}
             <Link
@@ -43,7 +43,7 @@ return <Posts data={data} />
 `}
             </code>
           </pre>
-        </div>
+        </div> */}
       </main>
     </>
   );

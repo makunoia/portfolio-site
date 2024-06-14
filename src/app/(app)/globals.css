@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --primitive-100: hsl(240, 10%, 3.9%);
+    --primitive-200: hsl(220, 6.1%, 9.6%);
+    --primitive-300: hsl(225, 5.7%, 13.7%);
+    --primitive-400: hsl(240, 4.7%, 16.9%);
+    --primitive-500: hsl(230, 5.9%, 20%);
+    --primitive-600: hsl(231.4, 5.8%, 23.7%);
+    --primitive-700: hsl(226.7, 6%, 29.2%);
+    --primitive-800: hsl(230, 6%, 39.2%);
+    --primitive-900: hsl(230.8, 5.7%, 44.9%);
+    --primitive-1000: hsl(230.8, 5.1%, 50%);
+    --primitive-1100: hsl(234.5, 7.7%, 72%);
+    --primitive-1200: hsl(240, 6.2%, 93.7%);
+
+    --bg-default: var(--primitive-100);
+    --bg-subtle: var(--primitive-400);
+    --bg-inverse: var(--primitive-1200);
+
+    --fg-default: var(--primitive-1200);
+    --fg-subtle: var(--primitive-1100);
+    --fg-inverse: var(--primitive-100);
+
+    --border-default: var(--primitive-600);
+    --border-inverse: var(--primitive-1200);
+
+    --shadow-default: var(--primitive-200);
+  }
+
+  :root[class~="light"] {
+    --primitive-100: hsl(240, 20%, 99%);
+    --primitive-200: hsl(240, 20%, 98%);
+    --primitive-300: hsl(225, 14.3%, 94.5%);
+    --primitive-400: hsl(228, 11.6%, 91.6%);
+    --primitive-500: hsl(230, 10.7%, 89%);
+    --primitive-600: hsl(232.5, 11.4%, 86.3%);
+    --primitive-700: hsl(234, 11.1%, 82.4%);
+    --primitive-800: hsl(230.8, 10.2%, 75.1%);
+    --primitive-900: hsl(230.8, 5.9%, 57.1%);
+    --primitive-1000: hsl(230.8, 5.4%, 52.7%);
+    --primitive-1100: hsl(234, 4.9%, 40.4%);
+    --primitive-1200: hsl(230, 9.1%, 12.9%);
+
+    --bg-default: var(--primitive-100);
+    --bg-subtle: var(--primitive-300);
+    --bg-inverse: var(--primitive-1200);
+
+    --fg-default: var(--primitive-1200);
+    --fg-subtle: var(--primitive-1100);
+    --fg-inverse: var(--primitive-100);
+
+    --border-default: var(--primitive-600);
+    --border-inverse: var(--primitive-1200);
+
+    --shadow-default: var(--primitive-400);
+  }
+}
+
+@layer components {
+}
