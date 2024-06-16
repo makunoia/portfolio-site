@@ -61,4 +61,15 @@
 }
 
 @layer components {
+  .badge {
+    background: var(--bg-inverse);
+    color: var(--fg-inverse);
+  }
+
+  :root[class~="light"] {
+    .badge {
+      background: red;
+      color: var(--fg-default);
+    }
+  }
 }

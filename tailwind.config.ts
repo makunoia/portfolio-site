@@ -25,7 +25,23 @@ const config: Config = {
       },
     },
     backgroundColor: {
-      DEFAULT: "var(--primitive-100)",
+      DEFAULT: "var(--bg-default)",
+      subtle: "var(--bg-subtle)",
+      inverse: "var(--bg-inverse)",
+    },
+    textColor: {
+      DEFAULT: "var(--fg-default)",
+      subtle: "var(--fg-subtle)",
+      inverse: "var(--fg-inverse)",
+    },
+    fill: {
+      DEFAULT: "var(--fg-default)",
+      subtle: "var(--fg-subtle)",
+      inverse: "var(--fg-inverse)",
+    },
+    borderColor: {
+      DEFAULT: "var(--border-default)",
+      inverse: "var(--border-inverse)",
     },
     fontSize: {
       caption: ["0.75rem", "0.875rem"],
