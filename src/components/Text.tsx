@@ -13,7 +13,8 @@ type TextType = {
     | "heading"
     | "display";
   as?: "p" | "h1" | "h2" | "h3" | "h4" | "span";
-  weight?: "normal" | "medium" | "semibold" | "bold";
+  weight?: "normal" | "medium" | "bold";
+  type?: "sans" | "mono";
   multiline?: boolean;
   className?: string;
 };
@@ -32,8 +33,11 @@ const TextStyles = cva([], {
     weight: {
       normal: "font-normal",
       medium: "font-medium",
-      semibold: "font-semibold",
       bold: "font-bold",
+    },
+    type: {
+      sans: "font-sans",
+      mono: "font-mono",
     },
     multiline: {
       true: "",
@@ -51,10 +55,11 @@ const Text = ({
   size,
   children,
   className,
+  type = "sans",
   weight = "normal",
   multiline,
 }: TextType) => {
-  const styles = cn(TextStyles({ size, weight, multiline }), className);
+  const styles = cn(TextStyles({ size, weight, multiline, type }), className);
 
   return <Component className={styles}>{children}</Component>;
 };

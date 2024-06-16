@@ -8,6 +8,15 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      sans: [
+        "var(--font-neue-montreal)",
+        "-apply-system",
+        "Helvetica",
+        "Arial",
+      ],
+      mono: ["var(--font-neue-montreal-mono)", "Roboto Mono"],
+    },
     colors: {
       neutral: {
         100: "var(--primitive-100)",

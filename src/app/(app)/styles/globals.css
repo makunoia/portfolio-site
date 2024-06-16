@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  html,
+  body {
+    font-family: "NeueMontreal";
+    -webkit-font-smooting: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   :root {
     --primitive-100: hsl(240, 10%, 3.9%);
     --primitive-200: hsl(220, 6.1%, 9.6%);
