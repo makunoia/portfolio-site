@@ -17,6 +17,14 @@ const config: Config = {
       ],
       mono: ["var(--font-neue-montreal-mono)", "Roboto Mono"],
     },
+    opacity: {
+      "0": "var(--opacity-0)",
+      "20": "var(--opacity-20)",
+      "40": "var(--opacity-40)",
+      "60": "var(--opacity-60)",
+      "80": "var(--opacity-80)",
+      "100": "var(--opacity-100)",
+    },
     colors: {
       neutral: {
         100: "var(--primitive-100)",
@@ -37,6 +45,7 @@ const config: Config = {
       DEFAULT: "var(--bg-default)",
       subtle: "var(--bg-subtle)",
       inverse: "var(--bg-inverse)",
+      success: "var(--utility-success)",
     },
     textColor: {
       DEFAULT: "var(--fg-default)",

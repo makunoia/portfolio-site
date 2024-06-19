@@ -24,6 +24,8 @@ const NeueMontreal = localFont({
     },
   ],
   variable: "--font-neue-montreal",
+  fallback: ["system-ui", "Helvetica", "Arial"],
+  display: "swap",
 });
 
 const NeueMontrealMono = localFont({
@@ -40,6 +42,8 @@ const NeueMontrealMono = localFont({
     },
   ],
   variable: "--font-neue-montreal-mono",
+  fallback: ["Roboto Mono", "Times New Roman"],
+  display: "swap",
 });
 
 export { NeueMontreal, NeueMontrealMono };

@@ -11,7 +11,40 @@
     text-rendering: optimizeLegibility;
   }
 
+  @media screen and (max-width: 600px) {
+    body {
+      padding: 0px 40px;
+    }
+  }
+
   :root {
+    --spacing-0px: 0rem;
+    --spacing-2px: 0.125rem;
+    --spacing-4px: 0.25rem;
+    --spacing-6px: 0.375rem;
+    --spacing-8px: 0.5rem;
+    --spacing-10px: 0.625rem;
+    --spacing-12px: 0.75rem;
+    --spacing-14px: 0.875rem;
+    --spacing-16px: 1rem;
+    --spacing-18px: 1.125rem;
+    --spacing-20px: 1.25rem;
+    --spacing-24px: 1.5rem;
+    --spacing-28px: 1.75rem;
+    --spacing-30px: 1.875rem;
+    --spacing-32px: 2rem;
+
+    --opacity-0: 0;
+    --opacity-20: 0.2;
+    --opacity-40: 0.4;
+    --opacity-60: 0.6;
+    --opacity-80: 0.8;
+    --opacity-100: 1;
+
+    --utility-success: hsl(122.4, 88.2%, 50%);
+  }
+
+  :root[class~="dark"] {
     --primitive-100: hsl(240, 10%, 3.9%);
     --primitive-200: hsl(220, 6.1%, 9.6%);
     --primitive-300: hsl(225, 5.7%, 13.7%);
@@ -69,15 +102,116 @@
 }
 
 @layer components {
+  hr {
+    border-color: var(--border-default);
+    border-width: 0.5px;
+  }
+
+  .light-streak {
+    width: 800px;
+    height: 160px;
+    opacity: 40%;
+    transform: rotate(30deg);
+    position: absolute;
+    left: -25em;
+    top: 0px;
+    filter: blur(150px);
+    background: var(--fg-default);
+  }
+
   .badge {
-    background: var(--bg-inverse);
-    color: var(--fg-inverse);
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    color: var(--fg-default);
+    gap: 8px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px var(--shadow-default);
+    background: linear-gradient(
+      0.45turn,
+      var(--primitive-600),
+      var(--primitive-300),
+      var(--primitive-100)
+    );
+
+    border: 1px;
+    background-clip: padding-box;
+    position: relative;
+    border: solid 1px transparent;
+    border-radius: 8px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      margin: -1px;
+      border-radius: 9px;
+      background: linear-gradient(
+        to right,
+        var(--primitive-400),
+        var(--primitive-900)
+      );
+    }
   }
 
   :root[class~="light"] {
     .badge {
-      background: red;
-      color: var(--fg-default);
+      box-shadow: 0px 4px 4px var(--shadow-default);
+      background: linear-gradient(
+        0.45turn,
+        var(--primitive-400),
+        var(--primitive-300),
+        var(--primitive-100)
+      );
+
+      &:before {
+        background: linear-gradient(
+          to right,
+          var(--primitive-700),
+          var(--primitive-200)
+        );
+      }
+    }
+  }
+
+  .button {
+    height: 40px;
+    position: relative;
+    padding: 12px;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    border-color: var(--primitive-400);
+    border-radius: 8px;
+    clip-path: margin-box;
+  }
+
+  .button-bg {
+    position: absolute;
+    top: -24px;
+    left: -100px;
+    right: -100px;
+    bottom: -24px;
+    z-index: -1;
+    border-radius: 6px;
+    box-shadow: var(--shadow-default);
+    background: linear-gradient(
+      35deg,
+      var(--primitive-100) 40%,
+      var(--primitive-800)
+    );
+    opacity: 0%;
+
+    &:hover {
+      opacity: 40%;
+      translate: 80px;
     }
   }
 }

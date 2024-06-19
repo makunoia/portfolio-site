@@ -15,10 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="">
+    <html lang="en" className="dark">
       <SpeedInsights />
       <Analytics />
-      <body className={`${NeueMontreal.variable} ${NeueMontrealMono.variable}`}>
+      <body
+        className={`${NeueMontreal.variable} ${NeueMontrealMono.variable} bg`}
+      >
+        <div className="light-streak"></div>
         {children}
       </body>
     </html>

@@ -19,11 +19,11 @@ type TextType = {
   className?: string;
 };
 
-const TextStyles = cva([], {
+const TextStyles = cva("text", {
   variants: {
     size: {
-      caption: "text-caption",
-      body: "text-body",
+      caption: "text-caption tracking-wide",
+      body: "text-body tracking-wide",
       "body-large": "text-body-large",
       overline: "text-body-large capitalize",
       lead: "text-lead",
@@ -45,6 +45,7 @@ const TextStyles = cva([], {
     },
   },
   compoundVariants: [
+    { multiline: true, size: "caption", class: "leading-4" },
     { multiline: true, size: "body", class: "leading-6" },
     { multiline: true, size: "lead", class: "leading-8" },
   ],
@@ -52,7 +53,7 @@ const TextStyles = cva([], {
 
 const Text = ({
   as: Component = "span",
-  size,
+  size = "body",
   children,
   className,
   type = "sans",
