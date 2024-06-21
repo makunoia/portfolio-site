@@ -9,22 +9,26 @@ type HomeListItemProps = {
   date: string;
 };
 
-const HomeListItemStyle = cva([
+const HomeListItemCVA = cva([
   "relative group",
   "flex flex-row justify-between items-center gap-12px",
   "transition-all duration-200 ease-out cursor-pointer",
 ]);
 
-const BackgroundStyle = cva([
-  "absolute opacity-0 transition-opacity ease-in-out duration-300 -top-[8px] -left-[12px] -right-[12px] -bottom-[8px] bg-subtle rounded-16px -z-10 group-hover:opacity-40",
+const BackgroundCVA = cva([
+  "bg-subtle rounded-16px",
+  "absolute -z-10 ",
+  "-top-[8px] -left-[12px] -right-[12px] -bottom-[8px]",
+  "opacity-0 group-hover:opacity-40",
+  "transition-opacity ease-in-out duration-300 ",
 ]);
 
 const HomeListItem = ({ title, type, date }: HomeListItemProps) => {
-  const HomeListItem = HomeListItemStyle();
-  const backgroundStyle = BackgroundStyle();
+  const HomeListItemStyle = HomeListItemCVA();
+  const BackgroundStyle = BackgroundCVA();
 
   return (
-    <div className={HomeListItem}>
+    <div className={HomeListItemStyle}>
       <div className="flex flex-row items-center gap-4px">
         <Text className="text text-nowrap" size="body" weight="medium">
           {title}
@@ -35,16 +39,16 @@ const HomeListItem = ({ title, type, date }: HomeListItemProps) => {
           </Text>
         )}
         <ArrowUpRight
-          size={24}
-          strokeWidth={1.5}
-          className="stroke-neutral-1100"
+          size={18}
+          strokeWidth={1}
+          className="transition-colors ease-in-out duration-150 stroke-neutral-700 group-hover:stroke-neutral-1100"
         />
       </div>
       <hr />
       <Text className="text-subtle text-nowrap" size="body" weight="normal">
         {date}
       </Text>
-      <div className={backgroundStyle} />
+      <div className={BackgroundStyle} />
     </div>
   );
 };

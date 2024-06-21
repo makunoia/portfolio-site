@@ -2,13 +2,15 @@ import React from "react";
 import Text from "./Text";
 import { cva } from "class-variance-authority";
 
-const BadgeStyle = cva([
+const BadgeCVA = cva([
+  // "status-badge",
   "relative flex gap-8px items-center w-fit",
-  "text py-10px px-12px rounded-8px",
+  "bg-success/10 py-10px px-12px",
+  "rounded-8px backdrop-blur-sm",
   "bg-clip-padding box-border",
 ]);
 
-const IndicatorStyle = cva("rounded-full w-8px h-8px animate-pulse", {
+const IndicatorCVA = cva("rounded-full w-8px h-8px animate-pulse", {
   variants: {
     unavailable: {
       true: "bg-danger",
@@ -23,11 +25,11 @@ type BadgeType = {
 };
 
 const StatusBadge = ({ label, unavailable = false }: BadgeType) => {
-  const badgeStyle = BadgeStyle();
-  const indicatorStyle = IndicatorStyle({ unavailable });
+  const BadgeStyle = BadgeCVA();
+  const IndicatorStyle = IndicatorCVA({ unavailable });
   return (
-    <div className={`${badgeStyle} status-badge`}>
-      <div className={indicatorStyle}></div>
+    <div className={`${BadgeStyle}`}>
+      <div className={IndicatorStyle}></div>
       <Text
         size="caption"
         weight="normal"

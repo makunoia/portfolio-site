@@ -1,10 +1,13 @@
 import React from "react";
+import Image from "next/image";
 import Text from "@/components/Text";
 import StatusBadge from "@/components/StatusBadge";
 import LatestProjectItem from "@/components/LatestProjectItem";
 import FeaturedProject from "@/components/FeaturedProject";
 import HomeListItem from "@/components/HomeListItem";
 import Button from "@/components/Button";
+import LinkButton from "@/components/LinkButton";
+import Logo from "./assets/MNLogo.svg";
 
 const Page = () => {
   return (
@@ -12,12 +15,17 @@ const Page = () => {
       <main className="max-w-[700px] mx-auto flex flex-col gap-[60px] my-[80px]">
         <div className="flex flex-col gap-24px">
           <div className="flex justify-between">
-            <Text as="span" weight="bold">
-              Logo
-            </Text>
+            <Image alt="Logo" src={Logo} width={45} />
+
             <div className="flex flex-row gap-12px">
-              <Text as="span">LinkedIn</Text>
-              <Text as="span">Resume</Text>
+              <LinkButton
+                label="LinkedIn"
+                href="https://www.linkedin.com/in/mark-noya/"
+              />
+              <LinkButton
+                label="Resume"
+                href="https://www.linkedin.com/in/mark-noya/"
+              />
             </div>
           </div>
           <div className="flex flex-col gap-24px">
@@ -33,7 +41,7 @@ const Page = () => {
         <div className="flex flex-col gap-[6.25rem]">
           <section
             id="latestProjects"
-            className="flex flex-row gap-30px w-full justify-between"
+            className="flex flex-col md:flex-row gap-30px w-full justify-between"
           >
             <div className="titleColumn max-w-[250px] flex flex-col gap-4px flex-1">
               <Text as="h2" size="lead">
@@ -61,7 +69,7 @@ const Page = () => {
 
           <section
             id="latestProjects"
-            className="flex flex-row w-full justify-between"
+            className="flex flex-col gap-16px md:flex-row md:gap-0px  w-full justify-between"
           >
             <div className="titleColumn max-w-[250px] flex flex-col flex-1">
               <Text as="h2" size="lead">
@@ -92,7 +100,7 @@ const Page = () => {
 
           <section
             id="latestProjects"
-            className="flex flex-row gap-8 w-full justify-between"
+            className="flex flex-col gap-16px md:flex-row md:gap-0px w-full justify-between"
           >
             <div className="titleColumn max-w-[250px] flex flex-col flex-1">
               <Text as="h2" size="lead">

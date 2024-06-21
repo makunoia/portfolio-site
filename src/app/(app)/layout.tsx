@@ -3,6 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import "./styles/globals.css";
+import Navbar from "./components/Navbar";
 
 export const metadata: Metadata = {
   title: "Mark Noya",
@@ -23,6 +24,7 @@ export default function RootLayout({
       >
         <div className="light-streak"></div>
         {children}
+        <Navbar />
       </body>
     </html>
   );
