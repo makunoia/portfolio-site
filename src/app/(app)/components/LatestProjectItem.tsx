@@ -12,10 +12,10 @@ const LatestProjectItem = ({ title, type, active }: LatestProjectItemType) => {
       className={`${
         active
           ? "opacity-100"
-          : "opacity-20 hover:pl-4 hover:bg-subtle hover:opacity-100"
-      } flex flex-row items-center gap-3 rounded-lg p-4 pl-0 transition-all duration-200 ease-out cursor-pointer`}
+          : "opacity-20 hover:pl-16px hover:bg-subtle/20 hover:opacity-100"
+      } flex flex-row items-center gap-12px p-16px pl-0px rounded-8px transition-all duration-200 ease-out cursor-pointer`}
     >
-      <Text className="text" size="body-large" weight="medium">
+      <Text className="text" size="body" weight="medium">
         {title}
       </Text>
       <Text className="text-subtle" size="body" weight="normal">

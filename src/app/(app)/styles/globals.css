@@ -32,7 +32,9 @@
     --spacing-24px: 1.5rem;
     --spacing-28px: 1.75rem;
     --spacing-30px: 1.875rem;
-    --spacing-32px: 2rem;
+    --spacing-40px: 2.5rem;
+    --spacing-60px: 3.75rem;
+    --spacing-80px: 5rem;
 
     --opacity-0: 0;
     --opacity-20: 0.2;
@@ -41,22 +43,23 @@
     --opacity-80: 0.8;
     --opacity-100: 1;
 
-    --utility-success: hsl(122.4, 88.2%, 50%);
+    --utility-success: 122.4deg 88.2% 50%;
+    --utility-danger: 3deg 91% 52%;
   }
 
   :root[class~="dark"] {
-    --primitive-100: hsl(240, 10%, 3.9%);
-    --primitive-200: hsl(220, 6.1%, 9.6%);
-    --primitive-300: hsl(225, 5.7%, 13.7%);
-    --primitive-400: hsl(240, 4.7%, 16.9%);
-    --primitive-500: hsl(230, 5.9%, 20%);
-    --primitive-600: hsl(231.4, 5.8%, 23.7%);
-    --primitive-700: hsl(226.7, 6%, 29.2%);
-    --primitive-800: hsl(230, 6%, 39.2%);
-    --primitive-900: hsl(230.8, 5.7%, 44.9%);
-    --primitive-1000: hsl(230.8, 5.1%, 50%);
-    --primitive-1100: hsl(234.5, 7.7%, 72%);
-    --primitive-1200: hsl(240, 6.2%, 93.7%);
+    --primitive-100: 240deg 10% 3.9%;
+    --primitive-200: 220deg 6.1% 9.6%;
+    --primitive-300: 225deg 5.7% 13.7%;
+    --primitive-400: 240deg 4.7% 16.9%;
+    --primitive-500: 230deg 5.9% 20%;
+    --primitive-600: 231.4deg 5.8% 23.7%;
+    --primitive-700: 226.7deg 6% 29.2%;
+    --primitive-800: 230deg 6% 39.2%;
+    --primitive-900: 230.8deg 5.7% 44.9%;
+    --primitive-1000: 230.8deg 5.1% 50%;
+    --primitive-1100: 234.5deg 7.7% 72%;
+    --primitive-1200: 240deg 6.2% 93.7%;
 
     --bg-default: var(--primitive-100);
     --bg-subtle: var(--primitive-400);
@@ -66,25 +69,25 @@
     --fg-subtle: var(--primitive-1100);
     --fg-inverse: var(--primitive-100);
 
-    --border-default: var(--primitive-600);
-    --border-inverse: var(--primitive-1200);
+    --border-default: hsl(var(--primitive-300));
+    --border-inverse: hsl(var(--primitive-1200));
 
-    --shadow-default: var(--primitive-200);
+    --shadow-default: hsl(var(--primitive-200));
   }
 
   :root[class~="light"] {
-    --primitive-100: hsl(240, 20%, 99%);
-    --primitive-200: hsl(240, 20%, 98%);
-    --primitive-300: hsl(225, 14.3%, 94.5%);
-    --primitive-400: hsl(228, 11.6%, 91.6%);
-    --primitive-500: hsl(230, 10.7%, 89%);
-    --primitive-600: hsl(232.5, 11.4%, 86.3%);
-    --primitive-700: hsl(234, 11.1%, 82.4%);
-    --primitive-800: hsl(230.8, 10.2%, 75.1%);
-    --primitive-900: hsl(230.8, 5.9%, 57.1%);
-    --primitive-1000: hsl(230.8, 5.4%, 52.7%);
-    --primitive-1100: hsl(234, 4.9%, 40.4%);
-    --primitive-1200: hsl(230, 9.1%, 12.9%);
+    --primitive-100: 240deg 20% 99%;
+    --primitive-200: 240deg 20% 98%;
+    --primitive-300: 225deg 14.3% 94.5%;
+    --primitive-400: 228deg 11.6% 91.6%;
+    --primitive-500: 230deg 10.7% 89%;
+    --primitive-600: 232.5deg 11.4% 86.3%;
+    --primitive-700: 234deg 11.1% 82.4%;
+    --primitive-800: 230.8deg 10.2% 75.1%;
+    --primitive-900: 230.8deg 5.9% 57.1%;
+    --primitive-1000: 230.8deg 5.4% 52.7%;
+    --primitive-1100: 234deg 4.9% 40.4%;
+    --primitive-1200: 230deg 9.1% 12.9%;
 
     --bg-default: var(--primitive-100);
     --bg-subtle: var(--primitive-300);
@@ -94,10 +97,10 @@
     --fg-subtle: var(--primitive-1100);
     --fg-inverse: var(--primitive-100);
 
-    --border-default: var(--primitive-600);
-    --border-inverse: var(--primitive-1200);
+    --border-default: hsl(var(--primitive-800));
+    --border-inverse: hsl(var(--primitive-1200));
 
-    --shadow-default: var(--primitive-400);
+    --shadow-default: hsl(var(--primitive-400));
   }
 }
 
@@ -105,41 +108,28 @@
   hr {
     border-color: var(--border-default);
     border-width: 0.5px;
+    width: 100%;
   }
 
   .light-streak {
-    width: 800px;
-    height: 160px;
+    width: 900px;
+    height: 70px;
     opacity: 40%;
     transform: rotate(30deg);
     position: absolute;
     left: -25em;
     top: 0px;
     filter: blur(150px);
-    background: var(--fg-default);
+    background: hsl(var(--fg-default));
   }
 
-  .badge {
-    display: flex;
-    width: fit-content;
-    align-items: center;
-    color: var(--fg-default);
-    gap: 8px;
-    padding: 10px 12px;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px var(--shadow-default);
+  .status-badge {
     background: linear-gradient(
-      0.45turn,
-      var(--primitive-600),
-      var(--primitive-300),
-      var(--primitive-100)
+      -175deg,
+      hsl(var(--primitive-600)),
+      hsl(var(--primitive-300)),
+      hsl(var(--primitive-200))
     );
-
-    border: 1px;
-    background-clip: padding-box;
-    position: relative;
-    border: solid 1px transparent;
-    border-radius: 8px;
 
     &:before {
       content: "";
@@ -152,48 +142,20 @@
       margin: -1px;
       border-radius: 9px;
       background: linear-gradient(
-        to right,
-        var(--primitive-400),
-        var(--primitive-900)
+        10deg,
+        hsl(var(--primitive-100)),
+        hsl(var(--primitive-800))
       );
-    }
-  }
-
-  :root[class~="light"] {
-    .badge {
-      box-shadow: 0px 4px 4px var(--shadow-default);
-      background: linear-gradient(
-        0.45turn,
-        var(--primitive-400),
-        var(--primitive-300),
-        var(--primitive-100)
-      );
-
-      &:before {
-        background: linear-gradient(
-          to right,
-          var(--primitive-700),
-          var(--primitive-200)
-        );
-      }
     }
   }
 
   .button {
-    height: 40px;
-    position: relative;
-    padding: 12px;
-    box-sizing: border-box;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid;
-    border-color: var(--primitive-400);
-    border-radius: 8px;
+    border-color: hsl(var(--primitive-400));
     clip-path: margin-box;
   }
 
   .button-bg {
+    opacity: 0%;
     position: absolute;
     top: -24px;
     left: -100px;
@@ -204,14 +166,35 @@
     box-shadow: var(--shadow-default);
     background: linear-gradient(
       35deg,
-      var(--primitive-100) 40%,
-      var(--primitive-800)
+      hsl(var(--primitive-100)) 40%,
+      hsl(var(--primitive-800))
     );
-    opacity: 0%;
+  }
 
-    &:hover {
-      opacity: 40%;
-      translate: 80px;
+  .badge {
+    background: hsl(var(--primitive-200));
+  }
+
+  :root[class~="light"] {
+    .status-badge {
+      background: linear-gradient(
+        0.45turn,
+        hsl(var(--primitive-400)),
+        hsl(var(--primitive-300)),
+        hsl(var(--primitive-100))
+      );
+
+      &:before {
+        background: linear-gradient(
+          to right,
+          hsl(var(--primitive-700)),
+          hsl(var(--primitive-200))
+        );
+      }
+    }
+
+    .badge {
+      background: hsl(var(--primitive-300));
     }
   }
 }

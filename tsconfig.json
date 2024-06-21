@@ -21,6 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/fonts": ["./src/app/(app)/styles/fonts"],
+      "@/components/*": ["./src/app/(app)/components/*"],
       "@payload-config": ["./payload.config.ts"]
     },
     "target": "ES2017"

@@ -23,9 +23,9 @@ const TextStyles = cva("text", {
   variants: {
     size: {
       caption: "text-caption tracking-wide",
+      overline: "text-body capitalize",
       body: "text-body tracking-wide",
       "body-large": "text-body-large",
-      overline: "text-body-large capitalize",
       lead: "text-lead",
       heading: "text-heading",
       display: "text-display",
@@ -46,7 +46,8 @@ const TextStyles = cva("text", {
   },
   compoundVariants: [
     { multiline: true, size: "caption", class: "leading-4" },
-    { multiline: true, size: "body", class: "leading-6" },
+    { multiline: true, size: "body", class: "leading-5" },
+    { multiline: true, size: "body-large", class: "leading-6" },
     { multiline: true, size: "lead", class: "leading-8" },
   ],
 });
