@@ -39,7 +39,7 @@ const Navbar = () => {
         <NavbarButton label="Home" to="/" icon={Home} active />
         <NavbarButton label="Projects" icon={Palette} to="/projects" />
         <NavbarButton label="Journal" icon={NotebookText} to="/journal" />
-        <NavbarButton label="About Me" icon={User} to="/about me" />
+        <NavbarButton label="About Me" icon={User} to="/about-me" />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  html {
     font-family: "NeueMontreal";
     -webkit-font-smooting: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -15,7 +15,7 @@
 
   .project-page-grid {
     display: grid;
-    grid-template-columns: 1fr 700px 1fr;
+    grid-template-columns: 1fr minmax(300px, 700px) 1fr;
     grid-gap: 10px;
     max-width: 1200px;
     column-gap: 32px;
@@ -89,7 +89,7 @@
     --fg-subtle: var(--primitive-1100);
     --fg-inverse: var(--primitive-100);
 
-    --border-default: var(--primitive-300);
+    --border-default: var(--primitive-400);
     --border-inverse: var(--primitive-1200);
 
     --shadow-default: var(--primitive-200);

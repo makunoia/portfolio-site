@@ -7,7 +7,7 @@ import FeaturedProject from "@/components/FeaturedProject";
 import HomeListItem from "@/components/HomeListItem";
 import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
-import Logo from "./assets/MNLogo.svg";
+import Logo from "./assets/logo.svg";
 
 const Page = () => {
   return (

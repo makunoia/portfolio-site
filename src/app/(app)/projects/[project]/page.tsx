@@ -172,7 +172,7 @@ const ProjectScrollSpy = ({
   sections: { label: string; id: string; active?: boolean }[];
 }) => {
   return (
-    <div className="sticky top-24px min-w-[150px] ml-auto flex flex-col gap-4px">
+    <div className="sticky pl-24px top-24px min-w-[150px] ml-auto flex flex-col gap-4px">
       <Text size="body" className="text-subtle mb-12px">
         Content
       </Text>
