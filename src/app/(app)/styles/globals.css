@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  html,
   body {
     font-family: "NeueMontreal";
     -webkit-font-smooting: antialiased;
@@ -14,9 +13,22 @@
     overflow-x: hidden;
   }
 
+  .project-page-grid {
+    display: grid;
+    grid-template-columns: 1fr 700px 1fr;
+    grid-gap: 10px;
+    max-width: 1200px;
+    column-gap: 32px;
+    row-gap: 80px;
+  }
+
   @media screen and (max-width: 768px) {
     body {
       padding: 0px 40px;
+    }
+
+    .project-page-grid {
+      grid-template-columns: 1fr;
     }
   }
 
