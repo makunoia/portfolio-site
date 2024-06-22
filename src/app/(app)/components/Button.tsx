@@ -7,7 +7,7 @@ type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
 };
 
 const ButtonCVA = cva([
-  "relative h-40px p-12px box-border",
+  "relative overflow-hidden h-40px p-12px box-border",
   "inline-flex justify-center items-center border rounded-8px",
   "shadow-neutral-800",
 ]);

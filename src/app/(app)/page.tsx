@@ -41,9 +41,9 @@ const Page = () => {
         <div className="flex flex-col gap-[6.25rem]">
           <section
             id="latestProjects"
-            className="flex flex-col md:flex-row gap-30px w-full justify-between"
+            className="w-full flex flex-col md:flex-row gap-30px  justify-between"
           >
-            <div className="titleColumn max-w-[250px] flex flex-col gap-4px flex-1">
+            <div className="titleColumn w-full md:max-w-[250px] flex flex-col gap-4px flex-1">
               <Text as="h2" size="lead">
                 Latest Projects
               </Text>
@@ -58,7 +58,7 @@ const Page = () => {
               </ul>
             </div>
 
-            <div className="contentColumn max-w-[400px] flex flex-col flex-grow flex-1 gap-4">
+            <div className="contentColumn w-full md:max-w-[400px] flex flex-col flex-grow flex-1 gap-4">
               <FeaturedProject
                 title="Multistore"
                 shortDesc="An ecommerce do-it-your-self platform in the Philippines"
@@ -69,14 +69,14 @@ const Page = () => {
 
           <section
             id="latestProjects"
-            className="flex flex-col gap-16px md:flex-row md:gap-0px  w-full justify-between"
+            className="w-full flex flex-col gap-16px md:flex-row md:gap-0px justify-between"
           >
-            <div className="titleColumn max-w-[250px] flex flex-col flex-1">
+            <div className="titleColumn w-full md:max-w-[250px] flex flex-col flex-1">
               <Text as="h2" size="lead">
                 Archive
               </Text>
             </div>
-            <div className="contentColumn max-w-[400px] flex flex-col flex-grow flex-1 gap-24px">
+            <div className="contentColumn w-full md:max-w-[400px] flex flex-col flex-grow flex-1 gap-24px">
               <div className="flex flex-col gap-16px">
                 <HomeListItem
                   title="Dingdong"
@@ -100,14 +100,14 @@ const Page = () => {
 
           <section
             id="latestProjects"
-            className="flex flex-col gap-16px md:flex-row md:gap-0px w-full justify-between"
+            className="w-full flex flex-col gap-16px md:flex-row md:gap-0px justify-between"
           >
-            <div className="titleColumn max-w-[250px] flex flex-col flex-1">
+            <div className="titleColumn w-full md:max-w-[250px] flex flex-col flex-1">
               <Text as="h2" size="lead">
                 Journal
               </Text>
             </div>
-            <div className="contentColumn max-w-[400px] flex flex-col flex-grow flex-1 gap-24px">
+            <div className="contentColumn w-full md:max-w-[400px] flex flex-col flex-grow flex-1 gap-24px">
               <div className="flex flex-col gap-16px">
                 <HomeListItem title="Reinventing myself" date="Mar 8, 2023" />
                 <HomeListItem

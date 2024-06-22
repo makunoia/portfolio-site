@@ -11,7 +11,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
     body {
       padding: 0px 40px;
     }
