@@ -13,6 +13,10 @@
     overflow-x: hidden;
   }
 
+  main {
+    min-height: calc(100vh - 150px);
+  }
+
   .project-page-grid {
     display: grid;
     grid-template-columns: 1fr minmax(300px, 700px) 1fr;

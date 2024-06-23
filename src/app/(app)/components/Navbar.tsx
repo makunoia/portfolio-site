@@ -1,10 +1,12 @@
-import React, { ReactElement } from "react";
+"use client";
+import React from "react";
 import { cva } from "class-variance-authority";
 import Text from "@/components/Text";
 import Link from "next/link";
 import { Home, Palette, NotebookText, User, Sun, Moon } from "lucide-react";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 const NavbarContainerCVA = cva(["sticky bottom-40px mx-auto w-fit h-40px"]);
 
@@ -33,13 +35,31 @@ const NavbarButtonCVA = cva(
 const Navbar = () => {
   const NavbarContainerStyle = NavbarContainerCVA();
   const NavbarStyle = NavbarCVA();
+  const slug = usePathname();
+
+  console.debug(slug);
   return (
     <nav className={NavbarContainerStyle}>
       <div className={NavbarStyle}>
-        <NavbarButton label="Home" to="/" icon={Home} active />
-        <NavbarButton label="Projects" icon={Palette} to="/projects" />
-        <NavbarButton label="Journal" icon={NotebookText} to="/journal" />
-        <NavbarButton label="About Me" icon={User} to="/about-me" />
+        <NavbarButton label="Home" to="/" icon={Home} active={slug === "/"} />
+        <NavbarButton
+          label="Projects"
+          icon={Palette}
+          to="/projects"
+          active={slug === "/projects"}
+        />
+        <NavbarButton
+          label="Journal"
+          icon={NotebookText}
+          to="/journal"
+          active={slug === "/journal"}
+        />
+        <NavbarButton
+          label="About Me"
+          icon={User}
+          to="/about-me"
+          active={slug === "/about-me"}
+        />
       </div>
     </nav>
   );
@@ -56,7 +76,7 @@ const NavbarButton = ({
   to: string;
   active?: boolean;
 }) => {
-  const NavbarButtonStyle = cn(NavbarButtonCVA({ active }), "");
+  const NavbarButtonStyle = NavbarButtonCVA({ active });
   return (
     <div className={NavbarButtonStyle}>
       <Link href={to}>

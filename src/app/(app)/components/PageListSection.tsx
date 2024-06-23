@@ -19,7 +19,7 @@ const PageListSection = ({ header, data }: PageListSectionProps) => {
       <SectionDivider header={header} />
       <div className="flex flex-col gap-16px">
         {data.map(({ label, desc, tag }) => (
-          <ListItem label={label} desc={desc} tag={tag} />
+          <ListItem key={label} label={label} desc={desc} tag={tag} />
         ))}
       </div>
     </div>
