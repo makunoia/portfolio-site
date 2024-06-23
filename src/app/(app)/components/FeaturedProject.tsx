@@ -15,7 +15,7 @@ const FeaturedProject = ({
   return (
     <>
       <div className="w-full h-[230px] rounded-12px bg-subtle/20 p-24px">
-        <div className="flex flex-row gap-30px items-center justify-between">
+        <div className="flex gap-12px sm:gap-30px flex-col sm:flex-row items-start sm:items-center justify-between">
           <div className="flex flex-col gap-4px">
             <Text as="h3" size="body-large" weight="medium">
               {title}

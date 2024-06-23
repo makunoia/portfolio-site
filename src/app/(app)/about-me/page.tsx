@@ -98,10 +98,13 @@ const Page = () => {
           <Text as="h3" size="body-large" weight="medium">
             Life checklist
           </Text>
-          <div className="grid grid-cols-2 gap-18px w-full">
-            <CheckboxItem label="Watch Hamilton on Broadway" done />
+          <div className="grid grid-cols-[250px_250px] gap-18px w-full">
+            <CheckboxItem label="Watch Hamilton on Broadway" />
             <CheckboxItem label="Own a Tesla" />
-            <CheckboxItem label="Live abroad" />
+            <CheckboxItem label="Live abroad" done />
+            <CheckboxItem label="Go to Disneyland" />
+            <CheckboxItem label="Meet an OG Star Wars cast" />
+            <CheckboxItem label="Learn to play the piano" done />
           </div>
         </section>
 
@@ -110,10 +113,12 @@ const Page = () => {
           <Text as="h3" size="body-large" weight="medium">
             My Toolkit
           </Text>
-          <ul className="grid grid-cols-2 gap-18px w-full">
-            <ToolkitItem label="Figma" desc="Prototyping" />
+          <ul className="grid grid-cols-2 gap-24px w-full">
+            <ToolkitItem label="Figma" desc="UI Design and Prototyping" />
             <ToolkitItem label="Jira" desc="Work Management" />
-            <ToolkitItem label="Github" desc="Versioning" />
+            <ToolkitItem label="Github" desc="Version Control" />
+            <ToolkitItem label="VS Code" desc="IDE" />
+            <ToolkitItem label="Notion" desc="Second Brain" />
           </ul>
         </section>
 

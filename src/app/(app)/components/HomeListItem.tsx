@@ -30,7 +30,12 @@ const HomeListItem = ({ title, type, date }: HomeListItemProps) => {
   return (
     <div className={HomeListItemStyle}>
       <div className="flex flex-row items-center gap-4px">
-        <Text className="text text-nowrap" size="body" weight="medium">
+        <Text
+          className="text text-nowrap overflow-hidden"
+          size="body"
+          multiline
+          weight="medium"
+        >
           {title}
         </Text>
         {type && (
@@ -41,11 +46,15 @@ const HomeListItem = ({ title, type, date }: HomeListItemProps) => {
         <ArrowUpRight
           size={18}
           strokeWidth={1}
-          className="transition-colors ease-in-out duration-150 stroke-neutral-700 group-hover:stroke-neutral-1100"
+          className="min-w-18px transition-colors ease-in-out duration-150 stroke-neutral-700 group-hover:stroke-neutral-1100"
         />
       </div>
-      <hr />
-      <Text className="text-subtle text-nowrap" size="body" weight="normal">
+      <hr className="" />
+      <Text
+        className="hidden sm:inline-block text-subtle text-nowrap"
+        size="body"
+        weight="normal"
+      >
         {date}
       </Text>
       <div className={BackgroundStyle} />

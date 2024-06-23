@@ -9,6 +9,16 @@ import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
 import Logo from "./assets/logo.svg";
 
+// TODO
+// Finish Footer Design
+// Modify Status Indicator Ping
+// Add Project Page pagination
+// Page transitions
+// Home Page Featured Projects component
+// Journal Item on view animation
+// Setup Domain and CDN
+// Use Payload to retrieve data
+
 const Page = () => {
   return (
     <>
