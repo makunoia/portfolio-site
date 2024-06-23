@@ -22,7 +22,9 @@ export default function RootLayout({
       <body
         className={`${NeueMontreal.variable} ${NeueMontrealMono.variable} bg`}
       >
-        <div className="light-streak"></div>
+        <div className="relative inset-0 -z-10">
+          <div className="light-streak"></div>
+        </div>
         {children}
         <Navbar />
       </body>

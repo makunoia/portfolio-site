@@ -76,7 +76,7 @@ const Page = () => {
               // img={PlaceholderImage}
               label="Multisys Technologies Corporation"
               desc="UI/UX Designer"
-              time="2019 - Present"
+              time="Present"
             />
             <GenericListItem
               // img={PlaceholderImage}
@@ -124,21 +124,18 @@ const Page = () => {
           </Text>
           <ul className="flex flex-col gap-12px">
             <GenericListItem
-              // img={Portrait}
               poster
               label="One Piece"
               desc="Anime"
               time="2020"
             />
             <GenericListItem
-              // img={Portrait}
               poster
               label="Daredevil"
               desc="Action"
               time="2018"
             />
             <GenericListItem
-              // img={Portrait}
               poster
               label="The Acolyte"
               desc="Sci-fi"
@@ -178,6 +175,7 @@ const GenericListItem = ({
             className="h-full"
             fill
             objectFit="cover"
+            objectPosition="center"
           />
         </div>
         <div className="flex flex-col gap-4px">
@@ -190,7 +188,7 @@ const GenericListItem = ({
         </div>
       </div>
 
-      <Text as="span" size="caption" className="text-subtle">
+      <Text as="span" size="caption" className="text-subtle text-nowrap">
         {time}
       </Text>
     </li>

@@ -1,23 +1,23 @@
 import Text from "@/components/Text";
 import React from "react";
-import ProjectSection from "@/components/PageListSection";
+import JournalSection from "@/components/PageListSection";
 
 const Page = () => {
-  const allProjects = [
+  const allEntries = [
     {
-      label: "Dingdong",
-      desc: "ECommerce",
-      tag: "Product Designer",
+      label: "I built my own UI library",
+      desc: "Design Engineering",
+      tag: "May 2, 2024",
     },
     {
-      label: "Multiverse",
-      desc: "Design System",
-      tag: "Lead",
+      label: "Self-Accountability",
+      desc: "Project Management",
+      tag: "June 29, 2024",
     },
     {
-      label: "Another Project",
-      desc: "E Government",
-      tag: "Lead",
+      label: "How I made a check-in system for a retreat",
+      desc: "Web Design and Development",
+      tag: "December 2, 2023",
     },
   ];
 
@@ -26,7 +26,7 @@ const Page = () => {
       <main className="max-w-[500px] mx-auto flex flex-col gap-40px my-[80px]">
         <div className="flex flex-col gap-4px">
           <Text as="h1" size="heading" weight="normal">
-            Projects
+            Journal
           </Text>
           <Text
             as="h3"
@@ -40,8 +40,7 @@ const Page = () => {
           </Text>
         </div>
 
-        <ProjectSection header="2024" data={allProjects} />
-        <ProjectSection header="2023" data={allProjects} />
+        <JournalSection header="2024" data={allEntries} />
       </main>
     </>
   );

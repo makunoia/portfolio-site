@@ -137,7 +137,7 @@
     opacity: 40%;
     transform: rotate(30deg);
     position: absolute;
-    left: -25em;
+    left: -30em;
     top: 0px;
     filter: blur(150px);
     background: hsl(var(--fg-default));

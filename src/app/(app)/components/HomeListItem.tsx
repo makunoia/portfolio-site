@@ -18,7 +18,7 @@ const HomeListItemCVA = cva([
 const BackgroundCVA = cva([
   "bg-subtle rounded-16px",
   "absolute -z-10 ",
-  "-top-[8px] -left-[12px] -right-[12px] -bottom-[8px]",
+  "-inset-y-[8px] -inset-x-12px",
   "opacity-0 group-hover:opacity-40",
   "transition-opacity ease-in-out duration-300 ",
 ]);
