@@ -78,14 +78,14 @@ const NavbarButton = ({
 }) => {
   const NavbarButtonStyle = NavbarButtonCVA({ active });
   return (
-    <div className={NavbarButtonStyle}>
-      <Link href={to}>
+    <Link href={to}>
+      <div className={NavbarButtonStyle}>
         <Slot className="text w-24px h-24px block md:hidden">{<Icon />}</Slot>
         <Text size="body" className="text-nowrap hidden md:block">
           {label}
         </Text>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 

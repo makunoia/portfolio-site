@@ -4,22 +4,49 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import SectionDivider from "@/components/SectionDivider";
 import Showcase from "@/components/Showcase";
-import { cva } from "class-variance-authority";
+import PaginationItem from "@/components/PaginationItem";
+import ScrollSpy from "@/components/ScrollSpy";
 
 const Page = () => {
   const pageSections = [
-    { label: "Introduction", id: "introduction", active: true },
-    { label: "Research", id: "research", active: false },
-    { label: "Prototyping", id: "prototyping", active: false },
+    {
+      title: "Introduction",
+      id: "introduction",
+      active: true,
+      subsections: [
+        { id: "sub1", lead: "The client", active: false },
+        { id: "sub2", lead: "Brainstorming", active: false },
+        { id: "sub3", lead: "Wireframes", active: false },
+        { id: "sub4", lead: "The Team", active: false },
+      ],
+    },
+    {
+      title: "Research",
+      id: "research",
+      active: false,
+      subsections: [
+        { id: "sub2", lead: "Survey", active: false },
+        { id: "sub3", lead: "Competitive", active: false },
+      ],
+    },
+    {
+      title: "Prototyping",
+      id: "prototyping",
+      active: false,
+      subsections: [
+        { id: "sub1", lead: "Wireframes", active: false },
+        { id: "sub1", lead: "High Fidelity", active: false },
+      ],
+    },
   ];
 
   return (
     <>
       <main className="project-page-grid mx-auto my-[80px]">
-        <div className="flex flex-col md:col-start-2 md:col-end-3 gap-40px">
+        <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
           <BackButton />
           <div className="flex flex-col md:flex-row gap-24px justify-between">
-            <div className="flex flex-col gap-24px min-w-[350px]">
+            <div className="flex flex-col gap-24px w-full sm:min-w-[350px]">
               <div className="flex flex-col gap-4px">
                 <Text
                   as="h1"
@@ -63,10 +90,12 @@ const Page = () => {
             </Text>
           </div>
         </div>
+
         <div className="hidden md:inline-block md:col-start-1">
-          <ProjectScrollSpy sections={pageSections} />
+          <ScrollSpy sections={pageSections} />
         </div>
-        <article className="md:col-start-2 flex flex-col gap-60px">
+
+        <article className="md:col-start-2 md:col-end-3 flex flex-col gap-60px">
           <ContentSection header="Introduction">
             <ContentBlock subtitle="Research">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -111,6 +140,22 @@ const Page = () => {
             />
           </ContentSection>
         </article>
+
+        <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
+          <hr />
+          <div className="flex gap-24px justify-between">
+            <PaginationItem
+              label="Previous"
+              desc="An app for Filipino citizens"
+              left
+            />
+            <PaginationItem
+              label="Next"
+              desc="An small business online store app"
+              right
+            />
+          </div>
+        </section>
       </main>
     </>
   );
@@ -162,55 +207,6 @@ const ProjectOverline = ({
       <Text as="span" size="body" className="text text-nowrap">
         {value}
       </Text>
-    </div>
-  );
-};
-
-const ProjectScrollSpy = ({
-  sections,
-}: {
-  sections: { label: string; id: string; active?: boolean }[];
-}) => {
-  return (
-    <div className="sticky pl-24px top-24px min-w-[150px] ml-auto flex flex-col gap-4px">
-      <Text size="body" className="text-subtle mb-12px">
-        Content
-      </Text>
-      {sections.map(({ id, label, active }) => (
-        <ProjectScrollSpyItem key={id} label={label} id={id} active={active} />
-      ))}
-    </div>
-  );
-};
-
-const ProjectScrollSpyItem = ({
-  label,
-  id,
-  active,
-}: {
-  label: string;
-  id: string;
-  active?: boolean;
-}) => {
-  const ProjectScrollSpyCVA = cva(
-    [
-      "w-full cursor-pointer",
-      "pr-12px py-8px rounded-8px",
-      "transition-all ease-in-out duration-300",
-    ],
-    {
-      variants: {
-        active: {
-          true: "bg-subtle pl-12px",
-          false: "hover:bg-subtle/40 hover:pl-12px",
-        },
-      },
-    }
-  );
-
-  return (
-    <div className={ProjectScrollSpyCVA({ active })}>
-      <Text>{label}</Text>
     </div>
   );
 };

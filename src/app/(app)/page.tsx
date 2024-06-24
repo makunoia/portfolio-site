@@ -11,6 +11,7 @@ import Logo from "./assets/logo.svg";
 
 // TODO
 // Finish Footer Design
+// Code component
 // Modify Status Indicator Ping
 // Add Project Page pagination
 // Page transitions
