@@ -3,11 +3,12 @@ import Text from "./Text";
 
 type SectionDividerProps = {
   header: string;
+  id?: string;
 };
 
-const SectionDivider = ({ header }: SectionDividerProps) => {
+const SectionDivider = ({ header, id }: SectionDividerProps) => {
   return (
-    <div className="flex flex-row gap-16px items-center">
+    <div id={id} className="flex flex-row gap-16px items-center">
       <Text
         size="overline"
         className="text-nowrap text-subtle uppercase tracking-widest"

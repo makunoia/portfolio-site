@@ -154,28 +154,23 @@
     display: flex;
     gap: 4px;
     padding-left: 16px;
+
     &:hover {
       opacity: 100%;
     }
   }
 
-  .spy-items-container .spy-item.active .trackline {
-    border-color: hsl(var(--trackline-active));
-  }
-
-  .spy-item:hover .trackline {
+  .trackline.path {
     border-color: hsl(var(--trackline-hover));
   }
 
-  .trackline-v.hovered {
-    border-color: hsl(var(--trackline-hover)) !important;
+  .trackline.path.active,
+  .trackline.active {
+    border-color: hsl(var(--trackline-active));
   }
 
-  /* .trackline.hovered {
-    transition: all 200ms ease-in-out;
-  } */
-
   .trackline {
+    transition: border-color 300ms ease-in-out;
     mix-blend-mode: lighten;
   }
 

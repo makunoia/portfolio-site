@@ -6,39 +6,12 @@ import SectionDivider from "@/components/SectionDivider";
 import Showcase from "@/components/Showcase";
 import PaginationItem from "@/components/PaginationItem";
 import ScrollSpy from "@/components/ScrollSpy";
+import ProjectPayload from "../../sample-payload/project";
 
 const Page = () => {
-  const pageSections = [
-    {
-      title: "Introduction",
-      id: "introduction",
-      active: true,
-      subsections: [
-        { id: "sub1", lead: "The client", active: false },
-        { id: "sub2", lead: "Brainstorming", active: false },
-        { id: "sub3", lead: "Wireframes", active: false },
-        { id: "sub4", lead: "The Team", active: false },
-      ],
-    },
-    {
-      title: "Research",
-      id: "research",
-      active: false,
-      subsections: [
-        { id: "sub2", lead: "Survey", active: false },
-        { id: "sub3", lead: "Competitive", active: false },
-      ],
-    },
-    {
-      title: "Prototyping",
-      id: "prototyping",
-      active: false,
-      subsections: [
-        { id: "sub1", lead: "Wireframes", active: false },
-        { id: "sub1", lead: "High Fidelity", active: false },
-      ],
-    },
-  ];
+  const isShowcaseType = (showcase: any): showcase is { showcase: object } => {
+    return showcase.showcase;
+  };
 
   return (
     <>
@@ -54,7 +27,7 @@ const Page = () => {
                   weight="normal"
                   className="text-nowrap"
                 >
-                  Multiverse UI
+                  {ProjectPayload.title}
                 </Text>
 
                 <Text
@@ -64,18 +37,17 @@ const Page = () => {
                   multiline
                   className="text inline-flex md:hidden"
                 >
-                  Multisys' first organization-wide design system made possible
-                  with a group of talented designers.
+                  {ProjectPayload.shortDesc}
                 </Text>
               </div>
               <div className="flex flex-row gap-8px">
-                <ProjectBadge label="2022" />
-                <ProjectBadge label="Design System" />
+                <ProjectBadge label={ProjectPayload.year} />
+                <ProjectBadge label={ProjectPayload.tag} />
               </div>
 
               <div className="flex flex-row gap-40px">
-                <ProjectOverline label="Role" value="Product Designer" />
-                <ProjectOverline label="Status" value="Ongoing Project" />
+                <ProjectOverline label="Role" value={ProjectPayload.role} />
+                <ProjectOverline label="Status" value={ProjectPayload.status} />
               </div>
             </div>
             <Text
@@ -85,73 +57,48 @@ const Page = () => {
               multiline
               className="text hidden md:inline-flex"
             >
-              Multisys' first organization-wide design system made possible with
-              a group of talented designers.
+              {ProjectPayload.shortDesc}
             </Text>
           </div>
         </div>
 
         <div className="hidden md:inline-block md:col-start-1">
-          <ScrollSpy sections={pageSections} />
+          <ScrollSpy sections={ProjectPayload.sections} />
         </div>
 
         <article className="md:col-start-2 md:col-end-3 flex flex-col gap-60px">
-          <ContentSection header="Introduction">
-            <ContentBlock subtitle="Research">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Repellendus, quidem corrupti. Inventore autem iste, mollitia ad
-              ducimus quia consectetur quasi fugiat aut dolore hic iure cumque
-              debitis animi tempore dolor temporibus. Harum exercitationem
-              corrupti tempora esse qui consequatur itaque, nisi minus
-              dignissimos illo eaque ratione corporis veritatis architecto est
-              provident.
-            </ContentBlock>
-            <ContentBlock subtitle="Surveys">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus voluptatem est quisquam facere rem nemo nisi a,
-              laboriosam dolores dolorem!
-            </ContentBlock>
-            <Showcase
-              lead="Photo Description"
-              tag="cool"
-              content="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem quaerat perspiciatis, necessitatibus modi magni deserunt delectus. Quo tenetur cupiditate culpa."
-            />
-          </ContentSection>
-
-          <ContentSection header="Research">
-            <ContentBlock subtitle="Research">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Repellendus, quidem corrupti. Inventore autem iste, mollitia ad
-              ducimus quia consectetur quasi fugiat aut dolore hic iure cumque
-              debitis animi tempore dolor temporibus. Harum exercitationem
-              corrupti tempora esse qui consequatur itaque, nisi minus
-              dignissimos illo eaque ratione corporis veritatis architecto est
-              provident.
-            </ContentBlock>
-            <ContentBlock subtitle="Surveys">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus voluptatem est quisquam facere rem nemo nisi a,
-              laboriosam dolores dolorem!
-            </ContentBlock>
-            <Showcase
-              lead="Photo Description"
-              tag="cool"
-              content="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem quaerat perspiciatis, necessitatibus modi magni deserunt delectus. Quo tenetur cupiditate culpa."
-            />
-          </ContentSection>
+          {ProjectPayload.sections.map((section) => (
+            <ContentSection header={section.title} id={section.id}>
+              {section.subsections.map((sub) => (
+                <>
+                  <ContentBlock id={sub.id} subtitle={sub.lead}>
+                    {sub.content}
+                  </ContentBlock>
+                  {isShowcaseType(sub) && (
+                    <Showcase
+                      src={sub.showcase.src}
+                      lead={sub.showcase.lead}
+                      tag={sub.showcase.tag}
+                      content={sub.showcase.desc}
+                    />
+                  )}
+                </>
+              ))}
+            </ContentSection>
+          ))}
         </article>
 
         <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
           <hr />
           <div className="flex gap-24px justify-between">
             <PaginationItem
-              label="Previous"
-              desc="An app for Filipino citizens"
+              desc="Previous"
+              label="An app for Filipino citizens"
               left
             />
             <PaginationItem
-              label="Next"
-              desc="An small business online store app"
+              desc="Next"
+              label="An small business online store app"
               right
             />
           </div>
@@ -213,28 +160,35 @@ const ProjectOverline = ({
 
 const ContentSection = ({
   header,
+  id,
   children,
 }: {
   header: string;
+  id: string;
   children: ReactNode;
 }) => {
   return (
     <div className="content-block flex flex-col gap-40px">
-      <SectionDivider header={header} />
+      <SectionDivider header={header} id={id} />
       {children}
     </div>
   );
 };
 
 const ContentBlock = ({
+  id,
   subtitle,
   children,
 }: {
+  id: string;
   subtitle: string;
   children: string;
 }) => {
   return (
-    <div className="flex flex-col gap-8px md:justify-between md:flex-row">
+    <div
+      id={id}
+      className="flex flex-col gap-8px md:justify-between md:flex-row"
+    >
       <Text as="h3" size="lead" weight="medium" className="min-w-[200px]">
         {subtitle}
       </Text>

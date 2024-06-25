@@ -18,6 +18,7 @@
     "@payloadcms/db-mongodb": "^3.0.0-beta.45",
     "@payloadcms/next": "^3.0.0-beta.45",
     "@payloadcms/richtext-lexical": "^3.0.0-beta.45",
+    "@radix-ui/react-accordion": "^1.2.0",
     "babel-plugin-react-compiler": "^0.0.0-experimental-592953e-20240517",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

@@ -21,11 +21,12 @@ const PaginationItem = ({
           left ? "items-start" : "items-end"
         } flex flex-col gap-4px`}
       >
-        <Text className={`text-subtle/90 group-hover:text-subtle`}>
+        <Text className={`text-subtle/90 group-hover:text-subtle`}>{desc}</Text>
+        <Text
+          className={`text group-hover:underline ${right && "text-right"}`}
+          weight="medium"
+        >
           {label}
-        </Text>
-        <Text className={`text ${right && "text-right"}`} weight="medium">
-          {desc}
         </Text>
       </div>
       {right && <ChevronRight className="text" size={16} />}
