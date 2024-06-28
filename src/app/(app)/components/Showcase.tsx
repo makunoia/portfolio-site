@@ -14,10 +14,17 @@ const Showcase = ({
   tag: string;
 }) => {
   return (
-    <div className="bg-subtle/60 flex flex-col gap-16px rounded-12px p-24px">
+    <div className="bg-subtle/60 flex flex-col gap-8px rounded-12px p-18px mb-20px">
       <div className="flex flex-col gap-10px">
-        <div className="relative overflow-hidden w-full h-[200px] md:h-[300px] bg rounded-4px">
-          <Image src={src} alt={lead} fill objectFit="cover" />
+        <div className="relative overflow-hidden w-full h-[200px] md:h-[300px] bg rounded-10px">
+          <Image
+            src={src}
+            alt={lead}
+            fill
+            style={{
+              objectFit: "cover",
+            }}
+          />
         </div>
         <div className="flex flex-row justify-between items-center">
           <Text

@@ -179,7 +179,9 @@ const GenericListItem = ({
             alt="Profile Banner"
             className="h-full"
             fill
-            objectFit="cover"
+            style={{
+              objectFit: "cover",
+            }}
             objectPosition="center"
           />
         </div>
@@ -240,7 +242,9 @@ const ToolkitItem = ({
           alt="Profile Banner"
           className="h-full"
           fill
-          objectFit="cover"
+          style={{
+            objectFit: "cover",
+          }}
         />
       </div>
       <div className="flex flex-col gap-4px">

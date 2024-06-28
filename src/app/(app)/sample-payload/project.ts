@@ -1,3 +1,8 @@
+import { Project } from "payload-types";
+
+//TO DO
+//EDIT PROJECT TYPE TO USE PAYLOAD-TYPES
+
 export default {
   title: "Project Name",
   shortDesc:
@@ -10,15 +15,15 @@ export default {
     {
       title: "Introduction",
       id: "introduction",
-      subsections: [
+      parts: [
         {
-          id: "sub1",
+          id: "intro-sub1",
           lead: "The client",
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
         },
         {
-          id: "sub2",
+          id: "intro-sub2",
           lead: "Brainstorming",
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
@@ -30,13 +35,13 @@ export default {
           },
         },
         {
-          id: "sub3",
+          id: "intro-sub3",
           lead: "Wireframes",
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
         },
         {
-          id: "sub4",
+          id: "intro-sub4",
           lead: "The Team",
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
@@ -46,16 +51,15 @@ export default {
     {
       title: "Research",
       id: "research",
-      active: false,
-      subsections: [
+      parts: [
         {
-          id: "sub2",
+          id: "research-sub1",
           lead: "Survey",
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
         },
         {
-          id: "sub3",
+          id: "research-sub2",
           lead: "Competitive",
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
@@ -65,16 +69,15 @@ export default {
     {
       title: "Prototyping",
       id: "prototyping",
-      active: false,
-      subsections: [
+      parts: [
         {
-          id: "sub1",
+          id: "proto-sub1",
           lead: "Wireframes",
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
         },
         {
-          id: "sub1",
+          id: "proto-sub2",
           lead: "High Fidelity",
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
@@ -82,4 +85,28 @@ export default {
       ],
     },
   ],
+} satisfies ProjectType;
+
+export type ProjectType = {
+  title: string;
+  shortDesc: string;
+  role: string;
+  status: string;
+  year: string;
+  tag: string;
+  sections: {
+    title: string;
+    id: string;
+    parts: {
+      id: string;
+      lead: string;
+      content: string;
+      showcase?: {
+        src: string;
+        lead: string;
+        desc: string;
+        tag?: string;
+      };
+    }[];
+  }[];
 };

@@ -1,24 +1,22 @@
 import Text from "@/components/Text";
-import React, { ReactNode } from "react";
+import React from "react";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import SectionDivider from "@/components/SectionDivider";
-import Showcase from "@/components/Showcase";
 import PaginationItem from "@/components/PaginationItem";
 import ScrollSpy from "@/components/ScrollSpy";
 import ProjectPayload from "../../sample-payload/project";
+import ProjectContent from "../../components/ProjectContent";
 
 const Page = () => {
-  const isShowcaseType = (showcase: any): showcase is { showcase: object } => {
-    return showcase.showcase;
-  };
-
   return (
     <>
       <main className="project-page-grid mx-auto my-[80px]">
         <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
           <BackButton />
-          <div className="flex flex-col md:flex-row gap-24px justify-between">
+          <div
+            id="page-title"
+            className="flex flex-col md:flex-row gap-24px justify-between"
+          >
             <div className="flex flex-col gap-24px w-full sm:min-w-[350px]">
               <div className="flex flex-col gap-4px">
                 <Text
@@ -66,27 +64,7 @@ const Page = () => {
           <ScrollSpy sections={ProjectPayload.sections} />
         </div>
 
-        <article className="md:col-start-2 md:col-end-3 flex flex-col gap-60px">
-          {ProjectPayload.sections.map((section) => (
-            <ContentSection header={section.title} id={section.id}>
-              {section.subsections.map((sub) => (
-                <>
-                  <ContentBlock id={sub.id} subtitle={sub.lead}>
-                    {sub.content}
-                  </ContentBlock>
-                  {isShowcaseType(sub) && (
-                    <Showcase
-                      src={sub.showcase.src}
-                      lead={sub.showcase.lead}
-                      tag={sub.showcase.tag}
-                      content={sub.showcase.desc}
-                    />
-                  )}
-                </>
-              ))}
-            </ContentSection>
-          ))}
-        </article>
+        <ProjectContent content={ProjectPayload} />
 
         <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
           <hr />
@@ -153,47 +131,6 @@ const ProjectOverline = ({
       </Text>
       <Text as="span" size="body" className="text text-nowrap">
         {value}
-      </Text>
-    </div>
-  );
-};
-
-const ContentSection = ({
-  header,
-  id,
-  children,
-}: {
-  header: string;
-  id: string;
-  children: ReactNode;
-}) => {
-  return (
-    <div className="content-block flex flex-col gap-40px">
-      <SectionDivider header={header} id={id} />
-      {children}
-    </div>
-  );
-};
-
-const ContentBlock = ({
-  id,
-  subtitle,
-  children,
-}: {
-  id: string;
-  subtitle: string;
-  children: string;
-}) => {
-  return (
-    <div
-      id={id}
-      className="flex flex-col gap-8px md:justify-between md:flex-row"
-    >
-      <Text as="h3" size="lead" weight="medium" className="min-w-[200px]">
-        {subtitle}
-      </Text>
-      <Text as="p" size="body" className="text-subtle" multiline>
-        {children}
       </Text>
     </div>
   );
