@@ -10,11 +10,18 @@ const ProjectContent = ({ content }: { content: ProjectType }) => {
   };
 
   return (
-    <article className="md:col-start-2 md:col-end-3 flex flex-col gap-60px">
+    <article
+      id="page-content"
+      className="md:col-start-2 md:col-end-3 flex flex-col gap-60px"
+    >
       {content.sections.map((section) => (
         <ContentSection key={section.id} header={section.title} id={section.id}>
           {section.parts.map((part) => (
-            <div key={part.id} id={part.id} className="flex flex-col gap-40px">
+            <div
+              key={part.id}
+              id={part.id}
+              className="flex flex-col gap-40px scroll-mt-40px"
+            >
               <ContentBlock subtitle={part.lead}>{part.content}</ContentBlock>
               {isShowcaseType(part) && (
                 <Showcase
@@ -42,7 +49,10 @@ const ContentSection = ({
   children: ReactNode;
 }) => {
   return (
-    <section id={id} className="content-block flex flex-col gap-40px">
+    <section
+      id={id}
+      className="content-block flex flex-col gap-40px scroll-mt-24px"
+    >
       <SectionDivider header={header} />
       {children}
     </section>

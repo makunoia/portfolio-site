@@ -86,8 +86,8 @@ const ScrollSpyItem = ({
   };
 
   const onClickHandler = (i: number, id: string) => {
-    setInView((curr) => ({ section: curr.section, part: id }));
     setActiveItemIndex(i);
+    scrollToViewHandler(id);
   };
 
   // These getPathStyle methods styles the path according to the item's place
@@ -104,13 +104,19 @@ const ScrollSpyItem = ({
       : cn(activeItemIndex == i && "active");
   };
 
+  const scrollToViewHandler = (id: string) => {
+    console.log("Scroll to...", id);
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <Accordion.Item
       value={id}
       className="w-full cursor-pointer flex flex-col gap-4px transition-all ease-in-out"
     >
       <Accordion.Header>
-        <Accordion.Trigger>
+        <Accordion.Trigger onClick={() => scrollToViewHandler(id)}>
           <Text
             className={`${
               inView.section === id ? "text font-medium" : "text-subtle/80"

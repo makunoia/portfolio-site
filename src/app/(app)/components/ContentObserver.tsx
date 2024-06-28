@@ -12,11 +12,15 @@ type ContentType = {
 const ContentObserver = ({ content }: { content: ContentType }) => {
   const { inView, setInView } = useContext(InViewContext);
 
-  useEffect(() => {
-    console.log(content);
-  }, []);
+  const ContentCallback = (entries: any) => {
+    entries.forEach((entry: any) => {
+      if (!entry.isIntersecting) {
+        setInView({ section: "", part: "" });
+      }
+    });
+  };
 
-  const mainSectionCallback = (entries: any) => {
+  const SectionCallback = (entries: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) {
         setInView((curr) => ({ section: entry.target.id, part: curr.part }));
@@ -24,7 +28,7 @@ const ContentObserver = ({ content }: { content: ContentType }) => {
     });
   };
 
-  const subSectionCallback = (entries: any) => {
+  const PartCallback = (entries: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) {
         setInView((curr) => ({
@@ -35,40 +39,46 @@ const ContentObserver = ({ content }: { content: ContentType }) => {
     });
   };
 
+  const ObserverConfig = {
+    root: null,
+    rootMargin: "-10% 0px -80% 0px",
+  };
+
   useEffect(() => {
-    const mainSectionObserver = new IntersectionObserver(mainSectionCallback, {
-      root: null,
-      rootMargin: "0px 0px -80% 0px",
-    });
+    const ContentObserver = new IntersectionObserver(
+      ContentCallback,
+      ObserverConfig
+    );
 
-    const subSectionObserver = new IntersectionObserver(subSectionCallback, {
-      root: null,
-      rootMargin: "0px 0px -80% 0px",
-    });
+    const SectionObserver = new IntersectionObserver(
+      SectionCallback,
+      ObserverConfig
+    );
 
-    const sectionIDs = content.map((section) => {
+    const PartObserver = new IntersectionObserver(PartCallback, ObserverConfig);
+
+    const allIDs = content.map((section) => {
       return {
         id: section.id,
         parts: section.parts?.map((part) => part.id) ?? [],
       };
     });
 
-    console.log(sectionIDs);
-
-    sectionIDs.forEach((section) => {
-      mainSectionObserver.observe(
-        document.getElementById(section.id) as Element
-      );
+    ContentObserver.observe(
+      document.getElementById("page-content") as HTMLElement
+    );
+    allIDs.forEach((section) => {
+      SectionObserver.observe(document.getElementById(section.id) as Element);
 
       section.parts.forEach((part) =>
-        subSectionObserver.observe(document.getElementById(part) as Element)
+        PartObserver.observe(document.getElementById(part) as Element)
       );
     });
   }, [content]);
 
   useEffect(() => console.log("InView", inView), [inView]);
 
-  return <div id="observer" className="hidden"></div>;
+  return <div id="observer"></div>;
 };
 
 export default ContentObserver;

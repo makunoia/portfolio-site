@@ -128,6 +128,26 @@
 }
 
 @layer components {
+  #observer {
+    display: none;
+
+    position: fixed;
+    height: calc(100vh - 80%);
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid red;
+    z-index: 100;
+
+    &:before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      margin-top: 10%;
+      width: 100%;
+      border-top: 1px solid lightgreen;
+    }
+  }
+
   .project-page-grid {
     display: grid;
     grid-template-columns: 1fr minmax(300px, 700px) 1fr;
