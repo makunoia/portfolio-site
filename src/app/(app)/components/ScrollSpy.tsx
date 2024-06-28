@@ -9,9 +9,7 @@ import React, {
 import Text from "./Text";
 import * as Accordion from "@radix-ui/react-accordion";
 import { cn } from "@/lib/utils";
-import SectionInViewContext, {
-  SectionInViewProvider,
-} from "../context/SectionsInView";
+import InViewContext from "../contexts/InViewContext";
 
 //TO DO
 // ✅ Active State styling
@@ -30,19 +28,17 @@ type SectionsType = {
 
 const ScrollSpy = ({ sections }: SectionsType) => {
   return (
-    <SectionInViewProvider sections={sections}>
-      <div className="sticky pl-24px top-24px min-w-[150px] ml-auto flex flex-col gap-4px">
-        <Text size="body" className="text-subtle mb-12px">
-          Content
-        </Text>
-        <AccordionRoot sections={sections} />
-      </div>
-    </SectionInViewProvider>
+    <div className="sticky pl-24px top-24px min-w-[150px] ml-auto flex flex-col gap-4px">
+      <Text size="body" className="text-subtle mb-12px">
+        Content
+      </Text>
+      <AccordionRoot sections={sections} />
+    </div>
   );
 };
 
 const AccordionRoot = ({ sections }: SectionsType) => {
-  const { inView } = useContext(SectionInViewContext);
+  const { inView } = useContext(InViewContext);
   return (
     <Accordion.Root
       className="flex flex-col"
@@ -73,7 +69,7 @@ const ScrollSpyItem = ({
     number | undefined
   >();
 
-  const { inView, setInView } = useContext(SectionInViewContext);
+  const { inView, setInView } = useContext(InViewContext);
 
   //create a useEffect hook to render active path
   useEffect(() => {

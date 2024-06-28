@@ -1,43 +1,20 @@
 "use client";
-import React, { useEffect, useState, createContext, ReactElement } from "react";
+import React, { useContext, useEffect } from "react";
+import InViewContext from "../contexts/InViewContext";
 
-interface SectionInViewContextType {
-  inView: {
-    section: string | null;
-    part: string | null;
-  };
-  setInView: React.Dispatch<
-    React.SetStateAction<{
-      section: string;
-      part: string;
-    }>
-  >;
-}
-// Provide default values for the context
-
-const defaultValues: SectionInViewContextType = {
-  inView: { section: "", part: "" },
-  setInView: () => {},
-};
-
-const SectionInViewContext =
-  createContext<SectionInViewContextType>(defaultValues);
-
-type SectionType = {
+type ContentType = {
   id: string;
-  parts: {
+  parts?: {
     id: string;
   }[];
-};
+}[];
 
-export function SectionInViewProvider({
-  sections,
-  children,
-}: {
-  sections: SectionType[];
-  children: ReactElement;
-}) {
-  const [inView, setInView] = useState({ section: "", part: "" });
+const ContentObserver = ({ content }: { content: ContentType }) => {
+  const { inView, setInView } = useContext(InViewContext);
+
+  useEffect(() => {
+    console.log(content);
+  }, []);
 
   const mainSectionCallback = (entries: any) => {
     entries.forEach((entry: any) => {
@@ -69,12 +46,14 @@ export function SectionInViewProvider({
       rootMargin: "0px 0px -80% 0px",
     });
 
-    const sectionIDs = sections.map((section) => {
+    const sectionIDs = content.map((section) => {
       return {
         id: section.id,
-        parts: section.parts.map((part) => part.id),
+        parts: section.parts?.map((part) => part.id) ?? [],
       };
     });
+
+    console.log(sectionIDs);
 
     sectionIDs.forEach((section) => {
       mainSectionObserver.observe(
@@ -85,15 +64,11 @@ export function SectionInViewProvider({
         subSectionObserver.observe(document.getElementById(part) as Element)
       );
     });
-  }, [sections]);
+  }, [content]);
 
   useEffect(() => console.log("InView", inView), [inView]);
 
-  return (
-    <SectionInViewContext.Provider value={{ inView, setInView }}>
-      {children}
-    </SectionInViewContext.Provider>
-  );
-}
+  return <div id="observer" className="hidden"></div>;
+};
 
-export default SectionInViewContext;
+export default ContentObserver;

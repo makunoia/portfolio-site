@@ -6,82 +6,90 @@ import PaginationItem from "@/components/PaginationItem";
 import ScrollSpy from "@/components/ScrollSpy";
 import ProjectPayload from "../../sample-payload/project";
 import ProjectContent from "../../components/ProjectContent";
+import ContentObserver from "../../components/ContentObserver";
+import { InViewProvider } from "../../contexts/InViewContext";
 
 const Page = () => {
   return (
     <>
-      <main className="project-page-grid mx-auto my-[80px]">
-        <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
-          <BackButton />
-          <div
-            id="page-title"
-            className="flex flex-col md:flex-row gap-24px justify-between"
-          >
-            <div className="flex flex-col gap-24px w-full sm:min-w-[350px]">
-              <div className="flex flex-col gap-4px">
-                <Text
-                  as="h1"
-                  size="display"
-                  weight="normal"
-                  className="text-nowrap"
-                >
-                  {ProjectPayload.title}
-                </Text>
-
-                <Text
-                  as="h3"
-                  size="lead"
-                  weight="normal"
-                  multiline
-                  className="text inline-flex md:hidden"
-                >
-                  {ProjectPayload.shortDesc}
-                </Text>
-              </div>
-              <div className="flex flex-row gap-8px">
-                <ProjectBadge label={ProjectPayload.year} />
-                <ProjectBadge label={ProjectPayload.tag} />
-              </div>
-
-              <div className="flex flex-row gap-40px">
-                <ProjectOverline label="Role" value={ProjectPayload.role} />
-                <ProjectOverline label="Status" value={ProjectPayload.status} />
-              </div>
-            </div>
-            <Text
-              as="h3"
-              size="lead"
-              weight="normal"
-              multiline
-              className="text hidden md:inline-flex"
+      <InViewProvider>
+        <ContentObserver content={ProjectPayload.sections} />
+        <main className="project-page-grid mx-auto my-[80px]">
+          <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
+            <BackButton />
+            <div
+              id="page-title"
+              className="flex flex-col md:flex-row gap-24px justify-between"
             >
-              {ProjectPayload.shortDesc}
-            </Text>
+              <div className="flex flex-col gap-24px w-full sm:min-w-[350px]">
+                <div className="flex flex-col gap-4px">
+                  <Text
+                    as="h1"
+                    size="display"
+                    weight="normal"
+                    className="text-nowrap"
+                  >
+                    {ProjectPayload.title}
+                  </Text>
+
+                  <Text
+                    as="h3"
+                    size="lead"
+                    weight="normal"
+                    multiline
+                    className="text inline-flex md:hidden"
+                  >
+                    {ProjectPayload.shortDesc}
+                  </Text>
+                </div>
+                <div className="flex flex-row gap-8px">
+                  <ProjectBadge label={ProjectPayload.year} />
+                  <ProjectBadge label={ProjectPayload.tag} />
+                </div>
+
+                <div className="flex flex-row gap-40px">
+                  <ProjectOverline label="Role" value={ProjectPayload.role} />
+                  <ProjectOverline
+                    label="Status"
+                    value={ProjectPayload.status}
+                  />
+                </div>
+              </div>
+              <Text
+                as="h3"
+                size="lead"
+                weight="normal"
+                multiline
+                className="text hidden md:inline-flex"
+              >
+                {ProjectPayload.shortDesc}
+              </Text>
+            </div>
           </div>
-        </div>
 
-        <div className="hidden md:inline-block md:col-start-1">
-          <ScrollSpy sections={ProjectPayload.sections} />
-        </div>
-
-        <ProjectContent content={ProjectPayload} />
-
-        <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
-          <hr />
-          <div className="flex gap-24px justify-between">
-            <PaginationItem
-              desc="Previous"
-              label="An app for Filipino citizens"
-              left
-            />
-            <PaginationItem
-              desc="Next"
-              label="An small business online store app"
-              right
-            />
+          <div className="hidden md:inline-block md:col-start-1">
+            <ScrollSpy sections={ProjectPayload.sections} />
           </div>
-        </section>
-      </main>
+
+          <ProjectContent content={ProjectPayload} />
+
+          <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
+            <hr />
+            <div className="flex gap-24px justify-between">
+              <PaginationItem
+                desc="Previous"
+                label="An app for Filipino citizens"
+                left
+              />
+              <PaginationItem
+                desc="Next"
+                label="An small business online store app"
+                right
+              />
+            </div>
+          </section>
+        </main>
+      </InViewProvider>
     </>
   );
 };
