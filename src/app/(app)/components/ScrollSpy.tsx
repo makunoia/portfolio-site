@@ -1,22 +1,10 @@
 "use client";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Text from "./Text";
+import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
 import { cn } from "@/lib/utils";
 import InViewContext from "../contexts/InViewContext";
-
-//TO DO
-// ✅ Active State styling
-// ✅ Accordion styling
-// ✅ True items based on payload
-// Updating active scroll spy item depending on which section is topmost on screen
-// Accordion - collapsed when not in section
 
 type SectionsType = {
   sections: {
@@ -127,34 +115,40 @@ const ScrollSpyItem = ({
         </Accordion.Trigger>
       </Accordion.Header>
 
-      <Accordion.Content data-state="open" className="spy-items-container">
-        {parts.map(({ lead, id }, i) => (
-          <div
-            key={i}
-            className="group spy-item last:mb-8px"
-            onMouseEnter={() => onMouseEnterHandler(i)}
-            onMouseLeave={() => onMouseLeaveHandler()}
-            onClick={() => onClickHandler(i, id)}
-          >
+      <Accordion.Content
+        data-state="open"
+        className="spy-items-container"
+        asChild
+      >
+        <motion.div>
+          {parts.map(({ lead, id }, i) => (
             <div
-              className={`trackline trackline-v 
+              key={i}
+              className="group spy-item last:mb-8px"
+              onMouseEnter={() => onMouseEnterHandler(i)}
+              onMouseLeave={() => onMouseLeaveHandler()}
+              onClick={() => onClickHandler(i, id)}
+            >
+              <div
+                className={`trackline trackline-v 
                 ${getPathHoverStyle(i, true)}
                 ${getPathActiveStyle(i, true)} `}
-            />
-            <div
-              className={`trackline trackline-h 
+              />
+              <div
+                className={`trackline trackline-h 
                 ${getPathHoverStyle(i)} 
                 ${getPathActiveStyle(i)}`}
-            />
-            <Text
-              className={`transition-color duration-300 ease-in-out group-hover:text ${
-                inView.part == id ? "text" : "text-subtle/40 "
-              } text-nowrap`}
-            >
-              {lead}
-            </Text>
-          </div>
-        ))}
+              />
+              <Text
+                className={`transition-color duration-300 ease-in-out group-hover:text ${
+                  inView.part == id ? "text" : "text-subtle/40 "
+                } text-nowrap`}
+              >
+                {lead}
+              </Text>
+            </div>
+          ))}
+        </motion.div>
       </Accordion.Content>
     </Accordion.Item>
   );

@@ -35,8 +35,8 @@ const Page = () => {
             multiline
             className="text-subtle mr-40px"
           >
-            Space to share my thoughts, rants, ephiphanies and comments about
-            certain things in life.
+            A compilation of my creation through out my career as a designer and
+            developer
           </Text>
         </div>
 
