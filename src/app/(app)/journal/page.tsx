@@ -1,93 +1,56 @@
-import Text from "@/components/Text";
+"use client";
 import React from "react";
-import JournalSection from "@/components/PageListSection";
+import JournalPage from "@/components/JournalPage";
 import SectionDivider from "@/components/SectionDivider";
-SectionDivider;
+import JournalEntries from "../sample-payload/journal-entries";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Text from "@/components/Text";
 
 const Page = () => {
-  const allEntries = [
-    {
-      label: "I built my own UI library",
-      desc: "Design Engineering",
-      tag: "May 2, 2024",
-    },
-    {
-      label: "Self-Accountability",
-      desc: "Project Management",
-      tag: "June 29, 2024",
-    },
-    {
-      label: "How I made a check-in system for a retreat",
-      desc: "Web Design and Development",
-      tag: "December 2, 2023",
-    },
-  ];
-
   return (
-    <>
-      <main className="max-w-[500px] mx-auto flex flex-col gap-40px my-[80px]">
-        <div className="flex flex-col gap-4px">
-          <Text as="h1" size="heading" weight="normal">
-            Journal
-          </Text>
-          <Text
-            as="h3"
-            size="body-large"
-            weight="normal"
-            multiline
-            className="text-subtle mr-40px"
+    <div className="flex flex-col gap-16px">
+      <SectionDivider header="2024" />
+
+      <Link href={`journal/test`}>
+        <motion.div className="flex flex-row justify-between">
+          <motion.div
+            layout
+            transition={{ duration: 0.2, damping: 100, stiffness: 100 }}
+            className="flex flex-col gap-4px"
           >
-            Space to share my thoughts, rants, ephiphanies and comments about
-            certain things in life.
-          </Text>
-        </div>
+            <Text size="body" className=" transition-all duration-600 ease-in">
+              A Day in Toronto
+            </Text>
+            <Text size="caption" className="text-subtle">
+              May 5, 2024
+            </Text>
+          </motion.div>
+          <motion.div
+            layout
+            transition={{ duration: 0.2 }}
+            className="flex items-center h-fit rounded-10px px-10px py-12px transition-colors duration-500 ease-in-out bg-subtle/40"
+          >
+            <Text size="caption" className="text-subtle text-nowrap">
+              Reflection
+            </Text>
+          </motion.div>
+        </motion.div>
+      </Link>
 
-        <div className="flex flex-col gap-16px">
-          <SectionDivider header="2024" />
-          <div className="flex flex-col gap-16px">
-            {allEntries.map(({ label, desc, tag }) => (
-              <JournalListItem
-                key={label}
-                label={label}
-                desc={desc}
-                tag={tag}
-              />
-            ))}
-          </div>
-        </div>
-      </main>
-    </>
-  );
-};
-
-type JournalListItemProps = {
-  label: string;
-  desc: string;
-  tag: string;
-};
-
-const JournalListItem = ({ label, desc, tag }: JournalListItemProps) => {
-  return (
-    <div className="flex flex-row justify-between cursor-pointer">
-      <div>
-        <div className="flex flex-col gap-4px">
-          <Text size="body">{label}</Text>
-          <Text size="caption" className="text-subtle">
-            {desc}
-          </Text>
-        </div>
-        <div className="flex items-center rounded-10px bg-subtle/40 px-10px py-2px">
-          <Text size="caption" className="text-subtle text-nowrap">
-            {tag}
-          </Text>
-        </div>
-      </div>
-      <div>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas
-        recusandae repellendus harum doloribus placeat necessitatibus veritatis
-        cumque odit, illum, quis deleniti id dicta assumenda qui tenetur optio
-        cum voluptatem similique!
-      </div>
+      {/* <div className="flex flex-col gap-16px">
+        {JournalEntries.map(({ title, gist, date, tag, content, slug }) => (
+          <JournalPage
+            slug={slug}
+            key={slug}
+            title={title}
+            date={date}
+            desc={gist}
+            tag={tag}
+            content={content}
+          />
+        ))}
+      </div> */}
     </div>
   );
 };

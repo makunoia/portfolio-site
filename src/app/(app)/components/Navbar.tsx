@@ -8,7 +8,9 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
-const NavbarContainerCVA = cva(["sticky bottom-40px mx-auto w-fit h-40px"]);
+const NavbarContainerCVA = cva([
+  "sticky z-50 bottom-40px mx-auto w-fit h-40px",
+]);
 
 const NavbarCVA = cva([
   "navbar",
