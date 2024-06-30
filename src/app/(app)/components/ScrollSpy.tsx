@@ -75,6 +75,7 @@ const ScrollSpyItem = ({
 
   const onClickHandler = (i: number, id: string) => {
     setActiveItemIndex(i);
+    setInView((curr) => ({ section: curr.section, part: id }));
     scrollToViewHandler(id);
   };
 
