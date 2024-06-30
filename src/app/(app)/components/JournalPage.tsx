@@ -1,11 +1,9 @@
 "use client";
 import Text from "@/components/Text";
-import React, { useState } from "react";
-import { motion, AnimatePresence, useMotionValue } from "framer-motion";
-import SectionDivider from "@/components/SectionDivider";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-SectionDivider;
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
+// import { useRouter } from "next/router";
 
 type JournalPageProps = {
   open?: boolean;
@@ -32,70 +30,62 @@ const JournalPage = ({
   console.log(path);
 
   return (
-    <>
-      <Overlay open={open} />
+    <AnimatePresence>
+      <Overlay />
       <motion.div
         layout
         transition={{ duration: 0.3 }}
-        className={`cursor-pointer rounded-12px ${
-          open &&
-          "fixed z-10 top-40px left-0px right-0px bg border shadow p-24px w-[540px] mx-auto"
-        }`}
+        className="cursor-pointer rounded-12px fixed z-10 top-40px left-0px right-0px bg border shadow p-24px w-[540px] mx-auto"
       >
         <motion.div className={`flex flex-col gap-18px`}>
-          <Link href={`journal/${slug}`}>
+          <motion.div
+            className={`flex flex-row ${
+              open
+                ? "justify-between align-bottom items-end"
+                : "justify-between"
+            } `}
+          >
             <motion.div
-              className={`flex flex-row ${
-                open
-                  ? "justify-between align-bottom items-end"
-                  : "justify-between"
-              } `}
+              layout
+              transition={{ duration: 0.2, damping: 100, stiffness: 100 }}
+              className="flex flex-col gap-4px"
             >
-              <motion.div
-                layout
-                transition={{ duration: 0.2, damping: 100, stiffness: 100 }}
-                className="flex flex-col gap-4px"
+              <Text size="caption" className="text-subtle">
+                {date}
+              </Text>
+              <Text
+                size={`${open ? "heading" : "body"}`}
+                className=" transition-all duration-600 ease-in"
               >
-                <Text size="caption" className="text-subtle">
-                  {date}
-                </Text>
-                <Text
-                  size={`${open ? "heading" : "body"}`}
-                  className=" transition-all duration-600 ease-in"
-                >
-                  {title}
-                </Text>
-              </motion.div>
-              <motion.div
-                layout
-                transition={{ duration: 0.2 }}
-                className={`flex items-center h-fit rounded-10px px-10px py-12px transition-colors duration-500 ease-in-out ${
-                  open ? "bg-subtle/80" : "bg-subtle/40"
-                }`}
-              >
-                <Text size="caption" className="text-subtle text-nowrap">
-                  {tag}
-                </Text>
-              </motion.div>
+                {title}
+              </Text>
             </motion.div>
-          </Link>
-          <AnimatePresence>
-            {open && (
-              <motion.div
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex flex-col gap-18px"
-              >
-                <hr />
-                <PageContent content={content} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+            <motion.div
+              layout
+              transition={{ duration: 0.2 }}
+              className={`flex items-center h-fit rounded-10px px-10px py-12px transition-colors duration-500 ease-in-out ${
+                open ? "bg-subtle/80" : "bg-subtle/40"
+              }`}
+            >
+              <Text size="caption" className="text-subtle text-nowrap">
+                {tag}
+              </Text>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex flex-col gap-18px"
+          >
+            <hr />
+            <PageContent content={content} />
+          </motion.div>
         </motion.div>
       </motion.div>
-    </>
+    </AnimatePresence>
   );
 };
 
@@ -116,24 +106,18 @@ const PageContent = ({ content }: Pick<JournalPageProps, "content">) => {
   );
 };
 
-const Overlay = ({
-  open,
-}: // closePage,
-{
-  open?: boolean;
-  // closePage: () => void;
-}) => {
+const Overlay = () => {
+  const router = useRouter();
+
   return (
     <AnimatePresence>
-      {open ? (
-        <motion.div
-          // onClick={closePage}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4 }}
-          exit={{ opacity: 0 }}
-          className="absolute bg inset-0px z-10"
-        />
-      ) : null}
+      <motion.div
+        onClick={() => router.back()}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        exit={{ opacity: 0 }}
+        className="absolute bg inset-0px z-10"
+      />
     </AnimatePresence>
   );
 };

@@ -1,7 +1,8 @@
+"use client";
 import Text from "@/components/Text";
-import React, { ReactNode } from "react";
 import SectionDivider from "@/components/SectionDivider";
-SectionDivider;
+import React, { ReactNode } from "react";
+import Template from "./template";
 
 const Layout = ({
   children,
@@ -29,9 +30,14 @@ const Layout = ({
           </Text>
         </div>
 
-        {/* Animate Presence in Entries? */}
-        {entries}
-        {children}
+        <SectionDivider header="2024" />
+
+        <div className="flex flex-col gap-16px">
+          <Template>
+            {entries}
+            {children}
+          </Template>
+        </div>
       </main>
     </>
   );
