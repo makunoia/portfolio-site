@@ -1,25 +1,56 @@
+"use client";
 import Text from "@/components/Text";
 import React from "react";
 import ProjectSection from "@/components/PageListSection";
+import ProjectPayload from "../sample-payload/project";
+import { useState, useEffect } from "react";
+
+// TO DO
+// REVERT TO SERVER COMPONENT ONCE CMS IS INTEGRATED
 
 const Page = () => {
-  const allProjects = [
-    {
-      label: "Dingdong",
-      desc: "ECommerce",
-      tag: "Product Designer",
-    },
-    {
-      label: "Multiverse",
-      desc: "Design System",
-      tag: "Lead",
-    },
-    {
-      label: "Another Project",
-      desc: "E Government",
-      tag: "Lead",
-    },
-  ];
+  const [allProjects, setAllProjects] = useState<
+    | {
+        year: string;
+        projects: {
+          title: string;
+          desc: string;
+          tag: string;
+          slug: string;
+        }[];
+      }[]
+    | null
+  >(null);
+
+  useEffect(() => {
+    const allYearPublished = ProjectPayload.reduce<string[]>((arr, project) => {
+      const year = new Date(project.year).getFullYear().toString();
+      if (!arr.includes(year)) {
+        arr.push(year);
+      }
+
+      return arr;
+    }, []);
+
+    const projects = allYearPublished.map((year) => ({
+      year: year,
+      projects: ProjectPayload.filter((project) => {
+        const yearPublished = new Date(project.year).getFullYear().toString();
+
+        if (year === yearPublished) {
+          return {
+            title: project.title,
+            desc: project.desc,
+            tag: project.tag,
+            slug: project.slug,
+          };
+        }
+      }),
+    }));
+
+    console.log(projects);
+    setAllProjects(projects);
+  }, []);
 
   return (
     <>
@@ -40,8 +71,9 @@ const Page = () => {
           </Text>
         </div>
 
-        <ProjectSection header="2024" data={allProjects} />
-        <ProjectSection header="2023" data={allProjects} />
+        {allProjects?.map((project) => (
+          <ProjectSection header={project.year} data={project.projects} />
+        ))}
       </main>
     </>
   );

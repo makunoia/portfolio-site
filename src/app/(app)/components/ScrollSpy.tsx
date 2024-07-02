@@ -10,7 +10,7 @@ type SectionsType = {
   sections: {
     title: string;
     id: string;
-    parts: { id: string; lead: string }[];
+    blocks: { id: string; lead: string }[];
   }[];
 };
 
@@ -34,9 +34,9 @@ const AccordionRoot = ({ sections }: SectionsType) => {
       value={inView.section as string}
       collapsible
     >
-      {sections.map(({ title, id, parts }, index) => {
+      {sections.map(({ title, id, blocks }) => {
         return (
-          <ScrollSpyItem id={id} key={title} title={title} parts={parts} />
+          <ScrollSpyItem id={id} key={title} title={title} blocks={blocks} />
         );
       })}
     </Accordion.Root>
@@ -46,11 +46,11 @@ const AccordionRoot = ({ sections }: SectionsType) => {
 const ScrollSpyItem = ({
   id,
   title,
-  parts,
+  blocks,
 }: {
   id: string;
   title: string;
-  parts: { lead: string; id: string }[];
+  blocks: { lead: string; id: string }[];
 }) => {
   const [activeItemIndex, setActiveItemIndex] = useState<number | undefined>();
   const [hoveredItemIndex, setHoveredItemIndex] = useState<
@@ -61,9 +61,11 @@ const ScrollSpyItem = ({
 
   //create a useEffect hook to render active path
   useEffect(() => {
-    const newActiveIndex = parts.findIndex((part) => part.id == inView.part);
+    const newActiveIndex = blocks.findIndex(
+      (block) => block.id == inView.block
+    );
     setActiveItemIndex(newActiveIndex);
-  }, [inView.part]);
+  }, [inView.block]);
 
   const onMouseEnterHandler = (i: number) => {
     setHoveredItemIndex(() => i);
@@ -75,7 +77,7 @@ const ScrollSpyItem = ({
 
   const onClickHandler = (i: number, id: string) => {
     setActiveItemIndex(i);
-    setInView((curr) => ({ section: curr.section, part: id }));
+    setInView((curr) => ({ section: curr.section, block: id }));
     scrollToViewHandler(id);
   };
 
@@ -122,7 +124,7 @@ const ScrollSpyItem = ({
         asChild
       >
         <motion.div>
-          {parts.map(({ lead, id }, i) => (
+          {blocks.map(({ lead, id }, i) => (
             <div
               key={i}
               className="group spy-item last:mb-8px"
@@ -142,7 +144,7 @@ const ScrollSpyItem = ({
               />
               <Text
                 className={`transition-color duration-300 ease-in-out group-hover:text ${
-                  inView.part == id ? "text" : "text-subtle/40 "
+                  inView.block == id ? "text" : "text-subtle/40 "
                 } text-nowrap`}
               >
                 {lead}

@@ -16,19 +16,19 @@ const ProjectContent = ({ content }: { content: ProjectType }) => {
     >
       {content.sections.map((section) => (
         <ContentSection key={section.id} header={section.title} id={section.id}>
-          {section.parts.map((part) => (
+          {section.blocks.map((block) => (
             <div
-              key={part.id}
-              id={part.id}
+              key={block.id}
+              id={block.id}
               className="flex flex-col gap-40px scroll-mt-40px"
             >
-              <ContentBlock subtitle={part.lead}>{part.content}</ContentBlock>
-              {isShowcaseType(part) && (
+              <ContentBlock subtitle={block.lead}>{block.content}</ContentBlock>
+              {isShowcaseType(block) && (
                 <Showcase
-                  src={part.showcase.src}
-                  lead={part.showcase.lead}
-                  tag={part.showcase.tag as string}
-                  content={part.showcase.desc}
+                  src={block.showcase.src}
+                  lead={block.showcase.lead}
+                  tag={block.showcase.tag as string}
+                  content={block.showcase.desc}
                 />
               )}
             </div>

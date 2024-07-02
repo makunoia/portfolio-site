@@ -7,15 +7,8 @@ import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import JournalPage from "@/components/JournalPage";
 import JournalEntries from "../sample-payload/journal-entries";
-import { redirect } from "next/navigation";
 
-const Layout = ({
-  children,
-  content,
-}: {
-  children: ReactNode;
-  content: ReactNode;
-}) => {
+const Layout = ({ content }: { content: ReactNode }) => {
   const hasOpenPage = useSelectedLayoutSegment("content");
   const [allEntries, setAllEntries] = useState<
     { year: string; entries: typeof JournalEntries }[] | null
@@ -37,7 +30,7 @@ const Layout = ({
         const yearPublished = new Date(entry.date).getFullYear().toString();
 
         if (year === yearPublished) {
-          return entry;
+          return { title: entry.title, tag: entry.tag, date: entry.date };
         }
       }),
     }));
@@ -60,7 +53,7 @@ const Layout = ({
             className="text-subtle mr-40px"
           >
             Space to share my thoughts, rants, ephiphanies and comments about
-            certain things in life.
+            random things in life.
           </Text>
         </div>
 

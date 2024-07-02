@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import journalEntries from "../sample-payload/journal-entries";
 
+//TO DO
+//FIX MOUNT ANIMATION ON LINK VISIT
+
 const JournalPage = ({
   content,
   data,
@@ -32,8 +35,8 @@ const JournalPage = ({
         layout
         variants={cardVariants}
         animate={isOpen ? "open" : "closed"}
-        layoutId={`journal-page-${data.slug}`}
         exit={{ opacity: 0 }}
+        layoutId={`journal-page-${data.slug}`}
         className={`${
           isOpen &&
           "max-w-[650px] fixed z-10 top-40px left-0px right-0px bg border shadow w-[540px] mx-auto"
@@ -72,7 +75,7 @@ const JournalPage = ({
                 <motion.div
                   layout
                   transition={{ duration: 0.2 }}
-                  className="flex items-center h-fit rounded-10px px-10px py-12px transition-colors duration-500 ease-in-out bg-subtle/80"
+                  className="flex h-fit items-center rounded-10px px-10px py-8px transition-colors duration-500 ease-in-out bg-subtle/40"
                 >
                   <Text size="caption" className="text-subtle text-nowrap">
                     {data.tag}

@@ -1,19 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import Text from "@/components/Text";
 import React from "react";
 
-type JournalPageProps = {
-  title: string;
-  date: string;
-  desc: string;
-  tag: string;
-  slug: string;
-  content: {
-    lead: string;
-    paragraph: string;
-  }[];
-};
+//TO DO
+//Loading State
+//Align Props with PayLoad
 
 const JournalPage = () => {
   return (
