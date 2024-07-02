@@ -4,7 +4,7 @@ import InViewContext from "../contexts/InViewContext";
 
 type ContentType = {
   id: string;
-  parts?: {
+  blocks?: {
     id: string;
   }[];
 }[];
@@ -15,7 +15,7 @@ const ContentObserver = ({ content }: { content: ContentType }) => {
   const ContentCallback = (entries: any) => {
     entries.forEach((entry: any) => {
       if (!entry.isIntersecting) {
-        setInView({ section: "", part: "" });
+        setInView({ section: "", block: "" });
       }
     });
   };
@@ -23,17 +23,17 @@ const ContentObserver = ({ content }: { content: ContentType }) => {
   const SectionCallback = (entries: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) {
-        setInView((curr) => ({ section: entry.target.id, part: curr.part }));
+        setInView((curr) => ({ section: entry.target.id, block: curr.block }));
       }
     });
   };
 
-  const PartCallback = (entries: any) => {
+  const BlockCallback = (entries: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) {
         setInView((curr) => ({
           section: curr.section,
-          part: entry.target.id,
+          block: entry.target.id,
         }));
       }
     });
@@ -55,12 +55,15 @@ const ContentObserver = ({ content }: { content: ContentType }) => {
       ObserverConfig
     );
 
-    const PartObserver = new IntersectionObserver(PartCallback, ObserverConfig);
+    const BlockObserver = new IntersectionObserver(
+      BlockCallback,
+      ObserverConfig
+    );
 
     const allIDs = content.map((section) => {
       return {
         id: section.id,
-        parts: section.parts?.map((part) => part.id) ?? [],
+        blocks: section.blocks?.map((block) => block.id) ?? [],
       };
     });
 
@@ -70,8 +73,8 @@ const ContentObserver = ({ content }: { content: ContentType }) => {
     allIDs.forEach((section) => {
       SectionObserver.observe(document.getElementById(section.id) as Element);
 
-      section.parts.forEach((part) =>
-        PartObserver.observe(document.getElementById(part) as Element)
+      section.blocks.forEach((block) =>
+        BlockObserver.observe(document.getElementById(block) as Element)
       );
     });
   }, [content]);

@@ -13,7 +13,7 @@ const Page = () => {
   return (
     <>
       <InViewProvider>
-        <ContentObserver content={ProjectPayload.sections} />
+        <ContentObserver content={ProjectPayload[0].sections} />
         <main className="project-page-grid mx-auto my-[80px]">
           <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
             <BackButton />
@@ -29,7 +29,7 @@ const Page = () => {
                     weight="normal"
                     className="text-nowrap"
                   >
-                    {ProjectPayload.title}
+                    {ProjectPayload[0].title}
                   </Text>
 
                   <Text
@@ -39,19 +39,22 @@ const Page = () => {
                     multiline
                     className="text inline-flex md:hidden"
                   >
-                    {ProjectPayload.shortDesc}
+                    {ProjectPayload[0].desc}
                   </Text>
                 </div>
                 <div className="flex flex-row gap-8px">
-                  <ProjectBadge label={ProjectPayload.year} />
-                  <ProjectBadge label={ProjectPayload.tag} />
+                  <ProjectBadge label={ProjectPayload[0].year} />
+                  <ProjectBadge label={ProjectPayload[0].tag} />
                 </div>
 
                 <div className="flex flex-row gap-40px">
-                  <ProjectOverline label="Role" value={ProjectPayload.role} />
+                  <ProjectOverline
+                    label="Role"
+                    value={ProjectPayload[0].role}
+                  />
                   <ProjectOverline
                     label="Status"
-                    value={ProjectPayload.status}
+                    value={ProjectPayload[0].status}
                   />
                 </div>
               </div>
@@ -62,16 +65,16 @@ const Page = () => {
                 multiline
                 className="text hidden md:inline-flex"
               >
-                {ProjectPayload.shortDesc}
+                {ProjectPayload[0].desc}
               </Text>
             </div>
           </div>
 
           <div className="hidden md:inline-block md:col-start-1">
-            <ScrollSpy sections={ProjectPayload.sections} />
+            <ScrollSpy sections={ProjectPayload[0].sections} />
           </div>
 
-          <ProjectContent content={ProjectPayload} />
+          <ProjectContent content={ProjectPayload[0]} />
 
           <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
             <hr />

@@ -4,26 +4,26 @@ import React, { useState, createContext, ReactNode } from "react";
 interface InViewContextType {
   inView: {
     section: string | null;
-    part: string | null;
+    block: string | null;
   };
   setInView: React.Dispatch<
     React.SetStateAction<{
       section: string;
-      part: string;
+      block: string;
     }>
   >;
 }
 
 // Provide default values for the context
 const defaultValues: InViewContextType = {
-  inView: { section: "", part: "" },
+  inView: { section: "", block: "" },
   setInView: () => {},
 };
 
 const InViewContext = createContext<InViewContextType>(defaultValues);
 
 export function InViewProvider({ children }: { children: ReactNode }) {
-  const [inView, setInView] = useState({ section: "", part: "" });
+  const [inView, setInView] = useState({ section: "", block: "" });
 
   return (
     <InViewContext.Provider value={{ inView, setInView }}>
