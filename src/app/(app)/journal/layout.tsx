@@ -1,25 +1,49 @@
 "use client";
 import Text from "@/components/Text";
 import SectionDivider from "@/components/SectionDivider";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Template from "./template";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
-import Link from "next/link";
+import JournalPage from "@/components/JournalPage";
+import JournalEntries from "../sample-payload/journal-entries";
+import { redirect } from "next/navigation";
 
 const Layout = ({
   children,
-  entries,
+  content,
 }: {
   children: ReactNode;
-  entries: ReactNode;
+  content: ReactNode;
 }) => {
-  const router = useRouter();
-  const section = useSelectedLayoutSegment("entries");
+  const hasOpenPage = useSelectedLayoutSegment("content");
+  const [allEntries, setAllEntries] = useState<
+    { year: string; entries: typeof JournalEntries }[] | null
+  >(null);
 
   useEffect(() => {
-    console.log(section);
-  }, [section]);
+    const allYearPublished = JournalEntries.reduce<string[]>((arr, entry) => {
+      const year = new Date(entry.date).getFullYear().toString();
+      if (!arr.includes(year)) {
+        arr.push(year);
+      }
+
+      return arr;
+    }, []);
+
+    const entries = allYearPublished.map((year) => ({
+      year: year,
+      entries: JournalEntries.filter((entry) => {
+        const yearPublished = new Date(entry.date).getFullYear().toString();
+
+        if (year === yearPublished) {
+          return entry;
+        }
+      }),
+    }));
+
+    setAllEntries(entries);
+  }, []);
 
   return (
     <>
@@ -40,50 +64,41 @@ const Layout = ({
           </Text>
         </div>
 
-        <SectionDivider header="2024" />
-
-        <div className="flex flex-col gap-16px">
-          <Template key="journal-template">
-            <>
-              {section && <Overlay backHandler={() => router.back()} />}
-
-              <AnimatePresence>
+        <Template key="journal-template">
+          {hasOpenPage && <Overlay />}
+          {allEntries &&
+            allEntries.map((entry) => (
+              <LayoutGroup>
                 <motion.div
-                  layout
-                  exit={{ opacity: 0 }}
-                  className={`${
-                    section && "fixed z-10 left-0px top-0px bg p-24px border"
-                  } w-full text`}
+                  initial={{ translateY: 40, opacity: 0 }}
+                  animate={{ translateY: 0, opacity: 1 }}
+                  key={`collection-${entry.year}`}
+                  className="flex flex-col gap-16px"
                 >
-                  <Link href="journal/project">
-                    <motion.div layout="position" className="text">
-                      <Text
-                        size={`${section ? "heading" : "body"}`}
-                        className="transition-all ease-in-out duration-300"
-                      >
-                        Page Title
-                      </Text>
-                    </motion.div>
-                  </Link>
-
-                  {/* {section && (
-                    <motion.div layoutId="content">{entries}</motion.div>
-                  )} */}
+                  <SectionDivider header={entry.year} />
+                  {entry.entries.map((page) => (
+                    <JournalPage
+                      key={`page-${page.slug}`}
+                      data={page}
+                      content={content}
+                    />
+                  ))}
                 </motion.div>
-              </AnimatePresence>
-            </>
-          </Template>
-        </div>
+              </LayoutGroup>
+            ))}
+        </Template>
       </main>
     </>
   );
 };
 
-const Overlay = ({ backHandler }: { backHandler: () => void }) => {
+const Overlay = () => {
+  const router = useRouter();
+
   return (
     <AnimatePresence>
       <motion.div
-        onClick={() => backHandler()}
+        onClick={() => router.back()}
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.4 }}
         exit={{ opacity: 0 }}

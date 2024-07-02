@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { motion } from "framer-motion";
 import Text from "./Text";
 
 type SectionDividerProps = {
@@ -8,7 +10,7 @@ type SectionDividerProps = {
 
 const SectionDivider = ({ header, id }: SectionDividerProps) => {
   return (
-    <div id={id} className="flex flex-row gap-16px items-center">
+    <motion.div layout id={id} className="flex flex-row gap-16px items-center">
       <Text
         size="overline"
         className="text-nowrap text-subtle uppercase tracking-widest"
@@ -16,7 +18,7 @@ const SectionDivider = ({ header, id }: SectionDividerProps) => {
         {header}
       </Text>
       <hr />
-    </div>
+    </motion.div>
   );
 };
 
