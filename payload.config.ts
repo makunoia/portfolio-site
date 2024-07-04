@@ -1,6 +1,6 @@
 import path from "path";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
-import { buildConfig } from "payload/config";
+import { buildConfig } from "payload";
 
 import Pages from "./src/app/(payload)/collections/Pages";
 import Projects from "./src/app/(payload)/collections/Projects";

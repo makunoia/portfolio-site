@@ -21,13 +21,9 @@ export interface Config {
   };
   globals: {};
   locale: null;
-  user:
-    | (User & {
-        collection: 'users';
-      })
-    | (Page & {
-        collection: 'page';
-      });
+  user: User & {
+    collection: 'users';
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -67,6 +63,8 @@ export interface Project {
   projectStatus: 'ongoingProject' | 'delivered';
   yearDelivered?: string | null;
   isArchived?: boolean | null;
+  isLocked?: boolean | null;
+  password?: string | null;
   sections?:
     | {
         name?: string | null;
@@ -126,6 +124,7 @@ export interface Showcase {
  */
 export interface Asset {
   id: string;
+  name?: string | null;
   alt?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -146,16 +145,33 @@ export interface Asset {
 export interface Page {
   id: string;
   name: string;
+  header: string;
+  copy?: string | null;
+  content?: (KeyValue | BooleanData)[] | null;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Key-Value".
+ */
+export interface KeyValue {
+  key: string;
+  value: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'key-value-pair';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BooleanData".
+ */
+export interface BooleanData {
+  key: string;
+  value: boolean;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'boolean-data';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -187,15 +203,10 @@ export interface JournalEntryTag {
  */
 export interface PayloadPreference {
   id: string;
-  user:
-    | {
-        relationTo: 'users';
-        value: string | User;
-      }
-    | {
-        relationTo: 'page';
-        value: string | Page;
-      };
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
   key?: string | null;
   value?:
     | {
