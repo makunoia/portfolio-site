@@ -1,7 +1,7 @@
 import { Project } from "payload-types";
 
-//TO DO
-//EDIT PROJECT TYPE TO USE PAYLOAD-TYPES
+// TO DO
+// EDIT PROJECT TYPE TO USE PAYLOAD-TYPES
 
 export default [
   {

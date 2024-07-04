@@ -2,9 +2,9 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-//TO DO
-//Loading State
-//Align Props with PayLoad
+// TO DO
+// Loading State
+// Align Props with PayLoad
 
 const JournalPage = () => {
   return (

@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import journalEntries from "../sample-payload/journal-entries";
 
-//TO DO
-//FIX MOUNT ANIMATION ON LINK VISIT
+// TO DO
+// FIX MOUNT ANIMATION ON LINK VISIT
 
 const JournalPage = ({
   content,
