@@ -20,22 +20,13 @@ const Projects: CollectionConfig = {
       required: true,
     },
     {
-      label: "Short Description",
-      name: "shortDesc",
+      label: "Description",
+      name: "desc",
       type: "text",
       required: true,
       admin: {
         description:
           "This description appears on the front page if this project is featured",
-      },
-    },
-    {
-      label: "Long Description",
-      name: "longDesc",
-      type: "textarea",
-      required: true,
-      admin: {
-        description: "This description appears on the project page header",
       },
     },
     {

@@ -1,12 +1,9 @@
 import type { CollectionConfig, CollectionBeforeValidateHook } from "payload";
-
 import {
   S3Client,
   PutObjectCommand,
   PutObjectCommandInput,
 } from "@aws-sdk/client-s3";
-import { NextResponse } from "next/server";
-import path from "path";
 
 // TO DO
 // You can write an Upload to Cloudflare R2 with PayloadCMS 3.0 article

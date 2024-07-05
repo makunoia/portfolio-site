@@ -49,8 +49,7 @@ export interface User {
 export interface Project {
   id: string;
   title: string;
-  shortDesc: string;
-  longDesc: string;
+  desc: string;
   year?: string | null;
   tag: {
     relationTo: 'project-tags';
