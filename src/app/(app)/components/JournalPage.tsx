@@ -1,5 +1,5 @@
-import React, { ReactNode, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, frame, useAnimate } from "framer-motion";
 import Text from "./Text";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
@@ -17,6 +17,11 @@ const JournalPage = ({
 }) => {
   const openedPage = useSelectedLayoutSegment("content");
   const isOpen = openedPage == data.slug;
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    // animate({width: 50})
+  }, [isOpen]);
 
   const cardVariants = {
     open: {
@@ -30,19 +35,22 @@ const JournalPage = ({
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="sync">
       <motion.div
         layout
+        ref={scope}
+        id={`journal-page-${data.slug}`}
+        key={`journal-page-${data.slug}`}
         variants={cardVariants}
         animate={isOpen ? "open" : "closed"}
-        exit={{ opacity: 0 }}
         layoutId={`journal-page-${data.slug}`}
+        initial={false}
         className={`${
           isOpen &&
-          "max-w-[650px] fixed z-10 top-40px left-0px right-0px bg border shadow w-[540px] mx-auto"
+          "max-w-[546px] mx-auto fixed z-50 h-3/4 max-h-5/6 overflow-clip my-40px top-0px left-0px right-0px bg border shadow"
         } w-full text flex flex-col gap-16px transition-colors ease-in-out`}
       >
-        <Link href={`journal/${data.slug}`}>
+        <Link href={openedPage ? "" : `journal/${data.slug}`}>
           <motion.div
             layout
             className={openedPage ? "cursor-auto" : "cursor-pointer"}
@@ -87,19 +95,22 @@ const JournalPage = ({
         </Link>
 
         {isOpen && (
-          <AnimatePresence>
-            <hr />
-            <motion.div
-              layout
-              layoutId={`content-${data.slug}`}
-              transition={{ delay: 0.2 }}
-              initial={{ opacity: 0, translateY: 60 }}
-              animate={{ opacity: 1, translateY: 0 }}
-              exit={{ opacity: 0, translateY: 60 }}
-            >
-              {content}
-            </motion.div>
-          </AnimatePresence>
+          <motion.div
+            id={`content-${data.slug}`}
+            transition={{ delay: 0.2 }}
+            initial={{ width: 300, height: 0, opacity: 0, translateY: 60 }}
+            animate={{
+              width: "auto",
+              height: "100%",
+              opacity: 1,
+              translateY: 0,
+            }}
+            exit={{ opacity: 0, translateY: 60 }}
+            className="flex flex-col gap-24px min-h-[300px] overflow-scroll"
+          >
+            <motion.hr layout exit={{ opacity: 0 }} />
+            {content}
+          </motion.div>
         )}
       </motion.div>
     </AnimatePresence>

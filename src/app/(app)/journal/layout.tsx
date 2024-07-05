@@ -3,10 +3,13 @@ import Text from "@/components/Text";
 import SectionDivider from "@/components/SectionDivider";
 import React, { ReactNode, useEffect, useState } from "react";
 import Template from "./template";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup, stagger } from "framer-motion";
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import JournalPage from "@/components/JournalPage";
 import JournalEntries from "../sample-payload/journal-entries";
+
+// TO DO
+// Children stagger animation
 
 const Layout = ({ content }: { content: ReactNode }) => {
   const hasOpenPage = useSelectedLayoutSegment("content");
@@ -59,26 +62,28 @@ const Layout = ({ content }: { content: ReactNode }) => {
 
         <Template key="journal-template">
           {hasOpenPage && <Overlay />}
-          {allEntries &&
-            allEntries.map((entry) => (
-              <LayoutGroup>
-                <motion.div
-                  initial={{ translateY: 40, opacity: 0 }}
-                  animate={{ translateY: 0, opacity: 1 }}
-                  key={`collection-${entry.year}`}
-                  className="flex flex-col gap-16px"
-                >
-                  <SectionDivider header={entry.year} />
-                  {entry.entries.map((page) => (
-                    <JournalPage
-                      key={`page-${page.slug}`}
-                      data={page}
-                      content={content}
-                    />
-                  ))}
-                </motion.div>
-              </LayoutGroup>
-            ))}
+          <LayoutGroup>
+            {allEntries &&
+              allEntries.map((entry) => (
+                <LayoutGroup key={`collection-${entry.year}`}>
+                  <motion.div
+                    className="flex flex-col gap-16px"
+                    key={`collection-${entry.year}`}
+                    initial={{ translateY: 40, opacity: 0 }}
+                    animate={{ translateY: 0, opacity: 1 }}
+                  >
+                    <SectionDivider header={entry.year} />
+                    {entry.entries.map((page) => (
+                      <JournalPage
+                        data={page}
+                        content={content}
+                        key={`page-${page.slug}`}
+                      />
+                    ))}
+                  </motion.div>
+                </LayoutGroup>
+              ))}
+          </LayoutGroup>
         </Template>
       </main>
     </>
