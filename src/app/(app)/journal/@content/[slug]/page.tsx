@@ -13,12 +13,7 @@ const JournalPage = () => {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
-    console.log("mounted");
-  }, []);
-
-  useEffect(() => {
     if (isPresent) {
-      console.log("present");
       const enterAnimation = async () => {
         await animate(scope.current, { height: 0 });
         await animate(scope.current, { height: "100%" });
@@ -26,7 +21,7 @@ const JournalPage = () => {
       enterAnimation();
     } else {
       const exitAnimation = async () => {
-        await animate(scope.current, { height: 400 });
+        await animate(scope.current, { height: "100%" });
         await animate(scope.current, { height: 0 });
         safeToRemove();
       };
@@ -36,8 +31,12 @@ const JournalPage = () => {
   }, [isPresent]);
 
   return (
-    <motion.div className="flex flex-col gap-24px min-h-[300px]" ref={scope}>
-      <motion.div className="flex flex-col gap-8px">
+    <motion.div
+      layout
+      className="flex flex-col gap-24px min-h-[300px]"
+      ref={scope}
+    >
+      <motion.div layout className="flex flex-col gap-8px">
         <Text as="h3" size="body-large" weight="medium">
           Header
         </Text>
@@ -61,7 +60,7 @@ const JournalPage = () => {
         nemo quod.
       </motion.div>
 
-      <motion.div className="flex flex-col gap-8px">
+      <motion.div layout className="flex flex-col gap-8px">
         <Text as="h3" size="body-large" weight="medium">
           Header
         </Text>

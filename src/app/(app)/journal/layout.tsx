@@ -62,28 +62,25 @@ const Layout = ({ content }: { content: ReactNode }) => {
 
         <Template key="journal-template">
           {hasOpenPage && <Overlay />}
-          <LayoutGroup>
-            {allEntries &&
-              allEntries.map((entry) => (
-                <LayoutGroup key={`collection-${entry.year}`}>
-                  <motion.div
-                    className="flex flex-col gap-16px"
-                    key={`collection-${entry.year}`}
-                    initial={{ translateY: 40, opacity: 0 }}
-                    animate={{ translateY: 0, opacity: 1 }}
-                  >
-                    <SectionDivider header={entry.year} />
-                    {entry.entries.map((page) => (
-                      <JournalPage
-                        data={page}
-                        content={content}
-                        key={`page-${page.slug}`}
-                      />
-                    ))}
-                  </motion.div>
-                </LayoutGroup>
-              ))}
-          </LayoutGroup>
+
+          {allEntries &&
+            allEntries.map((entry) => (
+              <LayoutGroup key={`collection-${entry.year}`}>
+                <motion.div
+                  className="flex flex-col gap-16px"
+                  key={`collection-${entry.year}`}
+                >
+                  <SectionDivider header={entry.year} />
+                  {entry.entries.map((page) => (
+                    <JournalPage
+                      data={page}
+                      content={content}
+                      key={`page-${page.slug}`}
+                    />
+                  ))}
+                </motion.div>
+              </LayoutGroup>
+            ))}
         </Template>
       </main>
     </>
