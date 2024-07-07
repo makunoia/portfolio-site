@@ -1,8 +1,7 @@
 "use client";
 import Text from "@/app/(app)/components/Text";
 import { motion, useAnimate, usePresence } from "framer-motion";
-import { headers } from "next/headers";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // TO DO
 // Loading State
@@ -12,28 +11,40 @@ const JournalPage = () => {
   const [isPresent, safeToRemove] = usePresence();
   const [scope, animate] = useAnimate();
 
-  useEffect(() => {
-    if (isPresent) {
-      const enterAnimation = async () => {
-        await animate(scope.current, { height: 0 });
-        await animate(scope.current, { height: "100%" });
-      };
-      enterAnimation();
-    } else {
-      const exitAnimation = async () => {
-        await animate(scope.current, { height: "100%" });
-        await animate(scope.current, { height: 0 });
-        safeToRemove();
-      };
+  // useEffect(() => {
+  //   console.log("Template effect");
+  //   if (isPresent) {
+  //     console.log("Content mounted");
+  //     animate(scope.current, { height: 0 });
 
-      exitAnimation();
-    }
-  }, [isPresent]);
+  //     const enterAnimation = async () => {
+  //       await animate(scope.current, { height: 0 });
+  //       await animate(
+  //         scope.current,
+  //         { height: "100%" },
+  //         { type: "spring", damping: 100, stiffness: 400, duration: 600 }
+  //       );
+  //     };
+  //     enterAnimation();
+  //   } else {
+  //     safeToRemove();
+  //   }
+  // }, [isPresent]);
 
   return (
     <motion.div
-      layout
-      className="flex flex-col gap-24px min-h-[300px]"
+      layout="position"
+      // initial={false}
+      initial={{ height: 0, translateY: 20, opacity: 0 }}
+      animate={{ height: "fit-content", translateY: 0, opacity: 1 }}
+      transition={{
+        type: "spring",
+        damping: 100,
+        stiffness: 400,
+        duration: 600,
+        delay: 0.4,
+      }}
+      className="inline-flex flex-col gap-24px pt-0px p-24px"
       ref={scope}
     >
       <motion.div layout className="flex flex-col gap-8px">

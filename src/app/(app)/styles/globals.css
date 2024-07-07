@@ -287,6 +287,14 @@
     }
   }
 
+  /* .journal-page {
+    clip-path: stroke-box;
+  } */
+
+  .journal-page-header {
+    width: inherit;
+  }
+
   .button {
     border-color: hsl(var(--primitive-300));
     clip-path: margin-box;

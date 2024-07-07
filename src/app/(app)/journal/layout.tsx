@@ -4,18 +4,25 @@ import SectionDivider from "@/components/SectionDivider";
 import React, { ReactNode, useEffect, useState } from "react";
 import Template from "./template";
 import { motion, AnimatePresence, LayoutGroup, stagger } from "framer-motion";
-import { useRouter, useSelectedLayoutSegment } from "next/navigation";
+import {
+  usePathname,
+  useRouter,
+  useSelectedLayoutSegment,
+} from "next/navigation";
 import JournalPage from "@/components/JournalPage";
 import JournalEntries from "../sample-payload/journal-entries";
 
-// TO DO
-// Children stagger animation
-
 const Layout = ({ content }: { content: ReactNode }) => {
-  const hasOpenPage = useSelectedLayoutSegment("content");
+  const path = usePathname();
+  const [showOverlay, setShowOverlay] = useState(false);
   const [allEntries, setAllEntries] = useState<
     { year: string; entries: typeof JournalEntries }[] | null
   >(null);
+
+  useEffect(() => {
+    if (path === "/journal") setShowOverlay(false);
+    else setShowOverlay(true);
+  }, [path]);
 
   useEffect(() => {
     const allYearPublished = JournalEntries.reduce<string[]>((arr, entry) => {
@@ -61,13 +68,11 @@ const Layout = ({ content }: { content: ReactNode }) => {
         </div>
 
         <Template key="journal-template">
-          {hasOpenPage && <Overlay />}
-
           {allEntries &&
             allEntries.map((entry) => (
               <LayoutGroup key={`collection-${entry.year}`}>
                 <motion.div
-                  className="flex flex-col gap-16px"
+                  className="flex flex-col items-center justify-center gap-16px"
                   key={`collection-${entry.year}`}
                 >
                   <SectionDivider header={entry.year} />
@@ -76,24 +81,36 @@ const Layout = ({ content }: { content: ReactNode }) => {
                       data={page}
                       content={content}
                       key={`page-${page.slug}`}
+                      overlayControl={setShowOverlay}
                     />
                   ))}
                 </motion.div>
               </LayoutGroup>
             ))}
+
+          {showOverlay && <Overlay setShow={setShowOverlay} />}
         </Template>
       </main>
     </>
   );
 };
 
-const Overlay = () => {
+const Overlay = ({
+  setShow,
+}: {
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const router = useRouter();
+
+  const handleClick = () => {
+    router.replace("/journal");
+    setShow(false);
+  };
 
   return (
     <AnimatePresence>
       <motion.div
-        onClick={() => router.back()}
+        onClick={() => handleClick()}
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.4 }}
         exit={{ opacity: 0 }}

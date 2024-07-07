@@ -13,7 +13,7 @@ const SectionDivider = ({ header, id }: SectionDividerProps) => {
     <motion.div
       layout
       id={id}
-      className="flex flex-row gap-16px items-center"
+      className="flex flex-row gap-16px items-center w-full"
       transition={{ type: "spring", damping: 50, stiffness: 400 }}
     >
       <Text
