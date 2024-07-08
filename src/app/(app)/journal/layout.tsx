@@ -11,6 +11,7 @@ import {
 } from "next/navigation";
 import JournalPage from "@/components/JournalPage";
 import JournalEntries from "../sample-payload/journal-entries";
+import { OpenJournalPageProvider } from "../contexts/OpenJournalPage";
 
 const Layout = ({ content }: { content: ReactNode }) => {
   const path = usePathname();
@@ -67,29 +68,30 @@ const Layout = ({ content }: { content: ReactNode }) => {
           </Text>
         </div>
 
-        <Template key="journal-template">
-          {allEntries &&
-            allEntries.map((entry) => (
-              <LayoutGroup key={`collection-${entry.year}`}>
-                <motion.div
-                  className="flex flex-col items-center justify-center gap-16px"
-                  key={`collection-${entry.year}`}
-                >
-                  <SectionDivider header={entry.year} />
-                  {entry.entries.map((page) => (
-                    <JournalPage
-                      data={page}
-                      content={content}
-                      key={`page-${page.slug}`}
-                      overlayControl={setShowOverlay}
-                    />
-                  ))}
-                </motion.div>
-              </LayoutGroup>
-            ))}
+        <OpenJournalPageProvider>
+          <Template key="journal-template">
+            {allEntries &&
+              allEntries.map((entry) => (
+                <LayoutGroup key={`collection-${entry.year}`}>
+                  <motion.div
+                    className="flex flex-col items-center justify-center gap-16px"
+                    key={`collection-${entry.year}`}
+                  >
+                    <SectionDivider header={entry.year} />
+                    {entry.entries.map((page) => (
+                      <JournalPage
+                        data={page}
+                        content={content}
+                        key={`page-${page.slug}`}
+                      />
+                    ))}
+                  </motion.div>
+                </LayoutGroup>
+              ))}
 
-          {showOverlay && <Overlay setShow={setShowOverlay} />}
-        </Template>
+            {showOverlay && <Overlay setShow={setShowOverlay} />}
+          </Template>
+        </OpenJournalPageProvider>
       </main>
     </>
   );
