@@ -34,7 +34,6 @@ const JournalPage = () => {
   return (
     <motion.div
       layout="position"
-      // initial={false}
       initial={{ height: 0, translateY: 20, opacity: 0 }}
       animate={{ height: "fit-content", translateY: 0, opacity: 1 }}
       transition={{

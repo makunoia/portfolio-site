@@ -48,15 +48,12 @@ const JournalPage = ({
   }, [currPath]);
 
   const router = useRouter();
-  const onCloseHandler = () => {
+
+  const onCloseHandler = async () => {
     page.current?.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-
-    router.replace("/journal");
-    setIsOpen(false);
-    overlayControl(false);
   };
 
   return (
@@ -67,7 +64,7 @@ const JournalPage = ({
       animate={isOpen ? { opacity: 1 } : { opacity: 1 }}
       className={` ${
         isOpen
-          ? "fixed top-40px z-50 bg border rounded-12px shadow overflow-scroll sm:mx-16px md:0px"
+          ? "fixed top-0px sm:top-40px z-50 bg border rounded-none sm:rounded-12px shadow overflow-y-scroll overflow-x-hidden mx-40px sm:mx-0px"
           : "relative"
       } group max-w-[650px] w-full max-h-[80%] text flex flex-col gap-16px transition-colors ease-in-out pointer-events-auto`}
     >
@@ -116,7 +113,9 @@ const JournalPage = ({
           <motion.div className="flex flex-row items-center h-fit gap-8px">
             <motion.div
               layout
-              className="flex h-fit items-center rounded-10px px-10px py-8px transition-colors duration-500 ease-in-out bg-subtle/40"
+              className={`${
+                isOpen ? "hidden md:flex" : "flex"
+              } h-fit items-center rounded-10px px-10px py-8px transition-colors duration-500 ease-in-out bg-subtle/40`}
             >
               <Text size="caption" className="text-subtle text-nowrap">
                 {data.tag}
@@ -131,7 +130,13 @@ const JournalPage = ({
         <>
           <motion.hr layout exit={{ opacity: 0 }} />
           <motion.div layout id={`content-${data.slug}`}>
-            <Suspense fallback={<div>Temporary Fallback</div>}>
+            <Suspense
+              fallback={
+                <div className="h-[80px] w-full flex flex-col items-center">
+                  Loading
+                </div>
+              }
+            >
               {content}
             </Suspense>
           </motion.div>
@@ -168,7 +173,7 @@ const ScrollHeader = ({
       initial={{ opacity: 0, top: "0px" }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={`journal-page-header sticky z-10 -mb-[64px] flex px-24px py-12px bg-subtle/30 backdrop-blur-md`}
+      className={`journal-page-header sticky z-10 -mb-[64px] flex px-24px py-12px bg shadow-md`}
     >
       <motion.div layout className="w-full">
         <motion.div
