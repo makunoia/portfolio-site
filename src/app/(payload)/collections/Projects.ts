@@ -1,4 +1,4 @@
-import { CollectionConfig } from "payload/types";
+import { CollectionConfig } from "payload";
 import ContentBlock from "../blocks/ContentBlock";
 import Showcase from "../blocks/Showcase";
 
@@ -20,22 +20,13 @@ const Projects: CollectionConfig = {
       required: true,
     },
     {
-      label: "Short Description",
-      name: "shortDesc",
+      label: "Description",
+      name: "desc",
       type: "text",
       required: true,
       admin: {
         description:
           "This description appears on the front page if this project is featured",
-      },
-    },
-    {
-      label: "Long Description",
-      name: "longDesc",
-      type: "textarea",
-      required: true,
-      admin: {
-        description: "This description appears on the project page header",
       },
     },
     {
@@ -102,6 +93,26 @@ const Projects: CollectionConfig = {
       },
     },
     {
+      label: "Lock this Project",
+      name: "isLocked",
+      type: "checkbox",
+      admin: {
+        position: "sidebar",
+        description:
+          "Users won't be able to access this project unless they provide a password",
+      },
+    },
+    {
+      label: "Password",
+      name: "password",
+      type: "text",
+      admin: {
+        position: "sidebar",
+        description: "Provide a strong password",
+        condition: (data) => (data.isLocked ? true : false),
+      },
+    },
+    {
       label: "Sections",
       name: "sections",
       type: "array",
@@ -118,9 +129,6 @@ const Projects: CollectionConfig = {
           blocks: [ContentBlock, Showcase],
         },
       ],
-      // admin: {
-      //   components: { RowLabel: ({ data }) => data.name },
-      // },
     },
   ],
 };

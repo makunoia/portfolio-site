@@ -10,7 +10,12 @@ type SectionDividerProps = {
 
 const SectionDivider = ({ header, id }: SectionDividerProps) => {
   return (
-    <motion.div layout id={id} className="flex flex-row gap-16px items-center">
+    <motion.div
+      layout
+      id={id}
+      className="flex flex-row gap-16px items-center w-full"
+      transition={{ type: "spring", damping: 50, stiffness: 400 }}
+    >
       <Text
         size="overline"
         className="text-nowrap text-subtle uppercase tracking-widest"

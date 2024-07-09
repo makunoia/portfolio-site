@@ -1,4 +1,5 @@
-import { Block } from "payload/types";
+import { Block } from "payload";
+import Showcase from "./Showcase";
 
 const ContentBlock: Block = {
   slug: "content-block",

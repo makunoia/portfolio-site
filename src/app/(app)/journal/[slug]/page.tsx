@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 
 const Page = () => {
-  return <div>Test</div>;
+  return null;
 };
 
 export default Page;
