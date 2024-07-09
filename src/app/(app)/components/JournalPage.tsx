@@ -1,11 +1,4 @@
-import React, {
-  ReactNode,
-  Suspense,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { ReactNode, Suspense, useEffect, useRef, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -19,7 +12,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import journalEntries from "../sample-payload/journal-entries";
 import { XIcon } from "lucide-react";
-import { OpenJournalPageCTX } from "../contexts/OpenJournalPage";
 
 // TO DO
 // FIX MOUNT ANIMATION ON LINK VISIT
@@ -65,8 +57,6 @@ const JournalPage = ({
   const ClosePageOrchestration = async () => {
     console.log("Closing page...");
     setIsContentOpen(false);
-    // await delay(400);
-    // setIsPageOpen(false);
   };
 
   const ClosePageOrchestrationWithHeader = async () => {
@@ -77,8 +67,6 @@ const JournalPage = ({
     });
 
     setIsContentOpen(false);
-    // await delay(200);
-    // setIsPageOpen(false);
   };
 
   const OpenPageOrchestration = async () => {
@@ -107,9 +95,6 @@ const JournalPage = ({
           onCloseHandler={ClosePageOrchestrationWithHeader}
         />
       )}
-
-      {/* HOVER ELEMENT */}
-      {/* <div className="absolute h-full w-full bg pointer-events-none -z-10 rounded-4px -top-16px -left-16px -right-16px -bottom-16px -"></div> */}
 
       <Link
         href={isPageOpen ? "/journal" : `journal/${data.slug}`}
