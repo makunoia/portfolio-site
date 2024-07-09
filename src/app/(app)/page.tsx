@@ -2,8 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Text from "@/components/Text";
 import StatusBadge from "@/components/StatusBadge";
-import LatestProjectItem from "@/components/LatestProjectItem";
-import FeaturedProject from "@/components/FeaturedProject";
+import FeaturedProjects from "@/components/FeaturedProjects";
 import HomeListItem from "@/components/HomeListItem";
 import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
@@ -52,30 +51,17 @@ const Page = () => {
         <div className="flex flex-col gap-[6.25rem]">
           <section
             id="latestProjects"
-            className="w-full flex flex-col md:flex-row gap-30px  justify-between"
+            className="w-full flex flex-col gap-16px justify-between"
           >
-            <div className="titleColumn w-full md:max-w-[250px] flex flex-col gap-4px flex-1">
-              <Text as="h2" size="lead">
-                Latest Projects
-              </Text>
-              <ul className="flex flex-col">
-                <LatestProjectItem
-                  title="Multiverse UI"
-                  type="Design System"
-                  active
-                />
-                <LatestProjectItem title="Multistore" type="Product Design" />
-                <LatestProjectItem title="Appendpay" type="Product Design" />
-              </ul>
-            </div>
+            <Text as="h2" size="lead">
+              Latest Projects
+            </Text>
 
-            <div className="contentColumn w-full md:max-w-[400px] flex flex-col flex-grow flex-1 gap-4">
-              <FeaturedProject
-                title="Multistore"
-                shortDesc="An ecommerce do-it-your-self platform in the Philippines"
-                category="E-Commerce"
-              />
-            </div>
+            <FeaturedProjects
+              title="Multistore"
+              shortDesc="An ecommerce do-it-your-self platform in the Philippines"
+              category="E-Commerce"
+            />
           </section>
 
           <section
