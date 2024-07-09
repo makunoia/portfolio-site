@@ -96,19 +96,17 @@ const JournalPage = ({
       animate={isPageOpen ? { opacity: 1 } : { opacity: 1 }}
       className={` ${
         isPageOpen
-          ? "fixed top-0px sm:top-40px z-50 bg border rounded-none sm:rounded-12px shadow overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[10%]"
-          : "relative"
-      } group sm:min-w-[500px] w-full sm:w-fit max-h-[80%] text flex flex-col transition-colors duration-600 ease-in-out pointer-events-auto`}
+          ? "fixed top-0px sm:top-40px z-50 bg border shadow overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[15%] md:mx-[20%]"
+          : "relative h-fit"
+      } group sm:min-w-[500px] w-full sm:w-fit max-h-[80%] rounded-none sm:rounded-12px text flex flex-col transition-colors duration-600 ease-in-out pointer-events-auto`}
     >
-      <AnimatePresence>
-        {isPageOpen && showScrollHeader && (
-          <ScrollHeader
-            slug={data.slug}
-            title={data.title}
-            onCloseHandler={ClosePageOrchestrationWithHeader}
-          />
-        )}
-      </AnimatePresence>
+      {isPageOpen && showScrollHeader && (
+        <ScrollHeader
+          slug={data.slug}
+          title={data.title}
+          onCloseHandler={ClosePageOrchestrationWithHeader}
+        />
+      )}
 
       {/* HOVER ELEMENT */}
       {/* <div className="absolute h-full w-full bg pointer-events-none -z-10 rounded-4px -top-16px -left-16px -right-16px -bottom-16px -"></div> */}
@@ -156,39 +154,23 @@ const JournalPage = ({
                 {data.tag}
               </Text>
             </motion.div>
-            {/* <AnimatePresence> */}
             {(isPageOpen || isContentOpen) && (
               <CloseButton onClick={ClosePageOrchestration} />
             )}
-            {/* </AnimatePresence> */}
           </motion.div>
         </motion.div>
       </Link>
 
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={() => setIsPageOpen(false)}>
         {isContentOpen && (
-          <ContentContainer
-            key={`content-${data.slug}`}
-            slug={data.slug}
-            content={content}
-            setIsPageOpen={setIsPageOpen}
-          />
+          <ContentContainer key={`content-${data.slug}`} content={content} />
         )}
       </AnimatePresence>
     </motion.div>
   );
 };
 
-const ContentContainer = ({
-  slug,
-  content,
-  setIsPageOpen,
-}: // setIsContentOpen,
-{
-  slug: string;
-  content: ReactNode;
-  setIsPageOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const ContentContainer = ({ content }: { content: ReactNode }) => {
   const [isPresent, safeToRemove] = usePresence();
   const [scope, animate] = useAnimate();
 
@@ -199,15 +181,11 @@ const ContentContainer = ({
 
     if (!isPresent) {
       console.log("Content Dismounted");
+
       const exitAnimation = async () => {
-        await animate(
-          scope.current,
-          { height: 0, opacity: 0 }
-          // { type: "spring", damping: 100, stiffness: 400, duration: 0.2 }
-        );
+        await animate(scope.current, { height: 0, opacity: 0 });
 
         safeToRemove();
-        setIsPageOpen(false);
       };
 
       exitAnimation();
@@ -272,7 +250,7 @@ const ScrollHeader = ({
       initial={{ opacity: 0, top: "0px" }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={`journal-page-header w-full sticky z-10 -mb-[48px] flex px-24px py-12px bg shadow-md`}
+      className={`journal-page-header w-full sticky z-10 -mb-[48px] flex px-24px py-12px bg shadow-2xl`}
     >
       <motion.div layout className="w-full">
         <motion.div
