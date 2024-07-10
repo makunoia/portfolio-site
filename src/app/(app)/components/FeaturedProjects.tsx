@@ -57,12 +57,23 @@ const FeaturedProjects = () => {
     "h-full w-full sm:w-[60%]",
   ]);
 
-  const imageStyle = cva([
-    "w-full h-[220px]",
-    "sm:w-[400px] sm:h-[250px]",
-    "absolute left-0px sm:left-24px -bottom-8px",
-    "overflow-visible ",
-  ]);
+  const imageStyle = cva(
+    [
+      "w-full h-[220px]",
+      "sm:w-[400px] sm:h-[250px]",
+      "absolute left-0px sm:left-24px -bottom-8px",
+      "overflow-visible",
+      "transition-all ease-in-out duration-300 delay-100",
+    ],
+    {
+      variants: {
+        shown: {
+          true: "opacity-1 translate-y-0px",
+          false: "opacity-0 translate-y-40px",
+        },
+      },
+    }
+  );
 
   const infoStyle = cva([
     "relative",
@@ -107,38 +118,24 @@ const FeaturedProjects = () => {
 
       <Link href={`/projects/${link}`} prefetch className={style()}>
         <div className={imageContainer()}>
-          <AnimatePresence mode="sync">
-            {featuredProjects.map(
-              (project, i) =>
-                activeIndex === i && (
-                  <motion.div
-                    key={project.slug}
-                    initial={{ opacity: 0, translateY: 40 }}
-                    animate={{
-                      opacity: 1,
-                      translateY: 0,
-                      transition: { ease: "easeInOut", duration: 0.6 },
-                    }}
-                    exit={{
-                      opacity: 0,
-                      translateY: -40,
-                      transition: { ease: "easeInOut" },
-                    }}
-                    className={imageStyle()}
-                  >
-                    <Image
-                      className="select-none"
-                      src={project.image}
-                      alt="Prototype preview"
-                      style={{ objectFit: "contain" }}
-                      sizes="400px"
-                      priority
-                      fill
-                    />
-                  </motion.div>
-                )
-            )}
-          </AnimatePresence>
+          {featuredProjects.map((project, i) => (
+            <div
+              key={project.slug}
+              className={imageStyle({
+                shown: activeIndex === i ? true : false,
+              })}
+            >
+              <Image
+                className="select-none"
+                src={project.image}
+                alt="Prototype preview"
+                style={{ objectFit: "contain" }}
+                sizes="400px"
+                priority
+                fill
+              />
+            </div>
+          ))}
 
           <AnimatePresence>
             {featuredProjects.map(
@@ -155,40 +152,27 @@ const FeaturedProjects = () => {
 
         <div className={infoStyle()}>
           <ArrowButton />
-          <AnimatePresence mode="wait">
-            {featuredProjects.map(
-              (project, i) =>
-                activeIndex === i && (
-                  <motion.div
-                    layoutId={`project-info-${project.slug}`}
-                    key={project.slug}
-                    initial={{ opacity: 0, translateY: 40 }}
-                    animate={{ opacity: 1, translateY: 0 }}
-                    exit={{
-                      opacity: 0,
-                      translateY: -40,
-                      transition: { ease: "easeInOut" },
-                    }}
-                    transition={{
-                      ease: "easeOut",
-                    }}
-                    className="flex flex-col gap-4px w-full"
-                  >
-                    <Text as="h3" size="body-large" weight="medium">
-                      {project.title}
-                    </Text>
-                    <Text
-                      className="text-subtle"
-                      as="p"
-                      size="caption"
-                      multiline
-                    >
-                      {project.desc}
-                    </Text>
-                  </motion.div>
-                )
-            )}
-          </AnimatePresence>
+
+          <div className="relative bg-danger">
+            {featuredProjects.map((project, i) => (
+              <div
+                key={project.slug}
+                className={`flex flex-col gap-4px w-full absolute bottom-0px transition-all ease-in-out duration-300  ${
+                  activeIndex === i
+                    ? "opacity-100 translate-y-0px"
+                    : "opacity-0 translate-y-40px"
+                }`}
+              >
+                <Text as="h3" size="body-large" weight="medium">
+                  {project.title}
+                </Text>
+                <Text className="text-subtle" as="p" size="caption" multiline>
+                  {project.desc}
+                </Text>
+              </div>
+            ))}
+          </div>
+
           <TextOverlayBG />
         </div>
         <ProgressBar />
