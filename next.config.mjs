@@ -14,6 +14,12 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "assets.marknoya.me",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
