@@ -1,11 +1,13 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Text from "./Text";
+import Link from "next/link";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { motion, useAnimate } from "framer-motion";
+import useInterval from "../hooks/useInterval";
+import { TimerContext } from "../contexts/TimerContext";
 
 type FeaturedProjectType = {
   title: string;
@@ -43,6 +45,11 @@ const featuredProjects: FeaturedProjectType[] = [
 const FeaturedProjects = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [link, setLink] = useState<string>("");
+  const duration = 5000;
+
+  const timerContext = useContext(TimerContext);
+  const { resetTimer, setResetTimer } = timerContext;
+
   const style = cva([
     "w-full h-[240px] sm:h-[290px]",
     "relative group cursor-pointer",
@@ -63,12 +70,12 @@ const FeaturedProjects = () => {
       "sm:w-[400px] sm:h-[250px]",
       "absolute left-0px sm:left-24px -bottom-8px",
       "overflow-visible",
-      "transition-all ease-in-out duration-300 delay-100",
+      "transition-all ease-in-out duration-300",
     ],
     {
       variants: {
         shown: {
-          true: "opacity-1 translate-y-0px",
+          true: "opacity-1 translate-y-0px delay-200",
           false: "opacity-0 translate-y-40px",
         },
       },
@@ -82,6 +89,17 @@ const FeaturedProjects = () => {
     "w-full sm:w-[50%]",
   ]);
 
+  useInterval(
+    () => {
+      setActiveIndex((prevIndex) =>
+        prevIndex === featuredProjects.length - 1 ? 0 : prevIndex + 1
+      );
+    },
+    duration,
+    resetTimer,
+    setResetTimer
+  );
+
   useEffect(() => {
     setLink(featuredProjects[activeIndex].slug);
   }, [activeIndex]);
@@ -90,12 +108,16 @@ const FeaturedProjects = () => {
     if (activeIndex === 0) {
       setActiveIndex(featuredProjects.length - 1);
     } else setActiveIndex((curr) => --curr);
+
+    setResetTimer(true);
   };
 
   const NextItem = () => {
     if (activeIndex === featuredProjects.length - 1) {
       setActiveIndex(0);
     } else setActiveIndex((curr) => ++curr);
+
+    setResetTimer(true);
   };
 
   return (
@@ -116,7 +138,12 @@ const FeaturedProjects = () => {
         </div>
       </div>
 
-      <Link href={`/projects/${link}`} prefetch className={style()}>
+      <Link
+        prefetch
+        className={style()}
+        href={`/projects/${link}`}
+        id="featured-projects-container"
+      >
         <div className={imageContainer()}>
           {featuredProjects.map((project, i) => (
             <div
@@ -137,17 +164,13 @@ const FeaturedProjects = () => {
             </div>
           ))}
 
-          <AnimatePresence>
-            {featuredProjects.map(
-              (project, i) =>
-                activeIndex === i && (
-                  <BackgroundLight
-                    key={project.slug}
-                    gradient={project.gradient}
-                  />
-                )
-            )}
-          </AnimatePresence>
+          {featuredProjects.map((project, i) => (
+            <BackgroundLight
+              key={project.slug}
+              gradient={project.gradient}
+              shown={activeIndex === i}
+            />
+          ))}
         </div>
 
         <div className={infoStyle()}>
@@ -175,20 +198,51 @@ const FeaturedProjects = () => {
 
           <TextOverlayBG />
         </div>
-        <ProgressBar />
+        <ProgressBar duration={duration} currIndex={activeIndex} />
       </Link>
     </>
   );
 };
 
-const ProgressBar = () => {
+const ProgressBar = ({
+  duration,
+  currIndex,
+}: {
+  duration: number;
+  currIndex: number;
+}) => {
   const styles = cva([
-    "w-[20%] h-2px",
+    "w-0px h-2px",
     "absolute bottom-0px left-0px z-10",
     "bg-inverse",
   ]);
 
-  return <div className={styles()} />;
+  const [scope, animate] = useAnimate();
+  const startAnimation = async () => {
+    await animate(
+      scope.current,
+      { width: "100%" },
+      {
+        duration: duration / 1000,
+      }
+    );
+  };
+
+  useEffect(() => {
+    console.log("Index changed");
+    const animation = async () => {
+      if (scope.animations.length > 0) {
+        await animate(scope.current, { width: "0px" });
+        startAnimation();
+      } else {
+        startAnimation();
+      }
+    };
+
+    animation();
+  }, [currIndex]);
+
+  return <motion.div ref={scope} className={styles()} />;
 };
 
 const ArrowButton = () => {
@@ -209,10 +263,10 @@ const ArrowButton = () => {
 
 const TextOverlayBG = () => {
   const styles = cva([
-    "w-[120%] h-[60%] -rotate-12 rounded-40px",
-    "absolute -bottom-[50px] -right-[60px] -z-10",
+    "w-[140%] h-[30%] sm:w-[120%] sm:h-[60%] sm:-rotate-12 rounded-40px",
+    "absolute bottom-0px right-[0px] sm:-bottom-[50px] sm:-right-[60px] -z-10",
     "bg-gradient-to-r from-neutral-100 to-neutral-100/80",
-    "blur-[50px]",
+    "blur-[40px] sm:blur-[50px]",
   ]);
 
   return <div className={styles()}></div>;
@@ -220,28 +274,34 @@ const TextOverlayBG = () => {
 
 const BackgroundLight = ({
   gradient,
+  shown,
 }: {
   gradient: { start: string; end: string };
+  shown: boolean;
 }) => {
-  const styles = cva([
-    "w-[400px] h-[400px] rounded-full",
-    "absolute -left-[20%] -top-[20%] -z-10",
-    "transition-colors ease-in-out duration-1000",
-    "opacity-40 blur-[90px]",
-  ]);
+  const styles = cva(
+    [
+      "w-[400px] h-[400px] rounded-full",
+      "absolute -left-[20%] -top-[20%] -z-10",
+      "transition-colors ease-in-out duration-1000",
+      "transition-opacity ease-in-out duration-300",
+      "blur-[90px]",
+    ],
+    {
+      variants: {
+        shown: {
+          true: "opacity-40",
+          false: "opacity-0",
+        },
+      },
+    }
+  );
 
   const gradientStyle = {
     background: `linear-gradient(125deg, ${gradient.start} 50%, ${gradient.end} 0%)`,
   };
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { ease: "easeInOut", duration: 0.4 } }}
-      className={styles()}
-      style={gradientStyle}
-    ></motion.div>
-  );
+  return <div className={styles({ shown })} style={gradientStyle} />;
 };
 
 export default FeaturedProjects;

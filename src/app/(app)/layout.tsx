@@ -5,6 +5,8 @@ import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "./styles/globals.css";
+import { useContext } from "react";
+import { TimerContextProvider } from "./contexts/TimerContext";
 
 export const metadata: Metadata = {
   title: "Mark Noya",
@@ -26,7 +28,7 @@ export default function RootLayout({
         <div className="absolute overflow-hidden inset-0px -z-10">
           <div className="light-streak"></div>
         </div>
-        {children}
+        <TimerContextProvider>{children}</TimerContextProvider>
         <Navbar />
         <Footer status="available" label="In bed" />
       </body>
