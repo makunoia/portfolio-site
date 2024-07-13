@@ -1,9 +1,10 @@
 import React from "react";
 import Text from "./Text";
-import SectionDivider from "./SectionDivider";
 import Link from "next/link";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import SectionDivider from "./SectionDivider";
+
 import config from "@payload-config";
+import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { ProjectTag } from "payload-types";
 
 const payload = await getPayloadHMR({ config });

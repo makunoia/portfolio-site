@@ -29,7 +29,6 @@ const getProject = async (slug: string) => {
   });
 
   const project = req.docs[0];
-  console.log(req);
 
   return project;
 };
