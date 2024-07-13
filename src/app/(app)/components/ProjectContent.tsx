@@ -2,9 +2,9 @@ import React, { ReactNode } from "react";
 import SectionDivider from "./SectionDivider";
 import Text from "./Text";
 import Showcase from "./Showcase";
-import { ProjectType } from "../sample-payload/project";
+import { Project } from "payload-types";
 
-const ProjectContent = ({ content }: { content: ProjectType }) => {
+const ProjectContent = ({ sections }: { sections: Project["sections"] }) => {
   const isShowcaseType = (showcase: any): showcase is { showcase: object } => {
     return showcase.showcase;
   };
@@ -14,43 +14,55 @@ const ProjectContent = ({ content }: { content: ProjectType }) => {
       id="page-content"
       className="md:col-start-2 md:col-end-3 flex flex-col gap-60px"
     >
-      {content.sections.map((section) => (
-        <ContentSection key={section.id} header={section.title} id={section.id}>
-          {section.blocks.map((block) => (
-            <div
-              key={block.id}
-              id={block.id}
-              className="flex flex-col gap-40px scroll-mt-40px"
+      {sections
+        ? sections.map((section) => (
+            <ContentSection
+              key={section.id}
+              header={section.title}
+              htmlID={section.htmlID}
             >
-              <ContentBlock subtitle={block.lead}>{block.content}</ContentBlock>
-              {isShowcaseType(block) && (
-                <Showcase
-                  src={block.showcase.src}
-                  lead={block.showcase.lead}
-                  tag={block.showcase.tag as string}
-                  content={block.showcase.desc}
-                />
-              )}
-            </div>
-          ))}
-        </ContentSection>
-      ))}
+              {section.blocks
+                ? section.blocks.map((block) => (
+                    <div
+                      key={block.id}
+                      id={block.htmlID}
+                      className="flex flex-col gap-40px scroll-mt-40px"
+                    >
+                      <ContentBlock lead={block.lead}>
+                        {block.copy}
+                      </ContentBlock>
+                      {block.showcase?.length ? (
+                        isShowcaseType(block) ? (
+                          <Showcase
+                            image={block.showcase[0].image}
+                            title={block.showcase[0].title}
+                            desc={block.showcase[0].desc}
+                            tag={block.showcase[0].tag as string}
+                          />
+                        ) : null
+                      ) : null}
+                    </div>
+                  ))
+                : "No blocks found"}
+            </ContentSection>
+          ))
+        : "No sections found."}
     </article>
   );
 };
 
 const ContentSection = ({
   header,
-  id,
+  htmlID,
   children,
 }: {
   header: string;
-  id: string;
+  htmlID: string;
   children: ReactNode;
 }) => {
   return (
     <section
-      id={id}
+      id={htmlID}
       className="content-block flex flex-col gap-40px scroll-mt-24px"
     >
       <SectionDivider header={header} />
@@ -60,16 +72,16 @@ const ContentSection = ({
 };
 
 const ContentBlock = ({
-  subtitle,
+  lead,
   children,
 }: {
-  subtitle: string;
+  lead: string;
   children: string;
 }) => {
   return (
     <div className="flex flex-col gap-8px md:justify-between md:flex-row">
       <Text as="h3" size="lead" weight="medium" className="min-w-[200px]">
-        {subtitle}
+        {lead}
       </Text>
       <Text as="p" size="body" className="text-subtle" multiline>
         {children}

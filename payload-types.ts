@@ -11,7 +11,7 @@ export interface Config {
     users: User;
     projects: Project;
     'project-tags': ProjectTag;
-    'roles-on-projects': RolesOnProject;
+    'my-roles': MyRole;
     page: Page;
     'journal-entries': JournalEntry;
     'journal-entry-tags': JournalEntryTag;
@@ -49,28 +49,54 @@ export interface User {
 export interface Project {
   id: string;
   title: string;
+  year: string;
   desc: string;
-  year?: string | null;
+  slug: string;
+  status: 'ONGOING' | 'DONE';
+  yearDone?: string | null;
+  role: {
+    relationTo: 'my-roles';
+    value: string | MyRole;
+  };
   tag: {
     relationTo: 'project-tags';
     value: string | ProjectTag;
   };
-  roleOnProject: {
-    relationTo: 'roles-on-projects';
-    value: string | RolesOnProject;
-  };
-  projectStatus: 'ongoingProject' | 'delivered';
-  yearDelivered?: string | null;
-  isArchived?: boolean | null;
-  isLocked?: boolean | null;
-  password?: string | null;
   sections?:
     | {
-        name?: string | null;
-        content?: (ContentBlock | Showcase)[] | null;
+        title: string;
+        htmlID: string;
+        blocks?:
+          | {
+              lead: string;
+              copy: string;
+              htmlID: string;
+              showcase?: Showcase[] | null;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
+  isLocked?: boolean | null;
+  password?: string | null;
+  isFeatured?: boolean | null;
+  featuredData?: {
+    image: string | Asset;
+    'gradient-start': string;
+    'gradient-end': string;
+  };
+  isArchived?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "my-roles".
+ */
+export interface MyRole {
+  id: string;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -80,39 +106,19 @@ export interface Project {
  */
 export interface ProjectTag {
   id: string;
-  name?: string | null;
+  name: string;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "roles-on-projects".
- */
-export interface RolesOnProject {
-  id: string;
-  name?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
- */
-export interface ContentBlock {
-  lead: string;
-  content: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'content-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Showcase".
  */
 export interface Showcase {
-  image?: string | Asset | null;
+  image: string | Asset;
   title: string;
-  description: string;
+  desc: string;
+  tag?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'showcase';
@@ -182,7 +188,6 @@ export interface JournalEntry {
   gist?: string | null;
   date?: string | null;
   tag?: (string | null) | JournalEntryTag;
-  content?: (ContentBlock | Showcase)[] | null;
   updatedAt: string;
   createdAt: string;
 }

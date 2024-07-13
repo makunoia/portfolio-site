@@ -20,17 +20,18 @@ export default [
           {
             id: "intro-sub1",
             lead: "The client",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
           {
             id: "intro-sub2",
             lead: "Brainstorming",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
             showcase: {
-              src: "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?q=80&w=2401&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              lead: "Prototyping",
+              image: {
+                src: "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?q=80&w=2401&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                alt: "Some alt text",
+              },
+              title: "Prototyping",
               desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem quaerat perspiciatis, necessitatibus modi magni deserunt delectus. Quo tenetur cupiditate culpa.",
               tag: "version 1.0",
             },
@@ -38,14 +39,12 @@ export default [
           {
             id: "intro-sub3",
             lead: "Wireframes",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
           {
             id: "intro-sub4",
             lead: "The Team",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
         ],
       },
@@ -56,14 +55,12 @@ export default [
           {
             id: "research-sub1",
             lead: "Survey",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
           {
             id: "research-sub2",
             lead: "Competitive",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
         ],
       },
@@ -74,14 +71,12 @@ export default [
           {
             id: "proto-sub1",
             lead: "Wireframes",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
           {
             id: "proto-sub2",
             lead: "High Fidelity",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
         ],
       },
@@ -103,17 +98,18 @@ export default [
           {
             id: "intro-sub1",
             lead: "The client",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
           {
             id: "intro-sub2",
             lead: "Brainstorming",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
             showcase: {
-              src: "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?q=80&w=2401&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              lead: "Prototyping",
+              image: {
+                src: "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?q=80&w=2401&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                alt: "Some alt text",
+              },
+              title: "Prototyping",
               desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem quaerat perspiciatis, necessitatibus modi magni deserunt delectus. Quo tenetur cupiditate culpa.",
               tag: "version 1.0",
             },
@@ -121,14 +117,12 @@ export default [
           {
             id: "intro-sub3",
             lead: "Wireframes",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
           {
             id: "intro-sub4",
             lead: "The Team",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
         ],
       },
@@ -139,14 +133,12 @@ export default [
           {
             id: "research-sub1",
             lead: "Survey",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
           {
             id: "research-sub2",
             lead: "Competitive",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
         ],
       },
@@ -157,14 +149,12 @@ export default [
           {
             id: "proto-sub1",
             lead: "Wireframes",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
           {
             id: "proto-sub2",
             lead: "High Fidelity",
-            content:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
+            copy: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quidem corrupti. Inventore autem iste, mollitia ad ducimus quia consectetur quasi fugiat aut dolore hic iure cumque debitis animi tempore dolor temporibus. Harum exercitationem corrupti tempora esse qui consequatur itaque, nisi minus dignissimos illo eaque ratione corporis veritatis architecto est provident.",
           },
         ],
       },
@@ -186,10 +176,13 @@ export type ProjectType = {
     blocks: {
       id: string;
       lead: string;
-      content: string;
+      copy: string;
       showcase?: {
-        src: string;
-        lead: string;
+        image: {
+          src: string;
+          alt: string;
+        };
+        title: string;
         desc: string;
         tag?: string;
       };

@@ -1,25 +1,21 @@
 import Image from "next/image";
 import React from "react";
 import Text from "./Text";
-
+import { Asset, Showcase as ShowcaseType } from "payload-types";
 const Showcase = ({
-  src,
-  lead,
-  content,
+  image,
+  title,
+  desc,
   tag,
-}: {
-  src: string;
-  lead: string;
-  content: string;
-  tag: string;
-}) => {
+}: Omit<ShowcaseType, "blockType" | "blockName">) => {
+  const showcaseImage: Asset = image as Asset;
   return (
     <div className="bg-subtle/60 flex flex-col gap-8px rounded-12px p-18px mb-20px">
       <div className="flex flex-col gap-10px">
         <div className="relative overflow-hidden w-full h-[200px] md:h-[300px] bg rounded-10px">
           <Image
-            src={src}
-            alt={lead}
+            src={showcaseImage.url as string}
+            alt={showcaseImage.alt as string}
             fill
             style={{
               objectFit: "cover",
@@ -33,7 +29,7 @@ const Showcase = ({
             size="caption"
             className="opacity-80"
           >
-            {lead}
+            {title}
           </Text>
 
           <div className="inline-flex py-4px px-8px bg rounded-4px">
@@ -43,13 +39,13 @@ const Showcase = ({
               size="caption"
               className="text opacity-70 uppercase tracking-wide"
             >
-              {tag}
+              {tag as string}
             </Text>
           </div>
         </div>
       </div>
       <Text size="body" className="text-subtle" multiline>
-        {content}
+        {desc}
       </Text>
     </div>
   );

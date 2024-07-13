@@ -1,10 +1,10 @@
 import type { CollectionConfig } from "payload";
 
-const RolesOnProjects: CollectionConfig = {
-  slug: "roles-on-projects",
+const MyRoles: CollectionConfig = {
+  slug: "my-roles",
   labels: {
-    singular: "Role on Project",
-    plural: "Roles on Projects",
+    singular: "My Role",
+    plural: "My Roles",
   },
   admin: {
     useAsTitle: "name",
@@ -16,8 +16,9 @@ const RolesOnProjects: CollectionConfig = {
       label: "Name",
       name: "name",
       type: "text",
+      required: true,
     },
   ],
 };
 
-export default RolesOnProjects;
+export default MyRoles;

@@ -1,6 +1,4 @@
 import type { CollectionConfig } from "payload";
-import ContentBlock from "../blocks/ContentBlock";
-import Showcase from "../blocks/Showcase";
 
 const JournalEntries: CollectionConfig = {
   slug: "journal-entries",
@@ -43,12 +41,12 @@ const JournalEntries: CollectionConfig = {
         position: "sidebar",
       },
     },
-    {
-      label: "Content",
-      name: "content",
-      type: "blocks",
-      blocks: [ContentBlock, Showcase],
-    },
+    // {
+    //   label: "Content",
+    //   name: "content",
+    //   type: "blocks",
+    //   blocks: [ContentBlock, Showcase],
+    // },
   ],
 };
 

@@ -8,7 +8,7 @@ const ProjectTags: CollectionConfig = {
   },
   admin: {
     useAsTitle: "name",
-    group: "Settings",
+    group: "All Tags",
     defaultColumns: ["name", "id"],
   },
   fields: [
@@ -16,6 +16,7 @@ const ProjectTags: CollectionConfig = {
       label: "Name",
       name: "name",
       type: "text",
+      required: true,
     },
   ],
 };

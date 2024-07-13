@@ -1,6 +1,7 @@
 import { CollectionConfig } from "payload";
-import ContentBlock from "../blocks/ContentBlock";
 import Showcase from "../blocks/Showcase";
+import { RowLabel } from "@payloadcms/ui";
+import { BlockRowLabel, SectionRowLabel } from "../components/RowLabel";
 
 const Projects: CollectionConfig = {
   slug: "projects",
@@ -14,119 +15,296 @@ const Projects: CollectionConfig = {
   },
   fields: [
     {
-      label: "Project Title",
-      name: "title",
-      type: "text",
-      required: true,
-    },
-    {
-      label: "Description",
-      name: "desc",
-      type: "text",
-      required: true,
-      admin: {
-        description:
-          "This description appears on the front page if this project is featured",
-      },
-    },
-    {
-      label: "Year",
-      name: "year",
-      type: "text",
-      admin: {
-        position: "sidebar",
-      },
-    },
-    {
-      label: "Project Tag",
-      name: "tag",
-      type: "relationship",
-      relationTo: ["project-tags"],
-      required: true,
-      admin: {
-        position: "sidebar",
-      },
-    },
-    {
-      label: "My Role",
-      name: "roleOnProject",
-      type: "relationship",
-      relationTo: ["roles-on-projects"],
-      required: true,
-      admin: {
-        position: "sidebar",
-      },
-    },
-    {
-      label: "Project Status",
-      name: "projectStatus",
-      type: "select",
-      options: [
-        { label: "Ongoing Project", value: "ongoingProject" },
-        { label: "Delivered", value: "delivered" },
-      ],
-      required: true,
-      admin: {
-        position: "sidebar",
-      },
-    },
-    {
-      label: "Year delivered",
-      name: "yearDelivered",
-      type: "text",
-      admin: {
-        position: "sidebar",
-        condition: (data) =>
-          data.projectStatus === "delivered" ? true : false,
-      },
-    },
-    {
-      label: "Archive",
-      name: "isArchived",
-      type: "checkbox",
-      admin: {
-        position: "sidebar",
-        description:
-          "Archived projects are displayed as a list on the homepage",
-        condition: (data) =>
-          data.projectStatus === "delivered" ? true : false,
-      },
-    },
-    {
-      label: "Lock this Project",
-      name: "isLocked",
-      type: "checkbox",
-      admin: {
-        position: "sidebar",
-        description:
-          "Users won't be able to access this project unless they provide a password",
-      },
-    },
-    {
-      label: "Password",
-      name: "password",
-      type: "text",
-      admin: {
-        position: "sidebar",
-        description: "Provide a strong password",
-        condition: (data) => (data.isLocked ? true : false),
-      },
-    },
-    {
-      label: "Sections",
-      name: "sections",
-      type: "array",
-      fields: [
+      type: "tabs",
+      tabs: [
         {
-          label: "Name",
-          name: "name",
-          type: "text",
+          label: "Data",
+          description: "Specify information about this project",
+          fields: [
+            {
+              type: "row",
+              fields: [
+                {
+                  label: "Project Title",
+                  name: "title",
+                  type: "text",
+                  required: true,
+                  admin: {
+                    width: "80%",
+                  },
+                },
+                {
+                  label: "Year",
+                  name: "year",
+                  type: "text",
+                  required: true,
+                },
+              ],
+            },
+            {
+              label: "Description",
+              name: "desc",
+              type: "text",
+              required: true,
+              admin: {
+                description:
+                  "This description appears on the front page if this project is featured",
+              },
+            },
+            {
+              label: "Slug",
+              name: "slug",
+              type: "text",
+              required: true,
+              admin: {
+                hidden: true,
+                readOnly: true,
+              },
+              hooks: {
+                beforeValidate: [
+                  ({ siblingData, value }) => {
+                    //Create a slug from the first Project Title entered.
+                    if (!value) {
+                      return siblingData.title
+                        .replaceAll(" ", "-")
+                        .toLowerCase();
+                    } else return value;
+                  },
+                ],
+              },
+            },
+            {
+              type: "row",
+              fields: [
+                {
+                  label: "Project Status",
+                  name: "status",
+                  type: "select",
+                  options: [
+                    { label: "Ongoing Project", value: "ONGOING" },
+                    { label: "Done", value: "DONE" },
+                  ],
+                  admin: {
+                    width: "50%",
+                  },
+                  required: true,
+                },
+                {
+                  label: "Year done",
+                  name: "yearDone",
+                  type: "text",
+                  admin: {
+                    width: "50%",
+                    condition: (data) =>
+                      data.status === "DONE" ? true : false,
+                  },
+                },
+              ],
+            },
+            {
+              type: "row",
+              fields: [
+                {
+                  label: "My Role",
+                  name: "role",
+                  type: "relationship",
+                  relationTo: ["my-roles"],
+                  required: true,
+                },
+                {
+                  label: "Project Tag",
+                  name: "tag",
+                  type: "relationship",
+                  relationTo: ["project-tags"],
+                  required: true,
+                },
+              ],
+            },
+          ],
         },
         {
           label: "Content",
-          name: "content",
-          type: "blocks",
-          blocks: [ContentBlock, Showcase],
+          description: "Edit this project's content",
+          fields: [
+            {
+              labels: {
+                singular: "Section",
+                plural: "Sections",
+              },
+              name: "sections",
+              type: "array",
+              fields: [
+                {
+                  label: "Title",
+                  name: "title",
+                  type: "text",
+                  required: true,
+                },
+                {
+                  name: "htmlID",
+                  type: "text",
+                  required: true,
+                  admin: {
+                    hidden: true,
+                    readOnly: true,
+                  },
+                  hooks: {
+                    beforeValidate: [
+                      ({ siblingData, value }) => {
+                        if (!value) {
+                          return `html-${siblingData.title
+                            .replaceAll(" ", "-")
+                            .toLowerCase()}`;
+                        } else return value;
+                      },
+                    ],
+                  },
+                },
+                {
+                  label: "Blocks",
+                  name: "blocks",
+                  type: "array",
+                  fields: [
+                    {
+                      label: "Lead",
+                      name: "lead",
+                      type: "text",
+                      required: true,
+                    },
+                    {
+                      label: "Copy",
+                      name: "copy",
+                      type: "textarea",
+                      required: true,
+                    },
+                    {
+                      name: "htmlID",
+                      type: "text",
+                      required: true,
+                      admin: {
+                        hidden: true,
+                        readOnly: true,
+                      },
+                      hooks: {
+                        beforeValidate: [
+                          ({ siblingData, value }) => {
+                            if (!value) {
+                              return `html-${siblingData.lead
+                                .replaceAll(" ", "-")
+                                .toLowerCase()}`;
+                            } else return value;
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      label: "Showcase",
+                      name: "showcase",
+                      type: "blocks",
+                      blocks: [Showcase],
+                      maxRows: 1,
+                    },
+                  ],
+                  admin: {
+                    components: {
+                      RowLabel: BlockRowLabel,
+                    },
+                  },
+                },
+              ],
+              admin: {
+                components: {
+                  RowLabel: SectionRowLabel,
+                },
+              },
+            },
+          ],
+        },
+        {
+          label: "Settings",
+          description: "Miscellenous options for this project",
+          fields: [
+            {
+              label: "Lock this Project",
+              name: "isLocked",
+              type: "checkbox",
+              admin: {
+                description:
+                  "Users won't be able to access this project unless they provide a password",
+              },
+            },
+            {
+              label: "Password",
+              name: "password",
+              type: "text",
+              admin: {
+                description: "Provide a strong password",
+                condition: (data) => (data.isLocked ? true : false),
+              },
+            },
+            {
+              label: "Add to Featured Projects carousel",
+              name: "isFeatured",
+              type: "checkbox",
+              admin: {
+                description:
+                  "All featured projects are displayed on the homepage",
+              },
+            },
+            {
+              type: "group",
+              name: "featuredData",
+              label: "Featured project settings",
+              admin: {
+                condition: (data) => {
+                  return data.isFeatured ? true : false;
+                },
+              },
+              fields: [
+                {
+                  type: "upload",
+                  label: "Featured Image",
+                  name: "image",
+                  required: true,
+                  relationTo: "assets",
+                },
+                {
+                  type: "row",
+                  fields: [
+                    {
+                      type: "text",
+                      label: "Start Color",
+                      name: "gradient-start",
+                      required: true,
+                      admin: {
+                        description: "Enter a valid HEX code",
+                      },
+                    },
+                    {
+                      type: "text",
+                      label: "End Color",
+                      name: "gradient-end",
+                      required: true,
+                      admin: {
+                        description: "Enter a valid HEX code",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+
+            {
+              label: "Archive",
+              name: "isArchived",
+              type: "checkbox",
+              admin: {
+                description:
+                  "Archived projects are displayed as a list on the homepage",
+                condition: (data) => (data.status === "DONE" ? true : false),
+              },
+            },
+          ],
         },
       ],
     },
