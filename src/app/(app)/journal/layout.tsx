@@ -10,9 +10,7 @@ import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 
 import { JournalEntry } from "payload-types";
 import Users from "@/app/(payload)/collections/Users";
-import JournalEntriesList from "../components/JournalEntriesList";
 import { GroupByYear, JournalEntriesByYear } from "@/lib/utils";
-import journalEntries from "../sample-payload/journal-entries";
 
 const Layout = ({ content }: { content: ReactNode }) => {
   const path = usePathname();
