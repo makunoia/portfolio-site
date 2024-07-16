@@ -7,6 +7,9 @@
  */
 
 export interface Config {
+  auth: {
+    users: UserAuthOperations;
+  };
   collections: {
     users: User;
     projects: Project;
@@ -25,6 +28,19 @@ export interface Config {
     collection: 'users';
   };
 }
+export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+  };
+  login: {
+    password: string;
+    email: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+}
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
@@ -33,6 +49,9 @@ export interface User {
   id: string;
   updatedAt: string;
   createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
   email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
@@ -184,10 +203,17 @@ export interface BooleanData {
  */
 export interface JournalEntry {
   id: string;
-  title?: string | null;
-  gist?: string | null;
-  date?: string | null;
-  tag?: (string | null) | JournalEntryTag;
+  title: string;
+  slug: string;
+  date: string;
+  tag: string | JournalEntryTag;
+  blocks: {
+    lead: string;
+    copy: string;
+    htmlID: string;
+    showcase?: Showcase[] | null;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -234,6 +260,13 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auth".
+ */
+export interface Auth {
+  [k: string]: unknown;
 }
 
 

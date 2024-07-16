@@ -5,9 +5,10 @@ import {
   useState,
   Dispatch,
   SetStateAction,
-  useRef,
 } from "react";
 
+// This context is a controller for the useInterval hook.
+// The hook resets the timer once the resetTimer flag is true
 interface TimerProps {
   resetTimer: boolean;
   setResetTimer: Dispatch<SetStateAction<boolean>>;

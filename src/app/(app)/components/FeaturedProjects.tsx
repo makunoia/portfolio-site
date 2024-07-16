@@ -23,14 +23,14 @@ const featuredProjects: FeaturedProjectType[] = [
     title: "AppendPay",
     desc: "An eFinance app for senior citizens",
     slug: "project-item-one",
-    image: "https://assets.marknoya.me/Prototype.png",
+    image: "https://assets.marknoya.me/Code.jpeg",
     gradient: { start: "red", end: "blue" },
   },
   {
     title: "Multiverse UI",
     desc: "Our own design system at work",
     slug: "project-item-two",
-    image: "https://assets.marknoya.me/UX%20Testing.png",
+    image: "https://assets.marknoya.me/file-1.png",
     gradient: { start: "purple", end: "yellow" },
   },
   {
@@ -229,7 +229,6 @@ const ProgressBar = ({
   };
 
   useEffect(() => {
-    console.log("Index changed");
     const animation = async () => {
       if (scope.animations.length > 0) {
         await animate(scope.current, { width: "0px" });

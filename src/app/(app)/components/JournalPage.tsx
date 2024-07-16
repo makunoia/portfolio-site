@@ -10,8 +10,9 @@ import {
 import Text from "./Text";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import journalEntries from "../sample-payload/journal-entries";
 import { XIcon } from "lucide-react";
+import { JournalEntry, JournalEntryTag } from "payload-types";
+import { formatDate } from "@/lib/utils";
 
 // TO DO
 // FIX MOUNT ANIMATION ON LINK VISIT
@@ -23,7 +24,7 @@ const JournalPage = ({
   data,
 }: {
   content: ReactNode;
-  data: (typeof journalEntries)[0];
+  data: JournalEntry;
 }) => {
   const page = useRef<HTMLDivElement>(null);
   const [isPageOpen, setIsPageOpen] = useState(false);
@@ -31,6 +32,8 @@ const JournalPage = ({
   const [showScrollHeader, setShowScrollHeader] = useState(false);
   const { scrollY } = useScroll({ container: page });
   const currPath = usePathname();
+  const EntryTag: JournalEntryTag = data.tag as JournalEntryTag;
+  const EntryDate: string = formatDate(new Date(data.date));
 
   useMotionValueEvent(scrollY, "change", () => {
     if (isPageOpen) {
@@ -91,7 +94,7 @@ const JournalPage = ({
       {isPageOpen && showScrollHeader && (
         <ScrollHeader
           slug={data.slug}
-          title={data.title}
+          title={data.title as string}
           onCloseHandler={ClosePageOrchestrationWithHeader}
         />
       )}
@@ -121,7 +124,7 @@ const JournalPage = ({
               layout="position"
               className={`text-caption text-subtle`}
             >
-              {data.date}
+              {EntryDate}
             </motion.div>
           </motion.div>
 
@@ -136,7 +139,7 @@ const JournalPage = ({
               } h-fit flex items-center rounded-10px px-10px py-8px transition-colors duration-500 ease-in-out bg-subtle/40`}
             >
               <Text size="caption" className="text-subtle text-nowrap">
-                {data.tag}
+                {EntryTag.name as string}
               </Text>
             </motion.div>
             {(isPageOpen || isContentOpen) && (

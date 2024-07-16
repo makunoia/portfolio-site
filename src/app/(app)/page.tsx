@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import Text from "@/components/Text";
 import StatusBadge from "@/components/StatusBadge";
@@ -16,7 +16,6 @@ import Logo from "./assets/logo.svg";
 // Page transitions
 // Home Page Featured Projects component
 // Journal Item on view animation
-// Setup Domain and CDN
 // Use Payload to retrieve data
 
 const Page = () => {

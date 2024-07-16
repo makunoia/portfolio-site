@@ -1,24 +1,26 @@
 "use client";
-import Text from "@/components/Text";
-import SectionDivider from "@/components/SectionDivider";
 import React, { ReactNode, useEffect, useState } from "react";
-import Template from "./template";
-import { motion, AnimatePresence, LayoutGroup, stagger } from "framer-motion";
-import {
-  usePathname,
-  useRouter,
-  useSelectedLayoutSegment,
-} from "next/navigation";
+
+import Text from "@/components/Text";
 import JournalPage from "@/components/JournalPage";
-import JournalEntries from "../sample-payload/journal-entries";
-import { OpenJournalPageProvider } from "../contexts/OpenJournalPage";
+import SectionDivider from "@/components/SectionDivider";
+
+import { usePathname, useRouter } from "next/navigation";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+
+import { JournalEntry } from "payload-types";
+import Users from "@/app/(payload)/collections/Users";
+import JournalEntriesList from "../components/JournalEntriesList";
+import { GroupByYear, JournalEntriesByYear } from "@/lib/utils";
+import journalEntries from "../sample-payload/journal-entries";
 
 const Layout = ({ content }: { content: ReactNode }) => {
   const path = usePathname();
+  const queryURL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/journal-entries`;
+
   const [showOverlay, setShowOverlay] = useState(false);
-  const [allEntries, setAllEntries] = useState<
-    { year: string; entries: typeof JournalEntries }[] | null
-  >(null);
+  const [AllEntriesByYear, setAllEntriesByYear] =
+    useState<JournalEntriesByYear | null>(null);
 
   useEffect(() => {
     if (path === "/journal") setShowOverlay(false);
@@ -26,27 +28,27 @@ const Layout = ({ content }: { content: ReactNode }) => {
   }, [path]);
 
   useEffect(() => {
-    const allYearPublished = JournalEntries.reduce<string[]>((arr, entry) => {
-      const year = new Date(entry.date).getFullYear().toString();
-      if (!arr.includes(year)) {
-        arr.push(year);
-      }
+    const fetchData = async () => {
+      const response = await fetch(queryURL, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${Users.slug} API-Key ${process.env.NEXT_PUBLIC_PAYLOAD_API_KEY}`,
+        },
+      });
 
-      return arr;
-    }, []);
+      const data = await response.json();
+      const allEntries: JournalEntry[] = data.docs;
 
-    const entries = allYearPublished.map((year) => ({
-      year: year,
-      entries: JournalEntries.filter((entry) => {
-        const yearPublished = new Date(entry.date).getFullYear().toString();
+      const allEntriesByYear: JournalEntriesByYear = GroupByYear(
+        allEntries as JournalEntry[],
+        "journal-entries"
+      ) as JournalEntriesByYear;
 
-        if (year === yearPublished) {
-          return { title: entry.title, tag: entry.tag, date: entry.date };
-        }
-      }),
-    }));
+      console.log(allEntriesByYear);
+      setAllEntriesByYear(allEntriesByYear);
+    };
 
-    setAllEntries(entries);
+    fetchData();
   }, []);
 
   return (
@@ -68,30 +70,29 @@ const Layout = ({ content }: { content: ReactNode }) => {
           </Text>
         </div>
 
-        <OpenJournalPageProvider>
-          <Template key="journal-template">
-            {allEntries &&
-              allEntries.map((entry) => (
-                <LayoutGroup key={`collection-${entry.year}`}>
-                  <motion.div
-                    className="flex flex-col items-center justify-center gap-16px"
-                    key={`collection-${entry.year}`}
-                  >
-                    <SectionDivider header={entry.year} />
-                    {entry.entries.map((page) => (
-                      <JournalPage
-                        data={page}
-                        content={content}
-                        key={`page-${page.slug}`}
-                      />
-                    ))}
-                  </motion.div>
-                </LayoutGroup>
-              ))}
+        {AllEntriesByYear ? (
+          AllEntriesByYear.map((entry) => (
+            <LayoutGroup key={`collection-${entry.year}`}>
+              <motion.div
+                className="flex flex-col items-center justify-center gap-16px"
+                key={`collection-${entry.year}`}
+              >
+                <SectionDivider header={entry.year} />
+                {entry.entries.map((entry) => (
+                  <JournalPage
+                    data={entry}
+                    content={content}
+                    key={`page-${entry.slug}`}
+                  />
+                ))}
+              </motion.div>
+            </LayoutGroup>
+          ))
+        ) : (
+          <div>No records</div>
+        )}
 
-            {showOverlay && <Overlay setShow={setShowOverlay} />}
-          </Template>
-        </OpenJournalPageProvider>
+        {showOverlay && <Overlay setShow={setShowOverlay} />}
       </main>
     </>
   );

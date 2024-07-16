@@ -1,6 +1,4 @@
-"use client";
-
-const Page = () => {
+const Page = async () => {
   return null;
 };
 

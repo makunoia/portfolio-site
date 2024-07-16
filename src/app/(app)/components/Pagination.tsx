@@ -12,15 +12,15 @@ const getPages = async (currID: string) => {
   const currIndex = projects.docs.findIndex((doc) => doc.id === currID);
   const lastIndex = projects.docs.length - 1;
   const arrLength = projects.docs.length;
-  const hasTwoDocs = arrLength === 2;
+  const hidePagination = arrLength <= 2;
 
   const prevProject = projects.docs[currIndex ? currIndex - 1 : lastIndex];
   const nextProject =
     projects.docs[currIndex + 1 === arrLength ? 0 : currIndex + 1];
 
   return {
-    prevProject: currIndex === 0 && hasTwoDocs ? null : prevProject,
-    nextProject: currIndex === lastIndex && hasTwoDocs ? null : nextProject,
+    prevProject: currIndex === 0 && hidePagination ? null : prevProject,
+    nextProject: currIndex === lastIndex && hidePagination ? null : nextProject,
   };
 };
 
@@ -29,7 +29,7 @@ const Pagination = async ({ currID }: { currID: string }) => {
 
   const { prevProject, nextProject } = pages;
 
-  return (
+  return prevProject || nextProject ? (
     <div
       className={`flex gap-24px ${
         prevProject && nextProject
@@ -57,7 +57,7 @@ const Pagination = async ({ currID }: { currID: string }) => {
         />
       ) : null}
     </div>
-  );
+  ) : null;
 };
 
 export default Pagination;
