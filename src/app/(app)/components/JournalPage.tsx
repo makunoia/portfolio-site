@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode, Suspense, useEffect, useRef, useState } from "react";
 import {
   motion,
@@ -58,12 +59,12 @@ const JournalPage = ({
   };
 
   const ClosePageOrchestration = async () => {
-    console.log("Closing page...");
+    // console.log("Closing page...");
     setIsContentOpen(false);
   };
 
   const ClosePageOrchestrationWithHeader = async () => {
-    console.log("Closing page with header...");
+    // console.log("Closing page with header...");
     page.current?.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -73,7 +74,7 @@ const JournalPage = ({
   };
 
   const OpenPageOrchestration = async () => {
-    console.log("Opening page...");
+    // console.log("Opening page...");
     setIsPageOpen(true);
     await delay(500);
     setIsContentOpen(true);
@@ -164,11 +165,11 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
 
   useEffect(() => {
     if (isPresent) {
-      console.log("Content Mounted");
+      // console.log("Content Mounted");
     }
 
     if (!isPresent) {
-      console.log("Content Dismounted");
+      // console.log("Content Dismounted");
 
       const exitAnimation = async () => {
         await animate(scope.current, { height: 0, opacity: 0 });
@@ -177,7 +178,7 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
       };
 
       exitAnimation();
-      console.log("Animation done");
+      // console.log("Animation done");
     }
   }, [isPresent]);
 
@@ -201,7 +202,7 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
             </motion.div>
           }
         >
-          <AnimatePresence>{content}</AnimatePresence>
+          {/* <AnimatePresence>{content}</AnimatePresence> */}
         </Suspense>
       </motion.div>
     </motion.div>

@@ -68,7 +68,6 @@ export function GroupByYear(
         year: year,
         entries: (items as JournalEntry[]).map((item) => {
           const yearPublished = new Date(item.date).getFullYear().toString();
-          console.log(yearPublished === year);
           if (year === yearPublished) {
             return item;
           }

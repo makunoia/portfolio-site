@@ -5,7 +5,7 @@ import SectionDivider from "./SectionDivider";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { Project, ProjectTag } from "payload-types";
+import { Project } from "payload-types";
 import { GroupByYear, ProjectsByYear } from "@/lib/utils";
 
 const payload = await getPayloadHMR({ config });
@@ -21,28 +21,6 @@ const getAllProjectsByYear = async () => {
   const AllProjectsByYear = GroupByYear(projects, "projects") as ProjectsByYear;
 
   return AllProjectsByYear;
-  // const allYearPublished = projects.reduce<string[]>((arr, project) => {
-  //   const year = project.year;
-  //   if (!arr.includes(year)) {
-  //     arr.push(year);
-  //   }
-  //   return arr;
-  // }, []);
-
-  // return allYearPublished.map((year) => ({
-  //   year: year,
-  //   projects: projects.map((project) => {
-  //     const tag: ProjectTag = project.tag.value as ProjectTag;
-  //     if (year === project.year) {
-  //       return {
-  //         title: project.title,
-  //         desc: project.desc,
-  //         tag: tag.name,
-  //         slug: project.slug,
-  //       };
-  //     }
-  //   }),
-  // }));
 };
 
 type ProjectItem = {
@@ -54,7 +32,7 @@ type ProjectItem = {
 
 const ProjectsList = async () => {
   const AllProjectsByYear = await getAllProjectsByYear();
-  console.log(AllProjectsByYear);
+
   return AllProjectsByYear.map((item) => {
     return (
       <div className="flex flex-col gap-16px">
