@@ -5,8 +5,6 @@ import type {
 } from "payload";
 import {
   S3Client,
-  PutObjectCommand,
-  PutObjectCommandInput,
   DeleteObjectCommandInput,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
@@ -26,15 +24,10 @@ const S3 = new S3Client({
 const Bucket = process.env.CLOUDFLARE_BUCKET_NAME as string;
 
 const HandleUpload: CollectionBeforeValidateHook = async ({
-  data, // incoming data to update or create with
-  req, // full express request
-  operation,
-  originalDoc, // original document
+  data,
+  req,
+  originalDoc,
 }) => {
-  // console.log("Operation Type:", operation);
-  // console.log("originalDoc", originalDoc);
-  // console.log("data", data);
-
   var file;
 
   const isNewFileType =
@@ -50,28 +43,9 @@ const HandleUpload: CollectionBeforeValidateHook = async ({
 
   if (req.file) file = req.file.data;
 
-  const uploadFile = async (file: any) => {
-    const uploadParams: PutObjectCommandInput = {
-      Bucket,
-      Key: filename,
-      Body: file,
-      ContentType: data?.mimeType,
-      ContentDisposition: `inline; filename=${filename}`, //so we can prevent the file from being auto downloaded
-      ACL: "public-read",
-    };
-
-    try {
-      await S3.send(new PutObjectCommand(uploadParams));
-      console.log(`File uploaded successfully.`);
-    } catch (err) {
-      console.error("Error uploading file:", err);
-      return data;
-    }
-  };
-
   const deleteFile = async (filename: string) => {
     const deleteParams: DeleteObjectCommandInput = {
-      Bucket: process.env.CLOUDFLARE_BUCKET_NAME as string,
+      Bucket,
       Key: filename,
     };
 
@@ -83,28 +57,22 @@ const HandleUpload: CollectionBeforeValidateHook = async ({
     }
   };
 
-  uploadFile(file);
-
   // If uploaded file is a new file type, delete the old file.
   isNewFileType && originalDoc && deleteFile(originalDoc?.filename);
 
   const newData = {
     ...data,
-    newdata: "hello",
-    url: `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/${filename}`,
-    thumbnailURL: `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/${filename}`,
     filename,
   };
 
-  console.log("New Data", newData);
+  console.log("beforeValidate New Data", newData);
   return newData;
 };
 
 const HandleDelete: CollectionAfterDeleteHook = async ({ doc }) => {
-  console.log("Deleting doc", doc);
   const deleteFile = async (filename: string) => {
     const deleteParams: DeleteObjectCommandInput = {
-      Bucket: process.env.CLOUDFLARE_BUCKET_NAME as string,
+      Bucket,
       Key: filename,
     };
 
@@ -126,7 +94,6 @@ const Assets: CollectionConfig = {
     useAsTitle: "name",
     defaultColumns: ["name", "alt"],
   },
-
   upload: {
     crop: false,
     staticDir: `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/`,
@@ -143,7 +110,6 @@ const Assets: CollectionConfig = {
       hooks: {
         beforeValidate: [
           ({ value, siblingData }) => {
-            console.log("Before Validate siblingData", siblingData);
             if (!value) {
               return siblingData.filename;
             } else return value;
@@ -152,28 +118,22 @@ const Assets: CollectionConfig = {
       },
     },
     { label: "Alt text", name: "alt", type: "text" },
+    {
+      name: "url",
+      type: "text",
+      hooks: {
+        beforeValidate: [
+          ({ data }) => {
+            return "www.google.com";
+          },
+        ],
+      },
+    },
   ],
   hooks: {
     beforeValidate: [HandleUpload],
-    afterChange: [
-      (siblingData) => {
-        console.log("after change data", siblingData.doc);
-      },
-    ],
     afterDelete: [HandleDelete],
   },
 };
 
 export default Assets;
-
-// on create
-// beforeChange file.png
-// originalDoc undefined
-// data file.png
-// new data file.png
-
-// on update
-// beforeChange file-1.png
-// originalDoc file.png
-// data file-1.png
-// new data file.png

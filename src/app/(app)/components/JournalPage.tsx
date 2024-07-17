@@ -103,7 +103,6 @@ const JournalPage = ({
       <Link
         href={isPageOpen ? "/journal" : `journal/${data.slug}`}
         className={isPageOpen ? "pointer-events-none" : "pointer-events-auto"}
-        prefetch
         scroll
       >
         <motion.div
@@ -183,7 +182,11 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
   }, [isPresent]);
 
   return (
-    <motion.div layout ref={scope} className="flex flex-col gap-16px px-24px">
+    <motion.div
+      layout
+      ref={scope}
+      className="flex flex-col gap-16px px-24px pb-24px"
+    >
       <motion.hr layout key="hr" exit={{ opacity: 0 }} />
       <motion.div
         layout="position"
@@ -191,19 +194,7 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
         animate={{ opacity: 1 }}
         className="flex flex-col gap-16px"
       >
-        <Suspense
-          fallback={
-            <motion.div
-              layout="position"
-              exit={{ opacity: 0, translateY: 40 }}
-              className="w-full h-full min-h-[100px] flex flex-col items-center"
-            >
-              Loading entry
-            </motion.div>
-          }
-        >
-          {/* <AnimatePresence>{content}</AnimatePresence> */}
-        </Suspense>
+        <AnimatePresence>{content}</AnimatePresence>
       </motion.div>
     </motion.div>
   );
@@ -252,7 +243,7 @@ const ScrollHeader = ({
           >
             {title}
           </motion.h2>
-          <Link href="/journal" onClick={() => onCloseHandler()} prefetch>
+          <Link href="/journal" onClick={() => onCloseHandler()}>
             <motion.div
               layout
               className="cursor-pointer hover:bg-subtle flex flex-row items-center gap-4px text-caption pl-4px border p-4px rounded-4px bg shadow-sm"
