@@ -14,7 +14,7 @@ const getEntries = async () => {
     collection: "journal-entries",
   });
 
-  return GroupByYear(docs, "journal-entries");
+  return GroupByYear(docs);
 };
 
 //This component is made to establish a Network Boundary within the page to utilize Suspense

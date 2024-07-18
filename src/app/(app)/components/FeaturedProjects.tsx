@@ -134,6 +134,7 @@ const FeaturedProjects = () => {
         prefetch
         className={style()}
         href={`/projects/${link}`}
+        as={`/projects/${link}`}
         id="featured-projects-container"
       >
         <div className={imageContainer()}>

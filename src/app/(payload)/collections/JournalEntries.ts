@@ -19,6 +19,17 @@ const JournalEntries: CollectionConfig = {
       required: true,
     },
     {
+      label: "type",
+      name: "type",
+      type: "text",
+      defaultValue: "journal-entry",
+      required: true,
+      admin: {
+        hidden: true,
+        readOnly: true,
+      },
+    },
+    {
       label: "Slug",
       name: "slug",
       type: "text",

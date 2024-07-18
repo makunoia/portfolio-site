@@ -34,6 +34,17 @@ const Projects: CollectionConfig = {
                   },
                 },
                 {
+                  label: "type",
+                  name: "type",
+                  type: "text",
+                  defaultValue: "project",
+                  required: true,
+                  admin: {
+                    hidden: true,
+                    readOnly: true,
+                  },
+                },
+                {
                   label: "Year",
                   name: "year",
                   type: "text",
@@ -114,15 +125,21 @@ const Projects: CollectionConfig = {
                   label: "My Role",
                   name: "role",
                   type: "relationship",
-                  relationTo: ["my-roles"],
+                  relationTo: "my-roles",
                   required: true,
+                  admin: {
+                    width: "50%",
+                  },
                 },
                 {
                   label: "Project Tag",
                   name: "tag",
                   type: "relationship",
-                  relationTo: ["project-tags"],
+                  relationTo: "project-tags",
                   required: true,
+                  admin: {
+                    width: "50%",
+                  },
                 },
               ],
             },

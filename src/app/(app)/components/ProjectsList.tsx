@@ -20,7 +20,7 @@ const getAllProjectsByYear = async () => {
 
   const projects: Project[] = req.docs;
 
-  const AllProjectsByYear = GroupByYear(projects, "projects") as ProjectsByYear;
+  const AllProjectsByYear = GroupByYear(projects) as ProjectsByYear;
 
   return AllProjectsByYear;
 };
@@ -64,7 +64,7 @@ const ProjectItem = ({
   slug: string;
 }) => {
   return (
-    <Link href={`projects/${slug}`} prefetch>
+    <Link href={`projects/${slug}`} as={`projects/${slug}`} prefetch>
       <div className="flex flex-row justify-between cursor-pointer">
         <div className="flex flex-col gap-4px">
           <Text size="body">{title}</Text>

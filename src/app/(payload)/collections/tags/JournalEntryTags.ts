@@ -16,6 +16,7 @@ const JournalEntryTags: CollectionConfig = {
       label: "Name",
       name: "name",
       type: "text",
+      required: true,
     },
   ],
 };

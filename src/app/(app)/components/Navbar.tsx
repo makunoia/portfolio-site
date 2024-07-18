@@ -42,23 +42,23 @@ const Navbar = () => {
   return (
     <nav className={NavbarContainerStyle}>
       <div className={NavbarStyle}>
-        <NavbarButton label="Home" to="/" icon={Home} active={slug === "/"} />
+        <NavbarButton label="Home" url="/" icon={Home} active={slug === "/"} />
         <NavbarButton
           label="Projects"
           icon={Palette}
-          to="/projects"
+          url="/projects"
           active={slug === "/projects"}
         />
         <NavbarButton
           label="Journal"
           icon={NotebookText}
-          to="/journal"
+          url="/journal"
           active={slug === "/journal"}
         />
         <NavbarButton
           label="About Me"
           icon={User}
-          to="/about-me"
+          url="/about-me"
           active={slug === "/about-me"}
         />
       </div>
@@ -69,17 +69,17 @@ const Navbar = () => {
 const NavbarButton = ({
   label,
   icon: Icon,
-  to,
+  url,
   active,
 }: {
   label: string;
   icon: React.ComponentType;
-  to: string;
+  url: string;
   active?: boolean;
 }) => {
   const NavbarButtonStyle = NavbarButtonCVA({ active });
   return (
-    <Link href={to} prefetch>
+    <Link href={url} as={url} prefetch>
       <div className={NavbarButtonStyle}>
         <Slot className="text w-24px h-24px block md:hidden">{<Icon />}</Slot>
         <Text size="body" className="text-nowrap hidden md:block">

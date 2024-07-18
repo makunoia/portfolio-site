@@ -1,5 +1,5 @@
 import React from "react";
-import Text from "./Text";
+import Text from "../Text";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight } from "lucide-react";
 
@@ -19,11 +19,11 @@ const BackgroundCVA = cva([
 
 const HomeListItem = ({
   title,
-  type,
+  tag,
   date,
 }: {
   title: string;
-  type?: string;
+  tag?: string;
   date: string;
 }) => {
   const HomeListItemStyle = HomeListItemCVA();
@@ -40,9 +40,9 @@ const HomeListItem = ({
         >
           {title}
         </Text>
-        {type && (
+        {tag && (
           <Text className="text-subtle text-nowrap" size="body" weight="normal">
-            {type}
+            {tag}
           </Text>
         )}
         <ArrowUpRight

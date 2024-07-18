@@ -68,19 +68,14 @@ export interface User {
 export interface Project {
   id: string;
   title: string;
+  type: string;
   year: string;
   desc: string;
   slug: string;
   status: 'ONGOING' | 'DONE';
   yearDone?: string | null;
-  role: {
-    relationTo: 'my-roles';
-    value: string | MyRole;
-  };
-  tag: {
-    relationTo: 'project-tags';
-    value: string | ProjectTag;
-  };
+  role: string | MyRole;
+  tag: string | ProjectTag;
   sections?:
     | {
         title: string;
@@ -204,6 +199,7 @@ export interface BooleanData {
 export interface JournalEntry {
   id: string;
   title: string;
+  type: string;
   slug: string;
   date: string;
   tag: string | JournalEntryTag;
@@ -223,7 +219,7 @@ export interface JournalEntry {
  */
 export interface JournalEntryTag {
   id: string;
-  name?: string | null;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
