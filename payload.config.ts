@@ -31,9 +31,14 @@ export default buildConfig({
   ],
   plugins: [
     s3Storage({
-      disableLocalStorage: true,
       collections: {
-        assets: true,
+        assets: {
+          generateFileURL: ({ filename }) => {
+            return `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/${filename}`;
+          },
+          disableLocalStorage: true,
+          disablePayloadAccessControl: true,
+        },
       },
       bucket: process.env.CLOUDFLARE_BUCKET_NAME || "",
       config: {
