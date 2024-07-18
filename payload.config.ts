@@ -63,6 +63,6 @@ export default buildConfig({
       prefillOnly: true,
     },
   },
-
+  cors: "*",
   sharp,
 });
