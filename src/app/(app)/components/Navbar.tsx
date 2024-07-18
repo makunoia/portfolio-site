@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
-import { cva } from "class-variance-authority";
-import Text from "@/components/Text";
 import Link from "next/link";
-import { Home, Palette, NotebookText, User, Sun, Moon } from "lucide-react";
-import { Slot } from "@radix-ui/react-slot";
 import { usePathname } from "next/navigation";
+import { cva } from "class-variance-authority";
+import { Slot } from "@radix-ui/react-slot";
+
+import Text from "@/components/Text";
+import { Home, Palette, NotebookText, User } from "lucide-react";
 
 const NavbarContainerCVA = cva([
   "sticky z-20 bottom-40px mx-auto w-fit h-40px",

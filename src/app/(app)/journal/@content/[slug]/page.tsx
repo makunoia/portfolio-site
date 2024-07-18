@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Users from "@/app/(payload)/collections/Users";
-import Text from "@/app/(app)/components/Text";
 import { motion } from "framer-motion";
 import { JournalEntry } from "payload-types";
+import Users from "@/app/(payload)/collections/Users";
 import Showcase from "@/app/(app)/components/Showcase";
+import Text from "@/components/Text";
 
 // TO DO
 // Loading State
@@ -16,10 +16,6 @@ const JournalPage = ({ params }: { params: { slug: string } }) => {
 
   useEffect(() => {
     const getEntries = async (slug: string) => {
-      // const req = await fetch(
-      //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/entries/${slug}`
-      // );
-
       const req = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/journal-entries/?where[slug][equals]=${slug}`,
         {

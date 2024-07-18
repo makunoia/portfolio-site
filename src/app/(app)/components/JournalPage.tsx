@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { XIcon } from "lucide-react";
 import { JournalEntry, JournalEntryTag } from "payload-types";
-import { formatDate } from "@/lib/utils";
+import { formatDate } from "../utils/helpers";
 
 // TO DO
 // FIX MOUNT ANIMATION ON LINK VISIT
@@ -28,11 +28,13 @@ const JournalPage = ({
   data: JournalEntry;
 }) => {
   const page = useRef<HTMLDivElement>(null);
+
+  const currPath = usePathname();
+  const { scrollY } = useScroll({ container: page });
   const [isPageOpen, setIsPageOpen] = useState(false);
   const [isContentOpen, setIsContentOpen] = useState(false);
   const [showScrollHeader, setShowScrollHeader] = useState(false);
-  const { scrollY } = useScroll({ container: page });
-  const currPath = usePathname();
+
   const EntryTag: JournalEntryTag = data.tag as JournalEntryTag;
   const EntryDate: string = formatDate(new Date(data.date));
 

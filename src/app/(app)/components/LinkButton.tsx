@@ -4,18 +4,19 @@ import Link from "next/link";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight } from "lucide-react";
 
-type LinkButtonProps = HTMLAttributes<HTMLButtonElement> & {
-  label: string;
-  href: string;
-};
-
 const ButtonCVA = cva([
   "group",
   "inline-flex justify-center items-center",
   "shadow-neutral-800",
 ]);
 
-const LinkButton = ({ label, href, ...props }: LinkButtonProps) => {
+const LinkButton = ({
+  label,
+  href,
+}: HTMLAttributes<HTMLButtonElement> & {
+  label: string;
+  href: string;
+}) => {
   const ButtonStyle = ButtonCVA();
   return (
     <Link href={href} target="_blank">

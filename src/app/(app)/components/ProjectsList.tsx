@@ -5,8 +5,10 @@ import SectionDivider from "./SectionDivider";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
+
 import { Project } from "payload-types";
-import { GroupByYear, ProjectsByYear } from "@/lib/utils";
+import { GroupByYear } from "../utils/helpers";
+import { ProjectsByYear } from "../types";
 
 const payload = await getPayloadHMR({ config });
 

@@ -1,8 +1,10 @@
-import config from "@payload-config";
-import EntriesList from "@/components/EntriesList";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { GroupByYear, JournalEntriesByYear } from "@/lib/utils";
 import React, { ReactNode } from "react";
+import EntriesList from "@/components/EntriesList";
+
+import config from "@payload-config";
+import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { GroupByYear } from "../utils/helpers";
+import { JournalEntriesByYear } from "../types";
 
 const getEntries = async () => {
   const payload = await getPayloadHMR({ config });

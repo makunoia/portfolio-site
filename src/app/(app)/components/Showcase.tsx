@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Text from "./Text";
 import { Asset, Showcase as ShowcaseType } from "payload-types";
+
 const Showcase = ({
   image,
   title,

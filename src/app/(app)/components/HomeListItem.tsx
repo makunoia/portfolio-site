@@ -1,13 +1,7 @@
 import React from "react";
 import Text from "./Text";
-import { ArrowUpRight } from "lucide-react";
 import { cva } from "class-variance-authority";
-
-type HomeListItemProps = {
-  title: string;
-  type?: string;
-  date: string;
-};
+import { ArrowUpRight } from "lucide-react";
 
 const HomeListItemCVA = cva([
   "relative group",
@@ -23,7 +17,15 @@ const BackgroundCVA = cva([
   "transition-opacity ease-in-out duration-300 ",
 ]);
 
-const HomeListItem = ({ title, type, date }: HomeListItemProps) => {
+const HomeListItem = ({
+  title,
+  type,
+  date,
+}: {
+  title: string;
+  type?: string;
+  date: string;
+}) => {
   const HomeListItemStyle = HomeListItemCVA();
   const BackgroundStyle = BackgroundCVA();
 

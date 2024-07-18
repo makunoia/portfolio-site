@@ -1,9 +1,7 @@
 "use client";
 import React, { useContext, useEffect } from "react";
 import InViewContext from "../contexts/InViewContext";
-import { Project } from "payload-types";
-
-type ContentType = Project["sections"];
+import { ContentType } from "../types";
 
 const ContentObserver = ({ content }: { content: ContentType }) => {
   const { inView, setInView } = useContext(InViewContext);

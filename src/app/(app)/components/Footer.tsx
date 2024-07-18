@@ -12,13 +12,7 @@ const IndicatorCVA = cva("rounded-full w-8px h-8px animate-pulse", {
   },
 });
 
-const Footer = ({
-  status,
-  label,
-}: {
-  label: string;
-  status: "dnd" | "available";
-}) => {
+const Footer = ({ status }: { label: string; status: "dnd" | "available" }) => {
   const IndicatorStyle = IndicatorCVA({ status });
 
   return (

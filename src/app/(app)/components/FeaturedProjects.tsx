@@ -3,20 +3,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Text from "./Text";
 import Link from "next/link";
 import Image from "next/image";
+import useInterval from "../hooks/useInterval";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useAnimate } from "framer-motion";
-import useInterval from "../hooks/useInterval";
 import { TimerContext } from "../contexts/TimerContext";
-
-type FeaturedProjectType = {
-  title: string;
-  desc: string;
-  slug: string;
-  image: string;
-  gradient: { start: string; end: string };
-  active?: boolean;
-};
+import { FeaturedProjectType } from "../types";
 
 const featuredProjects: FeaturedProjectType[] = [
   {

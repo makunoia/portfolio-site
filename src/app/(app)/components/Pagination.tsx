@@ -1,5 +1,5 @@
-import PaginationItem from "./PaginationItem";
 import config from "@payload-config";
+import PaginationItem from "./PaginationItem";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 
 const getPages = async (currID: string) => {

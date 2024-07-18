@@ -1,10 +1,6 @@
 import React, { HTMLAttributes } from "react";
-import Text from "./Text";
 import { cva } from "class-variance-authority";
-
-type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
-  label: string;
-};
+import Text from "./Text";
 
 const ButtonCVA = cva([
   "relative overflow-hidden h-40px p-12px box-border",
@@ -12,7 +8,11 @@ const ButtonCVA = cva([
   "shadow-neutral-800",
 ]);
 
-const Button = ({ label, ...props }: ButtonProps) => {
+const Button = ({
+  label,
+}: HTMLAttributes<HTMLButtonElement> & {
+  label: string;
+}) => {
   const ButtonStyle = ButtonCVA();
   return (
     <button className={`${ButtonStyle} button group`}>

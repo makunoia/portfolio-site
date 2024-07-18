@@ -23,9 +23,7 @@ const Layout = async ({ content }: { content: ReactNode }) => {
           </Text>
         </div>
 
-        <Suspense fallback={<div>Loading</div>}>
-          <EntriesListContainer content={content} />
-        </Suspense>
+        <EntriesListContainer content={content} />
       </main>
     </>
   );

@@ -61,10 +61,16 @@ const Projects: CollectionConfig = {
                 readOnly: true,
               },
               hooks: {
+                beforeDuplicate: [
+                  () => {
+                    // Reset value, give placeholder value
+                    return "duplicated";
+                  },
+                ],
                 beforeValidate: [
                   ({ siblingData, value }) => {
-                    //Create a slug from the first Project Title entered.
-                    if (!value) {
+                    // Create a slug from the first Project Title entered.
+                    if (!value || value === "duplicated") {
                       return siblingData.title
                         .replaceAll(" ", "-")
                         .toLowerCase();

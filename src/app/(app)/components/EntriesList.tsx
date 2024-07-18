@@ -6,8 +6,7 @@ import SectionDivider from "@/components/SectionDivider";
 
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-
-import { JournalEntriesByYear } from "@/lib/utils";
+import { JournalEntriesByYear } from "../types";
 
 const EntriesList = ({
   content,
