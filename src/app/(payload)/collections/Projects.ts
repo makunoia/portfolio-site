@@ -1,6 +1,5 @@
 import { CollectionConfig } from "payload";
 import Showcase from "../blocks/Showcase";
-import { RowLabel } from "@payloadcms/ui";
 import { BlockRowLabel, SectionRowLabel } from "../components/RowLabel";
 
 const Projects: CollectionConfig = {
@@ -297,7 +296,7 @@ const Projects: CollectionConfig = {
                     {
                       type: "text",
                       label: "Start Color",
-                      name: "gradient-start",
+                      name: "gradientStart",
                       required: true,
                       admin: {
                         description: "Enter a valid HEX code",
@@ -306,7 +305,7 @@ const Projects: CollectionConfig = {
                     {
                       type: "text",
                       label: "End Color",
-                      name: "gradient-end",
+                      name: "gradientEnd",
                       required: true,
                       admin: {
                         description: "Enter a valid HEX code",

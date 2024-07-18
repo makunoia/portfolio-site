@@ -37,6 +37,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
   const projectData = await getProject(params.project);
 
   const { sections } = projectData;
+  console.log("Project Page", sections);
   // There's a bug in Payload 3.0 relations that affect type setting
   // This is a temporary measure to enforce proper type
   const tag: ProjectTag = projectData.tag as ProjectTag;

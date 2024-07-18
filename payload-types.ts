@@ -97,8 +97,8 @@ export interface Project {
   isFeatured?: boolean | null;
   featuredData?: {
     image: string | Asset;
-    'gradient-start': string;
-    'gradient-end': string;
+    gradientStart: string;
+    gradientEnd: string;
   };
   isArchived?: boolean | null;
   updatedAt: string;

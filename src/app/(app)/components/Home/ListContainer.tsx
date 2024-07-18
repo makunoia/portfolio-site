@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
+
 import { CollectionSlug } from "payload";
 import {
   ProjectTag,
@@ -11,6 +12,7 @@ import {
   Project,
   JournalEntry,
 } from "payload-types";
+
 import { formatDate, isProject, isJournalEntry } from "@/helpers";
 const payload = await getPayloadHMR({ config });
 
@@ -21,11 +23,10 @@ const ListContainer = async ({
   link: string;
   collection: CollectionSlug;
 }) => {
-  // { title: string; type?: string; date: string }[]
-  // const items =[]
-
   const { docs } = await payload.find({
     collection,
+    limit: 3,
+    sort: "-createdAt",
   });
 
   const items = docs as Project[] | JournalEntry[];
@@ -42,6 +43,7 @@ const ListContainer = async ({
                 title={item.title}
                 tag={tag.name}
                 date={item.year}
+                url={`/projects/${item.slug}`}
               />
             );
           } else if (isJournalEntry(item)) {
@@ -53,6 +55,7 @@ const ListContainer = async ({
                 title={item.title}
                 tag={tag.name}
                 date={date}
+                url={`/journal/${item.slug}`}
               />
             );
           }

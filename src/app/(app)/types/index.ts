@@ -8,12 +8,20 @@ type ProjectListItem = {
   slug: string;
 };
 
-export type FeaturedProjectType = {
+export type FeaturedProject = {
+  id: string;
   title: string;
   desc: string;
   slug: string;
-  image: string;
-  gradient: { start: string; end: string };
+  isFeatured: true;
+  featuredData: {
+    image: {
+      url: string;
+      alt: string;
+    };
+    gradientStart: string;
+    gradientEnd: string;
+  };
 };
 
 export type ContentType = Project["sections"];

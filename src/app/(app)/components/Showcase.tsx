@@ -10,7 +10,6 @@ const Showcase = ({
   tag,
 }: Omit<ShowcaseType, "blockType" | "blockName">) => {
   const showcaseImage: Asset = image as Asset;
-  console.log(showcaseImage);
   return (
     <div className="bg-subtle/60 flex flex-col gap-8px rounded-12px p-18px">
       <div className="flex flex-col gap-10px">

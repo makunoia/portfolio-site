@@ -1,40 +1,22 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
-import Text from "./Text";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
+import Text from "@/components/Text";
 import Link from "next/link";
 import Image from "next/image";
-import useInterval from "../hooks/useInterval";
+import useInterval from "@/hooks/useInterval";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useAnimate } from "framer-motion";
 import { TimerContext } from "@/contexts/TimerContext";
-import { FeaturedProjectType } from "@/types";
+import { FeaturedProject } from "@/types";
 
-const featuredProjects: FeaturedProjectType[] = [
-  {
-    title: "AppendPay",
-    desc: "An eFinance app for senior citizens",
-    slug: "project-item-one",
-    image: "https://assets.marknoya.me/Code.jpeg",
-    gradient: { start: "red", end: "blue" },
-  },
-  {
-    title: "Multiverse UI",
-    desc: "Our own design system at work",
-    slug: "project-item-two",
-    image: "https://assets.marknoya.me/file-1.png",
-    gradient: { start: "purple", end: "yellow" },
-  },
-  {
-    title: "Stark UI",
-    desc: "My personal design system",
-    slug: "project-item-three",
-    image: "https://assets.marknoya.me/Code.jpeg",
-    gradient: { start: "green", end: "orange" },
-  },
-];
-
-const FeaturedProjects = () => {
+const FeaturedProjects = ({
+  projects,
+  children,
+}: {
+  projects: FeaturedProject[];
+  children: ReactNode;
+}) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [link, setLink] = useState<string>("");
   const duration = 5000;
@@ -60,7 +42,7 @@ const FeaturedProjects = () => {
     [
       "w-full h-[220px]",
       "sm:w-[400px] sm:h-[250px]",
-      "absolute left-0px sm:left-24px -bottom-8px",
+      "absolute left-0px sm:left-16px -bottom-8px",
       "overflow-visible",
       "transition-all ease-in-out duration-300",
     ],
@@ -84,7 +66,7 @@ const FeaturedProjects = () => {
   useInterval(
     () => {
       setActiveIndex((prevIndex) =>
-        prevIndex === featuredProjects.length - 1 ? 0 : prevIndex + 1
+        prevIndex === projects.length - 1 ? 0 : prevIndex + 1
       );
     },
     duration,
@@ -93,19 +75,19 @@ const FeaturedProjects = () => {
   );
 
   useEffect(() => {
-    setLink(featuredProjects[activeIndex].slug);
+    setLink(projects[activeIndex].slug);
   }, [activeIndex]);
 
   const PreviousItem = () => {
     if (activeIndex === 0) {
-      setActiveIndex(featuredProjects.length - 1);
+      setActiveIndex(projects.length - 1);
     } else setActiveIndex((curr) => --curr);
 
     setResetTimer(true);
   };
 
   const NextItem = () => {
-    if (activeIndex === featuredProjects.length - 1) {
+    if (activeIndex === projects.length - 1) {
       setActiveIndex(0);
     } else setActiveIndex((curr) => ++curr);
 
@@ -113,11 +95,12 @@ const FeaturedProjects = () => {
   };
 
   return (
-    <>
+    <section
+      id="latestProjects"
+      className="w-full flex flex-col gap-16px justify-between"
+    >
       <div className="flex flex-row w-full justify-between">
-        <Text as="h2" size="lead">
-          Latest Projects
-        </Text>
+        {children}
         <div className="flex flex-row gap-4px">
           <ChevronLeft
             onClick={() => PreviousItem()}
@@ -138,7 +121,7 @@ const FeaturedProjects = () => {
         id="featured-projects-container"
       >
         <div className={imageContainer()}>
-          {featuredProjects.map((project, i) => (
+          {projects.map((project, i) => (
             <div
               key={project.slug}
               className={imageStyle({
@@ -147,8 +130,8 @@ const FeaturedProjects = () => {
             >
               <Image
                 className="select-none"
-                src={project.image}
-                alt="Prototype preview"
+                src={project.featuredData.image.url}
+                alt={project.featuredData.image.alt || ""}
                 style={{ objectFit: "contain" }}
                 sizes="400px"
                 priority
@@ -157,10 +140,13 @@ const FeaturedProjects = () => {
             </div>
           ))}
 
-          {featuredProjects.map((project, i) => (
+          {projects.map((project, i) => (
             <BackgroundLight
               key={project.slug}
-              gradient={project.gradient}
+              gradient={{
+                start: project.featuredData.gradientStart,
+                end: project.featuredData.gradientEnd,
+              }}
               shown={activeIndex === i}
             />
           ))}
@@ -170,7 +156,7 @@ const FeaturedProjects = () => {
           <ArrowButton />
 
           <div className="relative bg-danger">
-            {featuredProjects.map((project, i) => (
+            {projects.map((project, i) => (
               <div
                 key={project.slug}
                 className={`flex flex-col gap-4px w-full absolute bottom-0px transition-all ease-in-out duration-300  ${
@@ -193,7 +179,7 @@ const FeaturedProjects = () => {
         </div>
         <ProgressBar duration={duration} currIndex={activeIndex} />
       </Link>
-    </>
+    </section>
   );
 };
 

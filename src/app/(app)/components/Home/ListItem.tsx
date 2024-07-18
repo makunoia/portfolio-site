@@ -2,8 +2,9 @@ import React from "react";
 import Text from "../Text";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
-const HomeListItemCVA = cva([
+const ListItemCVA = cva([
   "relative group",
   "flex flex-row justify-between items-center gap-12px",
   "transition-all duration-200 ease-out cursor-pointer",
@@ -17,20 +18,22 @@ const BackgroundCVA = cva([
   "transition-opacity ease-in-out duration-300 ",
 ]);
 
-const HomeListItem = ({
+const ListItem = ({
   title,
   tag,
   date,
+  url,
 }: {
   title: string;
   tag?: string;
   date: string;
+  url: string;
 }) => {
-  const HomeListItemStyle = HomeListItemCVA();
+  const ListItemStyle = ListItemCVA();
   const BackgroundStyle = BackgroundCVA();
 
   return (
-    <div className={HomeListItemStyle}>
+    <Link href={url} className={ListItemStyle}>
       <div className="flex flex-row items-center gap-4px">
         <Text
           className="text text-nowrap overflow-hidden"
@@ -60,8 +63,8 @@ const HomeListItem = ({
         {date}
       </Text>
       <div className={BackgroundStyle} />
-    </div>
+    </Link>
   );
 };
 
-export default HomeListItem;
+export default ListItem;

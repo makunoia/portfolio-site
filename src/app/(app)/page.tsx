@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import Text from "@/components/Text";
 import StatusBadge from "@/components/StatusBadge";
-import FeaturedProjects from "@/components/FeaturedProjects";
+import FeaturedProjects from "@/components/Home/FeaturedProjects/Server";
 import LinkButton from "@/components/LinkButton";
 import Logo from "./assets/logo.svg";
 import Section from "./components/Home/Section";
@@ -46,15 +46,8 @@ const Page = () => {
       </div>
       <hr />
       <div className="flex flex-col gap-[6.25rem]">
-        <section
-          id="latestProjects"
-          className="w-full flex flex-col gap-16px justify-between"
-        >
-          <FeaturedProjects />
-        </section>
-
+        <FeaturedProjects />
         <Section title="Archive" collection="projects" link="/projects" />
-
         <Section title="Journal" collection="journal-entries" link="/journal" />
       </div>
     </main>
