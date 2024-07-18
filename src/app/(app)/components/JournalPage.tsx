@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode, Suspense, useEffect, useRef, useState } from "react";
 import {
   motion,
@@ -10,8 +11,9 @@ import {
 import Text from "./Text";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import journalEntries from "../sample-payload/journal-entries";
 import { XIcon } from "lucide-react";
+import { JournalEntry, JournalEntryTag } from "payload-types";
+import { formatDate } from "@/helpers";
 
 // TO DO
 // FIX MOUNT ANIMATION ON LINK VISIT
@@ -23,14 +25,18 @@ const JournalPage = ({
   data,
 }: {
   content: ReactNode;
-  data: (typeof journalEntries)[0];
+  data: JournalEntry;
 }) => {
   const page = useRef<HTMLDivElement>(null);
+
+  const currPath = usePathname();
+  const { scrollY } = useScroll({ container: page });
   const [isPageOpen, setIsPageOpen] = useState(false);
   const [isContentOpen, setIsContentOpen] = useState(false);
   const [showScrollHeader, setShowScrollHeader] = useState(false);
-  const { scrollY } = useScroll({ container: page });
-  const currPath = usePathname();
+
+  const EntryTag: JournalEntryTag = data.tag as JournalEntryTag;
+  const EntryDate: string = formatDate(new Date(data.date));
 
   useMotionValueEvent(scrollY, "change", () => {
     if (isPageOpen) {
@@ -55,12 +61,10 @@ const JournalPage = ({
   };
 
   const ClosePageOrchestration = async () => {
-    console.log("Closing page...");
     setIsContentOpen(false);
   };
 
   const ClosePageOrchestrationWithHeader = async () => {
-    console.log("Closing page with header...");
     page.current?.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -70,7 +74,6 @@ const JournalPage = ({
   };
 
   const OpenPageOrchestration = async () => {
-    console.log("Opening page...");
     setIsPageOpen(true);
     await delay(500);
     setIsContentOpen(true);
@@ -91,7 +94,7 @@ const JournalPage = ({
       {isPageOpen && showScrollHeader && (
         <ScrollHeader
           slug={data.slug}
-          title={data.title}
+          title={data.title as string}
           onCloseHandler={ClosePageOrchestrationWithHeader}
         />
       )}
@@ -99,7 +102,6 @@ const JournalPage = ({
       <Link
         href={isPageOpen ? "/journal" : `journal/${data.slug}`}
         className={isPageOpen ? "pointer-events-none" : "pointer-events-auto"}
-        prefetch
         scroll
       >
         <motion.div
@@ -121,7 +123,7 @@ const JournalPage = ({
               layout="position"
               className={`text-caption text-subtle`}
             >
-              {data.date}
+              {EntryDate}
             </motion.div>
           </motion.div>
 
@@ -136,7 +138,7 @@ const JournalPage = ({
               } h-fit flex items-center rounded-10px px-10px py-8px transition-colors duration-500 ease-in-out bg-subtle/40`}
             >
               <Text size="caption" className="text-subtle text-nowrap">
-                {data.tag}
+                {EntryTag.name as string}
               </Text>
             </motion.div>
             {(isPageOpen || isContentOpen) && (
@@ -160,13 +162,7 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
-    if (isPresent) {
-      console.log("Content Mounted");
-    }
-
     if (!isPresent) {
-      console.log("Content Dismounted");
-
       const exitAnimation = async () => {
         await animate(scope.current, { height: 0, opacity: 0 });
 
@@ -174,12 +170,15 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
       };
 
       exitAnimation();
-      console.log("Animation done");
     }
   }, [isPresent]);
 
   return (
-    <motion.div layout ref={scope} className="flex flex-col gap-16px px-24px">
+    <motion.div
+      layout
+      ref={scope}
+      className="flex flex-col gap-16px px-24px pb-24px"
+    >
       <motion.hr layout key="hr" exit={{ opacity: 0 }} />
       <motion.div
         layout="position"
@@ -187,19 +186,9 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
         animate={{ opacity: 1 }}
         className="flex flex-col gap-16px"
       >
-        <Suspense
-          fallback={
-            <motion.div
-              layout="position"
-              exit={{ opacity: 0, translateY: 40 }}
-              className="w-full h-full min-h-[100px] flex flex-col items-center"
-            >
-              Loading entry
-            </motion.div>
-          }
-        >
-          <AnimatePresence>{content}</AnimatePresence>
-        </Suspense>
+        <AnimatePresence>
+          <Suspense fallback={<div>Loading</div>}>{content}</Suspense>
+        </AnimatePresence>
       </motion.div>
     </motion.div>
   );
@@ -248,7 +237,7 @@ const ScrollHeader = ({
           >
             {title}
           </motion.h2>
-          <Link href="/journal" onClick={() => onCloseHandler()} prefetch>
+          <Link href="/journal" onClick={() => onCloseHandler()}>
             <motion.div
               layout
               className="cursor-pointer hover:bg-subtle flex flex-row items-center gap-4px text-caption pl-4px border p-4px rounded-4px bg shadow-sm"

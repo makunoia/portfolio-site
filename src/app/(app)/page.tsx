@@ -3,10 +3,9 @@ import Image from "next/image";
 import Text from "@/components/Text";
 import StatusBadge from "@/components/StatusBadge";
 import FeaturedProjects from "@/components/FeaturedProjects";
-import HomeListItem from "@/components/HomeListItem";
-import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
 import Logo from "./assets/logo.svg";
+import Section from "./components/Home/Section";
 
 // TODO
 // Finish Footer Design
@@ -16,7 +15,6 @@ import Logo from "./assets/logo.svg";
 // Page transitions
 // Home Page Featured Projects component
 // Journal Item on view animation
-// Setup Domain and CDN
 // Use Payload to retrieve data
 
 const Page = () => {
@@ -55,61 +53,9 @@ const Page = () => {
           <FeaturedProjects />
         </section>
 
-        <section
-          id="latestProjects"
-          className="w-full flex flex-col gap-16px md:flex-row md:gap-0px justify-between"
-        >
-          <div className="titleColumn w-full md:max-w-[250px] flex flex-col flex-1">
-            <Text as="h2" size="lead">
-              Archive
-            </Text>
-          </div>
-          <div className="contentColumn w-full md:max-w-[400px] flex flex-col flex-grow flex-1 gap-24px">
-            <div className="flex flex-col gap-16px">
-              <HomeListItem
-                title="Dingdong"
-                type="Product Design"
-                date="2023"
-              />
-              <HomeListItem
-                title="AppendPay"
-                type="Product Design"
-                date="2023"
-              />
-              <HomeListItem
-                title="Multiverse"
-                type="Product Design"
-                date="2024"
-              />
-            </div>
-            <Button label="View all" />
-          </div>
-        </section>
+        <Section title="Archive" collection="projects" link="/projects" />
 
-        <section
-          id="latestProjects"
-          className="w-full flex flex-col gap-16px md:flex-row md:gap-0px justify-between"
-        >
-          <div className="titleColumn w-full md:max-w-[250px] flex flex-col flex-1">
-            <Text as="h2" size="lead">
-              Journal
-            </Text>
-          </div>
-          <div className="contentColumn w-full md:max-w-[400px] flex flex-col flex-grow flex-1 gap-24px">
-            <div className="flex flex-col gap-16px">
-              <HomeListItem title="Reinventing myself" date="Mar 8, 2023" />
-              <HomeListItem
-                title="Road to Design Engineering"
-                date="Feb 2, 2024"
-              />
-              <HomeListItem
-                title="What I learned from design systems"
-                date="Mar 5, 2024"
-              />
-            </div>
-            <Button label="View all" />
-          </div>
-        </section>
+        <Section title="Journal" collection="journal-entries" link="/journal" />
       </div>
     </main>
   );

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import { NeueMontreal, NeueMontrealMono } from "@/fonts";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import "./styles/globals.css";
-import { useContext } from "react";
+
 import { TimerContextProvider } from "./contexts/TimerContext";
+
+import { NeueMontreal, NeueMontrealMono } from "@/fonts";
+import "./styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Mark Noya",
@@ -28,7 +30,9 @@ export default function RootLayout({
         <div className="absolute overflow-hidden inset-0px -z-10">
           <div className="light-streak"></div>
         </div>
+
         <TimerContextProvider>{children}</TimerContextProvider>
+
         <Navbar />
         <Footer status="available" label="In bed" />
       </body>

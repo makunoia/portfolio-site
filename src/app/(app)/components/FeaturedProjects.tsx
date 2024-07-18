@@ -1,36 +1,28 @@
 "use client";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Text from "./Text";
 import Link from "next/link";
 import Image from "next/image";
+import useInterval from "../hooks/useInterval";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useAnimate } from "framer-motion";
-import useInterval from "../hooks/useInterval";
-import { TimerContext } from "../contexts/TimerContext";
-
-type FeaturedProjectType = {
-  title: string;
-  desc: string;
-  slug: string;
-  image: string;
-  gradient: { start: string; end: string };
-  active?: boolean;
-};
+import { TimerContext } from "@/contexts/TimerContext";
+import { FeaturedProjectType } from "@/types";
 
 const featuredProjects: FeaturedProjectType[] = [
   {
     title: "AppendPay",
     desc: "An eFinance app for senior citizens",
     slug: "project-item-one",
-    image: "https://assets.marknoya.me/Prototype.png",
+    image: "https://assets.marknoya.me/Code.jpeg",
     gradient: { start: "red", end: "blue" },
   },
   {
     title: "Multiverse UI",
     desc: "Our own design system at work",
     slug: "project-item-two",
-    image: "https://assets.marknoya.me/UX%20Testing.png",
+    image: "https://assets.marknoya.me/file-1.png",
     gradient: { start: "purple", end: "yellow" },
   },
   {
@@ -142,6 +134,7 @@ const FeaturedProjects = () => {
         prefetch
         className={style()}
         href={`/projects/${link}`}
+        as={`/projects/${link}`}
         id="featured-projects-container"
       >
         <div className={imageContainer()}>
@@ -229,7 +222,6 @@ const ProgressBar = ({
   };
 
   useEffect(() => {
-    console.log("Index changed");
     const animation = async () => {
       if (scope.animations.length > 0) {
         await animate(scope.current, { width: "0px" });

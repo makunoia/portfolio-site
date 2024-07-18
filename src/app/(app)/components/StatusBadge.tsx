@@ -3,7 +3,6 @@ import Text from "./Text";
 import { cva } from "class-variance-authority";
 
 const BadgeCVA = cva([
-  // "status-badge",
   "relative flex gap-8px items-center w-fit",
   "bg-success/10 py-10px px-12px",
   "rounded-8px backdrop-blur-sm",
@@ -19,12 +18,13 @@ const IndicatorCVA = cva("rounded-full w-8px h-8px animate-pulse", {
   },
 });
 
-type BadgeType = {
+const StatusBadge = ({
+  label,
+  unavailable = false,
+}: {
   label?: string;
   unavailable?: boolean;
-};
-
-const StatusBadge = ({ label, unavailable = false }: BadgeType) => {
+}) => {
   const BadgeStyle = BadgeCVA();
   const IndicatorStyle = IndicatorCVA({ unavailable });
   return (

@@ -1,13 +1,7 @@
 "use client";
 import React, { useContext, useEffect } from "react";
-import InViewContext from "../contexts/InViewContext";
-
-type ContentType = {
-  id: string;
-  blocks?: {
-    id: string;
-  }[];
-}[];
+import InViewContext from "@/contexts/InViewContext";
+import { ContentType } from "@/types";
 
 const ContentObserver = ({ content }: { content: ContentType }) => {
   const { inView, setInView } = useContext(InViewContext);
@@ -23,7 +17,10 @@ const ContentObserver = ({ content }: { content: ContentType }) => {
   const SectionCallback = (entries: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) {
-        setInView((curr) => ({ section: entry.target.id, block: curr.block }));
+        setInView((curr) => ({
+          section: entry.target.id,
+          block: curr.block,
+        }));
       }
     });
   };
@@ -60,26 +57,28 @@ const ContentObserver = ({ content }: { content: ContentType }) => {
       ObserverConfig
     );
 
-    const allIDs = content.map((section) => {
-      return {
-        id: section.id,
-        blocks: section.blocks?.map((block) => block.id) ?? [],
-      };
-    });
+    const allIDs = content
+      ? content.map((section) => {
+          return {
+            htmlID: section.htmlID,
+            blocks: section.blocks?.map((block) => block.htmlID) ?? [],
+          };
+        })
+      : [];
 
     ContentObserver.observe(
       document.getElementById("page-content") as HTMLElement
     );
     allIDs.forEach((section) => {
-      SectionObserver.observe(document.getElementById(section.id) as Element);
+      SectionObserver.observe(
+        document.getElementById(section.htmlID) as Element
+      );
 
       section.blocks.forEach((block) =>
         BlockObserver.observe(document.getElementById(block) as Element)
       );
     });
   }, [content]);
-
-  useEffect(() => console.log("InView", inView), [inView]);
 
   return <div id="observer"></div>;
 };

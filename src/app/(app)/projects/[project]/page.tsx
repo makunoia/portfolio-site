@@ -1,19 +1,59 @@
-import Text from "@/components/Text";
 import React from "react";
-import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import PaginationItem from "@/components/PaginationItem";
-import ScrollSpy from "@/components/ScrollSpy";
-import ProjectPayload from "../../sample-payload/project";
-import ProjectContent from "../../components/ProjectContent";
-import ContentObserver from "../../components/ContentObserver";
-import { InViewProvider } from "../../contexts/InViewContext";
 
-const Page = () => {
+import Text from "@/components/Text";
+import ProjectContent from "@/components/ProjectContent";
+import ContentObserver from "@/components/ContentObserver";
+import ScrollSpy, { ScrollSpyType } from "@/components/ScrollSpy";
+import Pagination from "@/components/Pagination";
+
+import { MyRole, ProjectTag } from "payload-types";
+import { InViewProvider } from "@/contexts/InViewContext";
+import { ArrowLeft } from "lucide-react";
+
+import config from "@payload-config";
+import { getPayloadHMR } from "@payloadcms/next/utilities";
+
+// TO DO
+// REDIRECT
+
+const getProject = async (slug: string) => {
+  const payload = await getPayloadHMR({ config });
+  const req = await payload.find({
+    collection: "projects",
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  });
+
+  const project = req.docs[0];
+
+  return project;
+};
+
+const Page = async ({ params }: { params: { project: string } }) => {
+  const projectData = await getProject(params.project);
+
+  const { sections } = projectData;
+  // There's a bug in Payload 3.0 relations that affect type setting
+  // This is a temporary measure to enforce proper type
+  const tag: ProjectTag = projectData.tag as ProjectTag;
+  const role: MyRole = projectData.role as MyRole;
+
+  const status = {
+    ONGOING: "Ongoing",
+    DONE: "Done",
+  };
+
   return (
     <>
       <InViewProvider>
-        <ContentObserver content={ProjectPayload[0].sections} />
+        {sections?.length ? (
+          <ContentObserver content={projectData.sections} />
+        ) : null}
+
         <main className="project-page-grid mx-auto my-[80px]">
           <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
             <BackButton />
@@ -29,7 +69,7 @@ const Page = () => {
                     weight="normal"
                     className="text-nowrap"
                   >
-                    {ProjectPayload[0].title}
+                    {projectData.title}
                   </Text>
 
                   <Text
@@ -39,22 +79,19 @@ const Page = () => {
                     multiline
                     className="text inline-flex md:hidden"
                   >
-                    {ProjectPayload[0].desc}
+                    {projectData.desc}
                   </Text>
                 </div>
                 <div className="flex flex-row gap-8px">
-                  <ProjectBadge label={ProjectPayload[0].year} />
-                  <ProjectBadge label={ProjectPayload[0].tag} />
+                  <ProjectBadge label={projectData.year} />
+                  <ProjectBadge label={tag.name} />
                 </div>
 
                 <div className="flex flex-row gap-40px">
-                  <ProjectOverline
-                    label="Role"
-                    value={ProjectPayload[0].role}
-                  />
+                  <ProjectOverline label="Role" value={role.name} />
                   <ProjectOverline
                     label="Status"
-                    value={ProjectPayload[0].status}
+                    value={status[projectData.status]}
                   />
                 </div>
               </div>
@@ -65,31 +102,26 @@ const Page = () => {
                 multiline
                 className="text hidden md:inline-flex"
               >
-                {ProjectPayload[0].desc}
+                {projectData.desc}
               </Text>
             </div>
           </div>
 
           <div className="hidden md:inline-block md:col-start-1">
-            <ScrollSpy sections={ProjectPayload[0].sections} />
+            {sections?.length ? (
+              <ScrollSpy sections={sections as ScrollSpyType[]} />
+            ) : null}
           </div>
 
-          <ProjectContent content={ProjectPayload[0]} />
+          {sections?.length ? (
+            <ProjectContent sections={sections} />
+          ) : (
+            <div>No content</div>
+          )}
 
           <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
             <hr />
-            <div className="flex gap-24px justify-between">
-              <PaginationItem
-                desc="Previous"
-                label="An app for Filipino citizens"
-                left
-              />
-              <PaginationItem
-                desc="Next"
-                label="An small business online store app"
-                right
-              />
-            </div>
+            <Pagination currID={projectData.id} />
           </section>
         </main>
       </InViewProvider>

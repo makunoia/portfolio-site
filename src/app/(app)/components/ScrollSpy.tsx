@@ -1,20 +1,18 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import Text from "./Text";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
-import { cn } from "@/lib/utils";
-import InViewContext from "../contexts/InViewContext";
+import InViewContext from "@/contexts/InViewContext";
 
-type SectionsType = {
-  sections: {
-    title: string;
-    id: string;
-    blocks: { id: string; lead: string }[];
-  }[];
+export type ScrollSpyType = {
+  title: string;
+  htmlID: string;
+  blocks: { lead: string; htmlID: string }[];
 };
 
-const ScrollSpy = ({ sections }: SectionsType) => {
+const ScrollSpy = ({ sections }: { sections: ScrollSpyType[] }) => {
   return (
     <div className="sticky pl-24px top-24px min-w-[150px] ml-auto flex flex-col gap-4px">
       <Text size="body" className="text-subtle mb-12px">
@@ -25,7 +23,7 @@ const ScrollSpy = ({ sections }: SectionsType) => {
   );
 };
 
-const AccordionRoot = ({ sections }: SectionsType) => {
+const AccordionRoot = ({ sections }: { sections: ScrollSpyType[] }) => {
   const { inView } = useContext(InViewContext);
   return (
     <Accordion.Root
@@ -34,9 +32,14 @@ const AccordionRoot = ({ sections }: SectionsType) => {
       value={inView.section as string}
       collapsible
     >
-      {sections.map(({ title, id, blocks }) => {
+      {sections.map(({ title, htmlID, blocks }) => {
         return (
-          <ScrollSpyItem id={id} key={title} title={title} blocks={blocks} />
+          <ScrollSpyItem
+            id={htmlID}
+            key={title}
+            title={title}
+            blocks={blocks}
+          />
         );
       })}
     </Accordion.Root>
@@ -50,7 +53,7 @@ const ScrollSpyItem = ({
 }: {
   id: string;
   title: string;
-  blocks: { lead: string; id: string }[];
+  blocks: { lead: string; htmlID: string }[];
 }) => {
   const [activeItemIndex, setActiveItemIndex] = useState<number | undefined>();
   const [hoveredItemIndex, setHoveredItemIndex] = useState<
@@ -62,7 +65,7 @@ const ScrollSpyItem = ({
   //create a useEffect hook to render active path
   useEffect(() => {
     const newActiveIndex = blocks.findIndex(
-      (block) => block.id == inView.block
+      (block) => block.htmlID == inView.block
     );
     setActiveItemIndex(newActiveIndex);
   }, [inView.block]);
@@ -96,7 +99,6 @@ const ScrollSpyItem = ({
   };
 
   const scrollToViewHandler = (id: string) => {
-    console.log("Scroll to...", id);
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
   };
@@ -124,13 +126,13 @@ const ScrollSpyItem = ({
         asChild
       >
         <motion.div>
-          {blocks.map(({ lead, id }, i) => (
+          {blocks.map(({ lead, htmlID }, i) => (
             <div
               key={i}
               className="group spy-item last:mb-8px"
               onMouseEnter={() => onMouseEnterHandler(i)}
               onMouseLeave={() => onMouseLeaveHandler()}
-              onClick={() => onClickHandler(i, id)}
+              onClick={() => onClickHandler(i, htmlID)}
             >
               <div
                 className={`trackline trackline-v 
@@ -144,7 +146,7 @@ const ScrollSpyItem = ({
               />
               <Text
                 className={`transition-color duration-300 ease-in-out group-hover:text ${
-                  inView.block == id ? "text" : "text-subtle/40 "
+                  inView.block == htmlID ? "text" : "text-subtle/40 "
                 } text-nowrap`}
               >
                 {lead}

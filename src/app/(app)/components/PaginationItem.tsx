@@ -1,20 +1,26 @@
 import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Text from "./Text";
+import Link from "next/link";
 
 const PaginationItem = ({
   label,
+  link,
   desc,
   left,
   right,
 }: {
   label: string;
+  link: string;
   desc: string;
   left?: boolean;
   right?: boolean;
 }) => {
   return (
-    <div className="group flex gap-16px justify-between cursor-pointer">
+    <Link
+      href={link}
+      className={`group flex gap-16px cursor-pointer ${right && "self-end"}`}
+    >
       {left && <ChevronLeft className="text" size={16} />}
       <div
         className={`${
@@ -30,7 +36,7 @@ const PaginationItem = ({
         </Text>
       </div>
       {right && <ChevronRight className="text" size={16} />}
-    </div>
+    </Link>
   );
 };
 

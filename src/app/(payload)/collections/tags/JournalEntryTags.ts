@@ -8,7 +8,7 @@ const JournalEntryTags: CollectionConfig = {
   },
   admin: {
     useAsTitle: "name",
-    group: "Settings",
+    group: "All Tags",
     defaultColumns: ["name", "id"],
   },
   fields: [
@@ -16,6 +16,7 @@ const JournalEntryTags: CollectionConfig = {
       label: "Name",
       name: "name",
       type: "text",
+      required: true,
     },
   ],
 };

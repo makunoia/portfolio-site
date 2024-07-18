@@ -3,12 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Text from "./Text";
 
-type SectionDividerProps = {
-  header: string;
-  id?: string;
-};
-
-const SectionDivider = ({ header, id }: SectionDividerProps) => {
+const SectionDivider = ({ header, id }: { header: string; id?: string }) => {
   return (
     <motion.div
       layout

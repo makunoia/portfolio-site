@@ -1,14 +1,14 @@
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-
+import configPromise from "@payload-config";
+import { getPayload } from "payload";
+//This is a demo to demonstrate the new getPayload API
 export const GET = async () => {
   const payload = await getPayload({
     config: configPromise,
-  })
+  });
 
   const data = await payload.find({
-    collection: 'users',
-  })
+    collection: "projects",
+  });
 
-  return Response.json(data)
-}
+  return Response.json(data);
+};

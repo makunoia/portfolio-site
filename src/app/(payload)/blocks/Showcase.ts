@@ -12,6 +12,7 @@ const Showcase: Block = {
       name: "image",
       type: "upload",
       relationTo: "assets",
+      required: true,
     },
     {
       label: "Title",
@@ -21,9 +22,17 @@ const Showcase: Block = {
     },
     {
       label: "Description",
-      name: "description",
+      name: "desc",
       type: "textarea",
       required: true,
+    },
+    {
+      label: "Tag",
+      name: "tag",
+      type: "text",
+      admin: {
+        description: "A small badge at the opposite end of the title",
+      },
     },
   ],
 };
