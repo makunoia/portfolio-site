@@ -1,6 +1,6 @@
 import { JournalEntry, Project } from "payload-types";
 
-//Had to make another type since Payload had *.tag.value.name
+//Had to make another type since Payload had *.tag.name
 type ProjectListItem = {
   title: string;
   desc: string;

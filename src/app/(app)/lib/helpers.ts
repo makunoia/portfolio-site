@@ -19,7 +19,7 @@ export function GroupByYear(items: Project[] | JournalEntry[]) {
         .filter((item) => year === item.year) // Filter items based on the year
         .map((item) => {
           // Map the filtered items to the desired structure
-          const tag: ProjectTag = item.tag.value as ProjectTag;
+          const tag: ProjectTag = item.tag as ProjectTag;
           return {
             title: item.title,
             desc: item.desc,

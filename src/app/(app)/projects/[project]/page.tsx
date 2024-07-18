@@ -39,8 +39,8 @@ const Page = async ({ params }: { params: { project: string } }) => {
   const { sections } = projectData;
   // There's a bug in Payload 3.0 relations that affect type setting
   // This is a temporary measure to enforce proper type
-  const tag: ProjectTag = projectData.tag.value as ProjectTag;
-  const role: MyRole = projectData.role.value as MyRole;
+  const tag: ProjectTag = projectData.tag as ProjectTag;
+  const role: MyRole = projectData.role as MyRole;
 
   const status = {
     ONGOING: "Ongoing",
