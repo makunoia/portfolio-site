@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { XIcon } from "lucide-react";
 import { JournalEntry, JournalEntryTag } from "payload-types";
-import { formatDate } from "../lib/helpers";
+import { formatDate } from "@/helpers";
 
 // TO DO
 // FIX MOUNT ANIMATION ON LINK VISIT
@@ -61,12 +61,10 @@ const JournalPage = ({
   };
 
   const ClosePageOrchestration = async () => {
-    // console.log("Closing page...");
     setIsContentOpen(false);
   };
 
   const ClosePageOrchestrationWithHeader = async () => {
-    // console.log("Closing page with header...");
     page.current?.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -76,7 +74,6 @@ const JournalPage = ({
   };
 
   const OpenPageOrchestration = async () => {
-    // console.log("Opening page...");
     setIsPageOpen(true);
     await delay(500);
     setIsContentOpen(true);
@@ -165,13 +162,7 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
-    if (isPresent) {
-      // console.log("Content Mounted");
-    }
-
     if (!isPresent) {
-      // console.log("Content Dismounted");
-
       const exitAnimation = async () => {
         await animate(scope.current, { height: 0, opacity: 0 });
 
@@ -179,7 +170,6 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
       };
 
       exitAnimation();
-      // console.log("Animation done");
     }
   }, [isPresent]);
 

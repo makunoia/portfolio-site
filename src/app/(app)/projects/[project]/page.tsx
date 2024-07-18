@@ -8,7 +8,7 @@ import ScrollSpy, { ScrollSpyType } from "@/components/ScrollSpy";
 import Pagination from "@/components/Pagination";
 
 import { MyRole, ProjectTag } from "payload-types";
-import { InViewProvider } from "../../contexts/InViewContext";
+import { InViewProvider } from "@/contexts/InViewContext";
 import { ArrowLeft } from "lucide-react";
 
 import config from "@payload-config";

@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useEffect } from "react";
-import InViewContext from "../contexts/InViewContext";
-import { ContentType } from "../types";
+import InViewContext from "@/contexts/InViewContext";
+import { ContentType } from "@/types";
 
 const ContentObserver = ({ content }: { content: ContentType }) => {
   const { inView, setInView } = useContext(InViewContext);
@@ -79,8 +79,6 @@ const ContentObserver = ({ content }: { content: ContentType }) => {
       );
     });
   }, [content]);
-
-  useEffect(() => console.log("InView", inView), [inView]);
 
   return <div id="observer"></div>;
 };

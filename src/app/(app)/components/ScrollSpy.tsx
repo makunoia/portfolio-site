@@ -4,7 +4,7 @@ import Text from "./Text";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
-import InViewContext from "../contexts/InViewContext";
+import InViewContext from "@/contexts/InViewContext";
 
 export type ScrollSpyType = {
   title: string;
@@ -99,7 +99,6 @@ const ScrollSpyItem = ({
   };
 
   const scrollToViewHandler = (id: string) => {
-    console.log("Scroll to...", id);
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
   };

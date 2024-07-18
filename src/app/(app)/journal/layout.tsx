@@ -1,7 +1,7 @@
 import React, { ReactNode, Suspense } from "react";
 
 import Text from "@/components/Text";
-import EntriesListContainer from "../components/EntriesListContainer";
+import JournalEntriesList from "@/components/JournalEntriesList/Server";
 
 const Layout = async ({ content }: { content: ReactNode }) => {
   return (
@@ -23,7 +23,9 @@ const Layout = async ({ content }: { content: ReactNode }) => {
           </Text>
         </div>
 
-        <EntriesListContainer content={content} />
+        <Suspense fallback={<div className="text">Loading...</div>}>
+          <JournalEntriesList content={content} />
+        </Suspense>
       </main>
     </>
   );

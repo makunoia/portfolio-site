@@ -7,8 +7,8 @@ import useInterval from "../hooks/useInterval";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useAnimate } from "framer-motion";
-import { TimerContext } from "../contexts/TimerContext";
-import { FeaturedProjectType } from "../types";
+import { TimerContext } from "@/contexts/TimerContext";
+import { FeaturedProjectType } from "@/types";
 
 const featuredProjects: FeaturedProjectType[] = [
   {

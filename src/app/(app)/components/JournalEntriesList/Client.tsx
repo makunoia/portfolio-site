@@ -6,9 +6,9 @@ import SectionDivider from "@/components/SectionDivider";
 
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { JournalEntriesByYear } from "../types";
+import { JournalEntriesByYear } from "@/types";
 
-const EntriesList = ({
+const JournalEntriesList = ({
   content,
   entries,
 }: {
@@ -79,4 +79,4 @@ const Overlay = ({
   );
 };
 
-export default EntriesList;
+export default JournalEntriesList;

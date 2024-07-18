@@ -7,8 +7,8 @@ import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 
 import { Project } from "payload-types";
-import { GroupByYear } from "../lib/helpers";
-import { ProjectsByYear } from "../types";
+import { GroupByYear } from "@/helpers";
+import { ProjectsByYear } from "@/types";
 
 const payload = await getPayloadHMR({ config });
 
@@ -23,13 +23,6 @@ const getAllProjectsByYear = async () => {
   const AllProjectsByYear = GroupByYear(projects, "projects") as ProjectsByYear;
 
   return AllProjectsByYear;
-};
-
-type ProjectItem = {
-  title: string;
-  desc: string;
-  tag: string;
-  slug: string;
 };
 
 const ProjectsList = async () => {
@@ -59,7 +52,17 @@ const ProjectsList = async () => {
   });
 };
 
-const ProjectItem = ({ title, desc, tag, slug }: ProjectItem) => {
+const ProjectItem = ({
+  title,
+  desc,
+  tag,
+  slug,
+}: {
+  title: string;
+  desc: string;
+  tag: string;
+  slug: string;
+}) => {
   return (
     <Link href={`projects/${slug}`} prefetch>
       <div className="flex flex-row justify-between cursor-pointer">

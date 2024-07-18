@@ -1,10 +1,12 @@
 import React, { ReactNode } from "react";
-import EntriesList from "@/components/EntriesList";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { GroupByYear } from "../lib/helpers";
-import { JournalEntriesByYear } from "../types";
+
+import { JournalEntriesByYear } from "@/types";
+import { GroupByYear } from "@/helpers";
+
+import JournalListComponent from "./Client";
 
 const getEntries = async () => {
   const payload = await getPayloadHMR({ config });
@@ -16,9 +18,9 @@ const getEntries = async () => {
 };
 
 //This component is made to establish a Network Boundary within the page to utilize Suspense
-const EntriesListContainer = async ({ content }: { content: ReactNode }) => {
+const JournalEntriesList = async ({ content }: { content: ReactNode }) => {
   const entries = (await getEntries()) as JournalEntriesByYear;
-  return <EntriesList content={content} entries={entries} />;
+  return <JournalListComponent content={content} entries={entries} />;
 };
 
-export default EntriesListContainer;
+export default JournalEntriesList;

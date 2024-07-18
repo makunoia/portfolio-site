@@ -65,7 +65,6 @@ const HandleUpload: CollectionBeforeValidateHook = async ({
     filename,
   };
 
-  console.log("beforeValidate New Data", newData);
   return newData;
 };
 
