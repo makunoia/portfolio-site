@@ -1,5 +1,3 @@
-const Page = async () => {
-  return null;
+export default () => {
+  return <></>;
 };
-
-export default Page;

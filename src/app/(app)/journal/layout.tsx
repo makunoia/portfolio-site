@@ -1,7 +1,7 @@
 import React, { ReactNode, Suspense } from "react";
 
 import Text from "@/components/Text";
-import JournalEntriesList from "@/app/(app)/components/JournalEntriesList/Server";
+import JournalEntriesList from "@/components/JournalEntriesList/Server";
 
 const Layout = async ({ content }: { content: ReactNode }) => {
   return (

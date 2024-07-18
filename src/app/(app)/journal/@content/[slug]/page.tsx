@@ -1,6 +1,8 @@
 import React from "react";
+
 import Text from "@/components/Text";
 import Showcase from "@/components/Showcase";
+
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 const payload = await getPayloadHMR({ config });
