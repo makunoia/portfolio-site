@@ -11,6 +11,7 @@ const Projects: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     description: "Manage your projects",
+    defaultColumns: ["title", "year", "isFeatured", "isArchived", "slug"],
   },
   fields: [
     {
@@ -265,12 +266,12 @@ const Projects: CollectionConfig = {
               },
             },
             {
-              label: "Add to Featured Projects carousel",
+              label: "Featured Project",
               name: "isFeatured",
               type: "checkbox",
               admin: {
                 description:
-                  "All featured projects are displayed on the homepage",
+                  "Add this project to the Featured Projects carousel displayed on the homepage",
               },
             },
             {
@@ -317,7 +318,7 @@ const Projects: CollectionConfig = {
             },
 
             {
-              label: "Archive",
+              label: "Archived",
               name: "isArchived",
               type: "checkbox",
               admin: {
