@@ -7,7 +7,7 @@ import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 
 import { Project } from "payload-types";
-import { GroupByYear } from "../utils/helpers";
+import { GroupByYear } from "../lib/helpers";
 import { ProjectsByYear } from "../types";
 
 const payload = await getPayloadHMR({ config });

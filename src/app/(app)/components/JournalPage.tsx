@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { XIcon } from "lucide-react";
 import { JournalEntry, JournalEntryTag } from "payload-types";
-import { formatDate } from "../utils/helpers";
+import { formatDate } from "../lib/helpers";
 
 // TO DO
 // FIX MOUNT ANIMATION ON LINK VISIT
@@ -196,7 +196,9 @@ const ContentContainer = ({ content }: { content: ReactNode }) => {
         animate={{ opacity: 1 }}
         className="flex flex-col gap-16px"
       >
-        <AnimatePresence>{content}</AnimatePresence>
+        <AnimatePresence>
+          <Suspense fallback={<div>Loading</div>}>{content}</Suspense>
+        </AnimatePresence>
       </motion.div>
     </motion.div>
   );

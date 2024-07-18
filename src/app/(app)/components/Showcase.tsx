@@ -16,7 +16,7 @@ const Showcase = ({
         <div className="relative overflow-hidden w-full h-[200px] md:h-[300px] bg rounded-10px">
           <Image
             src={showcaseImage.url as string}
-            alt={showcaseImage.alt as string}
+            alt={showcaseImage.alt || title}
             fill
             style={{
               objectFit: "cover",

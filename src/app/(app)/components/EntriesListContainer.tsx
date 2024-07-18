@@ -3,7 +3,7 @@ import EntriesList from "@/components/EntriesList";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { GroupByYear } from "../utils/helpers";
+import { GroupByYear } from "../lib/helpers";
 import { JournalEntriesByYear } from "../types";
 
 const getEntries = async () => {

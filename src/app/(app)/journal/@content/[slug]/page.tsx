@@ -1,61 +1,40 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { JournalEntry } from "payload-types";
-import Users from "@/app/(payload)/collections/Users";
-import Showcase from "@/app/(app)/components/Showcase";
+import React from "react";
 import Text from "@/components/Text";
+import Showcase from "@/components/Showcase";
+import config from "@payload-config";
+import { getPayloadHMR } from "@payloadcms/next/utilities";
+const payload = await getPayloadHMR({ config });
 
 // TO DO
 // Loading State
 // Align Props with PayLoad
 
-const JournalPage = ({ params }: { params: { slug: string } }) => {
+const Content = async ({ params }: { params: { slug: string } }) => {
   const slug = params.slug;
-  const [content, setContent] = useState<JournalEntry["blocks"]>();
 
-  useEffect(() => {
-    const getEntries = async (slug: string) => {
-      const req = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/journal-entries/?where[slug][equals]=${slug}`,
-        {
-          headers: {
-            Authentication: `${Users.slug} API-Key ${process.env.PAYLOAD_API_KEY}`,
-          },
-        }
-      );
+  const { docs } = await payload.find({
+    collection: "journal-entries",
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  });
 
-      var content;
-      if (req.ok) {
-        const { docs } = await req.json();
-        content = docs[0].blocks;
-
-        setContent(content);
-      } else {
-        console.log(await req.json());
-      }
-    };
-
-    getEntries(slug);
-  }, [slug]);
-
+  const content = docs[0].blocks;
   return (
-    <motion.div
-      layout="position"
-      animate={{ height: "fit-content" }}
-      transition={{ type: "spring", delay: 0.8, duration: 0.2 }}
-      exit={{ height: 0, transition: { duration: 0.2 } }}
-      className="flex flex-col gap-24px"
-    >
+    <>
       {content ? (
         content.map((block) => {
           return (
             <div key={block.id} className="flex flex-col gap-16px">
-              <div className="flex flex-col gap-4px">
+              <div className="flex flex-col gap-8px">
                 <Text size="body-large" as="h3" weight="medium">
                   {block.lead}
                 </Text>
-                <Text size="body">{block.copy}</Text>
+                <Text size="body" multiline>
+                  {block.copy}
+                </Text>
               </div>
 
               {block.showcase?.length ? (
@@ -72,8 +51,8 @@ const JournalPage = ({ params }: { params: { slug: string } }) => {
       ) : (
         <div>Loading</div>
       )}
-    </motion.div>
+    </>
   );
 };
 
-export default JournalPage;
+export default Content;
