@@ -2,6 +2,9 @@ import { CollectionConfig } from "payload";
 import Showcase from "../blocks/Showcase";
 import { BlockRowLabel, SectionRowLabel } from "../components/RowLabel";
 
+// TO DO
+// ADD VALIDATION TO HEX OR ADD COLOR FIELD
+
 const Projects: CollectionConfig = {
   slug: "projects",
   labels: {

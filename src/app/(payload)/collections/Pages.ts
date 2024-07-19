@@ -1,48 +1,100 @@
 import { CollectionConfig } from "payload";
-import KeyValuePair from "../blocks/KeyValuePair";
-import BooleanData from "../blocks/BooleanData";
+import InfoItem from "../blocks/InfoItem";
+import BooleanItem from "../blocks/BooleanItem";
+import URLItem from "../blocks/URLItem";
+import MediaItem from "../blocks/MediaItem";
 
 const Pages: CollectionConfig = {
-  slug: "page",
+  slug: "pages",
   labels: {
     singular: "Page",
     plural: "Pages",
   },
   admin: {
-    useAsTitle: "name",
-    defaultColumns: ["name", "id"],
+    useAsTitle: "title",
+    defaultColumns: ["title", "id"],
   },
   fields: [
     {
-      label: "Name",
-      name: "name",
-      type: "text",
+      label: "Page Title",
+      name: "title",
+      type: "select",
+      options: ["Home", "Projects", "Journal", "About Me"],
+      defaultValue: "Select a page",
       required: true,
+      unique: true,
     },
     {
-      label: "Hero",
-      type: "collapsible",
+      label: "Intro",
+      name: "intro",
+      type: "richText",
+    },
+    {
+      label: "Cover and Portrait Photo",
+      name: "pagePhotos",
+      type: "group",
       fields: [
         {
-          label: "Header",
-          name: "header",
-          type: "text",
-          required: true,
-        },
-        {
-          label: "Copy",
-          name: "copy",
-          type: "text",
+          type: "row",
+          fields: [
+            {
+              label: "Cover Photo",
+              name: "cover",
+              type: "relationship",
+              relationTo: "assets",
+            },
+            {
+              label: "Portrait",
+              name: "portrait",
+              type: "relationship",
+              relationTo: "assets",
+            },
+          ],
         },
       ],
+      admin: {
+        condition: (data) => (data?.title === "About Me" ? true : false),
+      },
     },
     {
-      label: "Content",
-      name: "content",
-      type: "blocks",
-      blocks: [KeyValuePair, BooleanData],
+      label: "Sections",
+      name: "sections",
+      type: "array",
+      fields: [
+        {
+          label: "Name",
+          name: "name",
+          type: "text",
+        },
+        {
+          label: "Content",
+          name: "content",
+          type: "blocks",
+          blocks: [InfoItem, BooleanItem, MediaItem, URLItem],
+        },
+      ],
+      admin: {
+        condition: (data) => (data?.title === "About Me" ? true : false),
+      },
     },
   ],
 };
+
+// SETTINGS:
+// PAGE: HOME, PROJECTS, JOURNAL, ABOUT ME
+// HIDE / SHOW DEPENDING ON SELECTED
+
+// A page can consist of:
+// Intro Paragraph
+
+// About us:
+// - Cover Photo
+// - Portrait
+
+// - Work Experience: Section Name, Item: {Image, Title, Desc, Tag}
+// - Checklist: Section Name, Item: {Boolean, Label}
+// - My toolkit: Section Name, Item: {Image, Title, Desc, Tag}
+// - Catchup on: Section Name, Item: {Image, Title, Progress: {Total Episodes, Episodes Watched}}
+// - Piano Covers: Section Name, Item: {URL, Title, desc, tag}
 
 export default Pages;

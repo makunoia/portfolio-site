@@ -13,9 +13,10 @@ export interface Config {
   collections: {
     users: User;
     projects: Project;
+    pages: Page;
+    'site-pages': SitePage;
     'project-tags': ProjectTag;
     'my-roles': MyRole;
-    page: Page;
     'journal-entries': JournalEntry;
     'journal-entry-tags': JournalEntryTag;
     assets: Asset;
@@ -159,38 +160,103 @@ export interface Asset {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "page".
+ * via the `definition` "pages".
  */
 export interface Page {
   id: string;
-  name: string;
-  header: string;
-  copy?: string | null;
-  content?: (KeyValue | BooleanData)[] | null;
+  title: 'Home' | 'Projects' | 'Journal' | 'About Me';
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  pagePhotos?: {
+    cover?: (string | null) | Asset;
+    portrait?: (string | null) | Asset;
+  };
+  sections?:
+    | {
+        name?: string | null;
+        content?: (InfoItem | BooleanItem | MediaItem | URLItem)[] | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Key-Value".
+ * via the `definition` "InfoItem".
  */
-export interface KeyValue {
-  key: string;
-  value: string;
+export interface InfoItem {
+  label: string;
+  desc: string;
+  tag?: string | null;
+  image?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'key-value-pair';
+  blockType: 'info-item';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BooleanData".
+ * via the `definition` "BooleanItem".
  */
-export interface BooleanData {
-  key: string;
+export interface BooleanItem {
+  label: string;
   value: boolean;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'boolean-data';
+  blockType: 'boolean-item';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaItem".
+ */
+export interface MediaItem {
+  label: string;
+  desc: string;
+  tag?: string | null;
+  image?: (string | null) | Asset;
+  progress?: {
+    episodeCount?: number | null;
+    watchedCount?: number | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'media-item';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "URLItem".
+ */
+export interface URLItem {
+  url: string;
+  label: string;
+  desc: string;
+  tag?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'url-item';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-pages".
+ */
+export interface SitePage {
+  id: string;
+  name?: ('Home' | 'Projects' | 'Journal' | 'About Me') | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -12,6 +12,7 @@ import { FeaturedProject } from "@/types";
 
 // TO DO
 // REMOVE TIMER IF ONE PROJECT
+// LOADING STATE
 
 const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);

@@ -1,16 +1,16 @@
 import { Block } from "payload";
 
-const BooleanData: Block = {
-  slug: "boolean-data",
-  interfaceName: "BooleanData",
+const BooleanItem: Block = {
+  slug: "boolean-item",
+  interfaceName: "BooleanItem",
   labels: {
-    singular: "Boolean Data",
-    plural: "Boolean Data",
+    singular: "Boolean Item",
+    plural: "Boolean Items",
   },
   fields: [
     {
-      label: "Key",
-      name: "key",
+      label: "Label",
+      name: "label",
       type: "text",
       required: true,
     },
@@ -23,4 +23,4 @@ const BooleanData: Block = {
   ],
 };
 
-export default BooleanData;
+export default BooleanItem;
