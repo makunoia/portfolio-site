@@ -62,12 +62,14 @@ const ListContainer = async ({
             }
           })
         ) : (
-          <div>No records found.</div>
+          <div className="text">No records found.</div>
         )}
       </div>
-      <Link href={link} className="w-full" as={link}>
-        <Button label="View all" fullWidth />
-      </Link>
+      {items ? (
+        <Link href={link} className="w-full" as={link}>
+          <Button label="View all" fullWidth />
+        </Link>
+      ) : null}
     </>
   );
 };

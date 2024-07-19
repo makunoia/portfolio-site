@@ -46,7 +46,7 @@ const JournalEntriesList = ({
           </LayoutGroup>
         ))
       ) : (
-        <div>No records</div>
+        <div className="text">No records</div>
       )}
 
       {showOverlay && <Overlay setShow={setShowOverlay} />}

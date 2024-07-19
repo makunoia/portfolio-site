@@ -10,6 +10,9 @@ import { motion, useAnimate } from "framer-motion";
 import { TimerContext } from "@/contexts/TimerContext";
 import { FeaturedProject } from "@/types";
 
+// TO DO
+// REMOVE TIMER IF ONE PROJECT
+
 const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [link, setLink] = useState<string>("");
