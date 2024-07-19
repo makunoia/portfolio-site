@@ -34,7 +34,7 @@ const ListContainer = async ({
   return (
     <>
       <div className="flex flex-col gap-16px">
-        {items ? (
+        {items.length ? (
           items.map((item) => {
             if (isProject(item)) {
               const tag: ProjectTag = item.tag as ProjectTag;
@@ -65,7 +65,7 @@ const ListContainer = async ({
           <div className="text">No records found.</div>
         )}
       </div>
-      {items ? (
+      {items.length ? (
         <Link href={link} className="w-full" as={link}>
           <Button label="View all" fullWidth />
         </Link>

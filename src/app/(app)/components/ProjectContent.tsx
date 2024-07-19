@@ -14,14 +14,14 @@ const ProjectContent = ({ sections }: { sections: Project["sections"] }) => {
       id="page-content"
       className="md:col-start-2 md:col-end-3 flex flex-col gap-60px"
     >
-      {sections
+      {sections?.length
         ? sections.map((section) => (
             <ContentSection
               key={section.id}
               header={section.title}
               htmlID={section.htmlID}
             >
-              {section.blocks
+              {section.blocks?.length
                 ? section.blocks.map((block) => (
                     <div
                       key={block.id}
