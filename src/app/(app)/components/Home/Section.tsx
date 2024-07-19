@@ -20,7 +20,7 @@ const PageSection = ({
         </Text>
       </div>
       <div className="w-full md:max-w-[400px] flex flex-col flex-grow flex-1 gap-24px">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div className="text">Loading...</div>}>
           <ListContainer link={link} collection={collection} />
         </Suspense>
       </div>

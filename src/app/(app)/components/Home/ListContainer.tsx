@@ -34,32 +34,36 @@ const ListContainer = async ({
   return (
     <>
       <div className="flex flex-col gap-16px">
-        {items.map((item) => {
-          if (isProject(item)) {
-            const tag: ProjectTag = item.tag as ProjectTag;
-            return (
-              <ListItem
-                key={item.id}
-                title={item.title}
-                tag={tag.name}
-                date={item.year}
-                url={`/projects/${item.slug}`}
-              />
-            );
-          } else if (isJournalEntry(item)) {
-            const tag: JournalEntryTag = item.tag as JournalEntryTag;
-            const date = formatDate(new Date(item.date));
-            return (
-              <ListItem
-                key={item.id}
-                title={item.title}
-                tag={tag.name}
-                date={date}
-                url={`/journal/${item.slug}`}
-              />
-            );
-          }
-        })}
+        {items ? (
+          items.map((item) => {
+            if (isProject(item)) {
+              const tag: ProjectTag = item.tag as ProjectTag;
+              return (
+                <ListItem
+                  key={item.id}
+                  title={item.title}
+                  tag={tag.name}
+                  date={item.year}
+                  url={`/projects/${item.slug}`}
+                />
+              );
+            } else if (isJournalEntry(item)) {
+              const tag: JournalEntryTag = item.tag as JournalEntryTag;
+              const date = formatDate(new Date(item.date));
+              return (
+                <ListItem
+                  key={item.id}
+                  title={item.title}
+                  tag={tag.name}
+                  date={date}
+                  url={`/journal/${item.slug}`}
+                />
+              );
+            }
+          })
+        ) : (
+          <div>No records found.</div>
+        )}
       </div>
       <Link href={link} className="w-full" as={link}>
         <Button label="View all" fullWidth />

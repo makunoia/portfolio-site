@@ -51,7 +51,7 @@ const Content = async ({ params }: { params: { slug: string } }) => {
           );
         })
       ) : (
-        <div>Loading</div>
+        <div>No content.</div>
       )}
     </>
   );

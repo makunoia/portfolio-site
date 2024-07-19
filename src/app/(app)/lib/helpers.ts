@@ -53,11 +53,11 @@ export function GroupByYear(items: Project[] | JournalEntry[]) {
 }
 
 export const isProject = (props: any): props is Project => {
-  return props.type === "project" ? true : false;
+  return props?.type === "project" ? true : false;
 };
 
 export const isJournalEntry = (props: any): props is JournalEntry => {
-  return props.type === "journal-entry" ? true : false;
+  return props?.type === "journal-entry" ? true : false;
 };
 
 //Formats Date to MMMM DD, YYYY

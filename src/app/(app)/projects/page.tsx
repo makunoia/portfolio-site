@@ -21,7 +21,7 @@ const Page = () => {
         </Text>
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className="text">Loading...</div>}>
         <ProjectsList />
       </Suspense>
     </main>
