@@ -28,28 +28,32 @@ const getAllProjectsByYear = async () => {
 const ProjectsList = async () => {
   const AllProjectsByYear = await getAllProjectsByYear();
 
-  return AllProjectsByYear.map((item) => {
-    return (
-      <div className="flex flex-col gap-16px">
-        <SectionDivider header={item.year} />
+  return AllProjectsByYear ? (
+    AllProjectsByYear.map((item) => {
+      return (
         <div className="flex flex-col gap-16px">
-          {item.projects.length
-            ? item.projects.map((project) => {
-                return (
-                  <ProjectItem
-                    key={project.title}
-                    title={project.title}
-                    desc={project.desc}
-                    tag={project.tag}
-                    slug={project.slug}
-                  />
-                );
-              })
-            : "No projects found"}
+          <SectionDivider header={item.year} />
+          <div className="flex flex-col gap-16px">
+            {item.projects.length
+              ? item.projects.map((project) => {
+                  return (
+                    <ProjectItem
+                      key={project.title}
+                      title={project.title}
+                      desc={project.desc}
+                      tag={project.tag}
+                      slug={project.slug}
+                    />
+                  );
+                })
+              : "No projects found"}
+          </div>
         </div>
-      </div>
-    );
-  });
+      );
+    })
+  ) : (
+    <div className="text">No Projects found.</div>
+  );
 };
 
 const ProjectItem = ({
