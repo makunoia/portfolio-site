@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import React, { ReactNode, Suspense } from "react";
 
 import Text from "@/components/Text";

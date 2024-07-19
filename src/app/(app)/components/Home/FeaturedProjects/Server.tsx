@@ -1,4 +1,3 @@
-import Text from "@/components/Text";
 import { FeaturedProject } from "@/types";
 import FeaturedProjectsClient from "./Client";
 
@@ -22,13 +21,7 @@ const getFeaturedProjects = async () => {
 const FeaturedProjects = async () => {
   const projects = await getFeaturedProjects();
 
-  return (
-    <FeaturedProjectsClient projects={projects}>
-      <Text as="h2" size="lead">
-        Featured Projects
-      </Text>
-    </FeaturedProjectsClient>
-  );
+  return <FeaturedProjectsClient projects={projects} />;
 };
 
 export default FeaturedProjects;

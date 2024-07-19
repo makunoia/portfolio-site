@@ -10,13 +10,7 @@ import { motion, useAnimate } from "framer-motion";
 import { TimerContext } from "@/contexts/TimerContext";
 import { FeaturedProject } from "@/types";
 
-const FeaturedProjects = ({
-  projects,
-  children,
-}: {
-  projects: FeaturedProject[];
-  children: ReactNode;
-}) => {
+const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [link, setLink] = useState<string>("");
   const duration = 5000;
@@ -100,7 +94,9 @@ const FeaturedProjects = ({
       className="w-full flex flex-col gap-16px justify-between"
     >
       <div className="flex flex-row w-full justify-between">
-        {children}
+        <Text as="h2" size="lead">
+          Featured Projects
+        </Text>
         <div className="flex flex-row gap-4px">
           <ChevronLeft
             onClick={() => PreviousItem()}
@@ -113,72 +109,76 @@ const FeaturedProjects = ({
         </div>
       </div>
 
-      <Link
-        prefetch
-        className={style()}
-        href={`/projects/${link}`}
-        as={`/projects/${link}`}
-        id="featured-projects-container"
-      >
-        <div className={imageContainer()}>
-          {projects.map((project, i) => (
-            <div
-              key={project.slug}
-              className={imageStyle({
-                shown: activeIndex === i ? true : false,
-              })}
-            >
-              <Image
-                className="select-none"
-                src={project.featuredData.image.url}
-                alt={project.featuredData.image.alt || ""}
-                style={{ objectFit: "contain" }}
-                sizes="400px"
-                priority
-                fill
-              />
-            </div>
-          ))}
-
-          {projects.map((project, i) => (
-            <BackgroundLight
-              key={project.slug}
-              gradient={{
-                start: project.featuredData.gradientStart,
-                end: project.featuredData.gradientEnd,
-              }}
-              shown={activeIndex === i}
-            />
-          ))}
-        </div>
-
-        <div className={infoStyle()}>
-          <ArrowButton />
-
-          <div className="relative bg-danger">
+      {projects ? (
+        <Link
+          prefetch
+          className={style()}
+          href={`/projects/${link}`}
+          as={`/projects/${link}`}
+          id="featured-projects-container"
+        >
+          <div className={imageContainer()}>
             {projects.map((project, i) => (
               <div
                 key={project.slug}
-                className={`flex flex-col gap-4px w-full absolute bottom-0px transition-all ease-in-out duration-300  ${
-                  activeIndex === i
-                    ? "opacity-100 translate-y-0px"
-                    : "opacity-0 translate-y-40px"
-                }`}
+                className={imageStyle({
+                  shown: activeIndex === i ? true : false,
+                })}
               >
-                <Text as="h3" size="body-large" weight="medium">
-                  {project.title}
-                </Text>
-                <Text className="text-subtle" as="p" size="caption" multiline>
-                  {project.desc}
-                </Text>
+                <Image
+                  className="select-none"
+                  src={project.featuredData.image.url}
+                  alt={project.featuredData.image.alt || ""}
+                  style={{ objectFit: "contain" }}
+                  sizes="400px"
+                  priority
+                  fill
+                />
               </div>
+            ))}
+
+            {projects.map((project, i) => (
+              <BackgroundLight
+                key={project.slug}
+                gradient={{
+                  start: project.featuredData.gradientStart,
+                  end: project.featuredData.gradientEnd,
+                }}
+                shown={activeIndex === i}
+              />
             ))}
           </div>
 
-          <TextOverlayBG />
-        </div>
-        <ProgressBar duration={duration} currIndex={activeIndex} />
-      </Link>
+          <div className={infoStyle()}>
+            <ArrowButton />
+
+            <div className="relative bg-danger">
+              {projects.map((project, i) => (
+                <div
+                  key={project.slug}
+                  className={`flex flex-col gap-4px w-full absolute bottom-0px transition-all ease-in-out duration-300  ${
+                    activeIndex === i
+                      ? "opacity-100 translate-y-0px"
+                      : "opacity-0 translate-y-40px"
+                  }`}
+                >
+                  <Text as="h3" size="body-large" weight="medium">
+                    {project.title}
+                  </Text>
+                  <Text className="text-subtle" as="p" size="caption" multiline>
+                    {project.desc}
+                  </Text>
+                </div>
+              ))}
+            </div>
+
+            <TextOverlayBG />
+          </div>
+          <ProgressBar duration={duration} currIndex={activeIndex} />
+        </Link>
+      ) : (
+        <div className="text">No projects</div>
+      )}
     </section>
   );
 };

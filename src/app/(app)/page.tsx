@@ -1,4 +1,7 @@
-import React, { Suspense } from "react";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+import React from "react";
 import Image from "next/image";
 import Text from "@/components/Text";
 import StatusBadge from "@/components/StatusBadge";
