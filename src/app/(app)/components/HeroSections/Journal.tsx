@@ -27,7 +27,7 @@ const JournalHero = async () => {
         {title}
       </Text>
 
-      {renderLexicalContent(root)}
+      {root ? renderLexicalContent(root) : null}
     </div>
   );
 };

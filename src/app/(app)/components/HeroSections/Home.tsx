@@ -23,7 +23,7 @@ const HomeHero = async () => {
 
   return (
     <div className="flex flex-col gap-24px">
-      {renderLexicalContent(root)}
+      {root ? renderLexicalContent(root) : null}
       <StatusBadge />
     </div>
   );
