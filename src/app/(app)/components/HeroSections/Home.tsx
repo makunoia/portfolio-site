@@ -17,7 +17,9 @@ const HomeHero = async () => {
     },
   });
 
-  const root = docs ? (docs[0].intro?.root.children as LexicalBlock) : [];
+  const root = docs[0].intro
+    ? (docs[0].intro?.root.children as LexicalBlock)
+    : [];
 
   return (
     <div className="flex flex-col gap-24px">
