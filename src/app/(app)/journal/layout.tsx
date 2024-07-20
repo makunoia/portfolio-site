@@ -11,7 +11,9 @@ const Layout = async ({ content }: { content: ReactNode }) => {
   return (
     <>
       <main className="max-w-[500px] mx-auto flex flex-col gap-40px my-[80px]">
-        <JournalHero />
+        <Suspense fallback={<div>Loading...</div>}>
+          <JournalHero />
+        </Suspense>
 
         <Suspense fallback={<div className="text">Loading...</div>}>
           <JournalEntriesList content={content} />

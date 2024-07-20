@@ -37,13 +37,15 @@ const Page = () => {
             />
           </div>
         </div>
-        <Suspense fallback={null}>
+        <Suspense fallback={<div>Loading Skeleton</div>}>
           <HeroSection />
         </Suspense>
       </div>
       <hr />
       <div className="flex flex-col gap-[6.25rem]">
-        <FeaturedProjects />
+        <Suspense fallback={<div>Loading Skeleton</div>}>
+          <FeaturedProjects />
+        </Suspense>
         <Section title="Archive" collection="projects" link="/projects" />
         <Section title="Journal" collection="journal-entries" link="/journal" />
       </div>

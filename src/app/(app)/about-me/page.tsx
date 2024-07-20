@@ -1,6 +1,6 @@
 import Text from "@/components/Text";
 import Image, { StaticImageData } from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import PlaceholderImage from "../assets/placeholder_img.png";
 import Portrait from "../assets/portrait.jpg";
 import Banner from "../assets/profile_banner.png";
@@ -56,7 +56,9 @@ const Page = () => {
             />
           </div>
 
-          <AboutMeHero />
+          <Suspense fallback={<div>Loading</div>}>
+            <AboutMeHero />
+          </Suspense>
         </div>
 
         {/* Work Section */}

@@ -16,7 +16,7 @@ const AboutMeHero = async () => {
     },
   });
 
-  const root = docs[0].intro?.root.children as LexicalBlock;
+  const root = docs ? (docs[0].intro?.root.children as LexicalBlock) : [];
 
   return (
     <div className="flex flex-col gap-24px">{renderLexicalContent(root)}</div>
