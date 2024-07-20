@@ -24,7 +24,7 @@
       "@/components/*": ["./src/app/(app)/components/*"],
       "@/contexts/*": ["./src/app/(app)/contexts/*"],
       "@/hooks/*": ["./src/app/(app)/hooks/*"],
-      "@/helpers": ["./src/app/(app)/lib/helpers.ts"],
+      "@/helpers": ["./src/app/(app)/lib/helpers.tsx"],
       "@/types": ["./src/app/(app)/types"],
       "@payload-config": ["./payload.config.ts"]
     },

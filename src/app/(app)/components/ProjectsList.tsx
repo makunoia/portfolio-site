@@ -31,7 +31,7 @@ const ProjectsList = async () => {
   return AllProjectsByYear.length ? (
     AllProjectsByYear.map((item) => {
       return (
-        <div className="flex flex-col gap-16px">
+        <div className="flex flex-col gap-16px" key={item.year}>
           <SectionDivider header={item.year} />
           <div className="flex flex-col gap-16px">
             {item.projects.length

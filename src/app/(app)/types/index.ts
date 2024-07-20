@@ -1,4 +1,4 @@
-import { JournalEntry, Project } from "payload-types";
+import { JournalEntry, Project, Showcase } from "payload-types";
 
 //Had to make another type since Payload had *.tag.name
 type ProjectListItem = {
@@ -27,3 +27,35 @@ export type FeaturedProject = {
 export type ContentType = Project["sections"];
 export type ProjectsByYear = { year: string; projects: ProjectListItem[] }[];
 export type JournalEntriesByYear = { year: string; entries: JournalEntry[] }[];
+
+// Lexical Root.Children
+export type LexicalBlock = (
+  | {
+      type: "paragraph" | "quote";
+      children?: {
+        text: string;
+        type: "text" | "linebreak";
+      }[];
+    }
+  | {
+      type: "block";
+      fields: Showcase;
+    }
+  | {
+      type: "heading";
+      tag: "h1" | "h3";
+      children?: {
+        text: string;
+        type: "text" | "linebreak";
+      }[];
+    }
+  | { type: "horizontalrule" }
+)[];
+
+export const LexicalStyleMap = {
+  1: "bold",
+  8: "underlined",
+  9: "bold and underlined",
+  10: "italic",
+  11: "italic and bold",
+};

@@ -2,7 +2,8 @@ import path from "path";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 
-import Pages from "@/app/(payload)/collections/Pages";
+// import Pages from "@/app/(payload)/collections/Pages";
+import Webpages from "@/app/(payload)/collections/Webpages";
 import Projects from "@/app/(payload)/collections/Projects";
 import Users from "@/app/(payload)/collections/Users";
 import Assets from "@/app/(payload)/collections/Assets";
@@ -10,20 +11,47 @@ import JournalEntries from "@/app/(payload)/collections/JournalEntries";
 import ProjectTags from "@/app/(payload)/collections/tags/ProjectTags";
 import MyRoles from "@/app/(payload)/collections/tags/MyRoles";
 import JournalEntryTags from "@/app/(payload)/collections/tags/JournalEntryTags";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import {
+  BlockquoteFeature,
+  BlocksFeature,
+  BoldFeature,
+  HeadingFeature,
+  HorizontalRuleFeature,
+  InlineCodeFeature,
+  ItalicFeature,
+  lexicalEditor,
+  ParagraphFeature,
+  UnderlineFeature,
+} from "@payloadcms/richtext-lexical";
 import { fileURLToPath } from "url";
 import { s3Storage } from "@payloadcms/storage-s3";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 import sharp from "sharp";
+import Showcase from "@/app/(payload)/blocks/Showcase";
 
 export default buildConfig({
-  editor: lexicalEditor({}),
+  editor: lexicalEditor({
+    features: () => [
+      HeadingFeature({ enabledHeadingSizes: ["h1", "h3"] }),
+      BoldFeature(),
+      ItalicFeature(),
+      UnderlineFeature(),
+      ParagraphFeature(),
+      BlockquoteFeature(),
+      HorizontalRuleFeature(),
+      InlineCodeFeature(),
+      BlocksFeature({
+        blocks: [Showcase],
+      }),
+    ],
+  }),
   collections: [
     Users,
     Projects,
-    Pages,
+    // Pages,
     ProjectTags,
+    Webpages,
     MyRoles,
     JournalEntries,
     JournalEntryTags,
@@ -62,6 +90,7 @@ export default buildConfig({
     url: process.env.DATABASE_URI || "",
   }),
   admin: {
+    user: Users.slug,
     autoLogin: {
       email: "markbriannoya@gmail.com",
       password: "cmsdev",

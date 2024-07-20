@@ -1,26 +1,26 @@
 import { CollectionConfig } from "payload";
+import { SectionRowLabel } from "../components/RowLabel";
 import InfoItem from "../blocks/InfoItem";
 import BooleanItem from "../blocks/BooleanItem";
-import URLItem from "../blocks/URLItem";
 import MediaItem from "../blocks/MediaItem";
+import URLItem from "../blocks/URLItem";
 
-const Pages: CollectionConfig = {
-  slug: "pages",
+const Site: CollectionConfig = {
+  slug: "webpages",
   labels: {
-    singular: "Page",
-    plural: "Pages",
+    singular: "Webpage",
+    plural: "Webpages",
   },
   admin: {
-    useAsTitle: "title",
-    defaultColumns: ["title", "id"],
+    useAsTitle: "name",
+    defaultColumns: ["name", "id"],
   },
   fields: [
     {
-      label: "Page Title",
-      name: "title",
+      label: "Page Name",
+      name: "name",
       type: "select",
       options: ["Home", "Projects", "Journal", "About Me"],
-      defaultValue: "Select a page",
       required: true,
       unique: true,
     },
@@ -42,18 +42,24 @@ const Pages: CollectionConfig = {
               name: "cover",
               type: "relationship",
               relationTo: "assets",
+              admin: {
+                width: "50%",
+              },
             },
             {
               label: "Portrait",
               name: "portrait",
               type: "relationship",
               relationTo: "assets",
+              admin: {
+                width: "50%",
+              },
             },
           ],
         },
       ],
       admin: {
-        condition: (data) => (data?.title === "About Me" ? true : false),
+        condition: (data) => (data?.name === "About Me" ? true : false),
       },
     },
     {
@@ -62,8 +68,8 @@ const Pages: CollectionConfig = {
       type: "array",
       fields: [
         {
-          label: "Name",
-          name: "name",
+          label: "Title",
+          name: "title",
           type: "text",
         },
         {
@@ -74,27 +80,13 @@ const Pages: CollectionConfig = {
         },
       ],
       admin: {
-        condition: (data) => (data?.title === "About Me" ? true : false),
+        components: {
+          RowLabel: SectionRowLabel,
+        },
+        condition: (data) => (data?.name === "About Me" ? true : false),
       },
     },
   ],
 };
 
-// SETTINGS:
-// PAGE: HOME, PROJECTS, JOURNAL, ABOUT ME
-// HIDE / SHOW DEPENDING ON SELECTED
-
-// A page can consist of:
-// Intro Paragraph
-
-// About us:
-// - Cover Photo
-// - Portrait
-
-// - Work Experience: Section Name, Item: {Image, Title, Desc, Tag}
-// - Checklist: Section Name, Item: {Boolean, Label}
-// - My toolkit: Section Name, Item: {Image, Title, Desc, Tag}
-// - Catchup on: Section Name, Item: {Image, Title, Progress: {Total Episodes, Episodes Watched}}
-// - Piano Covers: Section Name, Item: {URL, Title, desc, tag}
-
-export default Pages;
+export default Site;

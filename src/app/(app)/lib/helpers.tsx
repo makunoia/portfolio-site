@@ -1,0 +1,170 @@
+import Text from "@/components/Text";
+import Showcase from "@/components/Showcase";
+import { JournalEntry, Project, ProjectTag } from "payload-types";
+import { LexicalBlock } from "../types";
+
+// TO DO
+// Remove .length to array checks?
+
+//Helper function to group Projects and Journal Entries by year.
+export function GroupByYear(items: Project[] | JournalEntry[]) {
+  let allYearsArr = [];
+  let data = [];
+  if (isProject(items[0])) {
+    allYearsArr = (items as Project[]).reduce<string[]>((arr, item) => {
+      const timeTag = item.year;
+      if (!arr.includes(timeTag)) {
+        arr.push(timeTag);
+      }
+      return arr;
+    }, []);
+
+    data = allYearsArr.map((year) => ({
+      year: year,
+      projects: (items as Project[])
+        .filter((item) => year === item.year) // Filter items based on the year
+        .map((item) => {
+          // Map the filtered items to the desired structure
+          const tag: ProjectTag = item.tag as ProjectTag;
+          return {
+            title: item.title,
+            desc: item.desc,
+            tag: tag.name,
+            slug: item.slug,
+          };
+        }),
+    }));
+
+    return data;
+  } else if (isJournalEntry(items[0])) {
+    allYearsArr = (items as JournalEntry[]).reduce<string[]>((arr, item) => {
+      const timeTag = new Date((item as JournalEntry).date)
+        .getFullYear()
+        .toString();
+      if (!arr.includes(timeTag)) {
+        arr.push(timeTag);
+      }
+      return arr;
+    }, []);
+
+    data = allYearsArr.map((year) => ({
+      year: year,
+      entries: (items as JournalEntry[]).filter((item) => {
+        const yearPublished = new Date(item.date).getFullYear().toString();
+        return year === yearPublished;
+      }),
+    }));
+    return data;
+  }
+}
+
+export const isProject = (props: any): props is Project => {
+  return props?.type === "project" ? true : false;
+};
+
+export const isJournalEntry = (props: any): props is JournalEntry => {
+  return props?.type === "journal-entry" ? true : false;
+};
+
+//Formats Date to MMMM DD, YYYY
+export const formatDate = (date: Date): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  return new Intl.DateTimeFormat("en-US", options).format(date);
+};
+
+export const renderLexicalContent = (root: LexicalBlock) => {
+  return root
+    ? root.map((child, i) => {
+        const type = child.type;
+        if (type === "paragraph" || type === "quote" || type === "heading") {
+          const content = child.children;
+
+          switch (type) {
+            case "heading":
+              return content?.map((block, i) =>
+                child.tag === "h1" ? (
+                  <Text as="h1" size="heading" key={`type-${i}`}>
+                    {block.text}
+                  </Text>
+                ) : (
+                  <Text
+                    as="h3"
+                    size="body-large"
+                    weight="normal"
+                    multiline
+                    className="text-subtle"
+                    key={block.text}
+                  >
+                    {block.text}
+                  </Text>
+                )
+              );
+
+            case "paragraph":
+              return content?.length ? (
+                <div className="flex flex-col gap-4px">
+                  {content?.map((block, i) => (
+                    <Text
+                      as="p"
+                      size="body"
+                      className="text-subtle"
+                      multiline
+                      key={`type-${i}`}
+                    >
+                      {block.text}
+                    </Text>
+                  ))}
+                </div>
+              ) : null;
+
+            case "quote":
+              return (
+                <div className="flex flex-col gap-8px pl-8px border-l-2">
+                  {content?.map((block, i) =>
+                    i !== content.length - 1 ? (
+                      block.type === "text" ? (
+                        <Text
+                          as="p"
+                          size="body"
+                          className="bold"
+                          key={`type-${i}`}
+                        >
+                          {block.text}
+                        </Text>
+                      ) : null
+                    ) : (
+                      <Text
+                        as="p"
+                        size="body"
+                        className="italic"
+                        key={`type-${i}`}
+                      >
+                        {block.text}
+                      </Text>
+                    )
+                  )}
+                </div>
+              );
+          }
+        } else if (type === "block") {
+          const blockType = child.fields.blockType;
+          return blockType === "showcase" ? (
+            <Showcase
+              image={child.fields.image}
+              title={child.fields.title}
+              desc={child.fields.desc}
+              tag={child.fields.tag}
+              key={`type-${blockType}-${i}}`}
+            />
+          ) : null;
+        } else if (type === "horizontalrule") {
+          return <hr key={`type-${type}-${i}`} />;
+        }
+      })
+    : null;
+};

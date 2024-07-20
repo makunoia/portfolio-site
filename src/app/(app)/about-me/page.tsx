@@ -7,6 +7,7 @@ import Banner from "../assets/profile_banner.png";
 import LinkButton from "@/components/LinkButton";
 import { Check } from "lucide-react";
 import { Slot } from "@radix-ui/react-slot";
+import AboutMeHero from "../components/HeroSections/AboutMe";
 
 const Page = () => {
   return (
@@ -54,16 +55,8 @@ const Page = () => {
               href="https://www.linkedin.com/in/mark-noya/"
             />
           </div>
-          <Text as="p" size="body" multiline className="text-subtle">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-            architecto eum fuga quibusdam quae sit consectetur quaerat vero
-            laudantium maiores id, delectus, cumque culpa dolores inventore
-            eveniet tempore ducimus. Ratione.
-          </Text>
-          <Text as="p" size="body" multiline weight="medium" className="text">
-            If you only do what you can do, you will never be more than you are
-            now.
-          </Text>
+
+          <AboutMeHero />
         </div>
 
         {/* Work Section */}

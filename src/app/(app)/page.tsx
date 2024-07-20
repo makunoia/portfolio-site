@@ -1,14 +1,13 @@
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
-import Text from "@/components/Text";
-import StatusBadge from "@/components/StatusBadge";
 import FeaturedProjects from "@/components/Home/FeaturedProjects/Server";
 import LinkButton from "@/components/LinkButton";
 import Logo from "./assets/logo.svg";
 import Section from "./components/Home/Section";
+import HeroSection from "./components/HeroSections/Home";
 
 // TODO
 // Finish Footer Design
@@ -38,14 +37,9 @@ const Page = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-24px">
-          <Text as="h1" size="heading" weight="normal" className="w-4/5">
-            Product Designer with four years of working on enterprise apps.
-            Passionate about design systems and loves building just for the fun
-            of it
-          </Text>
-          <StatusBadge />
-        </div>
+        <Suspense fallback={null}>
+          <HeroSection />
+        </Suspense>
       </div>
       <hr />
       <div className="flex flex-col gap-[6.25rem]">

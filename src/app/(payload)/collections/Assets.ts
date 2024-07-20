@@ -120,13 +120,6 @@ const Assets: CollectionConfig = {
     {
       name: "url",
       type: "text",
-      hooks: {
-        beforeValidate: [
-          ({ data }) => {
-            return "www.google.com";
-          },
-        ],
-      },
     },
   ],
   hooks: {

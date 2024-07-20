@@ -13,15 +13,17 @@ export interface Config {
   collections: {
     users: User;
     projects: Project;
-    pages: Page;
-    'site-pages': SitePage;
     'project-tags': ProjectTag;
+    webpages: Webpage;
     'my-roles': MyRole;
     'journal-entries': JournalEntry;
     'journal-entry-tags': JournalEntryTag;
     assets: Asset;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+  };
+  db: {
+    defaultIDType: string;
   };
   globals: {};
   locale: null;
@@ -34,12 +36,15 @@ export interface UserAuthOperations {
     email: string;
   };
   login: {
-    password: string;
     email: string;
+    password: string;
   };
   registerFirstUser: {
     email: string;
     password: string;
+  };
+  unlock: {
+    email: string;
   };
 }
 /**
@@ -160,11 +165,11 @@ export interface Asset {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
+ * via the `definition` "webpages".
  */
-export interface Page {
+export interface Webpage {
   id: string;
-  title: 'Home' | 'Projects' | 'Journal' | 'About Me';
+  name: 'Home' | 'Projects' | 'Journal' | 'About Me';
   intro?: {
     root: {
       type: string;
@@ -186,7 +191,7 @@ export interface Page {
   };
   sections?:
     | {
-        name?: string | null;
+        title?: string | null;
         content?: (InfoItem | BooleanItem | MediaItem | URLItem)[] | null;
         id?: string | null;
       }[]
@@ -247,16 +252,6 @@ export interface URLItem {
   id?: string | null;
   blockName?: string | null;
   blockType: 'url-item';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-pages".
- */
-export interface SitePage {
-  id: string;
-  name?: ('Home' | 'Projects' | 'Journal' | 'About Me') | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
