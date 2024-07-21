@@ -68,15 +68,54 @@ const Site: CollectionConfig = {
       type: "array",
       fields: [
         {
-          label: "Title",
-          name: "title",
-          type: "text",
+          type: "row",
+          fields: [
+            {
+              label: "Title",
+              name: "title",
+              type: "text",
+              required: true,
+              admin: {
+                width: "50%",
+              },
+            },
+            {
+              label: "Layout",
+              name: "layout",
+              type: "select",
+              required: true,
+              options: [
+                { label: "Stack", value: "stack" },
+                { label: "Two-Column Grid", value: "two-col" },
+              ],
+              admin: {
+                width: "50%",
+              },
+            },
+          ],
         },
         {
           label: "Content",
           name: "content",
           type: "blocks",
+          required: true,
           blocks: [InfoItem, BooleanItem, MediaItem, URLItem],
+          validate: (data, { siblingData }) => {
+            const content = siblingData.content;
+
+            if (content.length === 0) {
+              return true;
+            }
+
+            const firstValue = content[0]["blockType"];
+            for (let i = 1; i < content.length; i++) {
+              if (content[i]["blockType"] !== firstValue) {
+                return "All blocks must be the same in a section.";
+              }
+            }
+
+            return true;
+          },
         },
       ],
       admin: {

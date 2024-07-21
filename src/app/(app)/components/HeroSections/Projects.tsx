@@ -17,9 +17,7 @@ const ProjectsHero = async () => {
   });
 
   const title = docs ? docs[0].name : "No title";
-  const root = docs[0].intro
-    ? (docs[0].intro?.root.children as LexicalBlock)
-    : [];
+  const root = docs[0].intro?.root.children as LexicalBlock;
 
   return (
     <div className="flex flex-col gap-4px">

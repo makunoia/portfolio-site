@@ -27,7 +27,7 @@ const JournalEntriesList = ({
 
   return (
     <>
-      {AllEntriesByYear?.length ? (
+      {AllEntriesByYear ? (
         AllEntriesByYear.map((entry) => (
           <LayoutGroup key={`collection-${entry.year}`}>
             <motion.div

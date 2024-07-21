@@ -15,8 +15,8 @@ const MediaItem: Block = {
       required: true,
     },
     {
-      label: "Description",
-      name: "desc",
+      label: "Genre",
+      name: "genre",
       type: "text",
       required: true,
     },
@@ -26,25 +26,36 @@ const MediaItem: Block = {
       type: "text",
     },
     {
-      label: "Image",
-      name: "image",
+      label: "Poster",
+      name: "poster",
       type: "relationship",
       relationTo: "assets",
     },
     {
-      label: "progress",
+      label: "Progress",
       name: "progress",
       type: "group",
       fields: [
         {
-          label: "Episode Count",
-          name: "episodeCount",
-          type: "number",
-        },
-        {
-          label: "Episodes Watched",
-          name: "watchedCount",
-          type: "number",
+          type: "row",
+          fields: [
+            {
+              label: "Episode Count",
+              name: "episodeCount",
+              type: "number",
+              admin: {
+                width: "50%",
+              },
+            },
+            {
+              label: "Episodes Watched",
+              name: "watchedCount",
+              type: "number",
+              admin: {
+                width: "50%",
+              },
+            },
+          ],
         },
       ],
     },

@@ -191,8 +191,9 @@ export interface Webpage {
   };
   sections?:
     | {
-        title?: string | null;
-        content?: (InfoItem | BooleanItem | MediaItem | URLItem)[] | null;
+        title: string;
+        layout: 'stack' | 'two-col';
+        content: (InfoItem | BooleanItem | MediaItem | URLItem)[];
         id?: string | null;
       }[]
     | null;
@@ -229,9 +230,9 @@ export interface BooleanItem {
  */
 export interface MediaItem {
   label: string;
-  desc: string;
+  genre: string;
   tag?: string | null;
-  image?: (string | null) | Asset;
+  poster?: (string | null) | Asset;
   progress?: {
     episodeCount?: number | null;
     watchedCount?: number | null;

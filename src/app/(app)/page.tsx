@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 import React, { Suspense } from "react";
 import Image from "next/image";
@@ -18,6 +18,7 @@ import HeroSection from "./components/HeroSections/Home";
 // Home Page Featured Projects component
 // Journal Item on view animation
 // Use Payload to retrieve data
+// Memozation of data to increase speed
 
 const Page = () => {
   return (

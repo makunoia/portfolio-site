@@ -1,7 +1,10 @@
 import Text from "@/components/Text";
 import Showcase from "@/components/Showcase";
-import { JournalEntry, Project, ProjectTag } from "payload-types";
-import { LexicalBlock } from "../types";
+import { Asset, JournalEntry, Project, ProjectTag } from "payload-types";
+import { AboutMeSection, LexicalBlock } from "../types";
+import InfoItem from "@/components/AboutMe/InfoItem";
+import BooleanItem from "@/components/AboutMe/BooleanItem";
+import MediaItem from "@/components/AboutMe/MediaItem";
 
 // TO DO
 // Remove .length to array checks?
@@ -88,7 +91,7 @@ export const renderLexicalContent = (root: LexicalBlock) => {
             case "heading":
               return content?.map((block, i) =>
                 child.tag === "h1" ? (
-                  <Text as="h1" size="heading" key={`type-${i}`}>
+                  <Text as="h1" size="heading" key={`type-${i}-${child.tag}`}>
                     {block.text}
                   </Text>
                 ) : (
@@ -98,7 +101,7 @@ export const renderLexicalContent = (root: LexicalBlock) => {
                     weight="normal"
                     multiline
                     className="text-subtle"
-                    key={block.text}
+                    key={`type-${i}-${child.tag}`}
                   >
                     {block.text}
                   </Text>
@@ -107,14 +110,17 @@ export const renderLexicalContent = (root: LexicalBlock) => {
 
             case "paragraph":
               return content?.length ? (
-                <div className="flex flex-col gap-4px">
+                <div
+                  className="flex flex-col gap-4px"
+                  key={`type-${child.type}-${i}`}
+                >
                   {content?.map((block, i) => (
                     <Text
                       as="p"
                       size="body"
                       className="text-subtle"
                       multiline
-                      key={`type-${i}`}
+                      key={`type-${block.type}-${i}`}
                     >
                       {block.text}
                     </Text>
@@ -124,7 +130,10 @@ export const renderLexicalContent = (root: LexicalBlock) => {
 
             case "quote":
               return (
-                <div className="flex flex-col gap-8px pl-8px border-l-2">
+                <div
+                  className="flex flex-col gap-8px pl-8px border-l-2"
+                  key={`type-${child.type}-${i}`}
+                >
                   {content?.map((block, i) =>
                     i !== content.length - 1 ? (
                       block.type === "text" ? (
@@ -132,7 +141,7 @@ export const renderLexicalContent = (root: LexicalBlock) => {
                           as="p"
                           size="body"
                           className="bold"
-                          key={`type-${i}`}
+                          key={`type-${block.type}-${i}`}
                         >
                           {block.text}
                         </Text>
@@ -142,7 +151,7 @@ export const renderLexicalContent = (root: LexicalBlock) => {
                         as="p"
                         size="body"
                         className="italic"
-                        key={`type-${i}`}
+                        key={`type-${block.type}-${i}`}
                       >
                         {block.text}
                       </Text>
@@ -164,6 +173,47 @@ export const renderLexicalContent = (root: LexicalBlock) => {
           ) : null;
         } else if (type === "horizontalrule") {
           return <hr key={`type-${type}-${i}`} />;
+        }
+      })
+    : null;
+};
+
+export const renderSections = (data: AboutMeSection) => {
+  return data
+    ? data.content?.map((content) => {
+        const type = content.blockType;
+
+        switch (type) {
+          case "info-item":
+            return (
+              <InfoItem
+                label={content.label}
+                desc={content.desc}
+                tag={content.tag as string}
+                image={content.image as Asset}
+                key={content.id}
+              />
+            );
+
+          case "boolean-item":
+            return (
+              <BooleanItem
+                label={content.label}
+                done={content.value}
+                key={content.id}
+              />
+            );
+
+          case "media-item":
+            return (
+              <MediaItem
+                label={content.label}
+                desc={content.genre}
+                image={content.poster as Asset}
+                progress={content.progress}
+                key={content.id}
+              />
+            );
         }
       })
     : null;

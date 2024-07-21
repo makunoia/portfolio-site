@@ -1,4 +1,12 @@
-import { JournalEntry, Project, Showcase } from "payload-types";
+import {
+  BooleanItem,
+  InfoItem,
+  JournalEntry,
+  MediaItem,
+  Project,
+  Showcase,
+  URLItem,
+} from "payload-types";
 
 //Had to make another type since Payload had *.tag.name
 type ProjectListItem = {
@@ -51,6 +59,13 @@ export type LexicalBlock = (
     }
   | { type: "horizontalrule" }
 )[];
+
+export type AboutMeSection = {
+  title: string;
+  layout: "stack" | "two-col";
+  content: (InfoItem | BooleanItem | MediaItem | URLItem)[];
+  id?: string | null;
+};
 
 export const LexicalStyleMap = {
   1: "bold",
