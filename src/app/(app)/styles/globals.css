@@ -339,6 +339,39 @@
     }
   }
 
+  #footer-globe:after {
+    content: "";
+    position: absolute;
+    z-index: 5;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      hsl(var(--bg-default) / 1),
+      hsla(var(--bg-default) / 0)
+    );
+    width: 100%;
+    height: 2em;
+  }
+
+  #footer-globe:before {
+    content: "";
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    bottom: 0;
+    right: -1px;
+    pointer-events: none;
+    background: linear-gradient(
+      to left,
+      hsl(var(--bg-default) / 1),
+      hsla(var(--bg-default) / 0)
+    );
+    height: 100%;
+    width: 8em;
+  }
+
   :root[class~="light"] {
     .status-badge {
       background: linear-gradient(

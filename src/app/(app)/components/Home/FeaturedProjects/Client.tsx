@@ -17,6 +17,7 @@ import { FeaturedProject } from "@/types";
 const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [link, setLink] = useState<string>("");
+  const showArrowsAndBar = projects.length > 1;
   const duration = 5000;
 
   const timerContext = useContext(TimerContext);
@@ -31,10 +32,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
     "transition-all ease-in duration-300",
   ]);
 
-  const imageContainer = cva([
-    "absolute left-0px -z-10",
-    "h-full w-full sm:w-[60%]",
-  ]);
+  const imageContainer = cva(["absolute left-0px", "h-full w-full sm:w-[60%]"]);
 
   const imageStyle = cva(
     [
@@ -101,16 +99,19 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
         <Text as="h2" size="lead">
           Featured Projects
         </Text>
-        <div className="flex flex-row gap-4px">
-          <ChevronLeft
-            onClick={() => PreviousItem()}
-            className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
-          />
-          <ChevronRight
-            onClick={() => NextItem()}
-            className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
-          />
-        </div>
+
+        {showArrowsAndBar ? (
+          <div className="flex flex-row gap-4px">
+            <ChevronLeft
+              onClick={() => PreviousItem()}
+              className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
+            />
+            <ChevronRight
+              onClick={() => NextItem()}
+              className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
+            />
+          </div>
+        ) : null}
       </div>
 
       {projects ? (
@@ -121,7 +122,13 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           as={`/projects/${link}`}
           id="featured-projects-container"
         >
-          <div className={imageContainer()}>
+          <motion.div
+            layout
+            initial={{ translateY: 100, opacity: 0 }}
+            animate={{ translateY: 0, opacity: 100 }}
+            transition={{ type: "spring", delay: 0.3 }}
+            className={imageContainer()}
+          >
             {projects.map((project, i) => (
               <div
                 key={project.slug}
@@ -140,27 +147,30 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                 />
               </div>
             ))}
+          </motion.div>
 
-            {projects.map((project, i) => (
-              <BackgroundLight
-                key={project.slug}
-                gradient={{
-                  start: project.featuredData.gradientStart,
-                  end: project.featuredData.gradientEnd,
-                }}
-                shown={activeIndex === i}
-              />
-            ))}
-          </div>
+          {projects.map((project, i) => (
+            <BackgroundLight
+              key={project.slug}
+              gradient={{
+                start: project.featuredData.gradientStart,
+                end: project.featuredData.gradientEnd,
+              }}
+              shown={activeIndex === i}
+            />
+          ))}
 
           <div className={infoStyle()}>
             <ArrowButton />
 
             <div className="relative bg-danger">
               {projects.map((project, i) => (
-                <div
+                <motion.div
+                  initial={{ translateY: 100, opacity: 0 }}
+                  animate={{ translateY: 0, opacity: 100 }}
+                  transition={{ type: "spring", delay: 0.2 }}
                   key={project.slug}
-                  className={`flex flex-col gap-4px w-full absolute bottom-0px transition-all ease-in-out duration-300  ${
+                  className={`flex flex-col gap-4px w-full absolute z-20 bottom-0px transition-all ease-in-out duration-300  ${
                     activeIndex === i
                       ? "opacity-100 translate-y-0px"
                       : "opacity-0 translate-y-40px"
@@ -172,13 +182,15 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                   <Text className="text-subtle" as="p" size="caption" multiline>
                     {project.desc}
                   </Text>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             <TextOverlayBG />
           </div>
-          <ProgressBar duration={duration} currIndex={activeIndex} />
+          {showArrowsAndBar ? (
+            <ProgressBar duration={duration} currIndex={activeIndex} />
+          ) : null}
         </Link>
       ) : (
         <div className="text">No projects</div>
@@ -247,7 +259,7 @@ const ArrowButton = () => {
 const TextOverlayBG = () => {
   const styles = cva([
     "w-[140%] h-[30%] sm:w-[120%] sm:h-[60%] sm:-rotate-12 rounded-40px",
-    "absolute bottom-0px right-[0px] sm:-bottom-[50px] sm:-right-[60px] -z-10",
+    "absolute bottom-0px right-[0px] sm:-bottom-[50px] sm:-right-[60px] z-10",
     "bg-gradient-to-r from-neutral-100 to-neutral-100/80",
     "blur-[40px] sm:blur-[50px]",
   ]);
