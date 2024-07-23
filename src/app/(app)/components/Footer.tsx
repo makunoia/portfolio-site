@@ -5,6 +5,9 @@ import LinkButton from "./LinkButton";
 import createGlobe from "cobe";
 import { cva } from "class-variance-authority";
 
+// TO DO
+// ON VIEW SCROLL TO POINT
+
 const IndicatorCVA = cva("rounded-full w-8px h-8px animate-pulse", {
   variants: {
     status: {
@@ -28,14 +31,14 @@ const Footer = ({ status }: { label: string; status: "dnd" | "available" }) => {
         phi: -0.8,
         theta: 0.2,
         dark: 0.8,
-        scale: 2.5,
+        scale: 3,
         diffuse: 4,
-        mapSamples: 16000,
+        mapSamples: 20000,
         mapBrightness: 6,
         baseColor: [0.3, 0.3, 0.3],
         markerColor: [0.1, 0.8, 1],
-        glowColor: [0.996, 0.996, 1.0],
-        offset: [250, 100],
+        glowColor: [0.75, 0.75, 0.75],
+        offset: [250, 150],
         markers: [{ location: [45.50169, -73.567253], size: 0.15 }],
         onRender: (state) => {},
       });
@@ -86,7 +89,7 @@ const Footer = ({ status }: { label: string; status: "dnd" | "available" }) => {
 
       <div
         id="footer-globe"
-        className="w-3/5 h-full -mr-20px absolute -z-10 top-0px bottom-0px right-0px"
+        className="w-full sm:w-3/5 h-full opacity-60 sm:opacity-100 -mr-20px absolute -z-10 top-0px bottom-0px right-0px"
       >
         <canvas
           ref={canvasRef}

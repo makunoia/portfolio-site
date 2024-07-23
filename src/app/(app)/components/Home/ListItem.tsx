@@ -36,10 +36,10 @@ const ListItem = ({
     <Link href={url} className={ListItemStyle}>
       <div className="flex flex-row items-center gap-4px">
         <Text
-          className="text text-nowrap overflow-hidden"
+          className="text text-nowrap overflow-hidden text-ellipsis max-w-[200px]"
+          weight="medium"
           size="body"
           multiline
-          weight="medium"
         >
           {title}
         </Text>
@@ -54,7 +54,7 @@ const ListItem = ({
           className="min-w-18px transition-colors ease-in-out duration-150 stroke-neutral-700 group-hover:stroke-neutral-1100"
         />
       </div>
-      <hr className="" />
+      <hr />
       <Text
         className="hidden sm:inline-block text-subtle text-nowrap"
         size="body"

@@ -20,7 +20,7 @@ const HomeHero = async () => {
   const root = docs[0].intro?.root.children as LexicalBlock;
 
   return (
-    <div className="flex flex-col gap-24px">
+    <div className="flex flex-col gap-24px w-3/4">
       {root ? renderLexicalContent(root) : null}
       <StatusBadge />
     </div>

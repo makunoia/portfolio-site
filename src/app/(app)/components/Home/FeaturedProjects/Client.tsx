@@ -17,6 +17,7 @@ import { FeaturedProject } from "@/types";
 const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [link, setLink] = useState<string>("");
+  const showArrowsAndBar = projects.length > 1;
   const duration = 5000;
 
   const timerContext = useContext(TimerContext);
@@ -101,16 +102,19 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
         <Text as="h2" size="lead">
           Featured Projects
         </Text>
-        <div className="flex flex-row gap-4px">
-          <ChevronLeft
-            onClick={() => PreviousItem()}
-            className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
-          />
-          <ChevronRight
-            onClick={() => NextItem()}
-            className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
-          />
-        </div>
+
+        {showArrowsAndBar ? (
+          <div className="flex flex-row gap-4px">
+            <ChevronLeft
+              onClick={() => PreviousItem()}
+              className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
+            />
+            <ChevronRight
+              onClick={() => NextItem()}
+              className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
+            />
+          </div>
+        ) : null}
       </div>
 
       {projects ? (
@@ -178,7 +182,9 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
 
             <TextOverlayBG />
           </div>
-          <ProgressBar duration={duration} currIndex={activeIndex} />
+          {showArrowsAndBar ? (
+            <ProgressBar duration={duration} currIndex={activeIndex} />
+          ) : null}
         </Link>
       ) : (
         <div className="text">No projects</div>
