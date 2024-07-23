@@ -52,8 +52,18 @@ const Page = () => {
         <Suspense fallback={<FeaturedProjectsSkeleton />}>
           <FeaturedProjects />
         </Suspense>
-        <Section title="Archive" collection="projects" link="/projects" />
-        <Section title="Journal" collection="journal-entries" link="/journal" />
+
+        <Suspense fallback={<SectionSkeletion />}>
+          <Section title="Archive" collection="projects" link="/projects" />
+        </Suspense>
+
+        <Suspense fallback={<SectionSkeletion />}>
+          <Section
+            title="Journal"
+            collection="journal-entries"
+            link="/journal"
+          />
+        </Suspense>
       </div>
     </main>
   );
@@ -77,6 +87,24 @@ const FeaturedProjectsSkeleton = () => {
       </div>
 
       <div className="animate-pulse bg-subtle/60 w-full h-[240px] sm:h-[290px] rounded-4px sm:rounded-12px" />
+    </section>
+  );
+};
+
+const SectionSkeletion = () => {
+  return (
+    <section className="w-full flex flex-col gap-16px md:flex-row md:gap-0px justify-between">
+      <div className="w-full md:max-w-[250px] flex flex-col flex-1">
+        <div className="h-24px bg-subtle/40 animate-pulse w-[120px]" />
+      </div>
+      <div className="w-full md:max-w-[400px] flex flex-col flex-grow flex-1 gap-24px">
+        <div className="flex flex-col gap-16px h-fit w-full">
+          <div className="h-20px bg-subtle/40 animate-pulse" />
+          <div className="h-20px bg-subtle/40 animate-pulse" />
+          <div className="h-20px bg-subtle/40 animate-pulse" />
+          <div className="h-40px bg-subtle/40 animate-pulse" />
+        </div>
+      </div>
     </section>
   );
 };

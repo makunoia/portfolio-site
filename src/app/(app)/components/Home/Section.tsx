@@ -33,22 +33,9 @@ const PageSection = async ({
         </Text>
       </div>
       <div className="w-full md:max-w-[400px] flex flex-col flex-grow flex-1 gap-24px">
-        <Suspense fallback={<SectionSkeletion />}>
-          <ListContainer link={link} items={items} />
-        </Suspense>
+        <ListContainer link={link} items={items} />
       </div>
     </section>
-  );
-};
-
-const SectionSkeletion = () => {
-  return (
-    <div className="flex flex-col gap-16px h-fit w-full">
-      <div className="h-20px bg-subtle/40 animate-pulse" />
-      <div className="h-20px bg-subtle/40 animate-pulse" />
-      <div className="h-20px bg-subtle/40 animate-pulse" />
-      <div className="h-40px bg-subtle/40 animate-pulse" />
-    </div>
   );
 };
 
