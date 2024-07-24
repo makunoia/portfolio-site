@@ -9,6 +9,7 @@ import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { Project } from "payload-types";
 import { GroupByYear } from "@/helpers";
 import { ProjectsByYear } from "@/types";
+import StaggerAnimator from "./StaggerAnimator";
 
 const payload = await getPayloadHMR({ config });
 
@@ -28,31 +29,39 @@ const getAllProjectsByYear = async () => {
 const ProjectsList = async () => {
   const AllProjectsByYear = await getAllProjectsByYear();
 
-  return AllProjectsByYear ? (
-    AllProjectsByYear.map((item) => {
-      return (
-        <div className="flex flex-col gap-16px" key={item.year}>
-          <SectionDivider header={item.year} />
-          <div className="flex flex-col gap-16px">
-            {item.projects
-              ? item.projects.map((project) => {
-                  return (
-                    <ProjectItem
-                      key={project.title}
-                      title={project.title}
-                      desc={project.desc}
-                      tag={project.tag}
-                      slug={project.slug}
-                    />
-                  );
-                })
-              : "No projects found"}
-          </div>
-        </div>
-      );
-    })
-  ) : (
-    <div className="text">No Projects found.</div>
+  return (
+    <div className="flex flex-col gap-40px">
+      {AllProjectsByYear ? (
+        AllProjectsByYear.map((item) => {
+          return (
+            <StaggerAnimator
+              className="flex flex-col gap-16px"
+              key={item.year}
+              play={Boolean(AllProjectsByYear.length)}
+            >
+              <SectionDivider header={item.year} />
+              <StaggerAnimator className="flex flex-col gap-16px" play>
+                {item.projects
+                  ? item.projects.map((project) => {
+                      return (
+                        <ProjectItem
+                          key={project.title}
+                          title={project.title}
+                          desc={project.desc}
+                          tag={project.tag}
+                          slug={project.slug}
+                        />
+                      );
+                    })
+                  : "No projects found"}
+              </StaggerAnimator>
+            </StaggerAnimator>
+          );
+        })
+      ) : (
+        <div className="text">No Projects found.</div>
+      )}
+    </div>
   );
 };
 

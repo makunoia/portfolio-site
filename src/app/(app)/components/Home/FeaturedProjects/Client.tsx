@@ -13,6 +13,7 @@ import { FeaturedProject } from "@/types";
 // TO DO
 // REMOVE TIMER IF ONE PROJECT
 // LOADING STATE
+// ANIMATE CLEAN UP (Error encountered after page change, points to await animate)
 
 const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -38,7 +39,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
     [
       "w-full h-[220px]",
       "sm:w-[400px] sm:h-[250px]",
-      "absolute left-0px sm:left-16px -bottom-8px",
+      "absolute left-0px -bottom-8px",
       "overflow-visible",
       "transition-all ease-in-out duration-300",
     ],
@@ -163,12 +164,9 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           <div className={infoStyle()}>
             <ArrowButton />
 
-            <div className="relative bg-danger">
+            <div className="relative">
               {projects.map((project, i) => (
-                <motion.div
-                  initial={{ translateY: 100, opacity: 0 }}
-                  animate={{ translateY: 0, opacity: 100 }}
-                  transition={{ type: "spring", delay: 0.2 }}
+                <div
                   key={project.slug}
                   className={`flex flex-col gap-4px w-full absolute z-20 bottom-0px transition-all ease-in-out duration-300  ${
                     activeIndex === i
@@ -182,7 +180,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                   <Text className="text-subtle" as="p" size="caption" multiline>
                     {project.desc}
                   </Text>
-                </motion.div>
+                </div>
               ))}
             </div>
 

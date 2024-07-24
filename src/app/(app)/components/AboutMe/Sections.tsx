@@ -2,6 +2,7 @@ import Text from "../Text";
 import { Webpage } from "payload-types";
 import { renderSections } from "@/helpers";
 import { cva } from "class-variance-authority";
+import StaggerAnimator from "../StaggerAnimator";
 
 // TO DO
 // ADD A URL SECTION FOR PIANO COVERS
@@ -16,22 +17,26 @@ const LayoutCVA = cva("", {
 });
 
 const Sections = ({ data }: { data: Webpage["sections"] }) => {
-  return data ? (
-    data.map((block) => (
-      <section className="flex flex-col gap-12px" key={block.id}>
-        <Text as="h3" size="body-large" weight="medium">
-          {block.title as string}
-        </Text>
+  return (
+    <StaggerAnimator play className="flex flex-col gap-60px">
+      {data ? (
+        data.map((block) => (
+          <section className="flex flex-col gap-12px" key={block.id}>
+            <Text as="h3" size="body-large" weight="medium">
+              {block.title as string}
+            </Text>
 
-        {block.layout ? (
-          <ul className={LayoutCVA({ layout: block.layout })}>
-            {renderSections(block)}
-          </ul>
-        ) : null}
-      </section>
-    ))
-  ) : (
-    <section>No sections</section>
+            {block.layout ? (
+              <ul className={LayoutCVA({ layout: block.layout })}>
+                {renderSections(block)}
+              </ul>
+            ) : null}
+          </section>
+        ))
+      ) : (
+        <section>No sections</section>
+      )}
+    </StaggerAnimator>
   );
 };
 

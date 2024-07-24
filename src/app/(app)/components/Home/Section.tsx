@@ -26,7 +26,7 @@ const PageSection = async ({
   const items = docs as Project[] | JournalEntry[];
 
   return (
-    <section className="w-full flex flex-col gap-16px md:flex-row md:gap-0px justify-between">
+    <section className="w-full mt-40px flex flex-col gap-16px md:flex-row md:gap-0px justify-between">
       <div className="w-full md:max-w-[250px] flex flex-col flex-1">
         <Text as="h2" size="lead">
           {title}

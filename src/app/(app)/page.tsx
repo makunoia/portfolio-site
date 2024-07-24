@@ -10,7 +10,13 @@ import Section from "./components/Home/Section";
 import HeroSection from "./components/HeroSections/Home";
 import Text from "./components/Text";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import StaggerAnimator from "./components/StaggerAnimator";
 
+import config from "@payload-config";
+import { getPayloadHMR } from "@payloadcms/next/utilities";
+const payload = await getPayloadHMR({ config });
+
+import { LexicalBlock } from "@/types";
 // TODO
 // Finish Footer Design
 // Code component
@@ -22,33 +28,49 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 // Use Payload to retrieve data
 // Memozation of data to increase speed
 
-const Page = () => {
-  return (
-    <main className="max-w-[700px] mx-auto flex flex-col gap-[60px] my-[80px]">
-      <div className="flex flex-col gap-24px transition-all ease-in-out">
-        <div className="flex justify-between">
-          <Image alt="Logo" src={Logo} style={{ width: 45, height: "auto" }} />
+const Page = async () => {
+  const { docs } = await payload.find({
+    collection: "webpages",
+    where: {
+      name: {
+        equals: "Home",
+      },
+    },
+  });
 
-          <div className="flex flex-row gap-12px">
-            <LinkButton
-              label="LinkedIn"
-              href="https://www.linkedin.com/in/mark-noya/"
+  const copy = docs[0].intro?.root.children as LexicalBlock;
+
+  return (
+    <main className="max-w-[700px] mx-auto py-[80px]">
+      <StaggerAnimator
+        className="flex flex-col gap-[60px]"
+        play={copy ? true : false}
+      >
+        <div className="flex flex-col gap-24px transition-all ease-in-out">
+          <div className="flex justify-between">
+            <Image
+              alt="Logo"
+              src={Logo}
+              style={{ width: 45, height: "auto" }}
             />
-            <LinkButton
-              label="Resume"
-              href="https://www.linkedin.com/in/mark-noya/"
-            />
+
+            <div className="flex flex-row gap-12px">
+              <LinkButton
+                label="LinkedIn"
+                href="https://www.linkedin.com/in/mark-noya/"
+              />
+              <LinkButton
+                label="Resume"
+                href="https://www.linkedin.com/in/mark-noya/"
+              />
+            </div>
           </div>
+
+          <HeroSection copy={copy} />
         </div>
 
-        <Suspense fallback={<div className="min-h-[180px]" />}>
-          <HeroSection />
-        </Suspense>
-      </div>
+        <hr />
 
-      <hr />
-
-      <div className="flex flex-col gap-[6.25rem]">
         <Suspense fallback={<FeaturedProjectsSkeleton />}>
           <FeaturedProjects />
         </Suspense>
@@ -64,7 +86,7 @@ const Page = () => {
             link="/journal"
           />
         </Suspense>
-      </div>
+      </StaggerAnimator>
     </main>
   );
 };
@@ -93,7 +115,7 @@ const FeaturedProjectsSkeleton = () => {
 
 const SectionSkeletion = () => {
   return (
-    <section className="w-full flex flex-col gap-16px md:flex-row md:gap-0px justify-between">
+    <section className="w-full mt-40px flex flex-col gap-16px md:flex-row md:gap-0px justify-between">
       <div className="w-full md:max-w-[250px] flex flex-col flex-1">
         <div className="h-24px bg-subtle/40 animate-pulse w-[120px]" />
       </div>

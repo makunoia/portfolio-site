@@ -1,29 +1,18 @@
 import StatusBadge from "@/components/StatusBadge";
 
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { LexicalBlock } from "@/app/(app)/types";
 import { renderLexicalContent } from "@/helpers";
+import StaggerAnimator from "../StaggerAnimator";
 
-const payload = await getPayloadHMR({ config });
-
-const HomeHero = async () => {
-  const { docs } = await payload.find({
-    collection: "webpages",
-    where: {
-      name: {
-        equals: "Home",
-      },
-    },
-  });
-
-  const root = docs[0].intro?.root.children as LexicalBlock;
-
+const HomeHero = ({ copy }: { copy: LexicalBlock }) => {
   return (
-    <div className="flex flex-col gap-24px w-3/4">
-      {root ? renderLexicalContent(root) : null}
+    <StaggerAnimator
+      className="flex flex-col gap-24px w-[80%]"
+      play={Boolean(copy.length)}
+    >
+      {copy ? renderLexicalContent(copy) : null}
       <StatusBadge />
-    </div>
+    </StaggerAnimator>
   );
 };
 

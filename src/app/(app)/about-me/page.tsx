@@ -12,6 +12,7 @@ import Sections from "../components/AboutMe/Sections";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
+import StaggerAnimator from "../components/StaggerAnimator";
 const payload = await getPayloadHMR({ config });
 
 const Page = async () => {
@@ -27,7 +28,7 @@ const Page = async () => {
   const data = docs[0];
 
   return (
-    <>
+    <StaggerAnimator play={Boolean(data)} className="flex flex-col gap-60px">
       <div className="w-full relative min-h-[130px]">
         <Image
           src={Banner}
@@ -75,7 +76,7 @@ const Page = async () => {
       </div>
 
       {data ? <Sections data={data.sections} /> : <div>Loading...</div>}
-    </>
+    </StaggerAnimator>
   );
 };
 

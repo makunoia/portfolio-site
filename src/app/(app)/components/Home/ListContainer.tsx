@@ -10,7 +10,7 @@ import {
 } from "payload-types";
 
 import { formatDate, isProject, isJournalEntry } from "@/helpers";
-import { LayoutGroup, motion, stagger } from "framer-motion";
+import { motion } from "framer-motion";
 
 const ListContainer = async ({
   link,
@@ -19,7 +19,7 @@ const ListContainer = async ({
   link: string;
   items: Project[] | JournalEntry[];
 }) => {
-  const frameVariants = {
+  const container = {
     hidden: {
       opacity: 0,
     },
@@ -35,10 +35,12 @@ const ListContainer = async ({
   const itemVariants = {
     hidden: {
       opacity: 0,
+      filter: "blur(20px)",
       y: 50,
     },
     visible: {
       opacity: 1,
+      filter: "blur(0px)",
       y: 0,
       transition: {
         duration: 0.2,
@@ -51,10 +53,10 @@ const ListContainer = async ({
 
   return (
     <>
-      {items ? (
+      {Boolean(items) ? (
         <motion.div
           className="flex flex-col gap-16px"
-          variants={frameVariants}
+          variants={container}
           initial="hidden"
           animate="visible"
         >

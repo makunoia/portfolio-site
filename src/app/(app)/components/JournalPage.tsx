@@ -79,15 +79,34 @@ const JournalPage = ({
     setIsContentOpen(true);
   };
 
+  const item = {
+    hidden: {
+      y: 50,
+      opacity: 0,
+    },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        type: "spring",
+        stiffness: 400,
+        damping: 80,
+      },
+    },
+  };
+
   return (
     <motion.div
       layout="position"
       ref={page}
       id={`journal-page-${data.slug}`}
-      animate={isPageOpen ? { opacity: 1 } : { opacity: 1 }}
+      variants={item}
+      initial="hidden"
+      animate="show"
       className={` ${
         isPageOpen
-          ? "fixed top-0px sm:top-40px z-50 bg border shadow overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[15%] md:mx-[20%]"
+          ? "fixed top-0px sm:top-40px z-50 bg border shadow overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[15%] md:mx-[10%]"
           : "relative h-fit"
       } group sm:min-w-[500px] w-full sm:w-fit max-h-[80%] rounded-none sm:rounded-12px text flex flex-col transition-colors duration-600 ease-in-out pointer-events-auto`}
     >
