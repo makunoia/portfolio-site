@@ -18,11 +18,12 @@ const HomeHero = async () => {
   });
 
   const copy = docs[0].intro?.root.children as LexicalBlock;
+  const status = docs[0].status as "employed" | "open";
 
   return (
     <div className="flex flex-col gap-24px w-[80%]">
       {copy.length ? renderLexicalContent(copy) : null}
-      <StatusBadge />
+      <StatusBadge status={status} />
     </div>
   );
 };

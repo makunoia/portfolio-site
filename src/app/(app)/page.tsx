@@ -14,7 +14,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TimerContextProvider } from "./contexts/TimerContext";
 
 // FINAL SET OF TO DO
-// Finish Globe Interaction
 // Finish Statuses: Open to Work, Activity
 // Automate Last Updated text
 // About Me: Cover Photo and Photo
@@ -46,6 +45,7 @@ import { TimerContextProvider } from "./contexts/TimerContext";
 // Project page: Scroll spy fix
 
 // Light/Dark Mode trigger with icon animation
+// Resume button
 // Email Setup: hi@marknoya.me
 // Pages Metadata
 // Website favicon
@@ -58,11 +58,12 @@ import { TimerContextProvider } from "./contexts/TimerContext";
 // About Me: Piano Cover
 // Loading Lotte for Journal Content
 // Journal Full Screen
+// Rotate to location - Footer Globe Interaction
 
 const Page = () => {
   return (
     <main className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]">
-      <div className="flex flex-col gap-24px transition-all ease-in-out">
+      <div className="flex flex-col gap-30px transition-all ease-in-out">
         <div className="flex justify-between">
           <Image alt="Logo" src={Logo} style={{ width: 45, height: "auto" }} />
 

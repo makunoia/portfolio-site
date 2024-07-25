@@ -35,6 +35,7 @@
     --opacity-100: 1;
 
     --utility-success: 122.4deg 88.2% 50%;
+    --utility-info: 211deg 88% 50%;
     --utility-danger: 3deg 91% 52%;
   }
 
@@ -52,7 +53,7 @@
     --primitive-1100: 234.5deg 7.7% 72%;
     --primitive-1200: 240deg 6.2% 93.7%;
 
-    --bg-default: var(--primitive-200);
+    --bg-default: var(--primitive-100);
     --bg-subtle: var(--primitive-400);
     --bg-inverse: var(--primitive-1200);
 

@@ -97,8 +97,6 @@ const JournalPage = ({
       ref={page}
       id={`journal-page-${data.slug}`}
       variants={item}
-      initial="hidden"
-      animate="show"
       className={` ${
         isPageOpen
           ? "fixed top-0px sm:top-40px z-50 bg border shadow overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[15%] md:mx-[10%]"

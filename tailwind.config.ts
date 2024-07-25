@@ -52,12 +52,17 @@ const config: Config = {
       inverse: "hsl(var(--bg-inverse) / <alpha-value>)",
 
       success: "hsl(var(--utility-success) / <alpha-value>)",
+      info: "hsl(var(--utility-info) / <alpha-value>)",
       danger: "hsl(var(--utility-danger) / <alpha-value>)",
     },
     textColor: {
       DEFAULT: "hsl(var(--fg-default) / <alpha-value>)",
       subtle: "hsl(var(--fg-subtle) / <alpha-value>)",
       inverse: "hsl(var(--fg-inverse) / <alpha-value>)",
+
+      success: "hsl(var(--utility-success) / <alpha-value>)",
+      info: "hsl(var(--utility-info) / <alpha-value>)",
+      danger: "hsl(var(--utility-danger) / <alpha-value>)",
     },
     fill: {
       DEFAULT: "hsl(var(--fg-default) / <alpha-value>)",

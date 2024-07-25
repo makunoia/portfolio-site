@@ -7,7 +7,7 @@ import ProjectsHero from "../components/HeroSections/Projects";
 
 const Page = () => {
   return (
-    <main className="max-w-[500px] mx-auto my-[80px]">
+    <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
       <ProjectsHero />
 
       <Suspense fallback={<SectionSkeletion />}>

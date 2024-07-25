@@ -185,6 +185,7 @@ export interface Webpage {
     };
     [k: string]: unknown;
   } | null;
+  status?: ('employed' | 'open') | null;
   pagePhotos?: {
     cover?: (string | null) | Asset;
     portrait?: (string | null) | Asset;

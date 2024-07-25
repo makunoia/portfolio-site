@@ -30,6 +30,22 @@ const Site: CollectionConfig = {
       type: "richText",
     },
     {
+      label: "Status",
+      name: "status",
+      type: "select",
+      required: true,
+      defaultValue: "employed",
+      options: [
+        { label: "Employed", value: "employed" },
+        { label: "Open for Work", value: "open" },
+      ],
+      admin: {
+        description:
+          "Your status will be displayed as a badge on the home page hero section",
+        condition: (data) => (data?.name === "Home" ? true : false),
+      },
+    },
+    {
       label: "Cover and Portrait Photo",
       name: "pagePhotos",
       type: "group",
