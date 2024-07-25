@@ -10,11 +10,6 @@ import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 const payload = await getPayloadHMR({ config });
 
-// TO DO
-// Use Lexical Editor for content
-// Loading State
-// Align Props with PayLoad
-
 const Content = async ({ params }: { params: { slug: string } }) => {
   const slug = params.slug;
 

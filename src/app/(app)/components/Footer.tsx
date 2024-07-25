@@ -5,9 +5,6 @@ import LinkButton from "./LinkButton";
 import createGlobe from "cobe";
 import { cva } from "class-variance-authority";
 
-// TO DO
-// ON VIEW SCROLL TO POINT
-
 const IndicatorCVA = cva("rounded-full w-8px h-8px animate-pulse", {
   variants: {
     status: {

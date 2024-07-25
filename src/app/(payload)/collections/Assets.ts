@@ -9,9 +9,6 @@ import {
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 
-// TO DO
-// You can write an Upload to Cloudflare R2 with PayloadCMS 3.0 article
-
 const S3 = new S3Client({
   region: process.env.CLOUDFLARE_REGION,
   endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,

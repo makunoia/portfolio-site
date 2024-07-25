@@ -6,9 +6,6 @@ import InfoItem from "@/components/AboutMe/InfoItem";
 import BooleanItem from "@/components/AboutMe/BooleanItem";
 import MediaItem from "@/components/AboutMe/MediaItem";
 
-// TO DO
-// Remove .length to array checks?
-
 //Helper function to group Projects and Journal Entries by year.
 export function GroupByYear(items: Project[] | JournalEntry[]) {
   let allYearsArr = [];

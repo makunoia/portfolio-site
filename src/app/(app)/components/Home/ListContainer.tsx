@@ -53,7 +53,7 @@ const ListContainer = async ({
 
   return (
     <>
-      {Boolean(items) ? (
+      {items.length ? (
         <motion.div
           className="flex flex-col gap-16px"
           variants={container}

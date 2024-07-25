@@ -5,8 +5,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-import { TimerContextProvider } from "./contexts/TimerContext";
-
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import "./styles/globals.css";
 
@@ -31,7 +29,7 @@ export default function RootLayout({
           <div className="light-streak"></div>
         </div>
 
-        <TimerContextProvider>{children}</TimerContextProvider>
+        {children}
 
         <Navbar />
         <Footer status="available" label="In bed" />

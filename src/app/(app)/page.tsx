@@ -10,83 +10,92 @@ import Section from "./components/Home/Section";
 import HeroSection from "./components/HeroSections/Home";
 import Text from "./components/Text";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import StaggerAnimator from "./components/StaggerAnimator";
 
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-const payload = await getPayloadHMR({ config });
+import { TimerContextProvider } from "./contexts/TimerContext";
 
-import { LexicalBlock } from "@/types";
-// TODO
-// Finish Footer Design
-// Code component
-// Modify Status Indicator Ping
-// Add Project Page pagination
-// Page transitions
-// Home Page Featured Projects component
-// Journal Item on view animation
-// Use Payload to retrieve data
+// FINAL SET OF TO DO
+// Finish Globe Interaction
+// Finish Statuses: Open to Work, Activity
+// Automate Last Updated text
+// About Me: Cover Photo and Photo
+// Migrate to 'Page' from 'Webpage'
+// Locked Projects: Codename and Password
+// Projects and Journal Page: List Items Hover Interaction
+// Archived Project Design
+
+// Create Content
+// Featured Project: AppendPay
+// Featured Project: Multiverse
+// Featured Project: NBI Clearance
+// Archived Project: Multistore
+// Archived Project: Dingdong
+// Archived Project: New World Carpets
+// Archived Project: Eventful
+// Journal Entry: Reinventing Myself
+// Journal Entry: Thoughts (Notion, Jira, Atlas)
+// Journal Entry: Road to Design Engineer
+// Journal Entry: PayloadCMS + NextJS = Portfolio
+
+// About Me: Intro
+// About Me: Work History
+// About Me: Checklist
+// About Me: Tools
+// About Me: Catching up on
+
+// Project page: 404 redirect
+// Project page: Scroll spy fix
+
+// Light/Dark Mode trigger with icon animation
+// Email Setup: hi@marknoya.me
+// Pages Metadata
+// Website favicon
+// Optimize Speed (Should have RND on this)
 // Memozation of data to increase speed
 
-const Page = async () => {
-  const { docs } = await payload.find({
-    collection: "webpages",
-    where: {
-      name: {
-        equals: "Home",
-      },
-    },
-  });
+// Nice to haves
+// Project page: Contributors with links
+// Color picker for Featured Projects
+// About Me: Piano Cover
+// Loading Lotte for Journal Content
+// Journal Full Screen
 
-  const copy = docs[0].intro?.root.children as LexicalBlock;
-
+const Page = () => {
   return (
-    <main className="max-w-[700px] mx-auto py-[80px]">
-      <StaggerAnimator
-        className="flex flex-col gap-[60px]"
-        play={copy ? true : false}
-      >
-        <div className="flex flex-col gap-24px transition-all ease-in-out">
-          <div className="flex justify-between">
-            <Image
-              alt="Logo"
-              src={Logo}
-              style={{ width: 45, height: "auto" }}
+    <main className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]">
+      <div className="flex flex-col gap-24px transition-all ease-in-out">
+        <div className="flex justify-between">
+          <Image alt="Logo" src={Logo} style={{ width: 45, height: "auto" }} />
+
+          <div className="flex flex-row gap-12px">
+            <LinkButton
+              label="LinkedIn"
+              href="https://www.linkedin.com/in/mark-noya/"
             />
-
-            <div className="flex flex-row gap-12px">
-              <LinkButton
-                label="LinkedIn"
-                href="https://www.linkedin.com/in/mark-noya/"
-              />
-              <LinkButton
-                label="Resume"
-                href="https://www.linkedin.com/in/mark-noya/"
-              />
-            </div>
+            <LinkButton
+              label="Resume"
+              href="https://www.linkedin.com/in/mark-noya/"
+            />
           </div>
-
-          <HeroSection copy={copy} />
         </div>
 
-        <hr />
+        <HeroSection />
+      </div>
 
+      <hr />
+
+      <TimerContextProvider>
         <Suspense fallback={<FeaturedProjectsSkeleton />}>
           <FeaturedProjects />
         </Suspense>
+      </TimerContextProvider>
 
-        <Suspense fallback={<SectionSkeletion />}>
-          <Section title="Archive" collection="projects" link="/projects" />
-        </Suspense>
+      <Suspense fallback={<SectionSkeletion />}>
+        <Section title="Archive" collection="projects" link="/projects" />
+      </Suspense>
 
-        <Suspense fallback={<SectionSkeletion />}>
-          <Section
-            title="Journal"
-            collection="journal-entries"
-            link="/journal"
-          />
-        </Suspense>
-      </StaggerAnimator>
+      <Suspense fallback={<SectionSkeletion />}>
+        <Section title="Journal" collection="journal-entries" link="/journal" />
+      </Suspense>
     </main>
   );
 };

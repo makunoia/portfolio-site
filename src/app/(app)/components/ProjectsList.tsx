@@ -9,7 +9,6 @@ import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { Project } from "payload-types";
 import { GroupByYear } from "@/helpers";
 import { ProjectsByYear } from "@/types";
-import StaggerAnimator from "./StaggerAnimator";
 
 const payload = await getPayloadHMR({ config });
 
@@ -34,13 +33,9 @@ const ProjectsList = async () => {
       {AllProjectsByYear ? (
         AllProjectsByYear.map((item) => {
           return (
-            <StaggerAnimator
-              className="flex flex-col gap-16px"
-              key={item.year}
-              play={Boolean(AllProjectsByYear.length)}
-            >
+            <div className="flex flex-col gap-16px" key={item.year}>
               <SectionDivider header={item.year} />
-              <StaggerAnimator className="flex flex-col gap-16px" play>
+              <div className="flex flex-col gap-16px">
                 {item.projects
                   ? item.projects.map((project) => {
                       return (
@@ -54,8 +49,8 @@ const ProjectsList = async () => {
                       );
                     })
                   : "No projects found"}
-              </StaggerAnimator>
-            </StaggerAnimator>
+              </div>
+            </div>
           );
         })
       ) : (

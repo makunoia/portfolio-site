@@ -17,9 +17,6 @@ import { ArrowLeft } from "lucide-react";
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 
-// TO DO
-// REDIRECT
-
 const getProject = async (slug: string) => {
   const payload = await getPayloadHMR({ config });
   const req = await payload.find({

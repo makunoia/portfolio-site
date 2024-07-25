@@ -15,11 +15,6 @@ import { XIcon } from "lucide-react";
 import { JournalEntry, JournalEntryTag } from "payload-types";
 import { formatDate } from "@/helpers";
 
-// TO DO
-// FIX MOUNT ANIMATION ON LINK VISIT
-// HOVER INTERACTION
-// INSTANT RESPONSE ON CLICK
-
 const JournalPage = ({
   content,
   data,

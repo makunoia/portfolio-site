@@ -4,35 +4,15 @@ export const revalidate = 3600;
 import React, { Suspense } from "react";
 import ProjectsList from "@/components/ProjectsList";
 import ProjectsHero from "../components/HeroSections/Projects";
-import StaggerAnimator from "../components/StaggerAnimator";
 
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-const payload = await getPayloadHMR({ config });
-
-import { LexicalBlock } from "@/types";
-
-const Page = async () => {
-  const { docs } = await payload.find({
-    collection: "webpages",
-    where: {
-      name: {
-        equals: "Projects",
-      },
-    },
-  });
-
-  const title = docs ? docs[0].name : "No title";
-  const copy = docs[0].intro?.root.children as LexicalBlock;
+const Page = () => {
   return (
     <main className="max-w-[500px] mx-auto my-[80px]">
-      <StaggerAnimator className="flex flex-col gap-40px" play>
-        <ProjectsHero title={title} copy={copy} />
+      <ProjectsHero />
 
-        <Suspense fallback={<SectionSkeletion />}>
-          <ProjectsList />
-        </Suspense>
-      </StaggerAnimator>
+      <Suspense fallback={<SectionSkeletion />}>
+        <ProjectsList />
+      </Suspense>
     </main>
   );
 };
