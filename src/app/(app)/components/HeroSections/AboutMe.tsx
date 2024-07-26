@@ -1,8 +1,8 @@
 import { LexicalBlock } from "@/app/(app)/types";
 import { renderLexicalContent } from "@/helpers";
-import { Webpage } from "payload-types";
+import { Page } from "payload-types";
 
-const AboutMeHero = ({ data }: { data: Webpage["intro"] }) => {
+const AboutMeHero = ({ data }: { data: Page["intro"] }) => {
   const root = data?.root.children as LexicalBlock;
 
   return (

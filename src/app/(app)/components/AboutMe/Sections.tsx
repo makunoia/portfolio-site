@@ -1,5 +1,5 @@
 import Text from "../Text";
-import { Webpage } from "payload-types";
+import { Page } from "payload-types";
 import { renderSections } from "@/helpers";
 import { cva } from "class-variance-authority";
 
@@ -12,7 +12,7 @@ const LayoutCVA = cva("", {
   },
 });
 
-const Sections = ({ data }: { data: Webpage["sections"] }) => {
+const Sections = ({ data }: { data: Page["sections"] }) => {
   return data ? (
     data.map((block) => (
       <section className="flex flex-col gap-12px" key={block.id}>

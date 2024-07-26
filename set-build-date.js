@@ -22,18 +22,12 @@ const id = process.env.VERCEL_BUILD_DATE_ENV_ID;
 const projectID = process.env.VERCEL_PROJECT_ID;
 const teamID = process.env.VERCEL_TEAM_ID;
 
-await fetch(
-  `https://api.vercel.com/v9/projects/${projectID}/env/${id}&teamId=${teamID}`,
-  {
-    body: {
-      key: "NEXT_PUBLIC_BUILD_DATE",
-      target: "[development, preview, production]",
-      type: "plain",
-      value: formattedBuildDate,
-    },
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    method: "patch",
-  }
-);
+await fetch(`https://api.vercel.com/v9/projects/${projectID}/env/${id}`, {
+  body: {
+    value: formattedBuildDate,
+  },
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+  method: "PATCH",
+});
