@@ -347,7 +347,6 @@ const Projects: CollectionConfig = {
                 },
               ],
             },
-
             {
               label: "Archived",
               name: "isArchived",

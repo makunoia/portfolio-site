@@ -190,8 +190,8 @@ export interface Page {
   } | null;
   status?: ('employed' | 'open') | null;
   pagePhotos?: {
-    cover?: (string | null) | Asset;
-    portrait?: (string | null) | Asset;
+    portrait: string | Asset;
+    cover: string | Asset;
   };
   sections?:
     | {

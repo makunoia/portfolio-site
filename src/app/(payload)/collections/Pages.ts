@@ -54,18 +54,20 @@ const Pages: CollectionConfig = {
           type: "row",
           fields: [
             {
-              label: "Cover Photo",
-              name: "cover",
-              type: "relationship",
+              label: "Portrait",
+              name: "portrait",
+              type: "upload",
+              required: true,
               relationTo: "assets",
               admin: {
                 width: "50%",
               },
             },
             {
-              label: "Portrait",
-              name: "portrait",
-              type: "relationship",
+              label: "Cover Photo",
+              name: "cover",
+              type: "upload",
+              required: true,
               relationTo: "assets",
               admin: {
                 width: "50%",

@@ -33,7 +33,7 @@ try {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ value: formattedBuildDate }), // Stringify the body
+    body: JSON.stringify({ value: formattedBuildDate }),
   });
 
   if (!response.ok) {
@@ -41,7 +41,7 @@ try {
   }
 
   data = await response.json();
-  console.log("Environment variable updated:", data);
+  console.log("Environment variable updated.");
 } catch (error) {
   console.error("Error updating environment variable:", error);
 }

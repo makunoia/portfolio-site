@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Text from "@/components/Text";
 import Link from "next/link";
 import Image from "next/image";

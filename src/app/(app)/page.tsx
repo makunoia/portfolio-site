@@ -15,8 +15,8 @@ import { TimerContextProvider } from "./contexts/TimerContext";
 
 // FINAL SET OF TO DO
 // ✅ Finish Statuses: Open to Work, Activity
-// Automate Last Updated text
-// About Me: Cover Photo and Photo
+// ✅ Automate Last Updated text
+// ✅ About Me: Cover Photo and Photo
 // ✅ Migrate to 'Page' from 'Webpage'
 // ✅ Locked Projects: Codename and Password
 // Projects and Journal Page: List Items Hover Interaction
@@ -43,7 +43,7 @@ import { TimerContextProvider } from "./contexts/TimerContext";
 // About Me: Catching up on
 
 // Project page: 404 redirect
-// Project page: Scroll spy fix
+// Project page: Scroll spy responsiveness fix
 
 // Light/Dark Mode trigger with icon animation
 // Resume button
