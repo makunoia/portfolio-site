@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import Text from "./Text";
+import Text from "@/components/Text";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";

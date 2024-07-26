@@ -1,14 +1,11 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 3600;
-
 import React from "react";
 import Link from "next/link";
 
 import Text from "@/components/Text";
-import ProjectContent from "@/components/ProjectContent";
-import ContentObserver from "@/components/ContentObserver";
-import ScrollSpy, { ScrollSpyType } from "@/components/ScrollSpy";
-import Pagination from "@/components/Pagination";
+import Pagination from "@/components/Projects/Pagination";
+import ProjectContent from "@/components/Projects/ProjectContent";
+import ContentObserver from "@/components/Journal/ContentObserver";
+import ScrollSpy, { ScrollSpyType } from "@/components/Projects/ScrollSpy";
 
 import { MyRole, ProjectTag } from "payload-types";
 import { InViewProvider } from "@/contexts/InViewContext";

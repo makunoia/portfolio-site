@@ -6,7 +6,7 @@ import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { JournalEntriesByYear } from "@/types";
 import { GroupByYear } from "@/helpers";
 
-import JournalListComponent from "./Client";
+import JournalList from "./Client";
 
 const getEntries = async () => {
   const payload = await getPayloadHMR({ config });
@@ -20,7 +20,7 @@ const getEntries = async () => {
 //This component is made to establish a Network Boundary within the page to utilize Suspense
 const JournalEntriesList = async ({ content }: { content: ReactNode }) => {
   const entries = (await getEntries()) as JournalEntriesByYear;
-  return <JournalListComponent content={content} entries={entries} />;
+  return <JournalList content={content} entries={entries} />;
 };
 
 export default JournalEntriesList;

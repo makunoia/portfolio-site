@@ -1,10 +1,37 @@
 import Text from "@/components/Text";
 import Showcase from "@/components/Showcase";
-import { Asset, JournalEntry, Project, ProjectTag } from "payload-types";
-import { AboutMeSection, LexicalBlock } from "../types";
 import InfoItem from "@/components/AboutMe/InfoItem";
 import BooleanItem from "@/components/AboutMe/BooleanItem";
 import MediaItem from "@/components/AboutMe/MediaItem";
+
+import { Asset, JournalEntry, Project, ProjectTag } from "payload-types";
+import { AboutMeSection, LexicalBlock } from "@/types";
+import { MouseEventHandler } from "react";
+
+//Mouse Event handler for List Items on Projects and Journal page
+export const handleMouseEvents: MouseEventHandler<HTMLAnchorElement> = (
+  event
+) => {
+  event.stopPropagation();
+  const items = document.getElementsByClassName("page-list-item");
+  const target = event.currentTarget as HTMLElement;
+
+  if (event.type === "mouseenter") {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i] as HTMLElement;
+      if (item === target) {
+        item.classList.remove("not-hovered-item");
+      } else {
+        item.classList.add("not-hovered-item");
+      }
+    }
+  } else if (event.type === "mouseleave") {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i] as HTMLElement;
+      item.classList.remove("not-hovered-item");
+    }
+  }
+};
 
 //Helper function to group Projects and Journal Entries by year.
 export function GroupByYear(items: Project[] | JournalEntry[]) {
@@ -214,4 +241,52 @@ export const renderSections = (data: AboutMeSection) => {
         }
       })
     : null;
+};
+
+export const AnimationVariants = {
+  section: {
+    hidden: {
+      opacity: 0,
+      y: 10,
+    },
+    shown: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.2,
+        staggerChildren: 0.2,
+      },
+    },
+  },
+
+  container: {
+    hidden: { opacity: 0 },
+    shown: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        delayChildren: 0.2,
+        staggerChildren: 0.2,
+      },
+    },
+  },
+
+  item: {
+    hidden: {
+      opacity: 0,
+      filter: "blur(20px)",
+      y: 50,
+    },
+    shown: {
+      opacity: 1,
+      filter: "blur(0px)",
+      y: 0,
+      transition: {
+        duration: 0.2,
+        type: "spring",
+        stiffness: 400,
+        damping: 80,
+      },
+    },
+  },
 };

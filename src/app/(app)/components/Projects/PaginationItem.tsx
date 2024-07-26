@@ -1,6 +1,6 @@
 import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Text from "./Text";
+import Text from "../Text";
 import Link from "next/link";
 
 const PaginationItem = ({

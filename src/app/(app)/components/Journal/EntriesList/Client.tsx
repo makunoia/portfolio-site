@@ -1,12 +1,13 @@
 "use client";
 import React, { ReactNode, useEffect, useState } from "react";
 
-import JournalPage from "@/components/JournalPage";
+import JournalPage from "@/components/Journal/JournalPage";
 import SectionDivider from "@/components/SectionDivider";
 
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { JournalEntriesByYear } from "@/types";
+import { AnimationVariants } from "@/helpers";
 
 const JournalEntriesList = ({
   content,
@@ -25,27 +26,18 @@ const JournalEntriesList = ({
     else setShowOverlay(true);
   }, [path]);
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        delayChildren: 0.2,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
   return (
-    <>
+    <motion.div
+      variants={AnimationVariants.section}
+      initial="hidden"
+      animate="shown"
+      className="flex flex-col gap-40px"
+    >
       {AllEntriesByYear ? (
         AllEntriesByYear.map((entry) => (
           <LayoutGroup key={`collection-${entry.year}`}>
             <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
+              variants={AnimationVariants.container}
               className="flex flex-col items-center justify-center gap-16px"
               key={`collection-${entry.year}`}
             >
@@ -65,7 +57,7 @@ const JournalEntriesList = ({
       )}
 
       {showOverlay && <Overlay setShow={setShowOverlay} />}
-    </>
+    </motion.div>
   );
 };
 

@@ -292,6 +292,10 @@
     width: inherit;
   }
 
+  .not-hovered-item {
+    opacity: 40%;
+  }
+
   .button {
     border-color: hsl(var(--primitive-300));
     clip-path: margin-box;

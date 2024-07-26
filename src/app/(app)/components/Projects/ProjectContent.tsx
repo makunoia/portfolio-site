@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import SectionDivider from "./SectionDivider";
-import Text from "./Text";
-import Showcase from "./Showcase";
+import SectionDivider from "../SectionDivider";
+import Text from "../Text";
+import Showcase from "../Showcase";
 import { Project } from "payload-types";
 
 const ProjectContent = ({ sections }: { sections: Project["sections"] }) => {

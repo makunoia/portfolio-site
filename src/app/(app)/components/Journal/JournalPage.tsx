@@ -8,12 +8,12 @@ import {
   usePresence,
   useAnimate,
 } from "framer-motion";
-import Text from "./Text";
+import Text from "@/components/Text";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { XIcon } from "lucide-react";
 import { JournalEntry, JournalEntryTag } from "payload-types";
-import { formatDate } from "@/helpers";
+import { formatDate, handleMouseEvents } from "@/helpers";
 
 const JournalPage = ({
   content,
@@ -74,30 +74,12 @@ const JournalPage = ({
     setIsContentOpen(true);
   };
 
-  const item = {
-    hidden: {
-      y: 50,
-      opacity: 0,
-    },
-    show: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.3,
-        type: "spring",
-        stiffness: 400,
-        damping: 80,
-      },
-    },
-  };
-
   return (
     <motion.div
       layout="position"
       ref={page}
       id={`journal-page-${data.slug}`}
-      variants={item}
-      className={` ${
+      className={`${
         isPageOpen
           ? "fixed top-0px sm:top-40px z-50 bg border shadow overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[15%] md:mx-[10%]"
           : "relative h-fit"
@@ -113,7 +95,13 @@ const JournalPage = ({
 
       <Link
         href={isPageOpen ? "/journal" : `journal/${data.slug}`}
-        className={isPageOpen ? "pointer-events-none" : "pointer-events-auto"}
+        onMouseEnter={!isPageOpen ? handleMouseEvents : () => {}}
+        onMouseLeave={!isPageOpen ? handleMouseEvents : () => {}}
+        className={
+          isPageOpen
+            ? "pointer-events-none"
+            : "pointer-events-auto page-list-item transition-opacity duration-300 ease-in-out"
+        }
         scroll
       >
         <motion.div
@@ -214,7 +202,7 @@ const CloseButton = ({ onClick }: { onClick: () => {} }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="p-2px flex rounded-4px h-fit bg hover:bg-subtle border shadow-sm cursor-pointer pointer-events-auto"
+      className="close-button p-2px flex rounded-4px h-fit bg hover:bg-subtle border shadow-sm cursor-pointer pointer-events-auto"
     >
       <XIcon size={20} />
     </motion.div>

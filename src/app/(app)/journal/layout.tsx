@@ -1,9 +1,7 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 3600;
-
 import React, { ReactNode, Suspense } from "react";
-import JournalEntriesList from "@/components/JournalEntriesList/Server";
+import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";
+import PageListSkeleton from "../components/Skeletons/PageList";
 
 const Layout = ({ content }: { content: ReactNode }) => {
   return (
@@ -11,7 +9,7 @@ const Layout = ({ content }: { content: ReactNode }) => {
       <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
         <JournalHero />
 
-        <Suspense fallback={<div className="text">Loading...</div>}>
+        <Suspense fallback={<PageListSkeleton />}>
           <JournalEntriesList content={content} />
         </Suspense>
       </main>

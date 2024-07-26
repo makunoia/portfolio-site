@@ -1,6 +1,3 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 3600;
-
 import React from "react";
 
 import Text from "@/components/Text";

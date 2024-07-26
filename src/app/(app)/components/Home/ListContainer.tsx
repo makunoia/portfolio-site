@@ -9,7 +9,12 @@ import {
   JournalEntry,
 } from "payload-types";
 
-import { formatDate, isProject, isJournalEntry } from "@/helpers";
+import {
+  formatDate,
+  isProject,
+  isJournalEntry,
+  AnimationVariants,
+} from "@/helpers";
 import { motion } from "framer-motion";
 
 const ListContainer = async ({
@@ -19,46 +24,14 @@ const ListContainer = async ({
   link: string;
   items: Project[] | JournalEntry[];
 }) => {
-  const container = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.2,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: {
-      opacity: 0,
-      filter: "blur(20px)",
-      y: 50,
-    },
-    visible: {
-      opacity: 1,
-      filter: "blur(0px)",
-      y: 0,
-      transition: {
-        duration: 0.2,
-        type: "spring",
-        stiffness: 400,
-        damping: 80,
-      },
-    },
-  };
-
   return (
     <>
       {items.length ? (
         <motion.div
           className="flex flex-col gap-16px"
-          variants={container}
+          variants={AnimationVariants.container}
           initial="hidden"
-          animate="visible"
+          animate="shown"
         >
           {items.map((item) => {
             if (isProject(item)) {
@@ -66,7 +39,7 @@ const ListContainer = async ({
               return (
                 <motion.div
                   className="w-full h-fit"
-                  variants={itemVariants}
+                  variants={AnimationVariants.item}
                   key={item.id}
                 >
                   <ListItem
@@ -83,7 +56,7 @@ const ListContainer = async ({
               return (
                 <motion.div
                   className="w-full h-fit"
-                  variants={itemVariants}
+                  variants={AnimationVariants.item}
                   key={item.id}
                 >
                   <ListItem
@@ -97,7 +70,10 @@ const ListContainer = async ({
             }
           })}
 
-          <motion.div className="w-full h-fit" variants={itemVariants}>
+          <motion.div
+            className="w-full h-fit"
+            variants={AnimationVariants.item}
+          >
             <Link href={link} className="w-full" as={link}>
               <Button label="View all" fullWidth />
             </Link>
