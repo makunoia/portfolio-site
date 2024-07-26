@@ -67,12 +67,12 @@ const Footer = ({ status }: { label: string; status: "dnd" | "available" }) => {
       </div>
 
       <div className="flex flex-col gap-30px md:flex-row md:justify-between">
-        <div className="flex flex-col gap-4px">
-          <Text>This site is a work in progress.</Text>
+        <div className="order-last md:order-first flex flex-col gap-4px justify-end">
+          <Text className="text-info">This site is a work in progress.</Text>
           <Text className="text-subtle">{`Last updated ${buildDate}`}</Text>
         </div>
 
-        <div className=" flex flex-col items-start md:items-end gap-4px">
+        <div className="flex flex-col items-start md:items-end gap-4px">
           <div className="flex flex-row gap-4px">
             <Text weight="medium">Montreal, Canada</Text>
             <Text>9:00 PM</Text>
@@ -86,7 +86,7 @@ const Footer = ({ status }: { label: string; status: "dnd" | "available" }) => {
 
       <div
         id="footer-globe"
-        className="w-full sm:w-3/5 h-full opacity-60 sm:opacity-100 -mr-20px absolute -z-10 top-0px bottom-0px right-0px"
+        className="w-4/5 sm:w-3/5 h-full opacity-60 sm:opacity-100 -mr-20px absolute -z-10 top-0px bottom-0px right-0px"
       >
         <canvas
           ref={canvasRef}
