@@ -1,3 +1,7 @@
+import env from "@next/env";
+
+env.loadEnvConfig("./");
+
 function formatBuildDate(date) {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
@@ -8,7 +12,6 @@ function formatBuildDate(date) {
     hour12: true,
   }).format(date);
 }
-
 async function updateBuildDate() {
   const buildDate = new Date();
   const formattedBuildDate = formatBuildDate(buildDate);
@@ -26,11 +29,11 @@ async function updateBuildDate() {
     const response = await fetch(
       `https://api.vercel.com/v9/projects/${projectID}/env/${id}`,
       {
-        method: "PATCH",
+        body: { value: formatBuildDate },
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: { value: formattedBuildDate },
+        method: "PATCH",
       }
     );
 
@@ -45,5 +48,4 @@ async function updateBuildDate() {
   }
 }
 
-// Call the function to update the build date
 updateBuildDate();
