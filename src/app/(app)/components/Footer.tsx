@@ -16,7 +16,7 @@ const IndicatorCVA = cva("rounded-full w-8px h-8px animate-pulse", {
 
 const Footer = ({ status }: { label: string; status: "dnd" | "available" }) => {
   const IndicatorStyle = IndicatorCVA({ status });
-
+  const buildDate = process.env.NEXT_PUBLIC_BUILD_DATE as string;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -68,8 +68,8 @@ const Footer = ({ status }: { label: string; status: "dnd" | "available" }) => {
 
       <div className="flex flex-col gap-30px md:flex-row md:justify-between">
         <div className="flex flex-col gap-4px">
-          <Text>This website, like I am, is a work in progress.</Text>
-          <Text className="text-subtle">Last updated May 21, 2024 9:00 PM</Text>
+          <Text>This site is a work in progress.</Text>
+          <Text className="text-subtle">{`Last updated ${buildDate}`}</Text>
         </div>
 
         <div className=" flex flex-col items-start md:items-end gap-4px">

@@ -13,8 +13,8 @@ export interface Config {
   collections: {
     users: User;
     projects: Project;
+    pages: Page;
     'project-tags': ProjectTag;
-    webpages: Webpage;
     'my-roles': MyRole;
     'journal-entries': JournalEntry;
     'journal-entry-tags': JournalEntryTag;
@@ -99,7 +99,10 @@ export interface Project {
       }[]
     | null;
   isLocked?: boolean | null;
-  password?: string | null;
+  pagePhotos?: {
+    codename?: string | null;
+    password?: string | null;
+  };
   isFeatured?: boolean | null;
   featuredData?: {
     image: string | Asset;
@@ -165,9 +168,9 @@ export interface Asset {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "webpages".
+ * via the `definition` "pages".
  */
-export interface Webpage {
+export interface Page {
   id: string;
   name: 'Home' | 'Projects' | 'Journal' | 'About Me';
   intro?: {

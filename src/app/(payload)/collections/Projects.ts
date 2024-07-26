@@ -11,7 +11,14 @@ const Projects: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     description: "Manage your projects",
-    defaultColumns: ["title", "year", "isFeatured", "isArchived", "slug"],
+    defaultColumns: [
+      "title",
+      "year",
+      "isFeatured",
+      "isArchived",
+      "isLocked",
+      "slug",
+    ],
   },
   fields: [
     {
@@ -248,7 +255,7 @@ const Projects: CollectionConfig = {
           description: "Miscellenous options for this project",
           fields: [
             {
-              label: "Lock this Project",
+              label: "Locked",
               name: "isLocked",
               type: "checkbox",
               admin: {
@@ -257,11 +264,35 @@ const Projects: CollectionConfig = {
               },
             },
             {
-              label: "Password",
-              name: "password",
-              type: "text",
+              label: "Locked project settings",
+              name: "pagePhotos",
+              type: "group",
+              fields: [
+                {
+                  type: "row",
+                  fields: [
+                    {
+                      label: "Codename",
+                      name: "codename",
+                      type: "text",
+                      admin: {
+                        width: "50%",
+                      },
+                    },
+                    {
+                      label: "Password",
+                      name: "password",
+                      type: "text",
+                      admin: {
+                        width: "50%",
+                      },
+                    },
+                  ],
+                },
+              ],
               admin: {
-                description: "Provide a strong password",
+                description:
+                  "Provide a codename and a password for this locked project",
                 condition: (data) => (data.isLocked ? true : false),
               },
             },

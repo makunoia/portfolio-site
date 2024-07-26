@@ -2,8 +2,7 @@ import path from "path";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 
-// import Pages from "@/app/(payload)/collections/Pages";
-import Webpages from "@/app/(payload)/collections/Webpages";
+import Pages from "@/app/(payload)/collections/Pages";
 import Projects from "@/app/(payload)/collections/Projects";
 import Users from "@/app/(payload)/collections/Users";
 import Assets from "@/app/(payload)/collections/Assets";
@@ -49,9 +48,8 @@ export default buildConfig({
   collections: [
     Users,
     Projects,
-    // Pages,
+    Pages,
     ProjectTags,
-    Webpages,
     MyRoles,
     JournalEntries,
     JournalEntryTags,

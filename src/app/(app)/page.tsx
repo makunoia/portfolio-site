@@ -14,13 +14,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TimerContextProvider } from "./contexts/TimerContext";
 
 // FINAL SET OF TO DO
-// Finish Statuses: Open to Work, Activity
+// ✅ Finish Statuses: Open to Work, Activity
 // Automate Last Updated text
 // About Me: Cover Photo and Photo
-// Migrate to 'Page' from 'Webpage'
-// Locked Projects: Codename and Password
+// ✅ Migrate to 'Page' from 'Webpage'
+// ✅ Locked Projects: Codename and Password
 // Projects and Journal Page: List Items Hover Interaction
 // Archived Project Design
+// Locked Project Page Screen
 
 // Create Content
 // Featured Project: AppendPay

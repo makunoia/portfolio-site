@@ -8,7 +8,7 @@ const payload = await getPayloadHMR({ config });
 
 const JournalHero = async () => {
   const { docs } = await payload.find({
-    collection: "webpages",
+    collection: "pages",
     where: {
       name: {
         equals: "Journal",

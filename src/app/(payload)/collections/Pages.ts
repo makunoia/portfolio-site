@@ -5,11 +5,11 @@ import BooleanItem from "../blocks/BooleanItem";
 import MediaItem from "../blocks/MediaItem";
 import URLItem from "../blocks/URLItem";
 
-const Site: CollectionConfig = {
-  slug: "webpages",
+const Pages: CollectionConfig = {
+  slug: "pages",
   labels: {
-    singular: "Webpage",
-    plural: "Webpages",
+    singular: "Page",
+    plural: "Pages",
   },
   admin: {
     useAsTitle: "name",
@@ -144,4 +144,4 @@ const Site: CollectionConfig = {
   ],
 };
 
-export default Site;
+export default Pages;
