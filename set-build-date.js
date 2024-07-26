@@ -13,31 +13,27 @@ function formatBuildDate(date) {
   }).format(date);
 }
 
-// Read the existing .env file
-const envPath = ".env";
-const envFileContent = readFileSync(envPath, "utf-8");
-
-// Convert the content to a list of lines
-const lines = envFileContent.split("\n");
-
 // Prepare the new build date value
 const buildDate = new Date();
 const formattedBuildDate = formatBuildDate(buildDate);
-const buildDateEntry = `NEXT_PUBLIC_BUILD_DATE="${formattedBuildDate}"`;
 
-// Find and update the line that contains the build date variable, or add it if it doesn't exist
-let updated = false;
-const newLines = lines.map((line) => {
-  if (line.startsWith("NEXT_PUBLIC_BUILD_DATE=")) {
-    updated = true;
-    return buildDateEntry;
+const token = process.env.VERCEL_TOKEN;
+const id = process.env.VERCEL_BUILD_DATE_ENV_ID;
+const projectID = process.env.VERCEL_PROJECT_ID;
+const teamID = process.env.VERCEL_TEAM_ID;
+
+await fetch(
+  `https://api.vercel.com/v9/projects/${projectID}/env/${id}&teamId=${teamID}`,
+  {
+    body: {
+      key: "NEXT_PUBLIC_BUILD_DATE",
+      target: "[development, preview, production]",
+      type: "plain",
+      value: formattedBuildDate,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    method: "patch",
   }
-  return line;
-});
-
-if (!updated) {
-  newLines.push(buildDateEntry);
-}
-
-// Write the updated content back to the .env file
-writeFileSync(envPath, newLines.join("\n"), "utf-8");
+);
