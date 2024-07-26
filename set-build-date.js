@@ -9,6 +9,8 @@ function formatBuildDate(date) {
     hour: "numeric",
     minute: "numeric",
     hour12: true,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    timeZoneName: "short",
   }).format(date);
 }
 
