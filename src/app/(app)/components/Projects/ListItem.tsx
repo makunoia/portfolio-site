@@ -2,18 +2,25 @@
 import { handleMouseEvents } from "@/helpers";
 import Text from "../Text";
 import Link from "next/link";
+import { Lock } from "lucide-react";
 
 const ProjectItem = ({
   title,
   desc,
   tag,
   slug,
+  locked,
+  codename,
 }: {
   title: string;
   desc: string;
   tag: string;
   slug: string;
-}) => {
+  locked: boolean;
+} & (
+  | { locked: true; codename: string }
+  | { locked: false; codename?: undefined }
+)) => {
   return (
     <Link
       href={`projects/${slug}`}
@@ -25,7 +32,10 @@ const ProjectItem = ({
     >
       <div className="flex flex-row justify-between cursor-pointer">
         <div className="flex flex-col gap-4px">
-          <Text size="body">{title}</Text>
+          <div className="flex gap-4px">
+            <Text size="body">{locked ? codename : title}</Text>
+            {locked && <Lock size={14} className="text" />}
+          </div>
           <Text size="caption" className="text-subtle">
             {desc}
           </Text>

@@ -10,6 +10,7 @@ import JournalEntries from "@/app/(payload)/collections/JournalEntries";
 import ProjectTags from "@/app/(payload)/collections/tags/ProjectTags";
 import MyRoles from "@/app/(payload)/collections/tags/MyRoles";
 import JournalEntryTags from "@/app/(payload)/collections/tags/JournalEntryTags";
+import Globals from "@/app/(payload)/collections/Globals";
 import {
   BlockquoteFeature,
   BlocksFeature,
@@ -54,6 +55,7 @@ export default buildConfig({
     JournalEntries,
     JournalEntryTags,
     Assets,
+    Globals,
   ],
   plugins: [
     s3Storage({

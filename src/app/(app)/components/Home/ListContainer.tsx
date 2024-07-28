@@ -35,19 +35,32 @@ const ListContainer = async ({
         >
           {items.map((item) => {
             if (isProject(item)) {
+              const { title, year, slug, isLocked, id } = item;
               const tag: ProjectTag = item.tag as ProjectTag;
               return (
                 <motion.div
                   className="w-full h-fit"
                   variants={AnimationVariants.item}
-                  key={item.id}
+                  key={id}
                 >
-                  <ListItem
-                    title={item.title}
-                    tag={tag.name}
-                    date={item.year}
-                    url={`/projects/${item.slug}`}
-                  />
+                  {isLocked ? (
+                    <ListItem
+                      title={title}
+                      tag={tag.name}
+                      date={year}
+                      url={`/projects/${slug}`}
+                      locked={true}
+                      codename={item.lockedData?.codename as string}
+                    />
+                  ) : (
+                    <ListItem
+                      title={title}
+                      tag={tag.name}
+                      date={year}
+                      url={`/projects/${slug}`}
+                      locked={false}
+                    />
+                  )}
                 </motion.div>
               );
             } else if (isJournalEntry(item)) {
@@ -63,6 +76,7 @@ const ListContainer = async ({
                     title={item.title}
                     tag={tag.name}
                     date={date}
+                    locked={false}
                     url={`/journal/${item.slug}`}
                   />
                 </motion.div>

@@ -1,7 +1,7 @@
 import React from "react";
 import Text from "../Text";
 import { cva } from "class-variance-authority";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Lock } from "lucide-react";
 import Link from "next/link";
 
 const ListItemCVA = cva([
@@ -23,12 +23,17 @@ const ListItem = ({
   tag,
   date,
   url,
+  locked,
+  codename,
 }: {
   title: string;
   tag?: string;
   date: string;
   url: string;
-}) => {
+} & (
+  | { locked: true; codename: string }
+  | { locked: false; codename?: undefined }
+)) => {
   const ListItemStyle = ListItemCVA();
   const BackgroundStyle = BackgroundCVA();
 
@@ -39,10 +44,10 @@ const ListItem = ({
           className="text text-nowrap overflow-hidden text-ellipsis max-w-[200px]"
           weight="medium"
           size="body"
-          multiline
         >
-          {title}
+          {locked ? codename : title}
         </Text>
+        {locked && <Lock size={14} className="text" />}
         {tag && (
           <Text className="text-subtle text-nowrap" size="body" weight="normal">
             {tag}

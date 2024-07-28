@@ -137,7 +137,7 @@ const ScrollSpyItem = ({
               <div
                 className={`trackline trackline-v 
                 ${getPathHoverStyle(i, true)}
-                ${getPathActiveStyle(i, true)} `}
+                ${getPathActiveStyle(i, true)}`}
               />
               <div
                 className={`trackline trackline-h 
@@ -145,9 +145,9 @@ const ScrollSpyItem = ({
                 ${getPathActiveStyle(i)}`}
               />
               <Text
-                className={`transition-color duration-300 ease-in-out group-hover:text ${
+                className={`transition-color duration-300 ease-in-out group-hover:text text-wrap ${
                   inView.block == htmlID ? "text" : "text-subtle/40 "
-                } text-nowrap`}
+                }`}
               >
                 {lead}
               </Text>

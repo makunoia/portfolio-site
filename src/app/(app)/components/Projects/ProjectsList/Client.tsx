@@ -24,13 +24,27 @@ const ProjectsList = ({ projects }: { projects: ProjectsByYear }) => {
             <motion.div className="flex flex-col gap-16px">
               {item.projects
                 ? item.projects.map((project) => {
-                    return (
+                    const { title, desc, tag, slug, locked, codename } =
+                      project;
+
+                    return locked ? (
                       <ProjectItem
-                        key={project.title}
-                        title={project.title}
-                        desc={project.desc}
-                        tag={project.tag}
-                        slug={project.slug}
+                        key={title}
+                        title={title}
+                        desc={desc}
+                        tag={tag}
+                        slug={slug}
+                        locked={locked}
+                        codename={codename}
+                      />
+                    ) : (
+                      <ProjectItem
+                        key={title}
+                        title={title}
+                        desc={desc}
+                        tag={tag}
+                        slug={slug}
+                        locked={false}
                       />
                     );
                   })

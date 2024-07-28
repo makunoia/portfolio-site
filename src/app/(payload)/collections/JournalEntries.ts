@@ -125,10 +125,6 @@ const JournalEntries: CollectionConfig = {
       },
     },
   ],
-  hooks: {
-    beforeValidate: [({ data }) => console.log("before validate", data)],
-    beforeChange: [({ data }) => console.log("before change", data)],
-  },
 };
 
 export default JournalEntries;

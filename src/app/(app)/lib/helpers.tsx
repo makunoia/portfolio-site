@@ -58,6 +58,8 @@ export function GroupByYear(items: Project[] | JournalEntry[]) {
             desc: item.desc,
             tag: tag.name,
             slug: item.slug,
+            locked: item.isLocked,
+            codename: item.lockedData?.codename,
           };
         }),
     }));

@@ -12,6 +12,7 @@ const ButtonCVA = cva(
     variants: {
       fullWidth: {
         true: "w-full",
+        false: "w-fit",
       },
     },
   }

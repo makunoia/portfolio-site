@@ -11,7 +11,8 @@ import HomeListSkeleton from "@/components/Skeletons/HomeList";
 import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 
 // FINAL SET OF TO DO
-// ✅ Finish Statuses: Open to Work, Activity
+// ✅ Home page hero: Status
+// Footer: Activity status
 // ✅ Automate Last Updated text
 // ✅ About Me: Cover Photo and Photo
 // ✅ Migrate to 'Page' from 'Webpage'
@@ -19,8 +20,8 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // ✅ Locked Projects: Codename and Password
 // ✅ Projects and Journal Page: List Items Hover Interaction
 // ✅ Removed `force-dynamic` and `revalidate`
-// Enter animation Projects Item
-// Archived Project Design
+// ✅ Enter animation Projects Item
+// ✅ Archived Project Design
 // Locked Project Page Screen
 
 // Create Content
@@ -43,7 +44,7 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // About Me: Catching up on
 
 // Project page: 404 redirect
-// Project page: Scroll spy responsiveness fix
+// ✅ Project page: Scroll spy responsiveness fix
 
 // Light/Dark Mode trigger with icon animation
 // Resume button
@@ -51,15 +52,17 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // Pages Metadata
 // Website favicon
 // Optimize Speed (Should have RND on this)
+// Optimization: useTransition and useOptimistic RND
 // Memozation of data to increase speed
 
 // Nice to haves
-// Project page: Contributors with links
+// Project page: Contributors with links to their linkedIn or portfolio
 // Color picker for Featured Projects
 // About Me: Piano Cover
 // Loading Lotte for Journal Content
 // Journal Full Screen
 // Rotate to location - Footer Globe Interaction
+// Animated lock opening
 
 const Page = () => {
   return (
