@@ -1,15 +1,16 @@
 import { Suspense } from "react";
 import { Lock } from "lucide-react";
+
 import Text from "@/components/Text";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import ListContainer from "@/components/Home/ListContainer";
+import LockedProjectForm from "./Client";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { Project } from "payload-types";
 const payload = await getPayloadHMR({ config });
-import { validatePassword } from "../../../lib/validate";
-import LockedProjectForm from "./Client";
+
+import { Project } from "payload-types";
 
 const LockedProject = async ({
   codename,

@@ -34,11 +34,14 @@
     "globe.gl": "^2.32.4",
     "graphql": "^16.8.1",
     "next": "15.0.0-rc.0",
+    "next-themes": "^0.3.0",
     "payload": "3.0.0-beta.67",
     "react": "^19.0.0-rc-6230622a1a-20240610",
     "react-dom": "^19.0.0-rc-6230622a1a-20240610",
     "sharp": "^0.33.4",
-    "tailwind-merge": "^2.3.0"
+    "sonner": "^1.5.0",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@next/env": "^15.0.0-rc.0",

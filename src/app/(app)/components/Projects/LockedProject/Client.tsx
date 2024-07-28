@@ -3,18 +3,15 @@ import * as Form from "@radix-ui/react-form";
 import Text from "@/components/Text";
 import { FormEvent, useState } from "react";
 import { validatePassword } from "@/app/(app)/lib/validate";
-import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const LockedProjectForm = () => {
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    !isFormSubmitted && setIsFormSubmitted(false);
 
     try {
       setIsFormSubmitting(true);
@@ -23,15 +20,16 @@ const LockedProjectForm = () => {
       const valid = await validatePassword(formData);
 
       if (valid) {
-        if (valid === true) {
-          setIsPasswordValid(true);
-          router.refresh();
-        } else setIsPasswordValid(false);
+        toast.success("Access granted!", {
+          description: "This page will be refreshed.",
+        });
+        router.refresh();
+      } else {
+        toast.error("Wrong password.");
       }
     } catch (error) {
       console.error("Error", error);
     } finally {
-      !isFormSubmitted && setIsFormSubmitted(true);
       setIsFormSubmitting(false);
     }
   };
@@ -41,27 +39,11 @@ const LockedProjectForm = () => {
       className="w-full flex flex-col gap-16px"
       onSubmit={handleSubmit}
     >
-      <Form.Field
-        className="w-full flex flex-col gap-4px"
-        name="password"
-        serverInvalid={isPasswordValid}
-      >
+      <Form.Field className="w-full flex flex-col gap-4px" name="password">
         <div className="flex w-full justify-between">
           <Form.Label>
             <Text>Provide the password</Text>
           </Form.Label>
-
-          {!isPasswordValid && isFormSubmitted ? (
-            <Form.Message forceMatch={isPasswordValid}>
-              <Text className="text-danger">Incorrect Password</Text>
-            </Form.Message>
-          ) : null}
-
-          {isPasswordValid ? (
-            <Form.Message forceMatch={isPasswordValid}>
-              <Text className="text-success">Access granted!</Text>
-            </Form.Message>
-          ) : null}
 
           <Form.Message match="valueMissing">
             <Text className="text-danger">Enter valid text</Text>

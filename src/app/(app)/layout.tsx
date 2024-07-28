@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/app/(app)/components/Sonner";
 
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import "./styles/globals.css";
@@ -32,6 +33,7 @@ export default function RootLayout({
         {children}
 
         <Navbar />
+        <Toaster richColors />
         <Footer status="available" label="In bed" />
       </body>
     </html>
