@@ -14,7 +14,10 @@ type ProjectListItem = {
   desc: string;
   tag: string;
   slug: string;
-};
+} & (
+  | { locked: true; codename: string }
+  | { locked: false; codename?: undefined }
+);
 
 export type FeaturedProject = {
   id: string;

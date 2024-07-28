@@ -88,10 +88,20 @@ const Projects: CollectionConfig = {
                 beforeValidate: [
                   ({ siblingData, value }) => {
                     // Create a slug from the first Project Title entered.
-                    if (!value || value === "duplicated") {
-                      return siblingData.title
-                        .replaceAll(" ", "-")
-                        .toLowerCase();
+                    if (
+                      !value ||
+                      value === "duplicated" ||
+                      siblingData.isLocked
+                    ) {
+                      if (siblingData.isLocked) {
+                        return siblingData.lockedData.codename
+                          .replaceAll(" ", "-")
+                          .toLowerCase();
+                      } else {
+                        return siblingData.title
+                          .replaceAll(" ", "-")
+                          .toLowerCase();
+                      }
                     } else return value;
                   },
                 ],
@@ -265,7 +275,7 @@ const Projects: CollectionConfig = {
             },
             {
               label: "Locked project settings",
-              name: "pagePhotos",
+              name: "lockedData",
               type: "group",
               fields: [
                 {
@@ -275,6 +285,7 @@ const Projects: CollectionConfig = {
                       label: "Codename",
                       name: "codename",
                       type: "text",
+                      required: true,
                       admin: {
                         width: "50%",
                       },
@@ -283,6 +294,7 @@ const Projects: CollectionConfig = {
                       label: "Password",
                       name: "password",
                       type: "text",
+                      required: true,
                       admin: {
                         width: "50%",
                       },

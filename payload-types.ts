@@ -19,6 +19,7 @@ export interface Config {
     'journal-entries': JournalEntry;
     'journal-entry-tags': JournalEntryTag;
     assets: Asset;
+    globals: Global;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -99,9 +100,9 @@ export interface Project {
       }[]
     | null;
   isLocked?: boolean | null;
-  pagePhotos?: {
-    codename?: string | null;
-    password?: string | null;
+  lockedData?: {
+    codename: string;
+    password: string;
   };
   isFeatured?: boolean | null;
   featuredData?: {
@@ -286,6 +287,17 @@ export interface JournalEntry {
 export interface JournalEntryTag {
   id: string;
   name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "globals".
+ */
+export interface Global {
+  id: string;
+  name: string;
+  value: string;
   updatedAt: string;
   createdAt: string;
 }
