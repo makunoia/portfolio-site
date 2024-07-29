@@ -12,7 +12,7 @@ export const validatePassword = async (
     collection: "globals",
     where: {
       name: {
-        equals: "Locked Project Password",
+        equals: "lockedProjectPassword",
       },
     },
   });

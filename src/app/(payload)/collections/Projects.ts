@@ -267,6 +267,7 @@ const Projects: CollectionConfig = {
             {
               label: "Locked",
               name: "isLocked",
+              defaultValue: false,
               type: "checkbox",
               admin: {
                 description:
@@ -311,6 +312,7 @@ const Projects: CollectionConfig = {
             {
               label: "Featured Project",
               name: "isFeatured",
+              defaultValue: false,
               type: "checkbox",
               admin: {
                 description:
@@ -362,6 +364,7 @@ const Projects: CollectionConfig = {
             {
               label: "Archived",
               name: "isArchived",
+              defaultValue: false,
               type: "checkbox",
               admin: {
                 description:

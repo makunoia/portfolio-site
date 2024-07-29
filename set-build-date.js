@@ -6,11 +6,6 @@ function formatBuildDate(date) {
     year: "numeric",
     month: "long",
     day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    timeZoneName: "short",
   }).format(date);
 }
 

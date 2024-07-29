@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import Image from "next/image";
 import FeaturedProjects from "@/components/Home/FeaturedProjects/Server";
-import LinkButton from "@/components/LinkButton";
+import LinksRow from "@/components/LinksRow";
 import Logo from "./assets/logo.svg";
 import Section from "@/components/Home/Section";
 import HeroSection from "@/components/HeroSections/Home";
@@ -12,7 +12,6 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 
 // FINAL SET OF TO DO
 // ✅ Home page hero: Status
-// Footer: Activity status
 // ✅ Automate Last Updated text
 // ✅ About Me: Cover Photo and Photo
 // ✅ Migrate to 'Page' from 'Webpage'
@@ -22,7 +21,9 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // ✅ Removed `force-dynamic` and `revalidate`
 // ✅ Enter animation Projects Item
 // ✅ Archived Project Design
-// Locked Project Page Screen
+// ✅ Locked Project Page Screen
+// Footer: Activity status
+// Colored favicon
 
 // Create Content
 // Featured Project: AppendPay
@@ -71,16 +72,7 @@ const Page = () => {
         <div className="flex justify-between">
           <Image alt="Logo" src={Logo} style={{ width: 45, height: "auto" }} />
 
-          <div className="flex flex-row gap-12px">
-            <LinkButton
-              label="LinkedIn"
-              href="https://www.linkedin.com/in/mark-noya/"
-            />
-            <LinkButton
-              label="Resume"
-              href="https://www.linkedin.com/in/mark-noya/"
-            />
-          </div>
+          <LinksRow />
         </div>
 
         <HeroSection />

@@ -12,16 +12,55 @@ const Globals: CollectionConfig = {
   },
   fields: [
     {
-      label: "Name",
-      type: "text",
-      name: "name",
-      required: true,
+      type: "row",
+      fields: [
+        {
+          label: "Name",
+          type: "select",
+          options: [
+            { label: "Resume", value: "resume" },
+            {
+              label: "Locked Project Password",
+              value: "lockedProjectPassword",
+            },
+          ],
+          name: "name",
+          required: true,
+          admin: {
+            width: "70%",
+          },
+        },
+        {
+          label: "Type",
+          name: "type",
+          type: "select",
+          options: ["Text", "File"],
+          required: true,
+          admin: {
+            width: "30%",
+          },
+        },
+      ],
     },
+
     {
       label: "Value",
       type: "text",
       name: "value",
       required: true,
+      admin: {
+        condition: (data) => (data?.type === "Text" ? true : false),
+      },
+    },
+    {
+      label: "File",
+      type: "upload",
+      name: "document",
+      required: true,
+      relationTo: "assets",
+      admin: {
+        condition: (data) => (data?.type === "File" ? true : false),
+      },
     },
   ],
 };

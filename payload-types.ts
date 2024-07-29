@@ -296,8 +296,10 @@ export interface JournalEntryTag {
  */
 export interface Global {
   id: string;
-  name: string;
-  value: string;
+  name: 'resume' | 'lockedProjectPassword';
+  type: 'Text' | 'File';
+  value?: string | null;
+  document?: string | Asset | null;
   updatedAt: string;
   createdAt: string;
 }
