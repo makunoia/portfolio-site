@@ -15,7 +15,7 @@ const getResume = async () => {
     },
   });
 
-  const document = docs[0].document as Asset;
+  const document = docs[0]?.document as Asset;
   const link = document ? document.url : "";
 
   return link;

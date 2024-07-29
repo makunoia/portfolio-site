@@ -1,13 +1,13 @@
 import Text from "@/components/Text";
 import Image from "next/image";
 import React from "react";
-import LinkButton from "@/components/LinkButton";
 import AboutMeHero from "@/components/HeroSections/AboutMe";
 import Sections from "@/components/AboutMe/Sections";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { Asset } from "payload-types";
+import LinksRow from "../components/LinksRow";
 const payload = await getPayloadHMR({ config });
 
 const Page = async () => {
@@ -65,16 +65,7 @@ const Page = async () => {
           </Text>
         </div>
 
-        <div className="flex flex-row gap-12px">
-          <LinkButton
-            label="LinkedIn"
-            href="https://www.linkedin.com/in/mark-noya/"
-          />
-          <LinkButton
-            label="Resume"
-            href="https://www.linkedin.com/in/mark-noya/"
-          />
-        </div>
+        <LinksRow />
 
         {data ? <AboutMeHero data={data.intro} /> : <div>Loading...</div>}
       </div>
