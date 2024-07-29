@@ -34,7 +34,7 @@ export default function RootLayout({
 
         <Navbar />
         <Toaster richColors />
-        <Footer status="available" label="In bed" />
+        <Footer />
       </body>
     </html>
   );
