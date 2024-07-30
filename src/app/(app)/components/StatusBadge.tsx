@@ -37,7 +37,7 @@ const StatusBadge = ({ status }: { status?: "employed" | "open" }) => {
       <Text
         size="caption"
         weight="medium"
-        className="uppercase tracking-widest"
+        className="uppercase tracking-widest text-nowrap"
       >
         {status === "employed" ? "Currently employed" : "Open for work"}
       </Text>

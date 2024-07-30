@@ -34,7 +34,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const imageStyle = cva(
     [
       "w-full h-[220px]",
-      "sm:w-[400px] sm:h-[250px]",
+      "sm:w-[350px] sm:h-[250px]",
       "absolute left-0px -bottom-8px",
       "overflow-visible",
       "transition-all ease-in-out duration-300",
@@ -42,7 +42,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
     {
       variants: {
         shown: {
-          true: "opacity-1 translate-y-0px delay-200",
+          true: "opacity-1 translate-y-8px delay-200",
           false: "opacity-0 translate-y-40px",
         },
       },
@@ -137,8 +137,8 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                   className="select-none"
                   src={project.featuredData.image.url}
                   alt={project.featuredData.image.alt || ""}
-                  style={{ objectFit: "contain" }}
-                  sizes="400px"
+                  style={{ objectFit: "contain", objectPosition: "center" }}
+                  sizes="350px"
                   priority
                   fill
                 />
