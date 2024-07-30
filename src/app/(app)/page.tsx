@@ -22,7 +22,9 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // ✅ Enter animation Projects Item
 // ✅ Archived Project Design
 // ✅ Locked Project Page Screen
-// Colored favicon
+// ✅ Resume button
+// Website favicon
+// ✅ Project page: Scroll spy responsiveness fix
 
 // Create Content
 // Featured Project: AppendPay
@@ -44,13 +46,10 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // About Me: Catching up on
 
 // Project page: 404 redirect
-// ✅ Project page: Scroll spy responsiveness fix
-
 // Light/Dark Mode trigger with icon animation
-// Resume button
 // Email Setup: hi@marknoya.me
 // Pages Metadata
-// Website favicon
+
 // Optimize Speed (Should have RND on this)
 // Optimization: useTransition and useOptimistic RND
 // Memozation of data to increase speed
