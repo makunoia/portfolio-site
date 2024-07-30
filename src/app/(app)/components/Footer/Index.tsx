@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
-import Text from "./Text";
-import LinksRow from "./LinksRow";
-import Globe from "./Footer/Globe";
+import Text from "../Text";
+import LinksRow from "../LinksRow";
+import Globe from "./Globe";
 import FooterStatus from "@/components/Footer/TimeAndStatus";
 
 const Footer = () => {

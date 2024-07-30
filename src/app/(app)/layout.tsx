@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "@/app/(app)/components/Footer/Index";
 import { Toaster } from "@/app/(app)/components/Sonner";
 
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";

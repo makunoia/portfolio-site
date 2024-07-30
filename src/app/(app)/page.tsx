@@ -22,7 +22,6 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // ✅ Enter animation Projects Item
 // ✅ Archived Project Design
 // ✅ Locked Project Page Screen
-// Footer: Activity status
 // Colored favicon
 
 // Create Content

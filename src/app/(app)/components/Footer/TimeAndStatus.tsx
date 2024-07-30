@@ -27,14 +27,8 @@ const TimeAndStatus = () => {
 
   return (
     <div className="flex flex-col items-start md:items-end gap-4px">
-      <div className="flex flex-row gap-4px">
-        <Text weight="medium">Montreal, Canada</Text>
-        <Text>{time.format("h:mm A")}</Text>
-      </div>
-      <div className="flex flex-row items-center gap-8px">
-        <div className={IndicatorStyle}></div>
-        <Text>Sleeping</Text>
-      </div>
+      <Text weight="medium">Montreal, Canada</Text>
+      <Text>{time.format("h:mm A")}</Text>
     </div>
   );
 };
