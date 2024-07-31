@@ -92,7 +92,7 @@ const Page = () => {
           sort="-year"
           where={{
             isFeatured: {
-              eq: false,
+              not_equals: true,
             },
           }}
         />
