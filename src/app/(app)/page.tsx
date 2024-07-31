@@ -90,6 +90,11 @@ const Page = () => {
           collection="projects"
           link="/projects"
           sort="-year"
+          where={{
+            isFeatured: {
+              eq: false,
+            },
+          }}
         />
       </Suspense>
 

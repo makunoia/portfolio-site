@@ -12,16 +12,19 @@ const PageSection = async ({
   collection,
   link,
   sort,
+  where,
 }: {
   title: string;
   link: string;
   sort: string;
   collection: CollectionSlug;
+  where?: {};
 }) => {
   const { docs } = await payload.find({
     collection,
     limit: 3,
     sort,
+    where,
   });
 
   const items = docs as Project[] | JournalEntry[];
