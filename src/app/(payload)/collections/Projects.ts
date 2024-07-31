@@ -150,11 +150,10 @@ const Projects: CollectionConfig = {
                 },
                 {
                   label: "Project Tags",
-                  name: "tags",
+                  name: "tag",
                   type: "relationship",
                   relationTo: "project-tags",
                   required: true,
-                  hasMany: true,
                   admin: {
                     width: "50%",
                   },

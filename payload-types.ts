@@ -82,7 +82,7 @@ export interface Project {
   status: 'ONGOING' | 'DONE';
   yearDone?: string | null;
   role: string | MyRole;
-  tags: (string | ProjectTag)[];
+  tag: string | ProjectTag;
   sections?:
     | {
         title: string;
