@@ -149,11 +149,12 @@ const Projects: CollectionConfig = {
                   },
                 },
                 {
-                  label: "Project Tag",
-                  name: "tag",
+                  label: "Project Tags",
+                  name: "tags",
                   type: "relationship",
                   relationTo: "project-tags",
                   required: true,
+                  hasMany: true,
                   admin: {
                     width: "50%",
                   },
@@ -287,18 +288,6 @@ const Projects: CollectionConfig = {
                       name: "codename",
                       type: "text",
                       required: true,
-                      admin: {
-                        width: "50%",
-                      },
-                    },
-                    {
-                      label: "Password",
-                      name: "password",
-                      type: "text",
-                      required: true,
-                      admin: {
-                        width: "50%",
-                      },
                     },
                   ],
                 },

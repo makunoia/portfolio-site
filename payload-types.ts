@@ -82,7 +82,7 @@ export interface Project {
   status: 'ONGOING' | 'DONE';
   yearDone?: string | null;
   role: string | MyRole;
-  tag: string | ProjectTag;
+  tags: (string | ProjectTag)[];
   sections?:
     | {
         title: string;
@@ -102,7 +102,6 @@ export interface Project {
   isLocked?: boolean | null;
   lockedData?: {
     codename: string;
-    password: string;
   };
   isFeatured?: boolean | null;
   featuredData?: {
