@@ -30,7 +30,7 @@ const ProjectItem = ({
       onMouseLeave={handleMouseEvents}
       prefetch
     >
-      <div className="flex flex-row justify-between cursor-pointer">
+      <div className="flex flex-row gap-16px justify-between cursor-pointer">
         <div className="flex flex-col gap-4px">
           <div className="flex gap-4px">
             <Text size="body">{locked ? codename : title}</Text>

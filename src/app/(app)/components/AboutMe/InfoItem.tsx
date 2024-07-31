@@ -21,7 +21,7 @@ const InfoItem = ({
           <Image
             src={image ? (image.url as string) : PlaceholderImage}
             alt="Profile Banner"
-            className="h-full"
+            sizes="40px"
             fill
             style={{
               objectFit: "cover",

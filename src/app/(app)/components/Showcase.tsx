@@ -17,6 +17,7 @@ const Showcase = ({
           <Image
             src={showcaseImage.url as string}
             alt={showcaseImage.alt || title}
+            sizes="500px"
             fill
             style={{
               objectFit: "cover",

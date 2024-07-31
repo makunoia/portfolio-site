@@ -40,7 +40,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
   const { sections } = projectData;
   // There's a bug in Payload 3.0 relations that affect type setting
   // This is a temporary measure to enforce proper type
-  const tag: ProjectTag = projectData.tag as ProjectTag;
+  const tag = projectData.tag as ProjectTag;
   const role: MyRole = projectData.role as MyRole;
   const archived = projectData.isArchived;
   const locked = projectData.isLocked;
@@ -93,7 +93,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
                   </div>
                   <div className="flex flex-row gap-8px">
                     <ProjectBadge label={projectData.year} />
-                    <ProjectBadge label={tag.name} />
+                    <ProjectBadge label={tag.name} />;
                   </div>
 
                   <div className="flex flex-row gap-40px">
@@ -128,11 +128,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
               ) : null}
             </div>
 
-            {sections?.length ? (
-              <ProjectContent sections={sections} />
-            ) : (
-              <div className="w-full text-center text">No content.</div>
-            )}
+            {sections?.length ? <ProjectContent sections={sections} /> : null}
 
             {archived ? (
               <div className="flex flex-col gap-16px md:col-start-2 md:col-end-3 w-full items-center">

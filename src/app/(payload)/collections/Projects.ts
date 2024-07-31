@@ -149,7 +149,7 @@ const Projects: CollectionConfig = {
                   },
                 },
                 {
-                  label: "Project Tag",
+                  label: "Project Tags",
                   name: "tag",
                   type: "relationship",
                   relationTo: "project-tags",
@@ -287,18 +287,6 @@ const Projects: CollectionConfig = {
                       name: "codename",
                       type: "text",
                       required: true,
-                      admin: {
-                        width: "50%",
-                      },
-                    },
-                    {
-                      label: "Password",
-                      name: "password",
-                      type: "text",
-                      required: true,
-                      admin: {
-                        width: "50%",
-                      },
                     },
                   ],
                 },
@@ -368,7 +356,7 @@ const Projects: CollectionConfig = {
               type: "checkbox",
               admin: {
                 description:
-                  "Archived projects are displayed as a list on the homepage",
+                  "Archived projects adds a section on the project page",
                 condition: (data) => (data.status === "DONE" ? true : false),
               },
             },

@@ -31,6 +31,7 @@ const Page = async () => {
           src={coverPhoto.url as string}
           alt={coverPhoto.alt as string}
           className="h-full rounded-12px"
+          sizes="500px"
           style={{
             objectFit: "cover",
           }}

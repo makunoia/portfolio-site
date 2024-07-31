@@ -102,7 +102,6 @@ export interface Project {
   isLocked?: boolean | null;
   lockedData?: {
     codename: string;
-    password: string;
   };
   isFeatured?: boolean | null;
   featuredData?: {

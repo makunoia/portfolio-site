@@ -26,8 +26,8 @@ const MediaItem = ({
         <Image
           src={image ? (image.url as string) : PlaceholderImage}
           alt="Profile Banner"
-          className="h-full"
-          fill
+          width={55}
+          height={80}
           style={{
             objectFit: "cover",
           }}

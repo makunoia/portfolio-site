@@ -23,7 +23,7 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // ✅ Archived Project Design
 // ✅ Locked Project Page Screen
 // ✅ Resume button
-// Website favicon
+// ✅ Website favicon
 // ✅ Project page: Scroll spy responsiveness fix
 
 // Create Content
