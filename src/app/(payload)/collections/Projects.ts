@@ -356,7 +356,7 @@ const Projects: CollectionConfig = {
               type: "checkbox",
               admin: {
                 description:
-                  "Archived projects are displayed as a list on the homepage",
+                  "Archived projects adds a section on the project page",
                 condition: (data) => (data.status === "DONE" ? true : false),
               },
             },

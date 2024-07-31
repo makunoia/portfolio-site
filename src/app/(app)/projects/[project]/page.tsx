@@ -128,11 +128,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
               ) : null}
             </div>
 
-            {sections?.length ? (
-              <ProjectContent sections={sections} />
-            ) : (
-              <div className="w-full text-center text">No content.</div>
-            )}
+            {sections?.length ? <ProjectContent sections={sections} /> : null}
 
             {archived ? (
               <div className="flex flex-col gap-16px md:col-start-2 md:col-end-3 w-full items-center">
