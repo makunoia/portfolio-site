@@ -242,7 +242,6 @@ const Projects: CollectionConfig = {
                       name: "showcase",
                       type: "blocks",
                       blocks: [Showcase],
-                      maxRows: 1,
                     },
                   ],
                   admin: {

@@ -31,16 +31,20 @@ const ProjectContent = ({ sections }: { sections: Project["sections"] }) => {
                       <ContentBlock lead={block.lead}>
                         {block.copy}
                       </ContentBlock>
-                      {block.showcase?.length ? (
-                        isShowcaseType(block) ? (
-                          <Showcase
-                            image={block.showcase[0].image}
-                            title={block.showcase[0].title}
-                            desc={block.showcase[0].desc}
-                            tag={block.showcase[0].tag as string}
-                          />
-                        ) : null
-                      ) : null}
+                      {block.showcase?.length
+                        ? isShowcaseType(block)
+                          ? block.showcase.map((showcase) => {
+                              return (
+                                <Showcase
+                                  image={showcase.image}
+                                  title={showcase.title}
+                                  desc={showcase.desc}
+                                  tag={showcase.tag as string}
+                                />
+                              );
+                            })
+                          : null
+                        : null}
                     </div>
                   ))
                 : "No blocks found"}
@@ -79,8 +83,8 @@ const ContentBlock = ({
   children: string;
 }) => {
   return (
-    <div className="flex flex-col gap-8px md:justify-between md:flex-row">
-      <Text as="h3" size="lead" weight="medium" className="min-w-[200px]">
+    <div className="flex flex-col gap-24px md:justify-between md:flex-row">
+      <Text as="h3" size="lead" weight="medium" className="min-w-[250px]">
         {lead}
       </Text>
       <Text as="p" size="body" className="text-subtle" multiline>

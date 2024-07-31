@@ -11,9 +11,9 @@ const Showcase = ({
 }: Omit<ShowcaseType, "blockType" | "blockName">) => {
   const showcaseImage: Asset = image as Asset;
   return (
-    <div className="bg-subtle/60 flex flex-col gap-8px rounded-12px p-18px">
+    <div className="bg-subtle/60 flex flex-col gap-4px rounded-12px p-12px">
       <div className="flex flex-col gap-10px">
-        <div className="relative overflow-hidden w-full h-[200px] md:h-[300px] bg rounded-10px">
+        <div className="bg relative overflow-hidden w-full h-[200px] md:h-[300px] rounded-8px">
           <Image
             src={showcaseImage.url as string}
             alt={showcaseImage.alt || title}
@@ -46,7 +46,7 @@ const Showcase = ({
           </div>
         </div>
       </div>
-      <Text size="body" className="text-subtle" multiline>
+      <Text size="caption" className="text-subtle" multiline>
         {desc}
       </Text>
     </div>
