@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Text from "@/components/Text";
 import ListContainer from "./ListContainer";
 import { CollectionSlug } from "payload";
@@ -12,15 +11,17 @@ const PageSection = async ({
   title,
   collection,
   link,
+  sort,
 }: {
   title: string;
   link: string;
+  sort: string;
   collection: CollectionSlug;
 }) => {
   const { docs } = await payload.find({
     collection,
     limit: 3,
-    sort: "-createdAt",
+    sort,
   });
 
   const items = docs as Project[] | JournalEntry[];

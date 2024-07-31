@@ -85,11 +85,21 @@ const Page = () => {
       </TimerContextProvider>
 
       <Suspense fallback={<HomeListSkeleton />}>
-        <Section title="Archive" collection="projects" link="/projects" />
+        <Section
+          title="Archive"
+          collection="projects"
+          link="/projects"
+          sort="-year"
+        />
       </Suspense>
 
       <Suspense fallback={<HomeListSkeleton />}>
-        <Section title="Journal" collection="journal-entries" link="/journal" />
+        <Section
+          title="Journal"
+          collection="journal-entries"
+          link="/journal"
+          sort="-createdAt"
+        />
       </Suspense>
     </main>
   );
