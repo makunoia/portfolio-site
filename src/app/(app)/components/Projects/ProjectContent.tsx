@@ -83,7 +83,7 @@ const ContentBlock = ({
   children: string;
 }) => {
   return (
-    <div className="flex flex-col gap-24px md:justify-between md:flex-row">
+    <div className="flex flex-col gap-8px md:gap-24px md:justify-between md:flex-row">
       <Text as="h3" size="lead" weight="medium" className="min-w-[250px]">
         {lead}
       </Text>
