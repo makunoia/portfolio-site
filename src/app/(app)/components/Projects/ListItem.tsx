@@ -30,13 +30,13 @@ const ProjectItem = ({
       onMouseLeave={handleMouseEvents}
       prefetch
     >
-      <div className="flex flex-row gap-16px justify-between cursor-pointer">
+      <div className="flex flex-row gap-24px justify-between items-center cursor-pointer">
         <div className="flex flex-col gap-4px">
           <div className="flex gap-4px">
             <Text size="body">{locked ? codename : title}</Text>
             {locked && <Lock size={14} className="text" />}
           </div>
-          <Text size="caption" className="text-subtle">
+          <Text size="caption" className="text-subtle" multiline>
             {desc}
           </Text>
         </div>

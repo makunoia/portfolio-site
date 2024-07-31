@@ -15,7 +15,7 @@ const payload = await getPayloadHMR({ config });
 const getAllProjectsByYear = async () => {
   const req = await payload.find({
     collection: "projects",
-    sort: "year",
+    sort: "-year",
   });
 
   const projects: Project[] = req.docs;
