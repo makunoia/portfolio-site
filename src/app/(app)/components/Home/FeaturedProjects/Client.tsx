@@ -19,6 +19,9 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const timerContext = useContext(TimerContext);
   const { resetTimer, setResetTimer } = timerContext;
 
+  const imgTransformer =
+    "https://marknoya.me/cdn-cgi/image/format=webp,width=500,fit=contain,quality=100/";
+
   const style = cva([
     "w-full h-[240px] sm:h-[290px]",
     "relative group cursor-pointer",
@@ -126,24 +129,27 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
             transition={{ type: "spring", delay: 0.3 }}
             className={imageContainer()}
           >
-            {projects.map((project, i) => (
-              <div
-                key={project.slug}
-                className={imageStyle({
-                  shown: activeIndex === i ? true : false,
-                })}
-              >
-                <Image
-                  className="select-none"
-                  src={project.featuredData.image.url}
-                  alt={project.featuredData.image.alt || ""}
-                  style={{ objectFit: "contain", objectPosition: "center" }}
-                  sizes="350px"
-                  priority
-                  fill
-                />
-              </div>
-            ))}
+            {projects.map((project, i) => {
+              return (
+                <div
+                  key={project.slug}
+                  className={imageStyle({
+                    shown: activeIndex === i ? true : false,
+                  })}
+                >
+                  <Image
+                    className="select-none"
+                    src={`${imgTransformer}${project.featuredData.image.url}`}
+                    alt={project.featuredData.image.alt || ""}
+                    style={{ objectFit: "contain", objectPosition: "center" }}
+                    quality={100}
+                    sizes="500px"
+                    priority
+                    fill
+                  />
+                </div>
+              );
+            })}
           </motion.div>
 
           {projects.map((project, i) => (

@@ -20,17 +20,20 @@ const MediaItem = ({
   const watchedCount = progress?.watchedCount ? progress.watchedCount : 0;
   const percentFinished = (watchedCount / episodeCount) * 100;
 
+  const imgTransformer =
+    "https://marknoya.me/cdn-cgi/image/format=webp,width=250,fit=contain,quality=100/";
+
   return (
     <li className="flex items-center gap-12px">
       <div className="w-[55px] h-80px relative overflow-clip bg-subtle rounded-8px">
         <Image
-          src={image ? (image.url as string) : PlaceholderImage}
+          src={
+            image ? `${imgTransformer}${image.url as string}` : PlaceholderImage
+          }
           alt="Profile Banner"
-          width={55}
-          height={80}
-          style={{
-            objectFit: "cover",
-          }}
+          style={{ objectFit: "cover" }}
+          quality={100}
+          fill
         />
       </div>
       <div className="flex flex-col gap-4px">

@@ -23,12 +23,14 @@ const Page = async () => {
   const data = docs[0];
   const profilePhoto = data.pagePhotos?.portrait as Asset;
   const coverPhoto = data.pagePhotos?.cover as Asset;
+  const coverImgTransformer = `https://marknoya.me/cdn-cgi/image/format=webp,width=700,fit=contain,quality=100/`;
+  const profileImgTransformer = `https://marknoya.me/cdn-cgi/image/format=webp,width=300,fit=contain,quality=100/`;
 
   return (
     <>
       <div className="w-full relative min-h-[130px]">
         <Image
-          src={coverPhoto.url as string}
+          src={`${coverImgTransformer}${coverPhoto.url as string}`}
           alt={coverPhoto.alt as string}
           className="h-full rounded-12px"
           sizes="500px"
@@ -38,14 +40,14 @@ const Page = async () => {
           fill
         />
         <Image
-          src={profilePhoto.url as string}
+          src={`${profileImgTransformer}${profilePhoto.url as string}`}
           alt={profilePhoto.alt as string}
           className="absolute -left-8px -bottom-24px rounded-full border-inverse border-[4px]"
           style={{
             objectFit: "fill",
           }}
-          width={100}
-          height={100}
+          width={120}
+          height={120}
         />
       </div>
 

@@ -10,14 +10,18 @@ const Showcase = ({
   tag,
 }: Omit<ShowcaseType, "blockType" | "blockName">) => {
   const showcaseImage: Asset = image as Asset;
+  const imgTransformer =
+    "https://marknoya.me/cdn-cgi/image/format=webp,width=1000,fit=contain,quality=100/";
+
   return (
-    <div className="bg-subtle/60 flex flex-col gap-4px rounded-12px p-12px">
+    <div className="bg-subtle/40 flex flex-col gap-4px rounded-12px p-12px">
       <div className="flex flex-col gap-10px">
-        <div className="bg relative overflow-hidden w-full h-[200px] md:h-[300px] rounded-8px">
+        <div className="bg relative overflow-hidden w-full h-[200px] md:h-[350px] rounded-8px">
           <Image
-            src={showcaseImage.url as string}
+            src={`${imgTransformer}${showcaseImage.url as string}`}
             alt={showcaseImage.alt || title}
-            sizes="500px"
+            // set the size for mobile (640px), tablets (960px), desktops (default) screens
+            sizes="(max-width: 640px) 100vw, (max-width: 960px) 80vw, 900px"
             fill
             style={{
               objectFit: "cover",

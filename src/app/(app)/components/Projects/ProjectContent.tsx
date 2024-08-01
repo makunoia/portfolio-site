@@ -36,6 +36,7 @@ const ProjectContent = ({ sections }: { sections: Project["sections"] }) => {
                           ? block.showcase.map((showcase) => {
                               return (
                                 <Showcase
+                                  key={showcase.id}
                                   image={showcase.image}
                                   title={showcase.title}
                                   desc={showcase.desc}
