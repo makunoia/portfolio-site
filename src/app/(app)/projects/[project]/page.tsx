@@ -136,12 +136,23 @@ const Page = async ({ params }: { params: { project: string } }) => {
                 <div className="p-12px bg-subtle shadow-lg shadow-neutral-200 w-fit h-fit rounded-12px bg-gradient-to-b from-neutral-200 to-neutral-100">
                   <Archive size={40} className="text" />
                 </div>
-                <div className="flex flex-col gap-8px items-center">
-                  <Text size="lead" className="text">
-                    This project is archived
-                  </Text>
+                <div className="flex flex-col gap-12px items-center">
+                  <div className="flex flex-col gap-4px">
+                    <Text
+                      size="body"
+                      className="text-subtle uppercase tracking-[.1em]"
+                    >
+                      {`${status[projectData.status]} in ${
+                        projectData.yearDone
+                      }`}
+                    </Text>
+                    <Text size="lead" className="text">
+                      This project is archived
+                    </Text>
+                  </div>
+
                   <Text size="body" className="text-subtle">
-                    {`This project has been ${projectData.status} in ${projectData.yearDone}. You can learn more about this project by reaching out.`}
+                    You can learn more about this project by reaching out.
                   </Text>
                 </div>
               </div>

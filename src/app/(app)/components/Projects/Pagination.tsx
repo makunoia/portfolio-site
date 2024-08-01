@@ -43,7 +43,11 @@ const Pagination = async ({ currID }: { currID: string }) => {
         <PaginationItem
           link={`/projects/${prevProject.slug}`}
           desc="Previous"
-          label={prevProject.title}
+          label={
+            prevProject.isLocked
+              ? (prevProject.lockedData?.codename as string)
+              : prevProject.title
+          }
           left
         />
       ) : null}
@@ -52,7 +56,11 @@ const Pagination = async ({ currID }: { currID: string }) => {
         <PaginationItem
           link={`/projects/${nextProject.slug}`}
           desc="Next"
-          label={nextProject.title}
+          label={
+            nextProject.isLocked
+              ? (nextProject.lockedData?.codename as string)
+              : nextProject.title
+          }
           right
         />
       ) : null}
