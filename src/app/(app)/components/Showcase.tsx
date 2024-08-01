@@ -16,7 +16,7 @@ const Showcase = ({
   return (
     <div className="bg-subtle/40 flex flex-col gap-8px rounded-12px p-12px">
       <div className="flex flex-col gap-10px">
-        <div className="bg relative overflow-hidden w-full h-[300px] md:h-[400px] rounded-8px">
+        <div className="bg relative overflow-hidden w-full h-[250px] md:h-[400px] rounded-8px">
           <Image
             src={`${imgTransformer}${showcaseImage.url as string}`}
             alt={showcaseImage.alt || title}

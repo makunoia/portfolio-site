@@ -51,6 +51,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
   const status = {
     ONGOING: "Ongoing",
     DONE: "Done",
+    SUNSET: "Sunset",
   };
 
   return (
@@ -76,7 +77,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
                       as="h1"
                       size="display"
                       weight="normal"
-                      className="text-nowrap"
+                      className="lg:text-nowrap"
                     >
                       {projectData.title}
                     </Text>
@@ -140,7 +141,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
                     This project is archived
                   </Text>
                   <Text size="body" className="text-subtle">
-                    Learn more about this project by reaching out.
+                    {`This project has been ${projectData.status} in ${projectData.yearDone}. You can learn more about this project by reaching out.`}
                   </Text>
                 </div>
               </div>

@@ -117,6 +117,7 @@ const Projects: CollectionConfig = {
                   options: [
                     { label: "Ongoing Project", value: "ONGOING" },
                     { label: "Done", value: "DONE" },
+                    { label: "Sunset", value: "SUNSET" },
                   ],
                   admin: {
                     width: "50%",
@@ -130,7 +131,7 @@ const Projects: CollectionConfig = {
                   admin: {
                     width: "50%",
                     condition: (data) =>
-                      data.status === "DONE" ? true : false,
+                      data.status === "DONE" || "SUNSET" ? true : false,
                   },
                 },
               ],
