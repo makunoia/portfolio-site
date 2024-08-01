@@ -37,16 +37,18 @@ const Showcase = ({
             {title}
           </Text>
 
-          <div className="inline-flex py-4px px-8px bg rounded-4px">
-            <Text
-              as="span"
-              type="mono"
-              size="caption"
-              className="text opacity-70 uppercase tracking-wide"
-            >
-              {tag as string}
-            </Text>
-          </div>
+          {tag ? (
+            <div className="inline-flex py-4px px-8px bg rounded-4px">
+              <Text
+                as="span"
+                type="mono"
+                size="caption"
+                className="text opacity-70 uppercase tracking-wide"
+              >
+                {tag as string}
+              </Text>
+            </div>
+          ) : null}
         </div>
       </div>
       {desc ? (

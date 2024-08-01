@@ -139,8 +139,8 @@ const Page = async ({ params }: { params: { project: string } }) => {
                 <div className="flex flex-col gap-12px items-center">
                   <div className="flex flex-col gap-4px">
                     <Text
-                      size="body"
-                      className="text-subtle uppercase tracking-[.1em]"
+                      size="caption"
+                      className="text-subtle text-center uppercase tracking-[.1em]"
                     >
                       {`${status[projectData.status]} in ${
                         projectData.yearDone

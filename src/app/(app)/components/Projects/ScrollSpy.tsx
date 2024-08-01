@@ -109,12 +109,13 @@ const ScrollSpyItem = ({
       className="w-full cursor-pointer flex flex-col gap-4px transition-all ease-in-out"
     >
       <Accordion.Header>
-        <Accordion.Trigger onClick={() => scrollToViewHandler(id)}>
+        <Accordion.Trigger
+          className="inline-flex"
+          onClick={() => scrollToViewHandler(id)}
+        >
           <Text
-            className={`${
-              inView.section === id
-                ? "text font-medium text-wrap text-left"
-                : "text-subtle/80"
+            className={`text-wrap text-left ${
+              inView.section === id ? "text font-medium" : "text-subtle/80"
             }`}
           >
             {title}
