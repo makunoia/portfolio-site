@@ -112,7 +112,9 @@ const ScrollSpyItem = ({
         <Accordion.Trigger onClick={() => scrollToViewHandler(id)}>
           <Text
             className={`${
-              inView.section === id ? "text font-medium" : "text-subtle/80"
+              inView.section === id
+                ? "text font-medium text-wrap text-left"
+                : "text-subtle/80"
             }`}
           >
             {title}
