@@ -11,21 +11,20 @@ const Showcase = ({
 }: Omit<ShowcaseType, "blockType" | "blockName">) => {
   const showcaseImage: Asset = image as Asset;
   const imgTransformer =
-    "https://marknoya.me/cdn-cgi/image/format=webp,width=1000,fit=contain,quality=100/";
+    "https://marknoya.me/cdn-cgi/image/format=webp,width=1280,fit=contain,quality=100/";
 
   return (
-    <div className="bg-subtle/40 flex flex-col gap-4px rounded-12px p-12px">
+    <div className="bg-subtle/40 flex flex-col gap-8px rounded-12px p-12px">
       <div className="flex flex-col gap-10px">
-        <div className="bg relative overflow-hidden w-full h-[200px] md:h-[350px] rounded-8px">
+        <div className="bg relative overflow-hidden w-full h-[300px] md:h-[400px] rounded-8px">
           <Image
             src={`${imgTransformer}${showcaseImage.url as string}`}
             alt={showcaseImage.alt || title}
-            // set the size for mobile (640px), tablets (960px), desktops (default) screens
-            sizes="(max-width: 640px) 100vw, (max-width: 960px) 80vw, 900px"
-            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 960px) 85vw, 1000px"
             style={{
               objectFit: "cover",
             }}
+            fill
           />
         </div>
         <div className="flex flex-row justify-between items-center">
@@ -50,9 +49,11 @@ const Showcase = ({
           </div>
         </div>
       </div>
-      <Text size="caption" className="text-subtle" multiline>
-        {desc}
-      </Text>
+      {desc ? (
+        <Text size="caption" className="text-subtle" multiline>
+          {desc}
+        </Text>
+      ) : null}
     </div>
   );
 };

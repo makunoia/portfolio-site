@@ -31,8 +31,9 @@ const ProjectContent = ({ sections }: { sections: Project["sections"] }) => {
                       <ContentBlock lead={block.lead}>
                         {block.copy}
                       </ContentBlock>
-                      {block.showcase?.length
-                        ? isShowcaseType(block)
+
+                      <div className="flex flex-col gap-12px">
+                        {isShowcaseType(block) && block.showcase?.length
                           ? block.showcase.map((showcase) => {
                               return (
                                 <Showcase
@@ -44,8 +45,8 @@ const ProjectContent = ({ sections }: { sections: Project["sections"] }) => {
                                 />
                               );
                             })
-                          : null
-                        : null}
+                          : null}
+                      </div>
                     </div>
                   ))
                 : "No blocks found"}

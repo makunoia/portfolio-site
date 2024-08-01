@@ -140,7 +140,7 @@ export interface ProjectTag {
 export interface Showcase {
   image: string | Asset;
   title: string;
-  desc: string;
+  desc?: string | null;
   tag?: string | null;
   id?: string | null;
   blockName?: string | null;

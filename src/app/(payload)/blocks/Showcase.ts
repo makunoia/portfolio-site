@@ -24,7 +24,6 @@ const Showcase: Block = {
       label: "Description",
       name: "desc",
       type: "textarea",
-      required: true,
     },
     {
       label: "Tag",
