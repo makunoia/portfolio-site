@@ -79,7 +79,7 @@ export interface Project {
   year: string;
   desc: string;
   slug: string;
-  status: 'ONGOING' | 'DONE';
+  status: 'ONGOING' | 'DONE' | 'SUNSET';
   yearDone?: string | null;
   role: string | MyRole;
   tag: string | ProjectTag;

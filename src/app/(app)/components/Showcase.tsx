@@ -11,10 +11,10 @@ const Showcase = ({
 }: Omit<ShowcaseType, "blockType" | "blockName">) => {
   const showcaseImage: Asset = image as Asset;
   const imgTransformer =
-    "https://marknoya.me/cdn-cgi/image/format=webp,width=1280,fit=contain,quality=100/";
+    "https://marknoya.me/cdn-cgi/image/format=webp,width=1100,fit=contain,quality=85/";
 
   return (
-    <div className="bg-subtle/40 flex flex-col gap-8px rounded-12px p-12px">
+    <div className="bg-subtle/40 flex flex-col gap-4px rounded-12px p-12px">
       <div className="flex flex-col gap-10px">
         <div className="bg relative overflow-hidden w-full h-[250px] md:h-[400px] rounded-8px">
           <Image

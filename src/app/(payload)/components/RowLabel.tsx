@@ -1,15 +1,12 @@
 "use client";
-import React from "react";
 import { useRowLabel } from "@payloadcms/ui";
 
 export const SectionRowLabel = () => {
   const { data }: { data: { title: string } } = useRowLabel();
-
-  return <div>{data?.title || "New Section"}</div>;
+  return data?.title || "New Section";
 };
 
 export const BlockRowLabel = () => {
   const { data }: { data: { lead: string } } = useRowLabel();
-
-  return <div>{data?.lead || "New Block"}</div>;
+  return data?.lead || "New Block";
 };

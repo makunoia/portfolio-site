@@ -114,8 +114,10 @@ const ScrollSpyItem = ({
           onClick={() => scrollToViewHandler(id)}
         >
           <Text
-            className={`text-wrap text-left ${
-              inView.section === id ? "text font-medium" : "text-subtle/80"
+            className={`text-wrap text-left transition-colors duration-300 ease-in-out ${
+              inView.section === id
+                ? "text font-medium"
+                : "text-subtle/60 hover:text-subtle"
             }`}
           >
             {title}

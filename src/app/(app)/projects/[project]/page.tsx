@@ -94,7 +94,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
                   </div>
                   <div className="flex flex-row gap-8px">
                     <ProjectBadge label={projectData.year} />
-                    <ProjectBadge label={tag.name} />;
+                    <ProjectBadge label={tag.name} />
                   </div>
 
                   <div className="flex flex-row gap-40px">
