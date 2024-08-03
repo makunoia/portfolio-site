@@ -24,6 +24,7 @@ const Showcase = ({
             style={{
               objectFit: "cover",
             }}
+            priority
             fill
           />
         </div>
