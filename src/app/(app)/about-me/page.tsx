@@ -46,8 +46,8 @@ const Page = async () => {
           style={{
             objectFit: "fill",
           }}
-          width={120}
-          height={120}
+          width={100}
+          height={100}
         />
       </div>
 
