@@ -1,10 +1,10 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import Text from "@/components/Text";
-import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
 import InViewContext from "@/contexts/InViewContext";
+import ScrollSpyTrackline from "./ScrollSpyTrackline";
 
 export type ScrollSpyType = {
   title: string;
@@ -27,7 +27,7 @@ const AccordionRoot = ({ sections }: { sections: ScrollSpyType[] }) => {
   const { inView } = useContext(InViewContext);
   return (
     <Accordion.Root
-      className="flex flex-col"
+      className="flex flex-col gap-8px"
       type="single"
       value={inView.section as string}
       collapsible
@@ -84,20 +84,6 @@ const ScrollSpyItem = ({
     scrollToViewHandler(id);
   };
 
-  // These getPathStyle methods styles the path according to the item's place
-  // on the array, if the item is index 3, it styles itself and the indexes less than 3
-  const getPathHoverStyle = (i: number, vertical?: boolean) => {
-    return hoveredItemIndex !== undefined && vertical
-      ? cn(hoveredItemIndex >= i && "hovered")
-      : cn(hoveredItemIndex == i && "hovered");
-  };
-
-  const getPathActiveStyle = (i: number, vertical?: boolean) => {
-    return activeItemIndex !== undefined && vertical
-      ? cn(activeItemIndex >= i && "active")
-      : cn(activeItemIndex == i && "active");
-  };
-
   const scrollToViewHandler = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
@@ -106,9 +92,9 @@ const ScrollSpyItem = ({
   return (
     <Accordion.Item
       value={id}
-      className="w-full cursor-pointer flex flex-col gap-4px transition-all ease-in-out"
+      className="w-full cursor-pointer flex flex-col gap-8px transition-all ease-in-out"
     >
-      <Accordion.Header>
+      <Accordion.Header className="inline-flex">
         <Accordion.Trigger
           className="inline-flex"
           onClick={() => scrollToViewHandler(id)}
@@ -127,6 +113,7 @@ const ScrollSpyItem = ({
 
       <Accordion.Content
         data-state="open"
+        id={`spy-items-container-${id}`}
         className="spy-items-container"
         asChild
       >
@@ -134,20 +121,18 @@ const ScrollSpyItem = ({
           {blocks.map(({ lead, htmlID }, i) => (
             <div
               key={i}
+              id={`scrollspy-item-${htmlID}`}
               className="group spy-item last:mb-8px"
               onMouseEnter={() => onMouseEnterHandler(i)}
               onMouseLeave={() => onMouseLeaveHandler()}
               onClick={() => onClickHandler(i, htmlID)}
             >
-              <div
-                className={`trackline trackline-v 
-                ${getPathHoverStyle(i, true)}
-                ${getPathActiveStyle(i, true)}`}
-              />
-              <div
-                className={`trackline trackline-h 
-                ${getPathHoverStyle(i)} 
-                ${getPathActiveStyle(i)}`}
+              <ScrollSpyTrackline
+                activeItemIndex={activeItemIndex}
+                hoveredItemIndex={hoveredItemIndex}
+                index={i}
+                parentID={`spy-items-container-${id}`}
+                childID={`scrollspy-item-${htmlID}`}
               />
               <Text
                 className={`transition-color duration-300 ease-in-out group-hover:text text-wrap ${
