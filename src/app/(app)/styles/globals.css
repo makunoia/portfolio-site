@@ -165,8 +165,12 @@
     padding-top: 2px;
   }
 
-  .spy-items-container > .spy-item:first {
+  .spy-items-container .spy-item:first-child {
     margin-top: 0px;
+  }
+
+  .spy-items-container .spy-item:last-child {
+    margin-bottom: 8px;
   }
 
   .spy-item {
@@ -227,7 +231,7 @@
     border: 1px solid hsl(var(--trackline));
     border-right: 0px;
     border-top: 0px;
-    border-radius: 0px 0px 0px 14px;
+    border-radius: 0px 0px 0px 8px;
   }
 
   .light-streak {

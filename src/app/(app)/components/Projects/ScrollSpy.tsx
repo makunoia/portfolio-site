@@ -122,7 +122,7 @@ const ScrollSpyItem = ({
             <div
               key={i}
               id={`scrollspy-item-${htmlID}`}
-              className="group spy-item last:mb-8px"
+              className="group spy-item"
               onMouseEnter={() => onMouseEnterHandler(i)}
               onMouseLeave={() => onMouseLeaveHandler()}
               onClick={() => onClickHandler(i, htmlID)}

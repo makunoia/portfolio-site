@@ -29,6 +29,8 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 // ✅ Showcase multiple images
 // ✅ Image reveal slider
 // Project Page loader
+// Duplicate HTML ID
+// Margin top spy-item
 
 // Create Content
 // Featured Project: AppendPay
