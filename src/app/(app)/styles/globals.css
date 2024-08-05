@@ -161,7 +161,7 @@
   .spy-items-container {
     position: relative;
     overflow: hidden;
-    padding-left: 4px;
+    padding-left: 2px;
     padding-top: 2px;
   }
 
@@ -170,7 +170,16 @@
   }
 
   .spy-item {
+    cursor: pointer;
+    width: fit-content;
+    position: relative;
+    display: flex;
+    padding-left: 18px;
     margin-top: 8px;
+
+    &:hover {
+      opacity: 100%;
+    }
   }
 
   .spy-items-container[data-state="open"] {
@@ -199,24 +208,10 @@
     }
   }
 
-  .spy-item {
-    cursor: pointer;
-    width: fit-content;
-    position: relative;
-    display: flex;
-    gap: 4px;
-    padding-left: 16px;
-
-    &:hover {
-      opacity: 100%;
-    }
-  }
-
   .trackline.hovered {
     border-color: hsl(var(--trackline-hover));
   }
 
-  .trackline.path.active,
   .trackline.active {
     border-color: hsl(var(--trackline-active));
   }
@@ -224,31 +219,15 @@
   .trackline {
     transition: border-color 300ms ease-in-out;
     mix-blend-mode: lighten;
-  }
 
-  .trackline-v {
     position: absolute;
-    left: 0;
-    top: -24px;
-    bottom: 16px;
-    border-left: 1px;
-    border-style: solid;
-    border-color: hsl(var(--trackline));
-    width: 1px;
-    height: 25px;
-  }
-
-  .trackline-h {
-    position: absolute;
+    bottom: calc(100% - 8px);
     left: 0px;
-    display: inline-block;
-    border-width: 0px 0px 1px 1px;
-    border-style: solid;
-    border-color: hsl(var(--trackline));
-    border-radius: 0 0 0 8px;
     width: 12px;
-    height: 8px;
-    margin-bottom: 8px;
+    border: 1px solid hsl(var(--trackline));
+    border-right: 0px;
+    border-top: 0px;
+    border-radius: 0px 0px 0px 14px;
   }
 
   .light-streak {
