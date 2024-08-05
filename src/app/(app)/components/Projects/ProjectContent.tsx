@@ -42,6 +42,8 @@ const ProjectContent = ({ sections }: { sections: Project["sections"] }) => {
                                   title={showcase.title}
                                   desc={showcase.desc}
                                   tag={showcase.tag as string}
+                                  isRevealer={showcase.isRevealer}
+                                  images={showcase.images}
                                 />
                               );
                             })
