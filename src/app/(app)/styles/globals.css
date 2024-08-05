@@ -165,7 +165,7 @@
     padding-top: 2px;
   }
 
-  .spy-item:first {
+  .spy-items-container > .spy-item:first {
     margin-top: 0px;
   }
 
