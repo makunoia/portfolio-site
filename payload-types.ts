@@ -138,7 +138,12 @@ export interface ProjectTag {
  * via the `definition` "Showcase".
  */
 export interface Showcase {
-  image: string | Asset;
+  isRevealer?: boolean | null;
+  image?: string | Asset | null;
+  images?: {
+    beforeImage: string | Asset;
+    afterImage: string | Asset;
+  };
   title: string;
   desc?: string | null;
   tag?: string | null;
