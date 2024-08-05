@@ -3,6 +3,7 @@ import Text from "../Text";
 import LinksRow from "../LinksRow";
 import Globe from "./Globe";
 import FooterStatus from "@/components/Footer/TimeAndStatus";
+import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 const Footer = () => {
   const buildDate = process.env.NEXT_PUBLIC_BUILD_DATE as string;
@@ -16,7 +17,7 @@ const Footer = () => {
         </Text>
       </div>
 
-      <Suspense fallback={<div>Loading.</div>}>
+      <Suspense fallback={<LinksRowSkeleton />}>
         <LinksRow />
       </Suspense>
 

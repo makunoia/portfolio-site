@@ -9,6 +9,7 @@ import HeroSection from "@/components/HeroSections/Home";
 import { TimerContextProvider } from "./contexts/TimerContext";
 import HomeListSkeleton from "@/components/Skeletons/HomeList";
 import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
+import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 // FINAL SET OF TO DO
 // ✅ Home page hero: Status
@@ -25,14 +26,17 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // ✅ Resume button
 // ✅ Website favicon
 // ✅ Project page: Scroll spy responsiveness fix
+// ✅ Showcase multiple images
+// ✅ Image reveal slider
+// Project Page loader
 
 // Create Content
 // Featured Project: AppendPay
 // Featured Project: Multiverse
 // Featured Project: NBI Clearance
-// Archived Project: Multistore
-// Archived Project: Dingdong
-// Archived Project: New World Carpets
+// ✅ Archived Project: Multistore
+// ✅ Archived Project: Dingdong
+// ✅ Archived Project: New World Carpets
 // Archived Project: Eventful
 // Journal Entry: Reinventing Myself
 // Journal Entry: Thoughts (Notion, Jira, Atlas)
@@ -62,6 +66,7 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 // Journal Full Screen
 // Rotate to location - Footer Globe Interaction
 // Animated lock opening
+// Enhance image reveal slider
 
 const Page = () => {
   return (
@@ -75,7 +80,9 @@ const Page = () => {
             priority
           />
 
-          <LinksRow />
+          <Suspense fallback={<LinksRowSkeleton />}>
+            <LinksRow />
+          </Suspense>
         </div>
 
         <HeroSection />

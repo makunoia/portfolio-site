@@ -1,8 +1,9 @@
 import Text from "@/components/Text";
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import AboutMeHero from "@/components/HeroSections/AboutMe";
 import Sections from "@/components/AboutMe/Sections";
+import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
@@ -68,7 +69,9 @@ const Page = async () => {
           </Text>
         </div>
 
-        <LinksRow />
+        <Suspense fallback={<LinksRowSkeleton />}>
+          <LinksRow />
+        </Suspense>
 
         {data ? <AboutMeHero data={data.intro} /> : <div>Loading...</div>}
       </div>
