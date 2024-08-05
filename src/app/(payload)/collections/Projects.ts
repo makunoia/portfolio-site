@@ -66,7 +66,7 @@ const Projects: CollectionConfig = {
               required: true,
               admin: {
                 description:
-                  "This description appears on the front page if this project is featured",
+                  "Appears on the project page hero section and the front page if featured",
               },
             },
             {
@@ -262,7 +262,7 @@ const Projects: CollectionConfig = {
         },
         {
           label: "Settings",
-          description: "Miscellenous options for this project",
+          description: "Miscellaneous options for this project",
           fields: [
             {
               label: "Locked",
@@ -280,15 +280,10 @@ const Projects: CollectionConfig = {
               type: "group",
               fields: [
                 {
-                  type: "row",
-                  fields: [
-                    {
-                      label: "Codename",
-                      name: "codename",
-                      type: "text",
-                      required: true,
-                    },
-                  ],
+                  label: "Codename",
+                  name: "codename",
+                  type: "text",
+                  required: true,
                 },
               ],
               admin: {
