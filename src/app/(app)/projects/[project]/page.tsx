@@ -1,19 +1,19 @@
 import React from "react";
-import Link from "next/link";
 
 import Text from "@/components/Text";
 import Pagination from "@/components/Projects/Pagination";
 import ProjectContent from "@/components/Projects/ProjectContent";
 import ContentObserver from "@/components/Journal/ContentObserver";
 import ScrollSpy, { ScrollSpyType } from "@/components/Projects/ScrollSpy";
+import LockedProject from "@/components/Projects/LockedProject/Server";
+import BackButton from "@/components/Projects/BackButton";
 
 import { MyRole, ProjectTag } from "payload-types";
 import { InViewProvider } from "@/contexts/InViewContext";
-import { ArrowLeft, Archive } from "lucide-react";
+import { Archive } from "lucide-react";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import LockedProject from "../../components/Projects/LockedProject/Server";
 import { cookies } from "next/headers";
 
 const getProject = async (slug: string) => {
@@ -166,22 +166,6 @@ const Page = async ({ params }: { params: { project: string } }) => {
         </InViewProvider>
       )}
     </>
-  );
-};
-
-const BackButton = () => {
-  return (
-    <Link href="/projects">
-      <div className="flex flex-row items-center gap-8px group hover:-translate-x-8px transition-transform ease-in-out duration-200">
-        <ArrowLeft size={16} className="text" />
-        <Text
-          size="body"
-          className="opacity-40 group-hover:opacity-100 transition-opacity ease-in-out duration-500"
-        >
-          Back to all projects
-        </Text>
-      </div>
-    </Link>
   );
 };
 

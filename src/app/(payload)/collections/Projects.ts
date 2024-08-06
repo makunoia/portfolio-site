@@ -192,7 +192,7 @@ const Projects: CollectionConfig = {
                   hooks: {
                     beforeValidate: [
                       ({ siblingData, value }) => {
-                        const id = `html-${siblingData.lead
+                        const id = `html-${siblingData.title
                           .replaceAll(" ", "-")
                           .toLowerCase()}`;
 

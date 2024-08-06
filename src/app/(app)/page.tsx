@@ -28,9 +28,9 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 // ✅ Project page: Scroll spy responsiveness fix
 // ✅ Showcase multiple images
 // ✅ Image reveal slider
-// Project Page loader
-// Duplicate HTML ID
-// Margin top spy-item
+// ✅ Project Page loader
+// ✅ Duplicate HTML ID
+// ✅ Margin top spy-item
 // Badge matrix board
 
 // Create Content
