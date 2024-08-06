@@ -1,6 +1,6 @@
 import BackButton from "@/components/Projects/BackButton";
 
-const Loading = () => {
+export default () => {
   return (
     <main className="project-page-grid mx-auto my-[80px]">
       <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
@@ -87,5 +87,3 @@ const Loading = () => {
     </main>
   );
 };
-
-export default Loading;
