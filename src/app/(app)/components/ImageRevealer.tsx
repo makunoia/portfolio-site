@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Asset } from "payload-types";
 import { UnfoldHorizontal } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const ImageRevealer = ({
   beforeImage,
@@ -57,18 +58,11 @@ const ImageRevealer = ({
         max="100"
         value={position}
         onChange={handleRangeChange}
-        aria-label="Percentage of before photo shown"
-        className="absolute inset-0px w-full h-full opacity-0 cursor-pointer"
+        className="image-revealer"
       />
-      <div
-        className="absolute w-4px h-full bg-inverse -translate-x-[50%] pointer-events-none drop-shadow-sm"
-        style={{ left: `${position}%` }}
-      />
-      <div
-        className="absolute z-10 flex items-center place-items-center p-8px hover:p-12px rounded-full bg-inverse top-[50%] -translate-y-[50%] -translate-x-[50%] pointer-events-none"
-        style={{ left: `${position}%` }}
-      >
-        <UnfoldHorizontal fill="fg-subtle" />
+      <div className="img-revealer-line" style={{ left: `${position}%` }} />
+      <div className="img-revealer-handle" style={{ left: `${position}%` }}>
+        <UnfoldHorizontal className="text" />
       </div>
     </div>
   );

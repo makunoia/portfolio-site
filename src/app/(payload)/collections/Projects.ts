@@ -192,10 +192,12 @@ const Projects: CollectionConfig = {
                   hooks: {
                     beforeValidate: [
                       ({ siblingData, value }) => {
-                        if (!value) {
-                          return `html-${siblingData.title
-                            .replaceAll(" ", "-")
-                            .toLowerCase()}`;
+                        const id = `html-${siblingData.lead
+                          .replaceAll(" ", "-")
+                          .toLowerCase()}`;
+
+                        if (!value || value != id) {
+                          return id;
                         } else return value;
                       },
                     ],
@@ -229,10 +231,12 @@ const Projects: CollectionConfig = {
                       hooks: {
                         beforeValidate: [
                           ({ siblingData, value }) => {
-                            if (!value) {
-                              return `html-${siblingData.lead
-                                .replaceAll(" ", "-")
-                                .toLowerCase()}`;
+                            const id = `html-${siblingData.lead
+                              .replaceAll(" ", "-")
+                              .toLowerCase()}`;
+
+                            if (!value || value != id) {
+                              return id;
                             } else return value;
                           },
                         ],

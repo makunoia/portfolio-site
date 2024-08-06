@@ -223,7 +223,6 @@
   .trackline {
     transition: border-color 300ms ease-in-out;
     mix-blend-mode: lighten;
-
     position: absolute;
     bottom: calc(100% - 8px);
     left: 0px;
@@ -232,6 +231,67 @@
     border-right: 0px;
     border-top: 0px;
     border-radius: 0px 0px 0px 8px;
+  }
+
+  /* Styling the range input */
+  input[type="range"].image-revealer {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    -webkit-appearance: none; /* Remove default styling */
+    background: transparent; /* Transparent background */
+  }
+
+  /* Handle styling */
+  input[type="range"].image-revealer::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Round handle */
+    cursor: ew-resize; /* Pointer cursor */
+  }
+
+  /* Firefox */
+  input[type="range"].image-revealer::-moz-range-thumb {
+    width: 60px;
+    height: 60px;
+    background: hsl(var(--bg-default) / 1);
+    border-radius: 50%; /* Round handle */
+    cursor: ew-resize; /* Pointer cursor */
+  }
+
+  input[type="range"].image-revealer::-ms-thumb {
+    width: 60px;
+    height: 60px;
+    background: hsl(var(--bg-default) / 1);
+    border-radius: 50%; /* Round handle */
+    cursor: ew-resize; /* Pointer cursor */
+  }
+
+  .img-revealer-line {
+    position: absolute;
+    transform: translateX(-50%);
+    pointer-events: none;
+    width: 4px;
+    height: 100%;
+    background: hsl(var(--bg-default) / 1);
+    box-shadow: hsl(var(--shadow-default) / 1);
+  }
+
+  .img-revealer-handle {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 100%;
+    background: hsl(var(--bg-default) / 1);
+    transform: translate(-50%, -50%);
+    /* pointer-events: none; */
   }
 
   .light-streak {
