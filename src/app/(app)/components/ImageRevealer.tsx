@@ -23,7 +23,7 @@ const ImageRevealer = ({
   };
 
   return (
-    <div className="bg relative overflow-hidden w-full h-[250px] md:h-[400px] rounded-8px pointer-events-auto">
+    <div className="bg relative overflow-hidden w-fullh-auto aspect-[5/3] md:h-[400px] rounded-8px pointer-events-auto">
       <Image
         className="showcase-before-photo absolute"
         src={`${transformer}${beforeImage.url as string}`}

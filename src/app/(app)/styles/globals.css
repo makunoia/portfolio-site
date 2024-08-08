@@ -252,6 +252,7 @@
     height: 60px;
     border-radius: 50%; /* Round handle */
     cursor: ew-resize; /* Pointer cursor */
+    opacity: 0;
   }
 
   /* Firefox */
@@ -261,6 +262,7 @@
     background: hsl(var(--bg-default) / 1);
     border-radius: 50%; /* Round handle */
     cursor: ew-resize; /* Pointer cursor */
+    opacity: 0;
   }
 
   input[type="range"].image-revealer::-ms-thumb {
@@ -269,6 +271,7 @@
     background: hsl(var(--bg-default) / 1);
     border-radius: 50%; /* Round handle */
     cursor: ew-resize; /* Pointer cursor */
+    opacity: 0;
   }
 
   .img-revealer-line {
