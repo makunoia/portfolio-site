@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode, Suspense } from "react";
 import ProjectPageSkeleton from "../../components/Skeletons/ProjectPage";
 

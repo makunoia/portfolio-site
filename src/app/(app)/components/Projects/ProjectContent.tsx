@@ -91,7 +91,12 @@ const ContentBlock = ({
       <Text as="h3" size="lead" weight="medium" className="min-w-[250px]">
         {lead}
       </Text>
-      <Text as="p" size="body" className="text-subtle" multiline>
+      <Text
+        as="p"
+        size="body"
+        className="text-subtle whitespace-pre-line"
+        multiline
+      >
         {children}
       </Text>
     </div>
