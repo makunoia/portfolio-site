@@ -28,7 +28,6 @@ const ProjectItem = ({
       className="page-list-item transition-opacity duration-300 ease-in-out"
       onMouseEnter={handleMouseEvents}
       onMouseLeave={handleMouseEvents}
-      prefetch
     >
       <div className="flex flex-row gap-24px justify-between items-center cursor-pointer">
         <div className="flex flex-col gap-4px">
