@@ -7,7 +7,6 @@ import ContentObserver from "@/components/Journal/ContentObserver";
 import ScrollSpy, { ScrollSpyType } from "@/components/Projects/ScrollSpy";
 import LockedProject from "@/components/Projects/LockedProject/Server";
 import BackButton from "@/components/Projects/BackButton";
-import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
 import { MyRole, ProjectTag } from "payload-types";
 import { InViewProvider } from "@/contexts/InViewContext";
@@ -56,7 +55,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
   };
 
   return (
-    <Suspense fallback={<ProjectPageSkeleton />}>
+    <>
       {locked && !authorized ? (
         <LockedProject codename={codename} desc={projectData.desc} />
       ) : (
@@ -166,7 +165,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
           </main>
         </InViewProvider>
       )}
-    </Suspense>
+    </>
   );
 };
 
