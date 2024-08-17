@@ -31,34 +31,6 @@ const MediaItem: Block = {
       type: "relationship",
       relationTo: "assets",
     },
-    {
-      label: "Progress",
-      name: "progress",
-      type: "group",
-      fields: [
-        {
-          type: "row",
-          fields: [
-            {
-              label: "Episode Count",
-              name: "episodeCount",
-              type: "number",
-              admin: {
-                width: "50%",
-              },
-            },
-            {
-              label: "Episodes Watched",
-              name: "watchedCount",
-              type: "number",
-              admin: {
-                width: "50%",
-              },
-            },
-          ],
-        },
-      ],
-    },
   ],
 };
 

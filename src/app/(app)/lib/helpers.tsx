@@ -236,7 +236,7 @@ export const renderSections = (data: AboutMeSection) => {
                 label={content.label}
                 desc={content.genre}
                 image={content.poster as Asset}
-                progress={content.progress}
+                tag={content.tag as string}
                 key={content.id}
               />
             );

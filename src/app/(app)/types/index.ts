@@ -5,7 +5,6 @@ import {
   MediaItem,
   Project,
   Showcase,
-  URLItem,
 } from "payload-types";
 
 //Had to make another type since Payload had *.tag.name
@@ -66,7 +65,7 @@ export type LexicalBlock = (
 export type AboutMeSection = {
   title: string;
   layout: "stack" | "two-col";
-  content: (InfoItem | BooleanItem | MediaItem | URLItem)[];
+  content: (InfoItem | BooleanItem | MediaItem)[];
   id?: string | null;
 };
 

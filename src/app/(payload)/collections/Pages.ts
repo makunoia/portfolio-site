@@ -3,7 +3,6 @@ import { SectionRowLabel } from "../components/RowLabel";
 import InfoItem from "../blocks/InfoItem";
 import BooleanItem from "../blocks/BooleanItem";
 import MediaItem from "../blocks/MediaItem";
-import URLItem from "../blocks/URLItem";
 
 const Pages: CollectionConfig = {
   slug: "pages",
@@ -117,7 +116,7 @@ const Pages: CollectionConfig = {
           name: "content",
           type: "blocks",
           required: true,
-          blocks: [InfoItem, BooleanItem, MediaItem, URLItem],
+          blocks: [InfoItem, BooleanItem, MediaItem],
           validate: (data, { siblingData }) => {
             const content = siblingData.content;
 

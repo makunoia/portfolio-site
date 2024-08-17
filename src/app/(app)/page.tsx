@@ -31,41 +31,47 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 // ✅ Project Page loader
 // ✅ Duplicate HTML ID
 // ✅ Margin top spy-item
-// Badge matrix board
 
 // Create Content
-// Featured Project: AppendPay
-// Featured Project: Multiverse
-// Featured Project: NBI Clearance
+// ✅ Featured Project: AppendPay
+// ✅ Featured Project: Multiverse
+// ✅ Featured Project: NBI Clearance
 // ✅ Archived Project: Multistore
 // ✅ Archived Project: Dingdong
 // ✅ Archived Project: New World Carpets
-// Archived Project: Eventful
+// ✅ Archived Project: Eventful
+
+// ✅ About Me: Intro
+// ✅ About Me: Work History
+// ✅ About Me: Checklist
+// ✅ About Me: Tools
+// ✅ About Me: Catching up on
+
+// RELEASE FIXES:
+// Project page: 404 redirect
+// Project page pagination order
+// Pages Metadata
+// ✅ Email Setup: hi@marknoya.me
+
+// Weekly entries
 // Journal Entry: Reinventing Myself
 // Journal Entry: Thoughts (Notion, Jira, Atlas)
 // Journal Entry: Road to Design Engineer
 // Journal Entry: PayloadCMS + NextJS = Portfolio
+// Journal Entry: Carlos Yulo Gold (Preparation and Success)
+// Building Performant apps
 
-// About Me: Intro
-// About Me: Work History
-// About Me: Checklist
-// About Me: Tools
-// About Me: Catching up on
-
-// Project page: 404 redirect
-// Light/Dark Mode trigger with icon animation
-// Email Setup: hi@marknoya.me
-// Pages Metadata
-
+// RND
 // Optimize Speed (Should have RND on this)
 // Optimization: useTransition and useOptimistic RND
 // Memozation of data to increase speed
 
 // Nice to haves
 // Project page: Contributors with links to their linkedIn or portfolio
+// Light/Dark Mode trigger with icon animation
 // Color picker for Featured Projects
 // About Me: Piano Cover
-// Loading Lotte for Journal Content
+// Loading Lottie for Journal Content
 // Journal Full Screen
 // Rotate to location - Footer Globe Interaction
 // Animated lock opening

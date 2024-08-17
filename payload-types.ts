@@ -202,7 +202,7 @@ export interface Page {
     | {
         title: string;
         layout: 'stack' | 'two-col';
-        content: (InfoItem | BooleanItem | MediaItem | URLItem)[];
+        content: (InfoItem | BooleanItem | MediaItem)[];
         id?: string | null;
       }[]
     | null;
@@ -249,19 +249,6 @@ export interface MediaItem {
   id?: string | null;
   blockName?: string | null;
   blockType: 'media-item';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "URLItem".
- */
-export interface URLItem {
-  url: string;
-  label: string;
-  desc: string;
-  tag?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'url-item';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
