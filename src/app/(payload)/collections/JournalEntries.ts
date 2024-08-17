@@ -73,56 +73,10 @@ const JournalEntries: CollectionConfig = {
       },
     },
     {
-      label: "Content Blocks",
-      name: "blocks",
+      label: "Content",
+      name: "content",
       required: true,
-      type: "array",
-      fields: [
-        {
-          label: "Lead",
-          name: "lead",
-          type: "text",
-          required: true,
-        },
-        {
-          label: "Copy",
-          name: "copy",
-          type: "textarea",
-          required: true,
-        },
-        {
-          name: "htmlID",
-          type: "text",
-          required: true,
-          admin: {
-            hidden: true,
-            readOnly: true,
-          },
-          hooks: {
-            beforeValidate: [
-              ({ siblingData, value }) => {
-                if (!value) {
-                  return `html-${siblingData.lead
-                    .replaceAll(" ", "-")
-                    .toLowerCase()}`;
-                } else return value;
-              },
-            ],
-          },
-        },
-        {
-          label: "Showcase",
-          name: "showcase",
-          type: "blocks",
-          blocks: [Showcase],
-          maxRows: 1,
-        },
-      ],
-      admin: {
-        components: {
-          RowLabel: BlockRowLabel,
-        },
-      },
+      type: "richText",
     },
   ],
 };

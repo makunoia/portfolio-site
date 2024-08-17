@@ -1,7 +1,7 @@
 import React from "react";
 
-import Text from "@/components/Text";
-import Showcase from "@/components/Showcase";
+import { LexicalBlock } from "@/app/(app)/types";
+import { renderLexicalContent } from "@/helpers";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
@@ -19,38 +19,9 @@ const Content = async ({ params }: { params: { slug: string } }) => {
     },
   });
 
-  const content = docs[0].blocks;
-  return (
-    <>
-      {content ? (
-        content.map((block) => {
-          return (
-            <div key={block.id} className="flex flex-col gap-16px">
-              <div className="flex flex-col gap-8px">
-                <Text size="body-large" as="h3" weight="medium">
-                  {block.lead}
-                </Text>
-                <Text size="body" multiline>
-                  {block.copy}
-                </Text>
-              </div>
-
-              {block.showcase?.length ? (
-                <Showcase
-                  image={block.showcase[0].image}
-                  title={block.showcase[0].title}
-                  desc={block.showcase[0].desc}
-                  tag={block.showcase[0].tag as string}
-                />
-              ) : null}
-            </div>
-          );
-        })
-      ) : (
-        <div>No content.</div>
-      )}
-    </>
-  );
+  const content = docs[0].content;
+  const root = content?.root.children as LexicalBlock;
+  return <>{content ? renderLexicalContent(root) : <div>No content.</div>}</>;
 };
 
 export default Content;

@@ -48,10 +48,10 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 // ✅ About Me: Catching up on
 
 // RELEASE FIXES:
+// ✅ Email Setup: hi@marknoya.me
 // Project page: 404 redirect
 // Project page pagination order
 // Pages Metadata
-// ✅ Email Setup: hi@marknoya.me
 
 // Weekly entries
 // Journal Entry: Reinventing Myself

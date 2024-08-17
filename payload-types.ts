@@ -242,10 +242,6 @@ export interface MediaItem {
   genre: string;
   tag?: string | null;
   poster?: (string | null) | Asset;
-  progress?: {
-    episodeCount?: number | null;
-    watchedCount?: number | null;
-  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'media-item';
@@ -261,13 +257,21 @@ export interface JournalEntry {
   slug: string;
   date: string;
   tag: string | JournalEntryTag;
-  blocks: {
-    lead: string;
-    copy: string;
-    htmlID: string;
-    showcase?: Showcase[] | null;
-    id?: string | null;
-  }[];
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   updatedAt: string;
   createdAt: string;
 }
