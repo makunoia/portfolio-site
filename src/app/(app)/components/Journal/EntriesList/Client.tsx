@@ -23,7 +23,9 @@ const JournalEntriesList = ({
 
   const [showOverlay, setShowOverlay] = useState(false);
   const [allEntrySlugs] = useState(
-    entries.flatMap(({ entries }) => entries.map((entry) => entry.slug))
+    entries
+      ? entries.flatMap(({ entries }) => entries.map((entry) => entry.slug))
+      : []
   );
   const [AllEntriesByYear] = useState<JournalEntriesByYear | null>(entries);
 
