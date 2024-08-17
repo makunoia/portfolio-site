@@ -1,6 +1,6 @@
 {
   "name": "portfolio-site",
-  "description": "A blank template to get started with Payload",
+  "description": "A portfolio site made with Payload CMS 3.0 and Next.JS 15",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -65,6 +65,7 @@
     "typescript": "5.5.3"
   },
   "pnpm": {
+    "packageManager": "pnpm@9.4.0",
     "overrides": {
       "@types/react": "npm:types-react@19.0.0-rc.0",
       "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0"
