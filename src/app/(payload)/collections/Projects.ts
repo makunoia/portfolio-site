@@ -1,6 +1,6 @@
 import { CollectionConfig } from "payload";
 import Showcase from "../blocks/Showcase";
-import { BlockRowLabel, SectionRowLabel } from "../components/RowLabel";
+// import { BlockRowLabel, SectionRowLabel } from "../components/RowLabel";
 
 const Projects: CollectionConfig = {
   slug: "projects",
@@ -251,14 +251,16 @@ const Projects: CollectionConfig = {
                   ],
                   admin: {
                     components: {
-                      RowLabel: BlockRowLabel,
+                      RowLabel:
+                        "@/app/(payload)/components/RowLabel.tsx#BlockRowLabel",
                     },
                   },
                 },
               ],
               admin: {
                 components: {
-                  RowLabel: SectionRowLabel,
+                  RowLabel:
+                    "@/app/(payload)/components/RowLabel.tsx#SectionRowLabel",
                 },
               },
             },

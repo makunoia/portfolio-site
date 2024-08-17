@@ -1,5 +1,4 @@
 import { CollectionConfig } from "payload";
-import { SectionRowLabel } from "../components/RowLabel";
 import InfoItem from "../blocks/InfoItem";
 import BooleanItem from "../blocks/BooleanItem";
 import MediaItem from "../blocks/MediaItem";
@@ -117,9 +116,8 @@ const Pages: CollectionConfig = {
           type: "blocks",
           required: true,
           blocks: [InfoItem, BooleanItem, MediaItem],
-          validate: (data, { siblingData }) => {
-            const content = siblingData.content;
-
+          validate: (data) => {
+            const content = data;
             if (content.length === 0) {
               return true;
             }
@@ -137,7 +135,7 @@ const Pages: CollectionConfig = {
       ],
       admin: {
         components: {
-          RowLabel: SectionRowLabel,
+          RowLabel: "@/app/(payload)/components/RowLabel.tsx#SectionRowLabel",
         },
         condition: (data) => (data?.name === "About Me" ? true : false),
       },

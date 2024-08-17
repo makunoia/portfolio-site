@@ -1,4 +1,9 @@
 import path from "path";
+import { fileURLToPath } from "url";
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+import { s3Storage } from "@payloadcms/storage-s3";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 
@@ -11,6 +16,7 @@ import ProjectTags from "@/app/(payload)/collections/tags/ProjectTags";
 import MyRoles from "@/app/(payload)/collections/tags/MyRoles";
 import JournalEntryTags from "@/app/(payload)/collections/tags/JournalEntryTags";
 import Globals from "@/app/(payload)/collections/Globals";
+
 import {
   BlockquoteFeature,
   BlocksFeature,
@@ -23,10 +29,7 @@ import {
   ParagraphFeature,
   UnderlineFeature,
 } from "@payloadcms/richtext-lexical";
-import { fileURLToPath } from "url";
-import { s3Storage } from "@payloadcms/storage-s3";
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
+
 import sharp from "sharp";
 import Showcase from "@/app/(payload)/blocks/Showcase";
 
@@ -91,11 +94,6 @@ export default buildConfig({
   }),
   admin: {
     user: Users.slug,
-    autoLogin: {
-      email: "markbriannoya@gmail.com",
-      password: "cmsdev",
-      prefillOnly: true,
-    },
   },
   cors: "*",
   sharp,

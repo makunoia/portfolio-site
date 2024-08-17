@@ -1,6 +1,4 @@
 import type { CollectionConfig } from "payload";
-import { BlockRowLabel } from "../components/RowLabel";
-import Showcase from "../blocks/Showcase";
 
 const JournalEntries: CollectionConfig = {
   slug: "journal-entries",
