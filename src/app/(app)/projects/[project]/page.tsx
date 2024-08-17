@@ -1,11 +1,17 @@
-import React, { Suspense } from "react";
+import React from "react";
+
+import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 
 import Text from "@/components/Text";
 import Pagination from "@/components/Projects/Pagination";
 import ProjectContent from "@/components/Projects/ProjectContent";
 import ContentObserver from "@/components/Journal/ContentObserver";
 import ScrollSpy, { ScrollSpyType } from "@/components/Projects/ScrollSpy";
-import LockedProject from "@/components/Projects/LockedProject/Server";
+const LockedProject = dynamic(
+  () => import("@/components/Projects/LockedProject/Server")
+);
 import BackButton from "@/components/Projects/BackButton";
 
 import { MyRole, ProjectTag } from "payload-types";
@@ -14,7 +20,6 @@ import { Archive } from "lucide-react";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { cookies } from "next/headers";
 
 const getProject = async (slug: string) => {
   const payload = await getPayloadHMR({ config });
@@ -36,6 +41,10 @@ const Page = async ({ params }: { params: { project: string } }) => {
   const projectData = await getProject(params.project);
   const authCookie = cookies().get("auth");
   const authorized = authCookie ? Boolean(authCookie.value) : false;
+
+  if (!projectData) {
+    notFound();
+  }
 
   const { sections } = projectData;
   // There's a bug in Payload 3.0 relations that affect type setting

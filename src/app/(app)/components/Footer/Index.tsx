@@ -11,7 +11,9 @@ const Footer = () => {
   return (
     <footer className="relative max-w-[700px] mx-auto h-fit flex flex-col gap-[40px] mt-60px py-40px border-t">
       <div className="flex flex-col">
-        <Text className="no-underline">Don't be an alien, say hi!</Text>
+        <div className="text text-body" style={{ textDecoration: "none" }}>
+          Don't be an alien, say hi!
+        </div>
         <Text size="lead" weight="medium">
           hi@marknoya.me
         </Text>

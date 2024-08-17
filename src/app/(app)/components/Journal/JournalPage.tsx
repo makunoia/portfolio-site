@@ -1,12 +1,10 @@
 "use client";
-import React, { ReactNode, Suspense, useEffect, useRef, useState } from "react";
+import React, { lazy, ReactNode, useEffect, useRef, useState } from "react";
 import {
   motion,
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
-  usePresence,
-  useAnimate,
 } from "framer-motion";
 import Text from "@/components/Text";
 import Link from "next/link";
@@ -14,6 +12,8 @@ import { usePathname } from "next/navigation";
 import { XIcon } from "lucide-react";
 import { JournalEntry, JournalEntryTag } from "payload-types";
 import { formatDate, handleMouseEvents } from "@/helpers";
+
+import ContentContainer from "./ContentContainer";
 
 const JournalPage = ({
   content,
@@ -39,8 +39,6 @@ const JournalPage = ({
       else setShowScrollHeader(false);
     }
   });
-
-  useEffect(() => {}, [isPageOpen]);
 
   useEffect(() => {
     const thisJournalEntryOpened = currPath.includes(data.slug);
@@ -153,43 +151,6 @@ const JournalPage = ({
           <ContentContainer key={`content-${data.slug}`} content={content} />
         )}
       </AnimatePresence>
-    </motion.div>
-  );
-};
-
-const ContentContainer = ({ content }: { content: ReactNode }) => {
-  const [isPresent, safeToRemove] = usePresence();
-  const [scope, animate] = useAnimate();
-
-  useEffect(() => {
-    if (!isPresent) {
-      const exitAnimation = async () => {
-        await animate(scope.current, { height: 0, opacity: 0 });
-
-        safeToRemove();
-      };
-
-      exitAnimation();
-    }
-  }, [isPresent]);
-
-  return (
-    <motion.div
-      layout
-      ref={scope}
-      className="flex flex-col gap-16px px-24px pb-24px"
-    >
-      <motion.hr layout key="hr" exit={{ opacity: 0 }} />
-      <motion.div
-        layout="position"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex flex-col gap-16px"
-      >
-        <AnimatePresence>
-          <Suspense fallback={<div>Loading</div>}>{content}</Suspense>
-        </AnimatePresence>
-      </motion.div>
     </motion.div>
   );
 };

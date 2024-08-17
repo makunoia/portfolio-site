@@ -3,6 +3,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 
 import JournalPage from "@/components/Journal/JournalPage";
 import SectionDivider from "@/components/SectionDivider";
+import { toast } from "sonner";
 
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
@@ -17,13 +18,29 @@ const JournalEntriesList = ({
   entries: JournalEntriesByYear;
 }) => {
   const path = usePathname();
+  const router = useRouter();
+  const isHomepage = path === "/journal";
+
   const [showOverlay, setShowOverlay] = useState(false);
-  const [AllEntriesByYear, setAllEntriesByYear] =
-    useState<JournalEntriesByYear | null>(entries);
+  const [allEntrySlugs] = useState(
+    entries.flatMap(({ entries }) => entries.map((entry) => entry.slug))
+  );
+  const [AllEntriesByYear] = useState<JournalEntriesByYear | null>(entries);
 
   useEffect(() => {
-    if (path === "/journal") setShowOverlay(false);
-    else setShowOverlay(true);
+    if (isHomepage) {
+      setShowOverlay(false);
+    } else {
+      const isExistingEntry = allEntrySlugs.find((slug) => path.includes(slug));
+      if (isExistingEntry) {
+        setShowOverlay(true);
+      } else {
+        router.replace("/journal");
+        toast.error("Entry not found", {
+          description: "The entry you're trying to access doesn't exist",
+        });
+      }
+    }
   }, [path]);
 
   return (

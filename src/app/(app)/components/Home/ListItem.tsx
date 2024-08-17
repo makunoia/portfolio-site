@@ -38,7 +38,7 @@ const ListItem = ({
   const BackgroundStyle = BackgroundCVA();
 
   return (
-    <Link href={url} className={ListItemStyle}>
+    <Link prefetch href={url} className={ListItemStyle}>
       <div className="flex flex-row items-center gap-4px">
         <Text
           className="text text-nowrap overflow-hidden text-ellipsis max-w-[200px]"

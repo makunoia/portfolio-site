@@ -34,7 +34,7 @@ const Globe = () => {
   return (
     <div
       id="footer-globe"
-      className="w-4/5 sm:w-3/5 h-full opacity-60 sm:opacity-100 -mr-20px absolute -z-10 top-0px bottom-0px right-0px"
+      className="w-[45%] h-full opacity-50 sm:w-3/5 sm:opacity-100 -mr-20px absolute -z-10 top-0px bottom-0px right-0px"
     >
       <canvas
         ref={canvasRef}

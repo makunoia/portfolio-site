@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import { validatePassword } from "@/app/(app)/lib/validate";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { Cookie } from "lucide-react";
 
 const LockedProjectForm = () => {
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
@@ -75,6 +76,13 @@ const LockedProjectForm = () => {
             </button>
           </Form.Submit>
         </div>
+
+        <Form.Message className="flex gap-4px mt-4px items-center">
+          <Text className="text-subtle" size="caption">
+            Your access will be saved in a cookie
+          </Text>
+          <Cookie size={10} className="text" />
+        </Form.Message>
       </Form.Field>
     </Form.Root>
   );
