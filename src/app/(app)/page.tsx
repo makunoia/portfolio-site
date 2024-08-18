@@ -55,6 +55,9 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 // ✅ Journal loading
 // ✅ Pages Metadata
 // OG Image
+// Update LinkedIn banner
+// Update Facebook and Instagram link
+// Retire Webflow site
 
 // Weekly entries
 // Journal Entry: Reinventing Myself

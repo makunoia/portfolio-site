@@ -52,7 +52,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${projectData.title} | Mark Noya`,
       desciption: projectData.desc,
-      url: "https://www.marknoya.me",
+      url: `https://www.marknoya.me/projects/${projectData.slug}`,
       siteName: "Mark Noya's Design Portfolio",
       publishedTime: projectData.createdAt,
       authors: ["Mark Noya"],
