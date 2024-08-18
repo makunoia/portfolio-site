@@ -4,6 +4,7 @@ mixpanel.init("686b5f259ba221be1e1575aee7efe58d", {
   debug: true,
   track_pageview: true,
   persistence: "localStorage",
+  ignore_dnt: true,
 });
 
 const env_check: any = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
