@@ -22,7 +22,7 @@ const LockedProject = async ({
   const { docs } = await payload.find({
     collection: "projects",
     limit: 5,
-    sort: "createdAt",
+    sort: "-year",
     where: {
       isLocked: {
         equals: false,

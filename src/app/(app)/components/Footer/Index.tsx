@@ -25,7 +25,9 @@ const Footer = () => {
 
       <div className="flex flex-col gap-30px md:flex-row md:justify-between">
         <div className="order-last md:order-first flex flex-col gap-4px justify-end">
-          <Text className="text-info">This site is a work in progress.</Text>
+          <div>
+            <Text className="text-info">This site is a work in progress.</Text>
+          </div>
           <Text className="text-subtle">{`Last updated ${buildDate}`}</Text>
         </div>
 

@@ -20,6 +20,7 @@ import { Archive } from "lucide-react";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { MetadataSeed } from "@/metadata";
 
 const getProject = async (slug: string) => {
   const payload = await getPayloadHMR({ config });
@@ -36,6 +37,29 @@ const getProject = async (slug: string) => {
 
   return project;
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { project: string };
+}) {
+  const projectData = await getProject(params.project);
+
+  return {
+    title: `${projectData.title} | Mark Noya`,
+    description: projectData.desc,
+
+    openGraph: {
+      title: `${projectData.title} | Mark Noya`,
+      desciption: projectData.desc,
+      url: "https://www.marknoya.me",
+      siteName: "Mark Noya's Design Portfolio",
+      publishedTime: projectData.createdAt,
+      authors: ["Mark Noya"],
+    },
+    ...MetadataSeed,
+  };
+}
 
 const Page = async ({ params }: { params: { project: string } }) => {
   const projectData = await getProject(params.project);
@@ -169,7 +193,7 @@ const Page = async ({ params }: { params: { project: string } }) => {
 
             <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
               <hr />
-              <Pagination currID={projectData.id} />
+              <Pagination currSlug={projectData.slug} />
             </section>
           </main>
         </InViewProvider>

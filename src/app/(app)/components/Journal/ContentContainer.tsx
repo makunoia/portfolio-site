@@ -5,6 +5,7 @@ import {
   usePresence,
 } from "framer-motion";
 import { ReactNode, Suspense, useEffect } from "react";
+import JournalEntrySkeleton from "../Skeletons/JournalEntry";
 
 export default ({ content }: { content: ReactNode }) => {
   const [isPresent, safeToRemove] = usePresence();
@@ -36,7 +37,7 @@ export default ({ content }: { content: ReactNode }) => {
         className="flex flex-col gap-16px"
       >
         <AnimatePresence>
-          <Suspense fallback={<div>Loading</div>}>{content}</Suspense>
+          <Suspense fallback={<JournalEntrySkeleton />}>{content}</Suspense>
         </AnimatePresence>
       </motion.div>
     </motion.div>

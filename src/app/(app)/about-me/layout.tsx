@@ -1,4 +1,23 @@
 import { ReactNode } from "react";
+import { MetadataSeed } from "@/metadata";
+
+export function generateMetadata() {
+  return {
+    title: `About Me | Mark Noya`,
+    description:
+      "Explore my journey as a product designer and web developer. I'm Mark Noya, and I share insights into my work, skills, and the passion driving my projects in UI/UX design and web development.",
+    openGraph: {
+      title: `About Me | Mark Noya`,
+      description:
+        "Get to know Mark Noya, a dedicated product designer and web developer. Discover my professional background, my life's bucketlist, and personal interests",
+      url: "https://www.marknoya.me",
+      siteName: "Mark Noya's Design Portfolio",
+      publishedTime: "August 2024",
+      authors: ["Mark Noya"],
+    },
+    ...MetadataSeed,
+  };
+}
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (

@@ -50,10 +50,11 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 // RELEASE FIXES:
 // ✅ Email Setup: hi@marknoya.me
 // 🛑 Project page: 404 redirect (there's an issue with grouped routes preventing not-found.tsx to work properly)
-// Project page pagination order
+// ✅ Project page pagination order
 // ✅ This site uses cookies
-// Journal loading
-// Pages Metadata
+// ✅ Journal loading
+// ✅ Pages Metadata
+// OG Image
 
 // Weekly entries
 // Journal Entry: Reinventing Myself

@@ -1,6 +1,4 @@
 import React from "react";
-import SectionDivider from "@/components/SectionDivider";
-import ProjectItem from "../ListItem";
 import List from "./Client";
 
 import config from "@payload-config";

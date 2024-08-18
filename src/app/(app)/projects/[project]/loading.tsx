@@ -1,8 +1,8 @@
 "use client";
-import ProjectPage from "@/components/Skeletons/ProjectPage";
+import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
 const Loading = () => {
-  return <ProjectPage />;
+  return <ProjectPageSkeleton />;
 };
 
 export default Loading;
