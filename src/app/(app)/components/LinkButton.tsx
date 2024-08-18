@@ -24,7 +24,7 @@ const LinkButton = ({
     <Link
       href={href}
       target="_blank"
-      onClick={() => Mixpanel.track("Link Clicked", { resource: label })}
+      onClick={() => Mixpanel.track("Link Clicked", { Resource: label })}
     >
       <button className={`${ButtonStyle}`}>
         <Text as="span" size="caption" weight="medium" className="text">

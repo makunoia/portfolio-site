@@ -121,7 +121,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           className={style()}
           href={`/projects/${link}`}
           onClick={() =>
-            Mixpanel.track("Featured Project Clicked", { project: link })
+            Mixpanel.track("Featured Project Clicked", { Project: link })
           }
           as={`/projects/${link}`}
           id="featured-projects-container"

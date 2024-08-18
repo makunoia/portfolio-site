@@ -69,8 +69,8 @@ const JournalPage = ({
 
   const OpenPageOrchestration = async () => {
     Mixpanel.track("Journal Entry Opened", {
-      title: data.title,
-      category: data.tag,
+      "Entry Title": data.title,
+      Category: data.tag,
     });
     setIsPageOpen(true);
     await delay(500);

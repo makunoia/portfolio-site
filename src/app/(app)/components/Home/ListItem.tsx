@@ -44,7 +44,9 @@ const ListItem = ({
       prefetch
       href={url}
       className={ListItemStyle}
-      onClick={() => Mixpanel.track("Homepage Item Visited", { item: title })}
+      onClick={() =>
+        Mixpanel.track("Homepage Item Visited", { Project: title })
+      }
     >
       <div className="flex flex-row items-center gap-4px">
         <Text

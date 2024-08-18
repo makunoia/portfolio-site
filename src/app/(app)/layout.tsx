@@ -11,7 +11,7 @@ import { MetadataSeed } from "@/lib/metadata";
 
 import { Mixpanel } from "@/lib/Mixpanel";
 Mixpanel.track("Page Viewed", {
-  page: "Homepage",
+  "Page Title": "Homepage",
 });
 
 export function generateMetadata() {
