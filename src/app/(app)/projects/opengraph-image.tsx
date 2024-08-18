@@ -61,7 +61,7 @@ export default async function Image() {
               color: "white",
             }}
           >
-            Mark Noya, Designer and Developer
+            Mark's Projects
           </h1>
           <span
             style={{
@@ -72,7 +72,7 @@ export default async function Image() {
               opacity: 0.6,
             }}
           >
-            Crafting digital experience with excellence in design and code
+            A comprehensive showcase of my work through the years.
           </span>
         </div>
       </div>

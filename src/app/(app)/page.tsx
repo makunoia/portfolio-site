@@ -54,7 +54,7 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 // ✅ This site uses cookies
 // ✅ Journal loading
 // ✅ Pages Metadata
-// OG Image
+// ✅ OG Image
 // Update LinkedIn banner
 // Update Facebook and Instagram link
 // Retire Webflow site

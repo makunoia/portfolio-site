@@ -11,6 +11,7 @@ import { getPayloadHMR } from "@payloadcms/next/utilities";
 const payload = await getPayloadHMR({ config });
 
 import { Project } from "payload-types";
+import BackButton from "../BackButton";
 
 const LockedProject = async ({
   codename,
@@ -35,6 +36,7 @@ const LockedProject = async ({
   return (
     <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
       <div className="flex flex-col gap-8px">
+        <BackButton />
         <div className="flex gap-8px items-center bg-subtle/60 p-8px rounded-8px w-fit mb-16px">
           <Lock size={16} className="text" />
           <Text size="body">This project is locked</Text>

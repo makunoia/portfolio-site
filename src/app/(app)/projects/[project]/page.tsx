@@ -56,6 +56,8 @@ export async function generateMetadata({
       siteName: "Mark Noya's Design Portfolio",
       publishedTime: projectData.createdAt,
       authors: ["Mark Noya"],
+      locale: "en_US",
+      type: "website",
     },
     ...MetadataSeed,
   };

@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
-export const runtime = "edge";
+import config from "@payload-config";
+import { getPayloadHMR } from "@payloadcms/next/utilities";
+const payload = await getPayloadHMR({ config });
 
 // Image metadata
 export const alt = "Mark Noya | Product Designer";
@@ -11,7 +13,11 @@ export const size = {
 export const contentType = "image/png";
 
 // Image generation
-export default async function Image() {
+export default async function Image({
+  params,
+}: {
+  params: { project: string };
+}) {
   const NeueMontreal = fetch(
     "https://assets.marknoya.me/PPNeueMontreal-Book.otf"
   ).then((res) => res.arrayBuffer());
@@ -23,6 +29,19 @@ export default async function Image() {
   const image = await fetch(
     `https://assets.marknoya.me/opengraph-image-bg.jpg`
   ).then((res) => res.arrayBuffer());
+
+  const slug = params.project;
+  console.log(slug, "slug");
+  const { docs } = await payload.find({
+    collection: "projects",
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  });
+
+  const project = docs[0];
 
   return new ImageResponse(
     (
@@ -61,7 +80,7 @@ export default async function Image() {
               color: "white",
             }}
           >
-            Mark Noya, Designer and Developer
+            {project.title}
           </h1>
           <span
             style={{
@@ -72,7 +91,7 @@ export default async function Image() {
               opacity: 0.6,
             }}
           >
-            Crafting digital experience with excellence in design and code
+            {project.desc}
           </span>
         </div>
       </div>

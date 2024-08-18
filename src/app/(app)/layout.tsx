@@ -22,6 +22,8 @@ export function generateMetadata() {
       siteName: "Mark Noya's Design Portfolio",
       publishedTime: "August 2024",
       authors: ["Mark Noya"],
+      locale: "en_US",
+      type: "website",
     },
     ...MetadataSeed,
   };
