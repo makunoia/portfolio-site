@@ -39,6 +39,11 @@ const getProject = async (slug: string) => {
   return project;
 };
 
+import { Mixpanel } from "@/lib/Mixpanel";
+Mixpanel.track("Page Viewed", {
+  "Page Title": "Homepage",
+});
+
 export async function generateStaticParams() {
   const { docs } = await payload.find({
     collection: "projects",
@@ -84,6 +89,10 @@ const Page = async ({ params }: { params: { project: string } }) => {
   if (!projectData) {
     notFound();
   }
+
+  Mixpanel.track("Page Viewed", {
+    "Page Title": projectData.title,
+  });
 
   const { sections } = projectData;
   // There's a bug in Payload 3.0 relations that affect type setting

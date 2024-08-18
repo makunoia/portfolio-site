@@ -4,6 +4,11 @@ import JournalHero from "@/components/HeroSections/Journal";
 import PageListSkeleton from "../components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
 
+import { Mixpanel } from "@/lib/Mixpanel";
+Mixpanel.track("Page Viewed", {
+  "Page Title": "Journal",
+});
+
 export function generateMetadata() {
   return {
     title: `Journal | Mark Noya`,

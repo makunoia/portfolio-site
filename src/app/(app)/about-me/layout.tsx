@@ -1,6 +1,11 @@
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
 
+import { Mixpanel } from "@/lib/Mixpanel";
+Mixpanel.track("Page Viewed", {
+  "Page Title": "About Me",
+});
+
 export function generateMetadata() {
   return {
     title: `About Me | Mark Noya`,

@@ -4,6 +4,11 @@ import ProjectsHero from "@/components/HeroSections/Projects";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
 
+import { Mixpanel } from "@/lib/Mixpanel";
+Mixpanel.track("Page Viewed", {
+  "Page Title": "Projects",
+});
+
 export function generateMetadata() {
   return {
     title: `Projects | Mark Noya`,
