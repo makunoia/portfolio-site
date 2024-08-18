@@ -4,7 +4,7 @@ import Text from "../Text";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight, Lock } from "lucide-react";
 import Link from "next/link";
-import mixpanel from "mixpanel-browser";
+import { Mixpanel } from "../../lib/Mixpanel";
 
 const ListItemCVA = cva([
   "relative group",
@@ -44,9 +44,7 @@ const ListItem = ({
       prefetch
       href={url}
       className={ListItemStyle}
-      onClick={() =>
-        mixpanel.track("Homepage List Item", { type: "click", item: title })
-      }
+      onClick={() => Mixpanel.track("Homepage Item Visited", { item: title })}
     >
       <div className="flex flex-row items-center gap-4px">
         <Text

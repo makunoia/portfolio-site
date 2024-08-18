@@ -8,12 +8,10 @@ import { Toaster } from "@/app/(app)/components/Sonner";
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import "./styles/globals.css";
 import { MetadataSeed } from "@/lib/metadata";
-import mixpanel from "mixpanel-browser";
 
-mixpanel.init("686b5f259ba221be1e1575aee7efe58d", {
-  debug: true,
-  track_pageview: true,
-  persistence: "localStorage",
+import { Mixpanel } from "@/lib/Mixpanel";
+Mixpanel.track("Page Viewed", {
+  page: "Homepage",
 });
 
 export function generateMetadata() {
