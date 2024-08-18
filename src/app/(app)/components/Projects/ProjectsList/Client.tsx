@@ -3,7 +3,7 @@ import { ProjectsByYear } from "@/app/(app)/types";
 import SectionDivider from "../../SectionDivider";
 import ProjectItem from "../ListItem";
 import { motion } from "framer-motion";
-import { AnimationVariants } from "@/helpers";
+import { AnimationVariants } from "@/lib/helpers";
 
 const ProjectsList = ({ projects }: { projects: ProjectsByYear }) => {
   return (

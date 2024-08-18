@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import ProjectsList from "@/components/Projects/ProjectsList/Server";
 import ProjectsHero from "@/components/HeroSections/Projects";
 import PageListSkeleton from "@/components/Skeletons/PageList";
-import { MetadataSeed } from "@/metadata";
+import { MetadataSeed } from "@/lib/metadata";
 
 export function generateMetadata() {
   return {

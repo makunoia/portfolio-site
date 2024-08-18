@@ -1,7 +1,7 @@
 import Text from "../Text";
 
 import { LexicalBlock } from "@/app/(app)/types";
-import { renderLexicalContent } from "@/helpers";
+import { renderLexicalContent } from "@/lib/helpers";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";

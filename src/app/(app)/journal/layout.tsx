@@ -2,7 +2,7 @@ import React, { ReactNode, Suspense } from "react";
 import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";
 import PageListSkeleton from "../components/Skeletons/PageList";
-import { MetadataSeed } from "@/metadata";
+import { MetadataSeed } from "@/lib/metadata";
 
 export function generateMetadata() {
   return {

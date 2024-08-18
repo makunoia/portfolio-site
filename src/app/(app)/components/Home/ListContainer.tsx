@@ -14,7 +14,7 @@ import {
   isProject,
   isJournalEntry,
   AnimationVariants,
-} from "@/helpers";
+} from "@/lib/helpers";
 import { motion } from "framer-motion";
 
 const ListContainer = async ({

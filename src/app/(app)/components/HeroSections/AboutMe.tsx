@@ -1,5 +1,5 @@
 import { LexicalBlock } from "@/app/(app)/types";
-import { renderLexicalContent } from "@/helpers";
+import { renderLexicalContent } from "@/lib/helpers";
 import { Page } from "payload-types";
 
 const AboutMeHero = ({ data }: { data: Page["intro"] }) => {

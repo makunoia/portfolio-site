@@ -1,5 +1,5 @@
 "use client";
-import { handleMouseEvents } from "@/helpers";
+import { handleMouseEvents } from "@/lib/helpers";
 import Text from "../Text";
 import Link from "next/link";
 import { Lock } from "lucide-react";

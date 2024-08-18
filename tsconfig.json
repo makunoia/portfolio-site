@@ -24,9 +24,7 @@
       "@/components/*": ["./src/app/(app)/components/*"],
       "@/contexts/*": ["./src/app/(app)/contexts/*"],
       "@/hooks/*": ["./src/app/(app)/hooks/*"],
-      "@/utils": ["./src/app/(app)/lib/utils.ts"],
-      "@/metadata": ["./src/app/(app)/lib/metadata.ts"],
-      "@/helpers": ["./src/app/(app)/lib/helpers.tsx"],
+      "@/lib/*": ["./src/app/(app)/lib/*"],
       "@/assets/*": ["./src/app/(app)/assets/*"],
       "@/types": ["./src/app/(app)/types"],
       "@payload-config": ["./payload.config.ts"]

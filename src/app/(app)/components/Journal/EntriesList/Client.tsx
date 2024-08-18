@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { JournalEntriesByYear } from "@/types";
-import { AnimationVariants } from "@/helpers";
+import { AnimationVariants } from "@/lib/helpers";
 
 const JournalEntriesList = ({
   content,

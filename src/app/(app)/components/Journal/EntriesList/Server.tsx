@@ -4,7 +4,7 @@ import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 
 import { JournalEntriesByYear } from "@/types";
-import { GroupByYear } from "@/helpers";
+import { GroupByYear } from "@/lib/helpers";
 
 import JournalList from "./Client";
 

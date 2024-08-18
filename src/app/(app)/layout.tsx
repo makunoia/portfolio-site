@@ -7,7 +7,7 @@ import { Toaster } from "@/app/(app)/components/Sonner";
 
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import "./styles/globals.css";
-import { MetadataSeed } from "@/metadata";
+import { MetadataSeed } from "@/lib/metadata";
 
 export function generateMetadata() {
   return {

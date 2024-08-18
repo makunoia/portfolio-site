@@ -1,7 +1,7 @@
 import config from "@payload-config";
 import PaginationItem from "./PaginationItem";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { GroupByYear } from "@/helpers";
+import { GroupByYear } from "@/lib/helpers";
 import { ProjectsByYear } from "@/types";
 import { Project } from "payload-types";
 

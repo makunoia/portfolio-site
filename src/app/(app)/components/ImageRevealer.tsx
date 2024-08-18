@@ -3,7 +3,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Asset } from "payload-types";
 import { UnfoldHorizontal } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const ImageRevealer = ({
   beforeImage,

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { XIcon } from "lucide-react";
 import { JournalEntry, JournalEntryTag } from "payload-types";
-import { formatDate, handleMouseEvents } from "@/helpers";
+import { formatDate, handleMouseEvents } from "@/lib/helpers";
 
 import ContentContainer from "./ContentContainer";
 

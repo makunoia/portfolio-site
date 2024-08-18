@@ -1,6 +1,6 @@
 import Text from "../Text";
 import { Page } from "payload-types";
-import { renderSections } from "@/helpers";
+import { renderSections } from "@/lib/helpers";
 import { cva } from "class-variance-authority";
 
 const LayoutCVA = cva("", {

@@ -20,7 +20,7 @@ import { Archive } from "lucide-react";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { MetadataSeed } from "@/metadata";
+import { MetadataSeed } from "@/lib/metadata";
 
 const getProject = async (slug: string) => {
   const payload = await getPayloadHMR({ config });
