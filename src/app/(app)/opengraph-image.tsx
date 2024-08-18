@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import Text from "@/components/Text";
 export const runtime = "edge";
 
 // Image metadata
@@ -53,15 +52,19 @@ export default async function Image() {
             gap: 20,
           }}
         >
-          <h1
-            className="text-danger"
-            style={{ fontSize: 100, fontWeight: 500 }}
-          >
+          <h1 style={{ fontSize: 100, fontWeight: 500, color: "white" }}>
             Mark Noya
           </h1>
-          <Text className="text-subtle text-[40px]">
+          <span
+            style={{
+              fontSize: 40,
+              fontWeight: 400,
+              color: "white",
+              opacity: 80,
+            }}
+          >
             Get to know the designer behind the portfolio.
-          </Text>
+          </span>
         </div>
       </div>
     ),
