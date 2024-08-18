@@ -10,7 +10,7 @@ export function generateMetadata() {
       title: `About Me | Mark Noya`,
       description:
         "Get to know Mark Noya, a dedicated product designer and web developer. Discover my professional background, my life's bucketlist, and personal interests",
-      url: "https://www.marknoya.me",
+      url: "https://www.marknoya.me/about-me",
       siteName: "Mark Noya's Design Portfolio",
       publishedTime: "August 2024",
       authors: ["Mark Noya"],

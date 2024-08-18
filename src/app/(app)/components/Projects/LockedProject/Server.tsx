@@ -36,16 +36,20 @@ const LockedProject = async ({
   return (
     <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
       <div className="flex flex-col gap-8px">
-        <BackButton />
-        <div className="flex gap-8px items-center bg-subtle/60 p-8px rounded-8px w-fit mb-16px">
-          <Lock size={16} className="text" />
-          <Text size="body">This project is locked</Text>
-        </div>
-        <div className="flex flex-col gap-0px">
-          <Text size="caption" className="font-mono">
-            Codename
-          </Text>
-          <Text size="heading">{codename}</Text>
+        <div className="flex flex-col gap-24px">
+          <BackButton />
+          <div className="flex flex-col">
+            <Text size="caption" className="font-mono">
+              Codename
+            </Text>
+            <div className="flex flex-row gap-12px items-center ">
+              <Text size="heading">{codename}</Text>
+              <div className="flex w-fit h-fit gap-8px items-center bg-subtle/60 px-8px py-6px rounded-8px">
+                <Lock size={12} className="text" />
+                <Text size="caption">Locked</Text>
+              </div>
+            </div>
+          </div>
         </div>
         <Text size="body" className="text-subtle" multiline>
           {desc}

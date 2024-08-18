@@ -13,7 +13,7 @@ export function generateMetadata() {
       title: `Journal | Mark Noya`,
       description:
         "Explore my journal where I share thoughts, ideas, and reflections on design, development, and more.",
-      url: "https://www.marknoya.me",
+      url: "https://www.marknoya.me/journal",
       siteName: "Mark Noya's Design Portfolio",
       publishedTime: "August 2024",
       authors: ["Mark Noya"],
