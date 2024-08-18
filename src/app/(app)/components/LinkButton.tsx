@@ -1,8 +1,10 @@
+"use client";
 import React, { HTMLAttributes } from "react";
 import Text from "./Text";
 import Link from "next/link";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight } from "lucide-react";
+import mixpanel from "mixpanel-browser";
 
 const ButtonCVA = cva([
   "group",
@@ -19,7 +21,11 @@ const LinkButton = ({
 }) => {
   const ButtonStyle = ButtonCVA();
   return (
-    <Link href={href} target="_blank">
+    <Link
+      href={href}
+      target="_blank"
+      onClick={() => mixpanel.track("Link", { type: "click", to: label })}
+    >
       <button className={`${ButtonStyle}`}>
         <Text as="span" size="caption" weight="medium" className="text">
           {label}

@@ -1,8 +1,10 @@
+"use client";
 import React from "react";
 import Text from "../Text";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight, Lock } from "lucide-react";
 import Link from "next/link";
+import mixpanel from "mixpanel-browser";
 
 const ListItemCVA = cva([
   "relative group",
@@ -38,7 +40,14 @@ const ListItem = ({
   const BackgroundStyle = BackgroundCVA();
 
   return (
-    <Link prefetch href={url} className={ListItemStyle}>
+    <Link
+      prefetch
+      href={url}
+      className={ListItemStyle}
+      onClick={() =>
+        mixpanel.track("Homepage List Item", { type: "click", item: title })
+      }
+    >
       <div className="flex flex-row items-center gap-4px">
         <Text
           className="text text-nowrap overflow-hidden text-ellipsis max-w-[200px]"

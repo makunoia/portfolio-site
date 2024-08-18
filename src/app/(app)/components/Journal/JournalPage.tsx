@@ -1,5 +1,5 @@
 "use client";
-import React, { lazy, ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -14,6 +14,7 @@ import { JournalEntry, JournalEntryTag } from "payload-types";
 import { formatDate, handleMouseEvents } from "@/lib/helpers";
 
 import ContentContainer from "./ContentContainer";
+import mixpanel from "mixpanel-browser";
 
 const JournalPage = ({
   content,
@@ -67,6 +68,7 @@ const JournalPage = ({
   };
 
   const OpenPageOrchestration = async () => {
+    mixpanel.track("Opened Entry", { type: "click", title: data.title });
     setIsPageOpen(true);
     await delay(500);
     setIsContentOpen(true);
