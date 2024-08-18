@@ -20,10 +20,11 @@ import { Archive } from "lucide-react";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
+const payload = await getPayloadHMR({ config });
+
 import { MetadataSeed } from "@/lib/metadata";
 
 const getProject = async (slug: string) => {
-  const payload = await getPayloadHMR({ config });
   const req = await payload.find({
     collection: "projects",
     where: {
@@ -37,6 +38,18 @@ const getProject = async (slug: string) => {
 
   return project;
 };
+
+export async function generateStaticParams() {
+  const { docs } = await payload.find({
+    collection: "projects",
+  });
+
+  const projects = docs;
+
+  return projects.map((project) => ({
+    project: project.slug,
+  }));
+}
 
 export async function generateMetadata({
   params,
