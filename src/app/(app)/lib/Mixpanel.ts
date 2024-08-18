@@ -6,7 +6,7 @@ mixpanel.init("686b5f259ba221be1e1575aee7efe58d", {
   persistence: "localStorage",
 });
 
-const env_check: any = process.env.NODE_ENV === "development";
+const env_check: any = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
 
 const actions = {
   identify: (id: any) => {

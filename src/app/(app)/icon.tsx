@@ -15,7 +15,7 @@ export default function Icon() {
 
   if (process.env.NODE_ENV === "development") {
     fill = "red";
-  } else if (process.env.VERCEL_ENV === "preview") {
+  } else if (process.env.NEXT_PUBLIC_VERCEL_ENV === "preview") {
     fill = "amber";
   } else {
     fill = "black";
