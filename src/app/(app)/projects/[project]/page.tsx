@@ -23,6 +23,7 @@ import { getPayloadHMR } from "@payloadcms/next/utilities";
 const payload = await getPayloadHMR({ config });
 
 import { MetadataSeed } from "@/lib/metadata";
+import { Mixpanel } from "@/lib/mixpanel";
 
 const getProject = async (slug: string) => {
   const req = await payload.find({
@@ -38,11 +39,6 @@ const getProject = async (slug: string) => {
 
   return project;
 };
-
-import { Mixpanel } from "@/app/(app)/lib/mixpanel";
-Mixpanel.track("Page Viewed", {
-  "Page Title": "Homepage",
-});
 
 export async function generateStaticParams() {
   const { docs } = await payload.find({
@@ -88,11 +84,11 @@ const Page = async ({ params }: { params: { project: string } }) => {
 
   if (!projectData) {
     notFound();
+  } else {
+    Mixpanel.track("Page Viewed", {
+      "Page Title": projectData.title,
+    });
   }
-
-  Mixpanel.track("Page Viewed", {
-    "Page Title": projectData.title,
-  });
 
   const { sections } = projectData;
   // There's a bug in Payload 3.0 relations that affect type setting

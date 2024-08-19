@@ -14,7 +14,7 @@ import { JournalEntry, JournalEntryTag } from "payload-types";
 import { formatDate, handleMouseEvents } from "@/lib/helpers";
 
 import ContentContainer from "./ContentContainer";
-import { Mixpanel } from "@/app/(app)/lib/mixpanel";
+import { Mixpanel } from "@/lib/mixpanel";
 
 const JournalPage = ({
   content,
