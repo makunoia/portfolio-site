@@ -1,5 +1,3 @@
-export const experimental_ppr = true;
-
 import React, { lazy } from "react";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";

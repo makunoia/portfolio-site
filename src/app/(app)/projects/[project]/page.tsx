@@ -1,3 +1,5 @@
+// export const experimental_ppr = true;
+
 import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 import Content from "@/components/Projects/Page/Content";
 import React, { Suspense } from "react";
@@ -30,9 +32,13 @@ export async function generateStaticParams() {
 
   const projects = docs;
 
-  return projects.map((project) => ({
-    project: project.slug,
-  }));
+  return projects.map((project) => {
+    if (!project.isLocked) {
+      return {
+        project: project.slug,
+      };
+    }
+  });
 }
 
 export async function generateMetadata({
@@ -62,11 +68,9 @@ export async function generateMetadata({
 
 const Page = async ({ params }: { params: { project: string } }) => {
   return (
-    <>
-      <Suspense fallback={<ProjectPageSkeleton />}>
-        <Content project={params.project} />
-      </Suspense>
-    </>
+    <Suspense fallback={<ProjectPageSkeleton />}>
+      <Content project={params.project} />
+    </Suspense>
   );
 };
 
