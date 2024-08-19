@@ -25,6 +25,7 @@
     "@payloadcms/storage-s3": "3.0.0-beta.84",
     "@payloadcms/ui": "3.0.0-beta.84",
     "@radix-ui/react-accordion": "^1.2.0",
+    "@types/uuid": "^10.0.0",
     "babel-plugin-react-compiler": "^0.0.0-experimental-592953e-20240517",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -33,8 +34,9 @@
     "framer-motion": "^12.0.0-alpha.0",
     "globe.gl": "^2.32.4",
     "graphql": "^16.8.1",
+    "mixpanel": "^0.18.0",
     "mixpanel-browser": "^2.55.0",
-    "next": "15.0.0-canary.119",
+    "next": "15.0.0-canary.120",
     "next-themes": "^0.3.0",
     "payload": "3.0.0-beta.84",
     "react": "19.0.0-rc-49496d49-20240814",
@@ -67,7 +69,7 @@
     "typescript": "5.5.4"
   },
   "pnpm": {
-    "packageManager": "pnpm@9.4.0",
+    "packageManager": "^pnpm@9.7.1",
     "overrides": {
       "@types/react": "npm:types-react@19.0.0-rc.0",
       "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0"

@@ -3,9 +3,9 @@ import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";
 import PageListSkeleton from "../components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
+import mixpanel from "@/app/(app)/lib/mixpanel";
 
-import { Mixpanel } from "@/lib/mp-actions";
-Mixpanel.track("Page Viewed", {
+mixpanel("Page Viewed", {
   "Page Title": "Journal",
 });
 

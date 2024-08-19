@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
-import { Mixpanel } from "@/lib/mp-actions";
+import mixpanel from "@/app/(app)/lib/mixpanel";
 
-Mixpanel.track("Page Viewed", {
+mixpanel("Page Viewed", {
   "Page Title": "About Me",
 });
 

@@ -3,9 +3,9 @@ import ProjectsList from "@/components/Projects/ProjectsList/Server";
 import ProjectsHero from "@/components/HeroSections/Projects";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
+import mixpanel from "@/app/(app)/lib/mixpanel";
 
-import { Mixpanel } from "@/lib/mp-actions";
-Mixpanel.track("Page Viewed", {
+mixpanel("Page Viewed", {
   "Page Title": "Projects",
 });
 

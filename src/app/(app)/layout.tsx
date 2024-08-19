@@ -7,32 +7,12 @@ import { Toaster } from "@/app/(app)/components/Sonner";
 
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import "./styles/globals.css";
-import { MetadataSeed } from "@/lib/metadata";
 
-import { Mixpanel } from "@/lib/mp-actions";
-Mixpanel.track("Page Viewed", {
+import mixpanel from "@/app/(app)/lib/mixpanel";
+
+mixpanel("Page Viewed", {
   "Page Title": "Homepage",
 });
-
-export function generateMetadata() {
-  return {
-    title: `Mark Noya | Product Designer`,
-    description:
-      "Discover Mark Noya's design portfolio showcasing over 5 years of expertise in product design and web development. Explore innovative UI/UX solutions, engaging interfaces crafted with Figma, React, and modern web technologies. Experience a blend of creativity and technical skill in each project, reflecting the best in digital design.",
-    openGraph: {
-      title: `Mark Noya | Product Designer`,
-      description:
-        "Explore Mark Noya's portfolio showcasing UI/UX designs and web development expertise. With over 5 years of experience, discover projects that combine creativity and technical skill using Figma, React, and modern web technologies.",
-      url: "https://www.marknoya.me",
-      siteName: "Mark Noya's Design Portfolio",
-      publishedTime: "August 2024",
-      authors: ["Mark Noya"],
-      locale: "en_US",
-      type: "website",
-    },
-    ...MetadataSeed,
-  };
-}
 
 export default function RootLayout({
   children,

@@ -36,9 +36,7 @@ export default ({ content }: { content: ReactNode }) => {
         animate={{ opacity: 1 }}
         className="flex flex-col gap-16px"
       >
-        <AnimatePresence>
-          <Suspense fallback={<JournalEntrySkeleton />}>{content}</Suspense>
-        </AnimatePresence>
+        <Suspense fallback={<JournalEntrySkeleton />}>{content}</Suspense>
       </motion.div>
     </motion.div>
   );

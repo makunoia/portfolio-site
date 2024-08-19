@@ -1,4 +1,3 @@
-"use client";
 import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
 const Loading = () => {

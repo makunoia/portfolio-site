@@ -1,3 +1,4 @@
+"use server";
 import Text from "@/components/Text";
 import ListContainer from "./ListContainer";
 import { CollectionSlug } from "payload";
