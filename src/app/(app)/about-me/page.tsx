@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import Text from "@/components/Text";
 import Image from "next/image";
 import React, { Suspense } from "react";
