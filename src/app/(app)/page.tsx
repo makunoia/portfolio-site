@@ -37,8 +37,6 @@ export function generateMetadata() {
 
 import mixpanel from "@/app/(app)/lib/mixpanel";
 
-import { headers } from "next/headers";
-
 const Page = () => {
   mixpanel("Viewed Homepage");
 

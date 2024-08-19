@@ -2,7 +2,7 @@
 import * as Form from "@radix-ui/react-form";
 import Text from "@/components/Text";
 import { FormEvent, useState } from "react";
-import { validatePassword } from "@/app/(app)/lib/validate";
+import { validatePassword } from "@/app/(app)/lib/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Cookie } from "lucide-react";

@@ -26,9 +26,7 @@ export function generateMetadata() {
 }
 
 const Layout = ({ content }: { content: ReactNode }) => {
-  mixpanel("Page Viewed", {
-    "Page Title": "Journal",
-  });
+  mixpanel("Viewed Journal");
 
   return (
     <>

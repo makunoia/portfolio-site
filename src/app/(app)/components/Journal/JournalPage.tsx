@@ -68,8 +68,8 @@ const JournalPage = ({
   };
 
   const OpenPageOrchestration = async () => {
-    mixpanel("Journal Entry Opened", {
-      "Entry Title": data.title,
+    mixpanel("Opened Journal", {
+      "Journal Entry": data.title,
       Category: data.tag,
     });
     setIsPageOpen(true);

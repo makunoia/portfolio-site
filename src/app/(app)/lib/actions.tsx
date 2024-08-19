@@ -1,4 +1,5 @@
 "use server";
+
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { cookies } from "next/headers";
@@ -24,4 +25,10 @@ export const validatePassword = async (
     cookies().set("auth", "true");
     return true;
   } else return false;
+};
+
+export const getUserUUID = async () => {
+  const cookieStore = cookies();
+  let userUUID = cookieStore.get("userUUID");
+  return userUUID;
 };
