@@ -61,9 +61,7 @@ const Page = async ({ project }: { project: string }) => {
   if (!projectData) {
     notFound();
   } else {
-    mixpanel("Page Viewed", {
-      "Page Title": projectData.title,
-    });
+    mixpanel(`Viewed ${projectData.title}`);
   }
 
   const { sections } = projectData;

@@ -35,7 +35,13 @@ export function generateMetadata() {
   };
 }
 
+import mixpanel from "@/app/(app)/lib/mixpanel";
+
+import { headers } from "next/headers";
+
 const Page = () => {
+  mixpanel("Viewed Homepage");
+
   return (
     <main className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]">
       <div className="flex flex-col gap-30px transition-all ease-in-out">

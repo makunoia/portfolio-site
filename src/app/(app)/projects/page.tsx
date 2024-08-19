@@ -5,10 +5,6 @@ import PageListSkeleton from "@/components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
 import mixpanel from "@/app/(app)/lib/mixpanel";
 
-mixpanel("Page Viewed", {
-  "Page Title": "Projects",
-});
-
 export function generateMetadata() {
   return {
     title: `Projects | Mark Noya`,
@@ -30,6 +26,8 @@ export function generateMetadata() {
 }
 
 const Page = () => {
+  mixpanel("Viewed Projects");
+
   return (
     <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
       <ProjectsHero />

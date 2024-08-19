@@ -8,12 +8,6 @@ import { Toaster } from "@/app/(app)/components/Sonner";
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import "./styles/globals.css";
 
-import mixpanel from "@/app/(app)/lib/mixpanel";
-
-mixpanel("Page Viewed", {
-  "Page Title": "Homepage",
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{

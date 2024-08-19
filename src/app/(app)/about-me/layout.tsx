@@ -2,10 +2,6 @@ import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
 import mixpanel from "@/app/(app)/lib/mixpanel";
 
-mixpanel("Page Viewed", {
-  "Page Title": "About Me",
-});
-
 export function generateMetadata() {
   return {
     title: `About Me | Mark Noya`,
@@ -27,6 +23,8 @@ export function generateMetadata() {
 }
 
 const Layout = ({ children }: { children: ReactNode }) => {
+  mixpanel("Viewed About Me");
+
   return (
     <main className="max-w-[500px] mx-auto mt-[40px] mb-[80px] flex flex-col gap-60px">
       {children}
