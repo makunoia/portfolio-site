@@ -4,7 +4,7 @@ import Text from "../Text";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight, Lock } from "lucide-react";
 import Link from "next/link";
-import { Mixpanel } from "../../lib/Mixpanel";
+import { Mixpanel } from "../../lib/mixpanel";
 
 const ListItemCVA = cva([
   "relative group",

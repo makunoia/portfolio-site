@@ -9,7 +9,7 @@ import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import "./styles/globals.css";
 import { MetadataSeed } from "@/lib/metadata";
 
-import { Mixpanel } from "@/lib/Mixpanel";
+import { Mixpanel } from "@/app/(app)/lib/mixpanel";
 Mixpanel.track("Page Viewed", {
   "Page Title": "Homepage",
 });

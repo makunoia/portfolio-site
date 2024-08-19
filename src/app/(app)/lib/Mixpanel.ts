@@ -1,13 +1,15 @@
 import mixpanel from "mixpanel-browser";
 
-mixpanel.init("686b5f259ba221be1e1575aee7efe58d", {
+const token = process.env.MIXPANEL_TOKEN ? process.env.MIXPANEL_TOKEN : "";
+
+mixpanel.init(token, {
   debug: true,
   track_pageview: true,
   persistence: "localStorage",
   ignore_dnt: true,
 });
 
-const env_check: any = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
+const env_check: any = process.env.VERCEL_ENV === "production";
 
 const actions = {
   identify: (id: any) => {

@@ -39,7 +39,7 @@ const getProject = async (slug: string) => {
   return project;
 };
 
-import { Mixpanel } from "@/lib/Mixpanel";
+import { Mixpanel } from "@/app/(app)/lib/mixpanel";
 Mixpanel.track("Page Viewed", {
   "Page Title": "Homepage",
 });
