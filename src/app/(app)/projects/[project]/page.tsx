@@ -1,15 +1,16 @@
-import React from "react";
+export const experimental_ppr = true;
+
+import React, { lazy } from "react";
 
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
-import dynamic from "next/dynamic";
 
 import Text from "@/components/Text";
 import Pagination from "@/components/Projects/Pagination";
 import ProjectContent from "@/components/Projects/ProjectContent";
 import ContentObserver from "@/components/Journal/ContentObserver";
 import ScrollSpy, { ScrollSpyType } from "@/components/Projects/ScrollSpy";
-const LockedProject = dynamic(
+const LockedProject = lazy(
   () => import("@/components/Projects/LockedProject/Server")
 );
 import BackButton from "@/components/Projects/BackButton";

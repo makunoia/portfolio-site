@@ -9,6 +9,7 @@ import {
 
 //Had to make another type since Payload had *.tag.name
 type ProjectListItem = {
+  id: string;
   title: string;
   desc: string;
   tag: string;

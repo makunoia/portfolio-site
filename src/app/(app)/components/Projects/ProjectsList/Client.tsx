@@ -24,12 +24,12 @@ const ProjectsList = ({ projects }: { projects: ProjectsByYear }) => {
             <motion.div className="flex flex-col gap-16px">
               {item.projects
                 ? item.projects.map((project) => {
-                    const { title, desc, tag, slug, locked, codename } =
+                    const { id, title, desc, tag, slug, locked, codename } =
                       project;
 
                     return locked ? (
                       <ProjectItem
-                        key={title}
+                        key={id}
                         title={title}
                         desc={desc}
                         tag={tag}

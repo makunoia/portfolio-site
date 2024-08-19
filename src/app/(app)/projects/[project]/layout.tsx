@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
+"use client";
+import { ReactNode, Suspense } from "react";
+import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  return <>{children}</>;
+  return <Suspense fallback={<ProjectPageSkeleton />}>{children}</Suspense>;
 };
 
 export default Layout;

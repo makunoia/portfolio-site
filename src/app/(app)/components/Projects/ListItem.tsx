@@ -23,7 +23,7 @@ const ProjectItem = ({
 )) => {
   return (
     <Link
-      prefetch
+      prefetch={null}
       href={`projects/${slug}`}
       className="page-list-item transition-opacity duration-300 ease-in-out"
       onMouseEnter={handleMouseEvents}

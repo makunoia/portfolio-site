@@ -54,6 +54,7 @@ export function GroupByYear(items: Project[] | JournalEntry[]) {
           // Map the filtered items to the desired structure
           const tag: ProjectTag = item.tag as ProjectTag;
           return {
+            id: item.id,
             title: item.title,
             desc: item.desc,
             tag: tag.name,

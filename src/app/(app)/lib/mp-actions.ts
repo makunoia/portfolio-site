@@ -10,6 +10,7 @@ mixpanel.init(token, {
 });
 
 const env_check: any = process.env.VERCEL_ENV === "production";
+console.log(process.env.VERCEL_ENV);
 
 const actions = {
   identify: (id: any) => {
@@ -20,11 +21,6 @@ const actions = {
   },
   track: (name: any, props: any) => {
     if (env_check) mixpanel.track(name, props);
-  },
-  people: {
-    set: (props: any) => {
-      if (env_check) mixpanel.people.set(props);
-    },
   },
 };
 

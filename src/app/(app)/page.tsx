@@ -57,11 +57,17 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 // ✅ OG Image
 // ✅ Install Mixpanel
 // ✅ Update Facebook and Instagram link
+
+// ISSUES:
+// Google Result: No icon and title
+
+// LAUNCH:
+// Journal Entry: Reinventing Myself
 // Update LinkedIn banner
 // Retire Webflow site
+// Apply to jobs
 
-// Weekly entries
-// Journal Entry: Reinventing Myself
+// WEEKLY ENTRIES
 // Journal Entry: Thoughts (Notion, Jira, Atlas)
 // Journal Entry: Road to Design Engineer
 // Journal Entry: PayloadCMS + NextJS = Portfolio

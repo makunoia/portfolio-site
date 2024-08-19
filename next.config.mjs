@@ -5,6 +5,7 @@ const nextConfig = {
   // Your Next.js config here
   experimental: {
     reactCompiler: false,
+    ppr: "incremental",
   },
   images: {
     remotePatterns: [
