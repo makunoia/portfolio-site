@@ -23,7 +23,7 @@ import { getPayloadHMR } from "@payloadcms/next/utilities";
 const payload = await getPayloadHMR({ config });
 
 import { MetadataSeed } from "@/lib/metadata";
-import { Mixpanel } from "@/lib/mixpanel";
+import { Mixpanel } from "@/lib/mp-actions";
 
 const getProject = async (slug: string) => {
   const req = await payload.find({

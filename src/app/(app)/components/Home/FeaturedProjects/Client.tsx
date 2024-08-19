@@ -9,7 +9,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useAnimate } from "framer-motion";
 import { TimerContext } from "@/contexts/TimerContext";
 import { FeaturedProject } from "@/types";
-import { Mixpanel } from "@/lib/mixpanel";
+import { Mixpanel } from "@/lib/mp-actions";
 
 const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);

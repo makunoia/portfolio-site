@@ -4,7 +4,7 @@ import ProjectsHero from "@/components/HeroSections/Projects";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
 
-import { Mixpanel } from "@/lib/mixpanel";
+import { Mixpanel } from "@/lib/mp-actions";
 Mixpanel.track("Page Viewed", {
   "Page Title": "Projects",
 });
