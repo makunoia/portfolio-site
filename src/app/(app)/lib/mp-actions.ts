@@ -9,8 +9,7 @@ mixpanel.init(token, {
   ignore_dnt: true,
 });
 
-const env_check: any = process.env.VERCEL_ENV === "production";
-console.log(process.env.VERCEL_ENV);
+const env_check: any = process.env.NODE_ENV === "production";
 
 const actions = {
   identify: (id: any) => {
