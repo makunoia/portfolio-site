@@ -18,39 +18,8 @@ import { MyRole, ProjectTag } from "payload-types";
 import { InViewProvider } from "@/contexts/InViewContext";
 import { Archive } from "lucide-react";
 
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-const payload = await getPayloadHMR({ config });
-
-import mixpanel from "@/lib/mixpanel";
-
-const getProject = async (slug: string) => {
-  const req = await payload.find({
-    collection: "projects",
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  });
-
-  const project = req.docs[0];
-  mixpanel(`Viewed ${project.title}`);
-
-  return project;
-};
-
-export async function generateStaticParams() {
-  const { docs } = await payload.find({
-    collection: "projects",
-  });
-
-  const projects = docs;
-
-  return projects.map((project) => ({
-    project: project.slug,
-  }));
-}
+import { getProject } from "@/app/(app)/lib/actions";
+import MixpanelTracker from "../../MixpanelTracker";
 
 const Page = async ({ project }: { project: string }) => {
   const projectData = await getProject(project);
@@ -80,6 +49,7 @@ const Page = async ({ project }: { project: string }) => {
 
   return (
     <>
+      <MixpanelTracker event={`Viewed ${projectData.title}`} />
       {locked && !authorized ? (
         <LockedProject codename={codename} desc={projectData.desc} />
       ) : (

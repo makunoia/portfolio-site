@@ -32,3 +32,27 @@ export const getUserUUID = async () => {
   let userUUID = cookieStore.get("userUUID");
   return userUUID;
 };
+
+export const getProject = async (slug: string) => {
+  const req = await payload.find({
+    collection: "projects",
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  });
+
+  const project = req.docs[0];
+
+  return project;
+};
+
+export const getProjects = async () => {
+  const { docs } = await payload.find({
+    collection: "projects",
+  });
+
+  const projects = docs;
+  return projects;
+};

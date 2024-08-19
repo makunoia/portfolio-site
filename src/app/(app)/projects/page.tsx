@@ -3,7 +3,7 @@ import ProjectsList from "@/components/Projects/ProjectsList/Server";
 import ProjectsHero from "@/components/HeroSections/Projects";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
-import track from "@/lib/mixpanel";
+import MixpanelTracker from "@/components/MixpanelTracker";
 
 export function generateMetadata() {
   return {
@@ -26,10 +26,9 @@ export function generateMetadata() {
 }
 
 const Page = () => {
-  track("Viewed All Projects");
-
   return (
     <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
+      <MixpanelTracker event="Viewed All Projects" />
       <ProjectsHero />
 
       <Suspense fallback={<PageListSkeleton />}>

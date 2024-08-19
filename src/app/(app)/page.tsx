@@ -14,6 +14,7 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 import { MetadataSeed } from "@/lib/metadata";
+import MixpanelTracker from "@/components/MixpanelTracker";
 
 export function generateMetadata() {
   return {
@@ -35,61 +36,60 @@ export function generateMetadata() {
   };
 }
 
-import track from "@/lib/mixpanel";
-
 const Page = () => {
-  track("Viewed Homepage");
-
   return (
-    <main className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]">
-      <div className="flex flex-col gap-30px transition-all ease-in-out">
-        <div className="flex justify-between">
-          <Image
-            alt="Logo"
-            src={Logo}
-            style={{ width: 45, height: "auto" }}
-            priority
-          />
+    <>
+      <MixpanelTracker event="Viewed Homepage" />
+      <main className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]">
+        <div className="flex flex-col gap-30px transition-all ease-in-out">
+          <div className="flex justify-between">
+            <Image
+              alt="Logo"
+              src={Logo}
+              style={{ width: 45, height: "auto" }}
+              priority
+            />
 
-          <Suspense fallback={<LinksRowSkeleton />}>
-            <LinksRow />
-          </Suspense>
+            <Suspense fallback={<LinksRowSkeleton />}>
+              <LinksRow />
+            </Suspense>
+          </div>
+
+          <HeroSection />
         </div>
 
-        <HeroSection />
-      </div>
+        <hr />
 
-      <hr />
+        <TimerContextProvider>
+          <Suspense fallback={<FeatuedProjectsSkeleton />}>
+            <FeaturedProjects />
+          </Suspense>
+        </TimerContextProvider>
 
-      <TimerContextProvider>
-        <Suspense fallback={<FeatuedProjectsSkeleton />}>
-          <FeaturedProjects />
+        <Suspense fallback={<HomeListSkeleton />}>
+          <Section
+            title="Archive"
+            collection="projects"
+            link="/projects"
+            sort="-year"
+            where={{
+              isFeatured: {
+                not_equals: true,
+              },
+            }}
+          />
         </Suspense>
-      </TimerContextProvider>
 
-      <Suspense fallback={<HomeListSkeleton />}>
-        <Section
-          title="Archive"
-          collection="projects"
-          link="/projects"
-          sort="-year"
-          where={{
-            isFeatured: {
-              not_equals: true,
-            },
-          }}
-        />
-      </Suspense>
-
-      <Suspense fallback={<HomeListSkeleton />}>
-        <Section
-          title="Journal"
-          collection="journal-entries"
-          link="/journal"
-          sort="-createdAt"
-        />
-      </Suspense>
-    </main>
+        <Suspense fallback={<HomeListSkeleton />}>
+          <Section
+            title="Journal"
+            collection="journal-entries"
+            link="/journal"
+            sort="-createdAt"
+          />
+        </Suspense>
+      </main>
+    </>
   );
 };
 

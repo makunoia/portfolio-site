@@ -3,7 +3,7 @@ import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";
 import PageListSkeleton from "../components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
-import track from "@/lib/mixpanel";
+import MixpanelTracker from "@/components/MixpanelTracker";
 
 export function generateMetadata() {
   return {
@@ -26,11 +26,10 @@ export function generateMetadata() {
 }
 
 const Layout = ({ content }: { content: ReactNode }) => {
-  track("Viewed Journal");
-
   return (
     <>
       <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
+        <MixpanelTracker event="Viewed Journal" />
         <JournalHero />
 
         <Suspense fallback={<PageListSkeleton />}>

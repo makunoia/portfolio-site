@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
-import track from "@/lib/mixpanel";
+import MixpanelTracker from "../components/MixpanelTracker";
 
 export function generateMetadata() {
   return {
@@ -23,10 +23,9 @@ export function generateMetadata() {
 }
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  track("Viewed About Me");
-
   return (
     <main className="max-w-[500px] mx-auto mt-[40px] mb-[80px] flex flex-col gap-60px">
+      <MixpanelTracker event="Viewed About Me" />
       {children}
     </main>
   );
