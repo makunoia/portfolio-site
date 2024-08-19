@@ -35,10 +35,10 @@ export function generateMetadata() {
   };
 }
 
-import mixpanel from "@/app/(app)/lib/mixpanel";
+import track from "@/lib/mixpanel";
 
 const Page = () => {
-  mixpanel("Viewed Homepage");
+  track("Viewed Homepage");
 
   return (
     <main className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]">

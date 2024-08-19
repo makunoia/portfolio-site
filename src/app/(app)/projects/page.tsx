@@ -3,7 +3,7 @@ import ProjectsList from "@/components/Projects/ProjectsList/Server";
 import ProjectsHero from "@/components/HeroSections/Projects";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
-import mixpanel from "@/app/(app)/lib/mixpanel";
+import track from "@/lib/mixpanel";
 
 export function generateMetadata() {
   return {
@@ -26,7 +26,7 @@ export function generateMetadata() {
 }
 
 const Page = () => {
-  mixpanel("Viewed Projects");
+  track("Viewed All Projects");
 
   return (
     <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">

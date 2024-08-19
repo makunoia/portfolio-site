@@ -4,7 +4,7 @@ import Text from "./Text";
 import Link from "next/link";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight } from "lucide-react";
-import mixpanel from "@/app/(app)/lib/mixpanel";
+import track from "@/lib/mixpanel";
 
 const ButtonCVA = cva([
   "group",
@@ -24,7 +24,7 @@ const LinkButton = ({
     <Link
       href={href}
       target="_blank"
-      onClick={() => mixpanel(`Accessed ${label}`)}
+      onClick={() => track(`Accessed ${label}`)}
     >
       <button className={`${ButtonStyle}`}>
         <Text as="span" size="caption" weight="medium" className="text">

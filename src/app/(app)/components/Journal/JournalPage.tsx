@@ -14,7 +14,7 @@ import { JournalEntry, JournalEntryTag } from "payload-types";
 import { formatDate, handleMouseEvents } from "@/lib/helpers";
 
 import ContentContainer from "./ContentContainer";
-import mixpanel from "@/app/(app)/lib/mixpanel";
+import track from "@/lib/mixpanel";
 
 const JournalPage = ({
   content,
@@ -68,10 +68,7 @@ const JournalPage = ({
   };
 
   const OpenPageOrchestration = async () => {
-    mixpanel("Opened Journal", {
-      "Journal Entry": data.title,
-      Category: data.tag,
-    });
+    track(`Opened Journal: ${data.title}`);
     setIsPageOpen(true);
     await delay(500);
     setIsContentOpen(true);

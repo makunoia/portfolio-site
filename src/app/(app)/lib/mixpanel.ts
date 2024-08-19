@@ -25,9 +25,9 @@ const tracker = async (
     ...eventProperties,
   };
 
-  if (process.env.NODE_ENV !== "development") {
-    mixpanel.track(eventName, properties);
-  }
+  // if (process.env.NODE_ENV !== "development") {
+  mixpanel.track(eventName, properties);
+  // }
 };
 
 export default tracker;

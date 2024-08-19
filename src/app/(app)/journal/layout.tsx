@@ -3,7 +3,7 @@ import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";
 import PageListSkeleton from "../components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
-import mixpanel from "@/app/(app)/lib/mixpanel";
+import track from "@/lib/mixpanel";
 
 export function generateMetadata() {
   return {
@@ -26,7 +26,7 @@ export function generateMetadata() {
 }
 
 const Layout = ({ content }: { content: ReactNode }) => {
-  mixpanel("Viewed Journal");
+  track("Viewed Journal");
 
   return (
     <>

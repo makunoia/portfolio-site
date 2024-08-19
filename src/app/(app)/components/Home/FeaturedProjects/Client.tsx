@@ -9,7 +9,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useAnimate } from "framer-motion";
 import { TimerContext } from "@/contexts/TimerContext";
 import { FeaturedProject } from "@/types";
-import mixpanel from "@/app/(app)/lib/mixpanel";
+import track from "@/lib/mixpanel";
 
 const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -120,9 +120,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           prefetch
           className={style()}
           href={`/projects/${link}`}
-          onClick={() =>
-            mixpanel("Featured Project Clicked", { Project: link })
-          }
+          onClick={() => track("Clicked Featured Project", { Project: link })}
           as={`/projects/${link}`}
           id="featured-projects-container"
         >

@@ -24,7 +24,7 @@ import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 const payload = await getPayloadHMR({ config });
 
-import mixpanel from "@/app/(app)/lib/mixpanel";
+import mixpanel from "@/lib/mixpanel";
 
 const getProject = async (slug: string) => {
   const req = await payload.find({
@@ -37,6 +37,7 @@ const getProject = async (slug: string) => {
   });
 
   const project = req.docs[0];
+  mixpanel(`Viewed ${project.title}`);
 
   return project;
 };
@@ -60,8 +61,6 @@ const Page = async ({ project }: { project: string }) => {
 
   if (!projectData) {
     notFound();
-  } else {
-    mixpanel(`Viewed ${projectData.title}`);
   }
 
   const { sections } = projectData;
