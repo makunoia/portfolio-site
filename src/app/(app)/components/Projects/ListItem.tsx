@@ -1,4 +1,3 @@
-"use client";
 import { handleMouseEvents } from "@/lib/helpers";
 import Text from "../Text";
 import Link from "next/link";

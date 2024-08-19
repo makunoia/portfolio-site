@@ -18,6 +18,7 @@ const PaginationItem = ({
 }) => {
   return (
     <Link
+      prefetch
       href={link}
       className={`group flex gap-16px cursor-pointer ${right && "self-end"}`}
     >

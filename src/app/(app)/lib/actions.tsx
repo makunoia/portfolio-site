@@ -3,6 +3,7 @@
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { cookies } from "next/headers";
+import { unstable_cache } from "next/cache";
 const payload = await getPayloadHMR({ config });
 
 export const validatePassword = async (
@@ -33,7 +34,7 @@ export const getUserUUID = async () => {
   return userUUID;
 };
 
-export const getProject = async (slug: string) => {
+export const getProject = unstable_cache(async (slug: string) => {
   const req = await payload.find({
     collection: "projects",
     where: {
@@ -46,7 +47,7 @@ export const getProject = async (slug: string) => {
   const project = req.docs[0];
 
   return project;
-};
+});
 
 export const getProjects = async () => {
   const { docs } = await payload.find({

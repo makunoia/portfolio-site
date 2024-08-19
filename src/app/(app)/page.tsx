@@ -1,4 +1,4 @@
-export const experimental_ppr = true;
+export const dynamic = "force-static";
 
 import React, { Suspense } from "react";
 import Image from "next/image";
