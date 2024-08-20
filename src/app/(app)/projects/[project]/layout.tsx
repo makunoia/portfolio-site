@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
-import { getProject, getProjects } from "@/lib/actions";
+import { ReactNode, Suspense } from "react";
 import { MetadataSeed } from "@/lib/metadata";
+import { getProject, getProjects } from "@/lib/actions";
+import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
 export async function generateStaticParams() {
   const projects = await getProjects();
@@ -40,5 +41,5 @@ export async function generateMetadata({
 }
 
 export default ({ children }: { children: ReactNode }) => {
-  return children;
+  return <Suspense fallback={<ProjectPageSkeleton />}>{children}</Suspense>;
 };

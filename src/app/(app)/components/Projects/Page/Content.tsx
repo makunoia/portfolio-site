@@ -1,3 +1,5 @@
+export const fetchCache = "default-cache";
+
 import React, { lazy } from "react";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
