@@ -1,5 +1,3 @@
-export const dynamic = "force-static";
-
 import React, { Suspense } from "react";
 import Image from "next/image";
 import FeaturedProjects from "@/components/Home/FeaturedProjects/Server";
