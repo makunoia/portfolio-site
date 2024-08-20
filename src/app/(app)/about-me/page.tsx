@@ -24,6 +24,7 @@ const Page = async () => {
           priority
           src={coverPhotoSrc?.url as string}
           alt={coverPhotoSrc.alt as string}
+          sizes="(max-width: 1200px) 500px, 650px"
           quality={100}
           width={500}
           height={140}
@@ -37,6 +38,7 @@ const Page = async () => {
           src={profilePhotoSrc.url as string}
           alt={profilePhotoSrc.alt as string}
           className="absolute -left-8px -bottom-24px rounded-full border-inverse border-[4px] bg"
+          sizes="(max-width: 1200px) 100px, 150px"
           style={{
             objectFit: "fill",
           }}

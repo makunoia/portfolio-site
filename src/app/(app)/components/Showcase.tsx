@@ -22,7 +22,7 @@ const Showcase = ({
             <Image
               src={showcaseImage.url as string}
               alt={showcaseImage.alt || title}
-              // sizes="(max-width: 640px) 100vw, (max-width: 960px) 85vw, 1000px"
+              sizes="(max-width: 800px) 100vw, 1000px"
               style={{
                 objectFit: "cover",
               }}

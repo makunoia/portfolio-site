@@ -1,6 +1,7 @@
 export const fetchCache = "default-cache";
 
-import React, { lazy } from "react";
+import React from "react";
+import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 
@@ -11,17 +12,18 @@ import HeroOverline from "@/components/Projects/Page/HeroOverline";
 import ProjectContent from "@/components/Projects/ProjectContent";
 import ContentObserver from "@/components/Journal/ContentObserver";
 import ScrollSpy, { ScrollSpyType } from "@/components/Projects/ScrollSpy";
-const LockedProject = lazy(
+import BackButton from "@/components/Projects/BackButton";
+
+const LockedProject = dynamic(
   () => import("@/components/Projects/LockedProject/Server")
 );
-import BackButton from "@/components/Projects/BackButton";
+const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
 
 import { MyRole, ProjectTag } from "payload-types";
 import { InViewProvider } from "@/contexts/InViewContext";
 import { Archive } from "lucide-react";
 
 import { getProject } from "@/lib/payload-actions";
-import MixpanelTracker from "../../MixpanelTracker";
 
 const Page = async ({ project }: { project: string }) => {
   const projectData = await getProject(project);

@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import FeaturedProjects from "@/components/Home/FeaturedProjects/Server";
 import LinksRow from "@/components/LinksRow";
 import Logo from "./assets/logo.svg";
@@ -12,7 +13,8 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 import { MetadataSeed } from "@/lib/metadata";
-import MixpanelTracker from "@/components/MixpanelTracker";
+
+const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
 
 export function generateMetadata() {
   return {

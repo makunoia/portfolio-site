@@ -10,17 +10,17 @@ import { FeaturedProject, ProjectsByYear } from "../types";
 import { CollectionSlug } from "payload";
 const payload = await getPayloadHMR({ config });
 
-export const preloadPageData = (slug: string) => {
-  void getPageData(slug);
-};
+// export const preloadPageData = (slug: string) => {
+//   void getPageData(slug);
+// };
 
-export const preloadEntries = () => {
-  void getEntries();
-};
+// export const preloadEntries = () => {
+//   void getEntries();
+// };
 
-export const preloadEntryContent = (slug: string) => {
-  void getEntryContent(slug);
-};
+// export const preloadEntryContent = (slug: string) => {
+//   void getEntryContent(slug);
+// };
 
 export const preloadProject = (slug: string) => {
   void getProject(slug);
@@ -30,9 +30,9 @@ export const preloadProjects = () => {
   void getProjects();
 };
 
-export const preloadProjectsByYear = () => {
-  void getAllProjectsByYear();
-};
+// export const preloadProjectsByYear = () => {
+//   void getAllProjectsByYear();
+// };
 
 export const preloadFeaturedProjects = () => {
   void getFeaturedProjects();

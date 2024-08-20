@@ -140,7 +140,9 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                     src={project.featuredData.image.url}
                     alt={project.featuredData.image.alt || ""}
                     style={{ objectFit: "contain", objectPosition: "center" }}
-                    quality={100}
+                    sizes="(max-width: 500px) 350px, 350px"
+                    loading="lazy"
+                    quality={85}
                     width={350}
                     height={250}
                     priority

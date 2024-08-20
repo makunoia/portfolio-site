@@ -1,6 +1,7 @@
+import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
-import MixpanelTracker from "../components/MixpanelTracker";
+const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
 
 export function generateMetadata() {
   return {

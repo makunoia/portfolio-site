@@ -1,9 +1,11 @@
+import dynamic from "next/dynamic";
 import React, { ReactNode, Suspense } from "react";
 import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";
 import PageListSkeleton from "../components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
-import MixpanelTracker from "@/components/MixpanelTracker";
+
+const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
 
 export function generateMetadata() {
   return {
