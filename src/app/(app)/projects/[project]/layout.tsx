@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
-import { getProject, getProjects } from "@/lib/actions";
+import { getProject, getProjects } from "@/lib/payload-actions";
 
 export async function generateStaticParams() {
   const projects = await getProjects();

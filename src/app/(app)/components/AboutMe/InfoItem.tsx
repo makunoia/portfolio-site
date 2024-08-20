@@ -14,23 +14,18 @@ const InfoItem = ({
   tag?: string;
   image?: Asset;
 }) => {
-  const imgTransformer =
-    "https://marknoya.me/cdn-cgi/image/format=webp,width=250,fit=contain,quality=100/";
-
   return (
     <li className="flex justify-between items-center">
       <div className="flex items-center gap-12px">
         <div className="w-40px h-40px relative overflow-clip bg-subtle rounded-8px">
           <Image
-            src={
-              image
-                ? `${imgTransformer}${image.url as string}`
-                : PlaceholderImage
-            }
-            alt="Profile Banner"
+            src={image ? (image.url as string) : PlaceholderImage}
+            alt={image ? (image.alt as string) : "Info Icon"}
             quality={100}
             sizes="40px"
             fill
+            // width={40}
+            // height={40}
             style={{
               objectFit: "cover",
               objectPosition: "center",

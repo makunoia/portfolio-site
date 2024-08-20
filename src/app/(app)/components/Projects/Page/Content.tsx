@@ -20,7 +20,7 @@ import { MyRole, ProjectTag } from "payload-types";
 import { InViewProvider } from "@/contexts/InViewContext";
 import { Archive } from "lucide-react";
 
-import { getProject } from "@/app/(app)/lib/actions";
+import { getProject } from "@/lib/payload-actions";
 import MixpanelTracker from "../../MixpanelTracker";
 
 const Page = async ({ project }: { project: string }) => {

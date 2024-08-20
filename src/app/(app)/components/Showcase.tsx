@@ -13,8 +13,6 @@ const Showcase = ({
   images,
 }: Omit<ShowcaseType, "blockType" | "blockName">) => {
   const showcaseImage: Asset = image as Asset;
-  const imgTransformer =
-    "https://marknoya.me/cdn-cgi/image/format=webp,width=600,fit=contain,quality=75/";
 
   return (
     <div className="bg-subtle/40 flex flex-col gap-4px rounded-12px p-12px">
@@ -22,22 +20,23 @@ const Showcase = ({
         {!isRevealer ? (
           <div className="bg relative overflow-hidden w-full h-auto aspect-[5/3] md:h-[400px] rounded-8px">
             <Image
-              src={`${imgTransformer}${showcaseImage.url as string}`}
+              src={showcaseImage.url as string}
               alt={showcaseImage.alt || title}
-              sizes="(max-width: 640px) 100vw, (max-width: 960px) 85vw, 1000px"
+              // sizes="(max-width: 640px) 100vw, (max-width: 960px) 85vw, 1000px"
               style={{
                 objectFit: "cover",
               }}
+              width={700}
+              height={400}
+              quality={85}
               loading="lazy"
               role="presentation"
-              fill
             />
           </div>
         ) : (
           <ImageRevealer
             beforeImage={images?.beforeImage as Asset}
             afterImage={images?.afterImage as Asset}
-            transformer={imgTransformer}
             title={title}
           />
         )}

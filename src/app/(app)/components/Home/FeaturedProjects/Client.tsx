@@ -20,9 +20,6 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const timerContext = useContext(TimerContext);
   const { resetTimer, setResetTimer } = timerContext;
 
-  const imgTransformer =
-    "https://marknoya.me/cdn-cgi/image/format=webp,width=500,fit=contain,quality=100/";
-
   const style = cva([
     "w-full h-[240px] sm:h-[290px]",
     "relative group cursor-pointer",
@@ -140,13 +137,13 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                 >
                   <Image
                     className="select-none"
-                    src={`${imgTransformer}${project.featuredData.image.url}`}
+                    src={project.featuredData.image.url}
                     alt={project.featuredData.image.alt || ""}
                     style={{ objectFit: "contain", objectPosition: "center" }}
                     quality={100}
-                    sizes="500px"
+                    width={350}
+                    height={250}
                     priority
-                    fill
                   />
                 </div>
               );

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Text from "../Text";
 import PlaceholderImage from "@/assets/placeholder_img.png";
-import { Asset, MediaItem as MediaItemType } from "payload-types";
+import { Asset } from "payload-types";
 
 const MediaItem = ({
   label,
@@ -14,23 +14,19 @@ const MediaItem = ({
   image?: Asset;
   tag?: string;
 }) => {
-  const imgTransformer =
-    "https://marknoya.me/cdn-cgi/image/format=webp,width=250,fit=contain,quality=100/";
-
   return (
     <li className="flex justify-between items-center">
       <div className="flex items-center gap-12px">
         <div className="w-[55px] h-80px relative overflow-clip bg-subtle rounded-8px">
           <Image
-            src={
-              image
-                ? `${imgTransformer}${image.url as string}`
-                : PlaceholderImage
-            }
-            alt="Profile Banner"
+            src={image ? (image.url as string) : PlaceholderImage}
+            alt={image ? (image.alt as string) : "Media Poster"}
             style={{ objectFit: "cover" }}
-            quality={100}
+            sizes="55px"
             fill
+            // width={100}
+            // height={80}
+            quality={100}
           />
         </div>
         <div className="flex flex-col gap-4px">

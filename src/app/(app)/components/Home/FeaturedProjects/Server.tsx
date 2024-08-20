@@ -1,5 +1,5 @@
 import FeaturedProjectsClient from "./Client";
-import { getFeaturedProjects } from "@/app/(app)/lib/actions";
+import { getFeaturedProjects } from "@/lib/payload-actions";
 
 const FeaturedProjects = async () => {
   const projects = await getFeaturedProjects();

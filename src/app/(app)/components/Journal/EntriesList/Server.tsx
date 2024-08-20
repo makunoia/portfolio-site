@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { getEntries } from "@/app/(app)/lib/actions";
+import { getEntries } from "@/lib/payload-actions";
 import { JournalEntriesByYear } from "@/types";
 import JournalList from "./Client";
 

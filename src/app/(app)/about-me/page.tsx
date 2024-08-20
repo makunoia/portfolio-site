@@ -9,33 +9,33 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 import { Asset } from "payload-types";
 import LinksRow from "../components/LinksRow";
-import { getPageData } from "@/lib/actions";
+import { getPageData } from "@/lib/payload-actions";
 
 const Page = async () => {
   const data = await getPageData("About Me");
 
-  const profilePhoto = data.pagePhotos?.portrait as Asset;
-  const coverPhoto = data.pagePhotos?.cover as Asset;
-  const coverImgTransformer = `https://marknoya.me/cdn-cgi/image/format=webp,width=700,fit=contain,quality=100/`;
-  const profileImgTransformer = `https://marknoya.me/cdn-cgi/image/format=webp,width=300,fit=contain,quality=100/`;
+  const profilePhotoSrc = data.pagePhotos?.portrait as Asset;
+  const coverPhotoSrc = data.pagePhotos?.cover as Asset;
 
   return (
     <>
-      <div className="w-full relative min-h-[130px]">
+      <div className="w-full relative h-[140px]">
         <Image
           priority
-          src={`${coverImgTransformer}${coverPhoto.url as string}`}
-          alt={coverPhoto.alt as string}
-          className="h-full rounded-12px bg/70"
-          sizes="500px"
+          src={coverPhotoSrc?.url as string}
+          alt={coverPhotoSrc.alt as string}
+          quality={100}
+          width={500}
+          height={140}
           style={{
             objectFit: "cover",
           }}
-          fill
+          className="h-full rounded-12px bg/70"
         />
         <Image
-          src={`${profileImgTransformer}${profilePhoto.url as string}`}
-          alt={profilePhoto.alt as string}
+          priority
+          src={profilePhotoSrc.url as string}
+          alt={profilePhotoSrc.alt as string}
           className="absolute -left-8px -bottom-24px rounded-full border-inverse border-[4px] bg"
           style={{
             objectFit: "fill",

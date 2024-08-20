@@ -1,6 +1,6 @@
 import React from "react";
 import List from "./Client";
-import { getAllProjectsByYear } from "@/app/(app)/lib/actions";
+import { getAllProjectsByYear } from "@/lib/payload-actions";
 
 const ProjectsList = async () => {
   const AllProjectsByYear = await getAllProjectsByYear();

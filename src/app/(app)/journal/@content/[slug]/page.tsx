@@ -2,7 +2,7 @@ import React from "react";
 
 import { LexicalBlock } from "@/app/(app)/types";
 import { renderLexicalContent } from "@/lib/helpers";
-import { getEntryContent } from "@/app/(app)/lib/actions";
+import { getEntryContent } from "@/lib/payload-actions";
 
 const Content = async ({ params }: { params: { slug: string } }) => {
   const content = await getEntryContent(params.slug);

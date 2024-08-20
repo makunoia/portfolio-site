@@ -1,11 +1,7 @@
 import Text from "@/components/Text";
 import ListContainer from "./ListContainer";
 import { CollectionSlug } from "payload";
-
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { getCollection } from "../../lib/actions";
-const payload = await getPayloadHMR({ config });
+import { getCollection } from "@/lib/payload-actions";
 
 const PageSection = async ({
   title,
