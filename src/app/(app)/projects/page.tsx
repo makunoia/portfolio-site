@@ -1,10 +1,12 @@
-import dynamic from "next/dynamic";
-import React, { Suspense } from "react";
+export const fetchCache = "force-cache";
+export const dynamic = "force-static";
+
+import React, { lazy, Suspense } from "react";
 import ProjectsList from "@/components/Projects/ProjectsList/Server";
 import ProjectsHero from "@/components/HeroSections/Projects";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
-const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
+const MixpanelTracker = lazy(() => import("@/components/MixpanelTracker"));
 
 export function generateMetadata() {
   return {

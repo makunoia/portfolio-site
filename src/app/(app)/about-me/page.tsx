@@ -1,3 +1,4 @@
+export const fetchCache = "force-cache";
 export const dynamic = "force-static";
 
 import Text from "@/components/Text";
@@ -24,7 +25,7 @@ const Page = async () => {
           priority
           src={coverPhotoSrc?.url as string}
           alt={coverPhotoSrc.alt as string}
-          sizes="(max-width: 1200px) 500px, 650px"
+          sizes="(max-width: 1200px) 40vw, 60vw"
           quality={100}
           width={500}
           height={140}

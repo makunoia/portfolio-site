@@ -1,11 +1,13 @@
-import dynamic from "next/dynamic";
-import React, { ReactNode, Suspense } from "react";
+export const fetchCache = "force-cache";
+export const dynamic = "force-static";
+
+import React, { lazy, ReactNode, Suspense } from "react";
 import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";
 import PageListSkeleton from "../components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
 
-const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
+const MixpanelTracker = lazy(() => import("@/components/MixpanelTracker"));
 
 export function generateMetadata() {
   return {

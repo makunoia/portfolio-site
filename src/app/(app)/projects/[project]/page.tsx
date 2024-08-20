@@ -1,5 +1,6 @@
 export const fetchCache = "force-cache";
 export const dynamicParams = true;
+
 import dynamic from "next/dynamic";
 import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
