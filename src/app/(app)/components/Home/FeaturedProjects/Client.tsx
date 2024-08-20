@@ -120,7 +120,6 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           prefetch
           className={style()}
           href={`/projects/${link}`}
-          onClick={() => track("Clicked Featured Project", { Project: link })}
           as={`/projects/${link}`}
           id="featured-projects-container"
         >
@@ -190,6 +189,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
 
             <TextOverlayBG />
           </div>
+
           {showArrowsAndBar ? (
             <ProgressBar duration={duration} currIndex={activeIndex} />
           ) : null}
