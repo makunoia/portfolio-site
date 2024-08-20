@@ -14,7 +14,7 @@ const Showcase = ({
 }: Omit<ShowcaseType, "blockType" | "blockName">) => {
   const showcaseImage: Asset = image as Asset;
   const imgTransformer =
-    "https://marknoya.me/cdn-cgi/image/format=webp,width=1100,fit=contain,quality=85/";
+    "https://marknoya.me/cdn-cgi/image/format=webp,width=600,fit=contain,quality=75/";
 
   return (
     <div className="bg-subtle/40 flex flex-col gap-4px rounded-12px p-12px">
@@ -28,7 +28,8 @@ const Showcase = ({
               style={{
                 objectFit: "cover",
               }}
-              priority
+              loading="lazy"
+              role="presentation"
               fill
             />
           </div>

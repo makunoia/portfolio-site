@@ -7,23 +7,13 @@ import AboutMeHero from "@/components/HeroSections/AboutMe";
 import Sections from "@/components/AboutMe/Sections";
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { Asset } from "payload-types";
 import LinksRow from "../components/LinksRow";
-const payload = await getPayloadHMR({ config });
+import { getPageData } from "@/lib/actions";
 
 const Page = async () => {
-  const { docs } = await payload.find({
-    collection: "pages",
-    where: {
-      name: {
-        equals: "About Me",
-      },
-    },
-  });
+  const data = await getPageData("About Me");
 
-  const data = docs[0];
   const profilePhoto = data.pagePhotos?.portrait as Asset;
   const coverPhoto = data.pagePhotos?.cover as Asset;
   const coverImgTransformer = `https://marknoya.me/cdn-cgi/image/format=webp,width=700,fit=contain,quality=100/`;

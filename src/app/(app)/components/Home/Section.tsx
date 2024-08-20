@@ -1,10 +1,10 @@
 import Text from "@/components/Text";
 import ListContainer from "./ListContainer";
 import { CollectionSlug } from "payload";
-import { Project, JournalEntry } from "payload-types";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getCollection } from "../../lib/actions";
 const payload = await getPayloadHMR({ config });
 
 const PageSection = async ({
@@ -20,14 +20,7 @@ const PageSection = async ({
   collection: CollectionSlug;
   where?: {};
 }) => {
-  const { docs } = await payload.find({
-    collection,
-    limit: 3,
-    sort,
-    where,
-  });
-
-  const items = docs as Project[] | JournalEntry[];
+  const items = await getCollection({ collection, limit: 3, sort, where });
 
   return (
     <section className="w-full mt-40px flex flex-col gap-16px md:flex-row md:gap-0px justify-between">
