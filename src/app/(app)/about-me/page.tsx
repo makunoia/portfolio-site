@@ -33,9 +33,10 @@ const Page = async () => {
     <>
       <div className="w-full relative min-h-[130px]">
         <Image
+          priority
           src={`${coverImgTransformer}${coverPhoto.url as string}`}
           alt={coverPhoto.alt as string}
-          className="h-full rounded-12px"
+          className="h-full rounded-12px bg/70"
           sizes="500px"
           style={{
             objectFit: "cover",
@@ -45,7 +46,7 @@ const Page = async () => {
         <Image
           src={`${profileImgTransformer}${profilePhoto.url as string}`}
           alt={profilePhoto.alt as string}
-          className="absolute -left-8px -bottom-24px rounded-full border-inverse border-[4px]"
+          className="absolute -left-8px -bottom-24px rounded-full border-inverse border-[4px] bg"
           style={{
             objectFit: "fill",
           }}

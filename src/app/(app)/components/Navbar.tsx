@@ -79,7 +79,7 @@ const NavbarButton = ({
 }) => {
   const NavbarButtonStyle = NavbarButtonCVA({ active });
   return (
-    <Link href={url} as={url} prefetch>
+    <Link prefetch href={url} as={url}>
       <div className={NavbarButtonStyle}>
         <Slot className="text w-24px h-24px block md:hidden">{<Icon />}</Slot>
         <Text size="body" className="text-nowrap hidden md:block">
