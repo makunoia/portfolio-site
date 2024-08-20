@@ -54,7 +54,7 @@ const Page = async ({ project }: { project: string }) => {
   return (
     <>
       <MixpanelTracker event={`Viewed ${projectData.title}`} />
-      {locked && !authorized ? (
+      {projectData && locked && !authorized ? (
         <LockedProject codename={codename} desc={projectData.desc} />
       ) : (
         <InViewProvider>

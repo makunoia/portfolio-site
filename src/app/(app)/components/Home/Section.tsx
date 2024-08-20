@@ -16,7 +16,8 @@ const PageSection = async ({
   collection: CollectionSlug;
   where?: {};
 }) => {
-  const items = await getCollection({ collection, limit: 3, sort, where });
+  const args = { collection, limit: 3, sort, where };
+  const items = await getCollection(args);
 
   return (
     <section className="w-full mt-40px flex flex-col gap-16px md:flex-row md:gap-0px justify-between">
