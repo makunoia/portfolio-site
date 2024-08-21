@@ -6,7 +6,13 @@ import SectionDivider from "@/components/SectionDivider";
 import { toast } from "sonner";
 
 import { usePathname, useRouter } from "next/navigation";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import {
+  m,
+  LazyMotion,
+  AnimatePresence,
+  LayoutGroup,
+  domAnimation,
+} from "framer-motion";
 import { JournalEntriesByYear } from "@/types";
 import { AnimationVariants } from "@/lib/helpers";
 
@@ -46,37 +52,39 @@ const JournalEntriesList = ({
   }, [path]);
 
   return (
-    <motion.div
-      variants={AnimationVariants.section}
-      initial="hidden"
-      animate="shown"
-      className="flex flex-col gap-40px"
-    >
-      {AllEntriesByYear ? (
-        AllEntriesByYear.map((entry) => (
-          <LayoutGroup key={`collection-${entry.year}`}>
-            <motion.div
-              variants={AnimationVariants.container}
-              className="flex flex-col items-center justify-center gap-16px"
-              key={`collection-${entry.year}`}
-            >
-              <SectionDivider header={entry.year} />
-              {entry.entries.map((entry) => (
-                <JournalPage
-                  data={entry}
-                  content={content}
-                  key={`page-${entry.slug}`}
-                />
-              ))}
-            </motion.div>
-          </LayoutGroup>
-        ))
-      ) : (
-        <div className="text">No records</div>
-      )}
+    <LazyMotion features={domAnimation}>
+      <m.div
+        variants={AnimationVariants.section}
+        initial="hidden"
+        animate="shown"
+        className="flex flex-col gap-40px"
+      >
+        {AllEntriesByYear ? (
+          AllEntriesByYear.map((entry) => (
+            <LayoutGroup key={`collection-${entry.year}`}>
+              <m.div
+                variants={AnimationVariants.container}
+                className="flex flex-col items-center justify-center gap-16px"
+                key={`collection-${entry.year}`}
+              >
+                <SectionDivider header={entry.year} />
+                {entry.entries.map((entry) => (
+                  <JournalPage
+                    data={entry}
+                    content={content}
+                    key={`page-${entry.slug}`}
+                  />
+                ))}
+              </m.div>
+            </LayoutGroup>
+          ))
+        ) : (
+          <div className="text">No records</div>
+        )}
 
-      {showOverlay && <Overlay setShow={setShowOverlay} />}
-    </motion.div>
+        {showOverlay && <Overlay setShow={setShowOverlay} />}
+      </m.div>
+    </LazyMotion>
   );
 };
 
@@ -94,7 +102,7 @@ const Overlay = ({
 
   return (
     <AnimatePresence>
-      <motion.div
+      <m.div
         onClick={() => handleClick()}
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.4 }}

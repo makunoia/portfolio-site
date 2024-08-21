@@ -1,12 +1,12 @@
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-
 import Navbar from "@/components/Navbar";
 import Footer from "@/app/(app)/components/Footer/Index";
 import { Toaster } from "@/app/(app)/components/Sonner";
 
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";
 import "./styles/globals.css";
+import dynamic from "next/dynamic";
+
+const VercelAnalytics = dynamic(() => import("@/components/VercelAnalytics"));
 
 export default function RootLayout({
   children,
@@ -18,14 +18,11 @@ export default function RootLayout({
       <body
         className={`${NeueMontreal.variable} ${NeueMontrealMono.variable} bg`}
       >
-        <SpeedInsights />
-        <Analytics />
+        <VercelAnalytics />
         <div className="absolute overflow-hidden inset-0px -z-10">
           <div className="light-streak"></div>
         </div>
-
         {children}
-
         <Navbar />
         <Toaster richColors />
         <Footer />

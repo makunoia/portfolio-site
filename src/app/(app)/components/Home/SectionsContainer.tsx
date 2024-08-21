@@ -4,6 +4,7 @@ import FeaturedProjects from "./FeaturedProjects";
 import PageSection from "./Section";
 
 import { getCollection, getFeaturedProjects } from "@/lib/payload-actions";
+import { Suspense } from "react";
 
 //Homepage sections parallel fetching
 export default async () => {
@@ -19,14 +20,9 @@ export default async () => {
     },
   });
   const journalItems = getCollection({
-    collection: "projects",
-    sort: "-year",
+    collection: "journal-entries",
+    sort: "-createdAt",
     limit: 3,
-    where: {
-      isFeatured: {
-        not_equals: true,
-      },
-    },
   });
 
   const [featProjects, projects, journalEntries] = await Promise.all([
@@ -37,23 +33,17 @@ export default async () => {
 
   return (
     <>
-      {featProjects ? (
+      <Suspense fallback={<FeatuedProjectsSkeleton />}>
         <FeaturedProjects projects={featProjects} />
-      ) : (
-        <FeatuedProjectsSkeleton />
-      )}
+      </Suspense>
 
-      {projects ? (
+      <Suspense fallback={<HomeListSkeleton />}>
         <PageSection title="Projects" link="/projects" items={projects} />
-      ) : (
-        <HomeListSkeleton />
-      )}
+      </Suspense>
 
-      {journalEntries ? (
+      <Suspense fallback={<HomeListSkeleton />}>
         <PageSection title="Journal" link="/journal" items={journalEntries} />
-      ) : (
-        <HomeListSkeleton />
-      )}
+      </Suspense>
     </>
   );
 };

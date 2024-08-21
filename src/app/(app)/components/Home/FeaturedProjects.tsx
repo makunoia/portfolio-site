@@ -7,7 +7,7 @@ import Image from "next/image";
 import useInterval from "@/hooks/useInterval";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, useAnimate } from "framer-motion";
+import { m, LazyMotion, useAnimate, domAnimation } from "framer-motion";
 import { TimerContext } from "@/contexts/TimerContext";
 import { FeaturedProject } from "@/types";
 
@@ -120,35 +120,37 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           as={`/projects/${link}`}
           id="featured-projects-container"
         >
-          <motion.div
-            layout
-            initial={{ translateY: 100, opacity: 0 }}
-            animate={{ translateY: 0, opacity: 100 }}
-            transition={{ type: "spring", delay: 0.3 }}
-            className={imageContainer()}
-          >
-            {projects.map((project, i) => {
-              return (
-                <div
-                  key={project.slug}
-                  className={imageStyle({
-                    shown: activeIndex === i ? true : false,
-                  })}
-                >
-                  <Image
-                    className="select-none"
-                    src={project.featuredData.image.url}
-                    alt={project.featuredData.image.alt || ""}
-                    style={{ objectFit: "contain", objectPosition: "center" }}
-                    sizes="350px"
-                    quality={85}
-                    fill
-                    priority
-                  />
-                </div>
-              );
-            })}
-          </motion.div>
+          <LazyMotion features={domAnimation}>
+            <m.div
+              layout
+              initial={{ translateY: 100, opacity: 0 }}
+              animate={{ translateY: 0, opacity: 100 }}
+              transition={{ type: "spring", delay: 0.3 }}
+              className={imageContainer()}
+            >
+              {projects.map((project, i) => {
+                return (
+                  <div
+                    key={project.slug}
+                    className={imageStyle({
+                      shown: activeIndex === i ? true : false,
+                    })}
+                  >
+                    <Image
+                      className="select-none"
+                      src={project.featuredData.image.url}
+                      alt={project.featuredData.image.alt || ""}
+                      style={{ objectFit: "contain", objectPosition: "center" }}
+                      sizes="350px"
+                      quality={85}
+                      fill
+                      priority
+                    />
+                  </div>
+                );
+              })}
+            </m.div>
+          </LazyMotion>
 
           {projects.map((project, i) => (
             <BackgroundLight
@@ -236,7 +238,11 @@ const ProgressBar = ({
     animation();
   }, [currIndex]);
 
-  return <motion.div ref={scope} className={styles()} />;
+  return (
+    <LazyMotion features={domAnimation}>
+      <m.div ref={scope} className={styles()} />;
+    </LazyMotion>
+  );
 };
 
 const ArrowButton = () => {
