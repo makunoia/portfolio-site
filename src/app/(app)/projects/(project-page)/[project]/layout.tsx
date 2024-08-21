@@ -1,8 +1,10 @@
 export const fetchCache = "force-cache";
+// export const experimental_ppr = true;
 
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { MetadataSeed } from "@/lib/metadata";
 import { getProject, getProjects } from "@/lib/payload-actions";
+import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
 export async function generateStaticParams() {
   const projects = await getProjects();
