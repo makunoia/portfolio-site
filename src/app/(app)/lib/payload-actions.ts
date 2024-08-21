@@ -1,7 +1,5 @@
-import "server-only";
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-// import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { GroupByYear } from "@/lib/helpers";
 import { JournalEntry, Project } from "payload-types";

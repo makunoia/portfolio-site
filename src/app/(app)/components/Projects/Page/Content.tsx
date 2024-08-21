@@ -4,6 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import { unstable_cache } from "next/cache";
 
 import Text from "@/components/Text";
 import Pagination from "@/components/Projects/Pagination";
@@ -19,13 +20,11 @@ const LockedProject = dynamic(
 );
 const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
 
-import { MyRole, ProjectTag } from "payload-types";
 import { InViewProvider } from "@/contexts/InViewContext";
 import { Archive } from "lucide-react";
 
-// import { getProject } from "@/lib/payload-actions";
-import { unstable_cache } from "next/cache";
 import config from "@payload-config";
+import { MyRole, ProjectTag } from "payload-types";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 const payload = await getPayloadHMR({ config });
 
