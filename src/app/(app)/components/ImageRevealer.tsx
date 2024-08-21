@@ -25,12 +25,13 @@ const ImageRevealer = ({
         className="showcase-before-photo absolute"
         src={beforeImage.url as string}
         alt={beforeImage.alt || title}
-        // sizes="(max-width: 640px) 100vw, (max-width: 960px) 85vw, 1000px"
         width={700}
         height={400}
         style={{
           objectFit: "cover",
         }}
+        loading="lazy"
+        role="presentation"
         priority
       />
 
@@ -43,10 +44,11 @@ const ImageRevealer = ({
           alt={afterImage.alt || title}
           width={700}
           height={400}
-          // sizes="(max-width: 640px) 100vw, (max-width: 960px) 85vw, 1000px"
           style={{
             objectFit: "cover",
           }}
+          loading="lazy"
+          role="presentation"
           priority
         />
       </div>
