@@ -1,6 +1,3 @@
-export const fetchCache = "force-cache";
-export const dynamic = "force-static";
-
 import FeaturedProjectsClient from "./Client";
 import { getFeaturedProjects } from "@/lib/payload-actions";
 

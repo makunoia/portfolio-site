@@ -118,7 +118,12 @@ export const renderLexicalContent = (root: LexicalBlock) => {
             case "heading":
               return content?.map((block, i) =>
                 child.tag === "h1" ? (
-                  <Text as="h1" size="heading" key={`type-${i}-${child.tag}`}>
+                  <Text
+                    as="h1"
+                    size="heading"
+                    key={`type-${i}-${child.tag}`}
+                    className="max-sm:text-[1.5rem] max-sm:leading-[2.2rem]"
+                  >
                     {block.text}
                   </Text>
                 ) : (

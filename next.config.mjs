@@ -4,7 +4,6 @@ import { withPayload } from "@payloadcms/next/withPayload";
 const nextConfig = {
   experimental: {
     reactCompiler: false,
-    ppr: "incremental",
   },
   images: {
     remotePatterns: [

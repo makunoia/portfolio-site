@@ -1,3 +1,5 @@
+export const fetchCache = "force-cache";
+
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
 import { getProject, getProjects } from "@/lib/payload-actions";

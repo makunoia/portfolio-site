@@ -1,16 +1,15 @@
 import "server-only";
-
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { cache } from "react";
-// import { unstable_cache } from "next/cache";
+// import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { GroupByYear } from "@/lib/helpers";
 import { JournalEntry, Project } from "payload-types";
 import { FeaturedProject, ProjectsByYear } from "../types";
 import { CollectionSlug } from "payload";
 const payload = await getPayloadHMR({ config });
 
-export const getPageData = cache(async (slug: string) => {
+export const getPageData = unstable_cache(async (slug: string) => {
   const { docs } = await payload.find({
     collection: "pages",
     where: {
@@ -24,7 +23,7 @@ export const getPageData = cache(async (slug: string) => {
   return data;
 });
 
-export const getEntries = cache(async () => {
+export const getEntries = unstable_cache(async () => {
   const { docs } = await payload.find({
     collection: "journal-entries",
   });
@@ -32,7 +31,7 @@ export const getEntries = cache(async () => {
   return GroupByYear(docs);
 });
 
-export const getEntryContent = cache(async (slug: string) => {
+export const getEntryContent = unstable_cache(async (slug: string) => {
   const { docs } = await payload.find({
     collection: "journal-entries",
     where: {
@@ -45,7 +44,7 @@ export const getEntryContent = cache(async (slug: string) => {
   return docs[0].content;
 });
 
-export const getProject = cache(async (slug: string) => {
+export const getProject = unstable_cache(async (slug: string) => {
   const req = await payload.find({
     collection: "projects",
     where: {
@@ -60,7 +59,7 @@ export const getProject = cache(async (slug: string) => {
   return project;
 });
 
-export const getProjects = cache(async () => {
+export const getProjects = unstable_cache(async () => {
   const { docs } = await payload.find({
     collection: "projects",
   });
@@ -69,7 +68,7 @@ export const getProjects = cache(async () => {
   return projects;
 });
 
-export const getAllProjectsByYear = cache(async () => {
+export const getAllProjectsByYear = unstable_cache(async () => {
   const req = await payload.find({
     collection: "projects",
     sort: "-year",
@@ -82,7 +81,7 @@ export const getAllProjectsByYear = cache(async () => {
   return AllProjectsByYear;
 });
 
-export const getFeaturedProjects = cache(async () => {
+export const getFeaturedProjects = unstable_cache(async () => {
   const { docs } = await payload.find({
     collection: "projects",
     where: {
@@ -95,7 +94,7 @@ export const getFeaturedProjects = cache(async () => {
   return docs as FeaturedProject[];
 });
 
-export const getCollection = cache(
+export const getCollection = unstable_cache(
   async ({
     collection,
     sort,

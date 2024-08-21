@@ -3,25 +3,16 @@ import StatusBadge from "@/components/StatusBadge";
 import { LexicalBlock } from "@/app/(app)/types";
 import { renderLexicalContent } from "@/lib/helpers";
 
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-const payload = await getPayloadHMR({ config });
+import { getPageData } from "@/lib/payload-actions";
 
 const HomeHero = async () => {
-  const { docs } = await payload.find({
-    collection: "pages",
-    where: {
-      name: {
-        equals: "Home",
-      },
-    },
-  });
+  const data = await getPageData("Home");
 
-  const copy = docs[0].intro?.root.children as LexicalBlock;
-  const status = docs[0].status as "employed" | "open";
+  const copy = data.intro?.root.children as LexicalBlock;
+  const status = data.status as "employed" | "open";
 
   return (
-    <div className="flex flex-col gap-24px w-[80%]">
+    <div className="flex flex-col gap-24px w-[90%] sm:w-[85%]">
       {copy.length ? renderLexicalContent(copy) : null}
       <StatusBadge status={status} />
     </div>

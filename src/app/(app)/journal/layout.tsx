@@ -4,7 +4,7 @@ export const dynamic = "force-static";
 import React, { lazy, ReactNode, Suspense } from "react";
 import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";
-import PageListSkeleton from "../components/Skeletons/PageList";
+import PageListSkeleton from "@/components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
 
 const MixpanelTracker = lazy(() => import("@/components/MixpanelTracker"));

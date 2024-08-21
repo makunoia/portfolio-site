@@ -1,4 +1,7 @@
 "use client";
+export const fetchCache = "force-cache";
+export const dynamic = "force-static";
+
 import React, { useContext, useEffect, useState } from "react";
 import Text from "@/components/Text";
 import Link from "next/link";
@@ -9,7 +12,6 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useAnimate } from "framer-motion";
 import { TimerContext } from "@/contexts/TimerContext";
 import { FeaturedProject } from "@/types";
-import track from "@/lib/mixpanel";
 
 const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -140,11 +142,9 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                     src={project.featuredData.image.url}
                     alt={project.featuredData.image.alt || ""}
                     style={{ objectFit: "contain", objectPosition: "center" }}
-                    sizes="(max-width: 500px) 350px, 350px"
-                    loading="lazy"
+                    sizes="350px"
                     quality={85}
-                    width={350}
-                    height={250}
+                    fill
                     priority
                   />
                 </div>
@@ -277,8 +277,8 @@ const BackgroundLight = ({
 }) => {
   const styles = cva(
     [
-      "w-[400px] h-[400px] rounded-full",
-      "absolute -left-[20%] -top-[20%] -z-10",
+      "w-[45%] h-full rounded-full",
+      "absolute top-0px left-0px -z-10",
       "transition-colors ease-in-out duration-1000",
       "transition-opacity ease-in-out duration-300",
       "blur-[90px]",

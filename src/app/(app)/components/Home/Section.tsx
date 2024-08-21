@@ -1,6 +1,3 @@
-export const fetchCache = "force-cache";
-export const dynamic = "force-static";
-
 import Text from "@/components/Text";
 import ListContainer from "./ListContainer";
 import { CollectionSlug } from "payload";
