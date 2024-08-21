@@ -1,10 +1,7 @@
-export const fetchCache = "default-cache";
-
 import React from "react";
 import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
-import { unstable_cache } from "next/cache";
 
 import Text from "@/components/Text";
 import Pagination from "@/components/Projects/Pagination";
@@ -18,7 +15,6 @@ import BackButton from "@/components/Projects/BackButton";
 const LockedProject = dynamic(
   () => import("@/components/Projects/LockedProject/Server")
 );
-const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
 
 import { InViewProvider } from "@/contexts/InViewContext";
 import { Archive } from "lucide-react";
@@ -50,8 +46,7 @@ const Page = async ({ project }: { project: Project }) => {
 
   return (
     <>
-      <MixpanelTracker event={`Viewed ${project.title}`} />
-      {project && locked && !authorized ? (
+      {locked && !authorized ? (
         <LockedProject codename={codename} desc={project.desc} />
       ) : (
         <InViewProvider>

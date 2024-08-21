@@ -1,4 +1,4 @@
-export const fetchCache = "force-cache";
+export const fetchCache = "default-cache";
 export const dynamic = "force-static";
 
 import React, { lazy, ReactNode, Suspense } from "react";
