@@ -12,7 +12,7 @@ const HomeHero = async () => {
   const status = data.status as "employed" | "open";
 
   return (
-    <div className="flex flex-col gap-24px w-[90%] sm:w-[85%]">
+    <div className="flex flex-col gap-24px w-[90%]">
       {copy.length ? renderLexicalContent(copy) : null}
       <StatusBadge status={status} />
     </div>

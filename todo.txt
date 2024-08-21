@@ -49,9 +49,14 @@
 // ✅ Google Result: No icon and title
 
 // LAUNCH:
-// Journal Entry: Reinventing Myself
 // ✅ Update LinkedIn banner
 // ✅ Retire Webflow site
+
+// Final Polishes
+// Journal Entry: Reinventing Myself
+// Update Featured Images
+// Update Storybook image in Multiverse case study
+// Mask gradient for footer Globe
 // Apply to jobs
 
 // WEEKLY ENTRIES
@@ -62,9 +67,7 @@
 // Building Performant apps
 
 // RND
-// Optimize Speed (Should have RND on this)
-// Optimization: useTransition and useOptimistic RND
-// Memozation of data to increase speed
+// ✅ Optimize Speed (Should have RND on this)
 
 // Nice to haves
 // Project page: Contributors with links to their linkedIn or portfolio
@@ -73,6 +76,7 @@
 // About Me: Piano Covers
 // Loading Lottie for Journal Content
 // Journal Full Screen
+// The Gospel page
 // Rotate to location - Footer Globe Interaction
 // Animated lock opening
-// Enhance image reveal slider
+// ✅ Enhance image reveal slider
