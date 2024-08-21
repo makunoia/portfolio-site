@@ -23,7 +23,26 @@ import { MyRole, ProjectTag } from "payload-types";
 import { InViewProvider } from "@/contexts/InViewContext";
 import { Archive } from "lucide-react";
 
-import { getProject } from "@/lib/payload-actions";
+// import { getProject } from "@/lib/payload-actions";
+import { unstable_cache } from "next/cache";
+import config from "@payload-config";
+import { getPayloadHMR } from "@payloadcms/next/utilities";
+const payload = await getPayloadHMR({ config });
+
+const getProject = unstable_cache(async (slug: string) => {
+  const req = await payload.find({
+    collection: "projects",
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  });
+
+  const project = req.docs[0];
+
+  return project;
+});
 
 const Page = async ({ project }: { project: string }) => {
   const projectData = await getProject(project);
