@@ -18,7 +18,7 @@ import {
 } from "@/lib/helpers";
 import { motion } from "framer-motion";
 
-const ListContainer = async ({
+const ListContainer = ({
   link,
   items,
 }: {

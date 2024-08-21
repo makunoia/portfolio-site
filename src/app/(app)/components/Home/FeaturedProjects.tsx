@@ -1,6 +1,4 @@
 "use client";
-export const fetchCache = "force-cache";
-export const dynamic = "force-static";
 
 import React, { useContext, useEffect, useState } from "react";
 import Text from "@/components/Text";
@@ -214,8 +212,8 @@ const ProgressBar = ({
   ]);
 
   const [scope, animate] = useAnimate();
-  const startAnimation = async () => {
-    await animate(
+  const startAnimation = () => {
+    animate(
       scope.current,
       { width: "100%" },
       {

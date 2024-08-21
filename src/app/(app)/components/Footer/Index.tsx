@@ -1,9 +1,12 @@
 import React, { Suspense } from "react";
 import Text from "../Text";
 import LinksRow from "../LinksRow";
-import Globe from "./Globe";
+
+const Globe = dynamic(() => import("./Globe"));
+
 import FooterStatus from "@/components/Footer/TimeAndStatus";
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
+import dynamic from "next/dynamic";
 
 const Footer = () => {
   const buildDate = process.env.NEXT_PUBLIC_BUILD_DATE as string;

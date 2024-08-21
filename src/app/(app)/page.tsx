@@ -3,18 +3,16 @@ export const dynamic = "force-static";
 
 import React, { lazy, Suspense } from "react";
 import Image from "next/image";
-import FeaturedProjects from "@/components/Home/FeaturedProjects/Server";
 import LinksRow from "@/components/LinksRow";
 import Logo from "./assets/logo.svg";
-import Section from "@/components/Home/Section";
 import HeroSection from "@/components/HeroSections/Home";
 
 import { TimerContextProvider } from "./contexts/TimerContext";
-import HomeListSkeleton from "@/components/Skeletons/HomeList";
-import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
+
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 import { MetadataSeed } from "@/lib/metadata";
+import SectionsContainer from "./components/Home/SectionsContainer";
 
 const MixpanelTracker = lazy(() => import("@/components/MixpanelTracker"));
 
@@ -63,33 +61,8 @@ const Page = () => {
         <hr />
 
         <TimerContextProvider>
-          <Suspense fallback={<FeatuedProjectsSkeleton />}>
-            <FeaturedProjects />
-          </Suspense>
+          <SectionsContainer />
         </TimerContextProvider>
-
-        <Suspense fallback={<HomeListSkeleton />}>
-          <Section
-            title="Archive"
-            collection="projects"
-            link="/projects"
-            sort="-year"
-            where={{
-              isFeatured: {
-                not_equals: true,
-              },
-            }}
-          />
-        </Suspense>
-
-        <Suspense fallback={<HomeListSkeleton />}>
-          <Section
-            title="Journal"
-            collection="journal-entries"
-            link="/journal"
-            sort="-createdAt"
-          />
-        </Suspense>
       </main>
     </>
   );

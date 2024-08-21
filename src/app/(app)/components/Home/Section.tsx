@@ -1,24 +1,16 @@
 import Text from "@/components/Text";
 import ListContainer from "./ListContainer";
-import { CollectionSlug } from "payload";
-import { getCollection } from "@/lib/payload-actions";
+import { JournalEntry, Project } from "payload-types";
 
-const PageSection = async ({
+const PageSection = ({
   title,
-  collection,
   link,
-  sort,
-  where,
+  items,
 }: {
   title: string;
   link: string;
-  sort: string;
-  collection: CollectionSlug;
-  where?: {};
+  items: Project[] | JournalEntry[];
 }) => {
-  const args = { collection, limit: 3, sort, where };
-  const items = await getCollection(args);
-
   return (
     <section className="w-full mt-40px flex flex-col gap-16px md:flex-row md:gap-0px justify-between">
       <div className="w-full md:max-w-[250px] flex flex-col flex-1">
