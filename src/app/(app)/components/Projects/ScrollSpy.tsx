@@ -18,7 +18,9 @@ const ScrollSpy = ({ sections }: { sections: ScrollSpyType[] }) => {
       <Text size="body" className="text-subtle mb-12px">
         Content
       </Text>
-      <AccordionRoot sections={sections} />
+      <LazyMotion features={domAnimation}>
+        <AccordionRoot sections={sections} />
+      </LazyMotion>
     </div>
   );
 };
@@ -117,35 +119,33 @@ const ScrollSpyItem = ({
         className="spy-items-container"
         asChild
       >
-        <LazyMotion features={domAnimation}>
-          <m.div>
-            {blocks.map(({ lead, htmlID }, i) => (
-              <div
-                key={i}
-                id={`scrollspy-item-${htmlID}`}
-                className="group spy-item"
-                onMouseEnter={() => onMouseEnterHandler(i)}
-                onMouseLeave={() => onMouseLeaveHandler()}
-                onClick={() => onClickHandler(i, htmlID)}
+        <m.div>
+          {blocks.map(({ lead, htmlID }, i) => (
+            <div
+              key={i}
+              id={`scrollspy-item-${htmlID}`}
+              className="group spy-item"
+              onMouseEnter={() => onMouseEnterHandler(i)}
+              onMouseLeave={() => onMouseLeaveHandler()}
+              onClick={() => onClickHandler(i, htmlID)}
+            >
+              <ScrollSpyTrackline
+                activeItemIndex={activeItemIndex}
+                hoveredItemIndex={hoveredItemIndex}
+                index={i}
+                parentID={`spy-items-container-${id}`}
+                childID={`scrollspy-item-${htmlID}`}
+              />
+              <Text
+                className={`transition-color duration-300 ease-in-out group-hover:text text-wrap ${
+                  inView.block == htmlID ? "text" : "text-subtle/40 "
+                }`}
               >
-                <ScrollSpyTrackline
-                  activeItemIndex={activeItemIndex}
-                  hoveredItemIndex={hoveredItemIndex}
-                  index={i}
-                  parentID={`spy-items-container-${id}`}
-                  childID={`scrollspy-item-${htmlID}`}
-                />
-                <Text
-                  className={`transition-color duration-300 ease-in-out group-hover:text text-wrap ${
-                    inView.block == htmlID ? "text" : "text-subtle/40 "
-                  }`}
-                >
-                  {lead}
-                </Text>
-              </div>
-            ))}
-          </m.div>
-        </LazyMotion>
+                {lead}
+              </Text>
+            </div>
+          ))}
+        </m.div>
       </Accordion.Content>
     </Accordion.Item>
   );

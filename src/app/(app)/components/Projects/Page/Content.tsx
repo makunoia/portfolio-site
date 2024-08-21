@@ -19,9 +19,12 @@ const LockedProject = dynamic(
 import { InViewProvider } from "@/contexts/InViewContext";
 import { Archive } from "lucide-react";
 
-import { MyRole, Project, ProjectTag } from "payload-types";
+import { MyRole, ProjectTag } from "payload-types";
+import { getProject } from "@/lib/payload-actions";
 
-const Page = async ({ project }: { project: Project }) => {
+const Page = async ({ projectSlug }: { projectSlug: string }) => {
+  const project = await getProject(projectSlug);
+
   const authCookie = cookies().get("auth");
   const authorized = authCookie ? Boolean(authCookie.value) : false;
 
