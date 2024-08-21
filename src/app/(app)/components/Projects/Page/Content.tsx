@@ -23,45 +23,24 @@ const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
 import { InViewProvider } from "@/contexts/InViewContext";
 import { Archive } from "lucide-react";
 
-import config from "@payload-config";
-import { MyRole, ProjectTag } from "payload-types";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-const payload = await getPayloadHMR({ config });
+import { MyRole, Project, ProjectTag } from "payload-types";
 
-const getProject = unstable_cache(async (slug: string) => {
-  const req = await payload.find({
-    collection: "projects",
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  });
-
-  const project = req.docs[0];
-
-  return project;
-});
-
-const Page = async ({ project }: { project: string }) => {
-  const projectData = await getProject(project);
+const Page = async ({ project }: { project: Project }) => {
   const authCookie = cookies().get("auth");
   const authorized = authCookie ? Boolean(authCookie.value) : false;
 
-  if (!projectData) {
+  if (!project) {
     notFound();
   }
 
-  const { sections } = projectData;
+  const { sections } = project;
   // There's a bug in Payload 3.0 relations that affect type setting
   // This is a temporary measure to enforce proper type
-  const tag = projectData.tag as ProjectTag;
-  const role: MyRole = projectData.role as MyRole;
-  const archived = projectData.isArchived;
-  const locked = projectData.isLocked;
-  const codename = projectData.lockedData
-    ? projectData.lockedData?.codename
-    : "";
+  const tag = project.tag as ProjectTag;
+  const role: MyRole = project.role as MyRole;
+  const archived = project.isArchived;
+  const locked = project.isLocked;
+  const codename = project.lockedData ? project.lockedData?.codename : "";
 
   const status = {
     ONGOING: "Ongoing",
@@ -71,13 +50,13 @@ const Page = async ({ project }: { project: string }) => {
 
   return (
     <>
-      <MixpanelTracker event={`Viewed ${projectData.title}`} />
-      {projectData && locked && !authorized ? (
-        <LockedProject codename={codename} desc={projectData.desc} />
+      <MixpanelTracker event={`Viewed ${project.title}`} />
+      {project && locked && !authorized ? (
+        <LockedProject codename={codename} desc={project.desc} />
       ) : (
         <InViewProvider>
           {sections?.length ? (
-            <ContentObserver content={projectData.sections} />
+            <ContentObserver content={project.sections} />
           ) : null}
 
           <main className="project-page-grid mx-auto my-[80px]">
@@ -95,7 +74,7 @@ const Page = async ({ project }: { project: string }) => {
                       weight="normal"
                       className="lg:text-nowrap"
                     >
-                      {projectData.title}
+                      {project.title}
                     </Text>
 
                     <Text
@@ -105,11 +84,11 @@ const Page = async ({ project }: { project: string }) => {
                       multiline
                       className="text inline-flex md:hidden"
                     >
-                      {projectData.desc}
+                      {project.desc}
                     </Text>
                   </div>
                   <div className="flex flex-row gap-8px">
-                    <HeroBadge label={projectData.year} />
+                    <HeroBadge label={project.year} />
                     <HeroBadge label={tag.name} />
                   </div>
 
@@ -117,12 +96,12 @@ const Page = async ({ project }: { project: string }) => {
                     <HeroOverline label="Role" value={role.name} />
                     <HeroOverline
                       label="Status"
-                      value={status[projectData.status]}
+                      value={status[project.status]}
                     />
                     {locked && (
                       <HeroOverline
                         label="Codename"
-                        value={projectData.lockedData?.codename as string}
+                        value={project.lockedData?.codename as string}
                       />
                     )}
                   </div>
@@ -134,7 +113,7 @@ const Page = async ({ project }: { project: string }) => {
                   multiline
                   className="text hidden md:inline-flex"
                 >
-                  {projectData.desc}
+                  {project.desc}
                 </Text>
               </div>
             </div>
@@ -158,9 +137,7 @@ const Page = async ({ project }: { project: string }) => {
                       size="caption"
                       className="text-subtle text-center uppercase tracking-[.1em]"
                     >
-                      {`${status[projectData.status]} in ${
-                        projectData.yearDone
-                      }`}
+                      {`${status[project.status]} in ${project.yearDone}`}
                     </Text>
                     <Text size="lead" className="text">
                       This project is archived
@@ -176,7 +153,7 @@ const Page = async ({ project }: { project: string }) => {
 
             <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
               <hr />
-              <Pagination currSlug={projectData.slug} />
+              <Pagination currSlug={project.slug} />
             </section>
           </main>
         </InViewProvider>

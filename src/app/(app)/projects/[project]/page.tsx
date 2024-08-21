@@ -1,13 +1,10 @@
-import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 import Content from "@/components/Projects/Page/Content";
-import { Suspense } from "react";
+import { getProject } from "@/lib/payload-actions";
 
 const Page = async ({ params }: { params: { project: string } }) => {
-  return (
-    <Suspense fallback={<ProjectPageSkeleton />}>
-      <Content project={params.project} />;
-    </Suspense>
-  );
+  const projectData = await getProject(params.project);
+
+  return <Content project={projectData} />;
 };
 
 export default Page;
