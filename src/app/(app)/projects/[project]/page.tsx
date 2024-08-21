@@ -1,13 +1,11 @@
 export const fetchCache = "force-cache";
+export const revalidate = 3600;
 export const experimental_ppr = true;
 
 import { getProject } from "@/lib/payload-actions";
-import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
 import dynamic from "next/dynamic";
-const Content = dynamic(() => import("@/components/Projects/Page/Content"), {
-  loading: () => <ProjectPageSkeleton />,
-});
+import Content from "@/components/Projects/Page/Content";
 
 const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
 
