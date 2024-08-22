@@ -43,7 +43,43 @@ const nextConfig = {
         headers: [
           {
             key: "Cache-Control",
-            value: "s-maxage=1, stale-while-revalidate=59",
+            value: "max-age=0, s-maxage=1, stale-while-revalidate=59",
+          },
+        ],
+      },
+      {
+        source: "/projects/[project]",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "max-age=0, s-maxage=1, stale-while-revalidate=59",
+          },
+        ],
+      },
+      {
+        source: "/",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "max-age=0, s-maxage=86400, stale-while-revalidate=59",
+          },
+        ],
+      },
+      {
+        source: "/projects",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "max-age=0, s-maxage=86400, stale-while-revalidate=59",
+          },
+        ],
+      },
+      {
+        source: "/journal",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "max-age=0, s-maxage=86400, stale-while-revalidate=59",
           },
         ],
       },
