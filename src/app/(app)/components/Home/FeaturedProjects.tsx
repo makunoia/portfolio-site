@@ -114,6 +114,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
 
       {projects ? (
         <Link
+          prefetch
           className={style()}
           href={`/projects/${link}`}
           as={`/projects/${link}`}

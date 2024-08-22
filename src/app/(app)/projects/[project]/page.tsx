@@ -1,14 +1,14 @@
-export const fetchCache = "force-cache";
-export const revalidate = 3600;
+export const dynamic = "auto";
+export const experimental_ppr = true;
 
 import { Suspense } from "react";
 import { getProject } from "@/lib/payload-actions";
 
-import dynamic from "next/dynamic";
+import lazy from "next/dynamic";
 import Content from "@/components/Projects/Page/Content";
 import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
-const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
+const MixpanelTracker = lazy(() => import("@/components/MixpanelTracker"));
 
 const Page = async ({ params }: { params: { project: string } }) => {
   const projectData = await getProject(params.project);
