@@ -11,12 +11,7 @@ import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
 const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
 
-const preloadData = (project: string) => {
-  void getProject(project);
-};
-
 const Page = async ({ params }: { params: { project: string } }) => {
-  preloadData(params.project);
   const projectData = await getProject(params.project);
   return (
     <>
