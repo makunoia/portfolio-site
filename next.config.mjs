@@ -36,6 +36,19 @@ const nextConfig = {
     loader: "custom",
     loaderFile: "./src/app/(app)/lib/loader.ts",
   },
+  async headers() {
+    return [
+      {
+        source: "/projects/:project",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=1, stale-while-revalidate=59",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default withPayload(nextConfig);

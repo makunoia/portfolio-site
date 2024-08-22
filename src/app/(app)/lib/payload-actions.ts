@@ -73,14 +73,18 @@ export const getProject = unstable_cache(
   }
 );
 
-export const getProjects = unstable_cache(async () => {
-  const { docs } = await payload.find({
-    collection: "projects",
-  });
+export const getProjects = unstable_cache(
+  async () => {
+    const { docs } = await payload.find({
+      collection: "projects",
+    });
 
-  const projects = docs;
-  return projects;
-});
+    const projects = docs;
+    return projects;
+  },
+  [],
+  { tags: ["projects"], revalidate: 3600 }
+);
 
 export const getAllProjectsByYear = unstable_cache(async () => {
   const req = await payload.find({
@@ -108,9 +112,9 @@ export const getFeaturedProjects = unstable_cache(
 
     return docs as FeaturedProject[];
   },
-  ["featured-projects"],
+  [],
   {
-    tags: ["cached-featured-project"],
+    tags: ["cached-featured-projects"],
     revalidate: 3600,
   }
 );
