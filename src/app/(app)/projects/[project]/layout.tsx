@@ -30,7 +30,11 @@ export async function generateMetadata({
     description: projectData.desc,
 
     openGraph: {
-      title: `${projectData.title} | Mark Noya`,
+      title: `${
+        projectData.isLocked
+          ? projectData.lockedData?.codename
+          : projectData.title
+      } | Mark Noya`,
       desciption: projectData.desc,
       url: `https://www.marknoya.me/projects/${projectData.slug}`,
       siteName: "Mark Noya's Design Portfolio",

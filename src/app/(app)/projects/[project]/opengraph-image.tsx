@@ -80,7 +80,7 @@ export default async function Image({
               color: "white",
             }}
           >
-            {project.title}
+            {project.isLocked ? project.lockedData?.codename : project.title}
           </h1>
           <span
             style={{
