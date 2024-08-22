@@ -13,14 +13,11 @@ const assignUUID = async (request: NextRequest) => {
 };
 
 export async function middleware(request: NextRequest) {
-  const [uuid] = await Promise.all([assignUUID]);
-  assignUUID(request);
-
   //implement a function that checks for an auth header
   // if header is not found or if it's false, redirect to a locked screen page
   // if header is found and user is auth, redirect to the "locked" project page
 
-  return uuid;
+  return assignUUID(request);
 }
 
 export const config = {
