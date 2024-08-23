@@ -6,7 +6,7 @@ const nextConfig = {
   experimental: {
     ppr: "incremental",
     reactCompiler: false,
-    optimizePackageImports: ["icon-library"],
+    optimizePackageImports: ["moment-timezone", "moment"],
   },
   images: {
     remotePatterns: [
@@ -38,14 +38,27 @@ const nextConfig = {
     loader: "custom",
     loaderFile: "./src/app/(app)/lib/loader.ts",
   },
+  async headers() {
+    return [
+      {
+        source: "/projects/:project",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=1, stale-while-revalidate=59",
+          },
+        ],
+      },
+    ];
+  },
 };
 
-// Bundle analyzer
+// // Bundle analyzer
 // const withBundleAnalyzer = bundleAnalyzer({
 //   enabled: process.env.ANALYZE === "true",
 // });
 
-// Combine withPayload and withBundleAnalyzer
+// // Combine withPayload and withBundleAnalyzer
 // const combinedConfig = withPayload(withBundleAnalyzer(nextConfig));
 // export default combinedConfig;
 

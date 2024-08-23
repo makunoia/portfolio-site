@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import React, { lazy, ReactNode, Suspense } from "react";
 import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";
