@@ -1,21 +1,9 @@
 "use client";
 import Text from "@/components/Text";
-import { cva } from "class-variance-authority";
 import { useEffect, useState } from "react";
 import moment from "moment-timezone";
 
-const IndicatorCVA = cva("rounded-full w-8px h-8px animate-pulse", {
-  variants: {
-    status: {
-      dnd: "bg-danger",
-      available: "bg-success",
-    },
-  },
-});
-
 const TimeAndStatus = () => {
-  const IndicatorStyle = IndicatorCVA({ status: "available" });
-
   const timeZone = "America/New_York";
   const [time, setTime] = useState(moment.tz(timeZone));
 
