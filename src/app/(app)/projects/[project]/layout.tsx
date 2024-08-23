@@ -1,6 +1,3 @@
-export const fetchCache = "default-cache";
-export const revalidate = 3600;
-
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
 import { getProject, getProjects } from "@/lib/payload-actions";

@@ -1,4 +1,4 @@
-export const dynamic = "auto";
+export const revalidate = 3600;
 export const experimental_ppr = true;
 
 import { Suspense } from "react";

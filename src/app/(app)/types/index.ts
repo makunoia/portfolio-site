@@ -35,6 +35,17 @@ export type FeaturedProject = {
   };
 };
 
+export type LockedProject = {
+  id: string;
+  title: string;
+  desc: string;
+  slug: string;
+  isLocked: true;
+  lockedData: {
+    codename: string;
+  };
+};
+
 export type ContentType = Project["sections"];
 export type ProjectsByYear = { year: string; projects: ProjectListItem[] }[];
 export type JournalEntriesByYear = { year: string; entries: JournalEntry[] }[];

@@ -1,6 +1,3 @@
-export const fetchCache = "force-cache";
-export const dynamic = "force-static";
-
 import React from "react";
 
 import { LexicalBlock } from "@/app/(app)/types";

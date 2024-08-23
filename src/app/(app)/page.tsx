@@ -1,6 +1,3 @@
-export const fetchCache = "force-cache";
-export const dynamic = "force-static";
-
 import React, { lazy, Suspense } from "react";
 import Image from "next/image";
 import LinksRow from "@/components/LinksRow";

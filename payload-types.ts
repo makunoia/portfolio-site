@@ -141,7 +141,7 @@ export interface ProjectTag {
  */
 export interface Showcase {
   isRevealer?: boolean | null;
-  image?: string | Asset | null;
+  image?: (string | null) | Asset;
   images?: {
     beforeImage: string | Asset;
     afterImage: string | Asset;
@@ -296,7 +296,7 @@ export interface Global {
   name: 'resume' | 'lockedProjectPassword';
   type: 'Text' | 'File';
   value?: string | null;
-  document?: string | Asset | null;
+  document?: (string | null) | Asset;
   updatedAt: string;
   createdAt: string;
 }
