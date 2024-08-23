@@ -41,16 +41,20 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/projects/:project*",
+        source: "/",
         headers: [
           {
             key: "Cache-Control",
             value: "s-maxage=1, stale-while-revalidate=59",
           },
+          {
+            key: "x-page",
+            value: "Homepage",
+          },
         ],
       },
       {
-        source: "/projects/[project]",
+        source: "/projects",
         headers: [
           {
             key: "Cache-Control",
@@ -58,12 +62,12 @@ const nextConfig = {
           },
           {
             key: "x-slug",
-            value: ":[project]",
+            value: "Projects",
           },
         ],
       },
       {
-        source: "/journal/:slug",
+        source: "/about-me",
         headers: [
           {
             key: "Cache-Control",
@@ -71,7 +75,7 @@ const nextConfig = {
           },
           {
             key: "x-slug",
-            value: ":slug",
+            value: "About Me",
           },
         ],
       },
