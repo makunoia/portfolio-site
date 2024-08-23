@@ -25,8 +25,8 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
     "relative group cursor-pointer",
     "flex flex-row place-content-end",
     "rounded-4px sm:rounded-12px bg-subtle/20 overflow-hidden",
-    "shadow-lg shadow-neutral-200/0 hover:shadow-neutral-200",
-    "outline outline-neutral-100/0 hover:outline-neutral-600/40",
+    "shadow-md shadow-neutral-200/0 hover:shadow-neutral-300",
+    "outline outline-neutral-100/0 hover:outline-neutral-200",
     "transition-all ease-in duration-300",
   ]);
 

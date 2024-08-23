@@ -1,4 +1,5 @@
 "use client";
+
 import tracker from "@/lib/mixpanel";
 import { useEffect } from "react";
 

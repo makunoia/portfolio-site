@@ -39,7 +39,7 @@ export const MetadataSeed: Metadata = {
   creator: "Mark Noya",
   publisher: "Mark Noya",
 
-  metadataBase: new URL("https://marknoya.me"),
+  metadataBase: new URL("https://www.marknoya.me"),
   formatDetection: {
     email: true,
   },

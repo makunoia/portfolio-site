@@ -1,5 +1,3 @@
-export const fetchCache = "force-cache";
-
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";

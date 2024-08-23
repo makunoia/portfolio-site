@@ -1,6 +1,3 @@
-export const fetchCache = "default-cache";
-export const revalidate = 3600;
-
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
 import { getProject, getProjects } from "@/lib/payload-actions";
@@ -30,7 +27,11 @@ export async function generateMetadata({
     description: projectData.desc,
 
     openGraph: {
-      title: `${projectData.title} | Mark Noya`,
+      title: `${
+        projectData.isLocked
+          ? projectData.lockedData?.codename
+          : projectData.title
+      } | Mark Noya`,
       desciption: projectData.desc,
       url: `https://www.marknoya.me/projects/${projectData.slug}`,
       siteName: "Mark Noya's Design Portfolio",

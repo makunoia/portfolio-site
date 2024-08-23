@@ -1,6 +1,3 @@
-export const fetchCache = "default-cache";
-export const dynamic = "force-static";
-
 import React, { lazy, ReactNode, Suspense } from "react";
 import JournalEntriesList from "@/components/Journal/EntriesList/Server";
 import JournalHero from "@/components/HeroSections/Journal";

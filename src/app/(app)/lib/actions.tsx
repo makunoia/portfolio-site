@@ -21,7 +21,6 @@ export const validatePassword = async (
   });
 
   const data = response.docs[0];
-  cookies().set("auth", "");
 
   if (enteredPassword === data.value) {
     cookies().set("auth", "true");
