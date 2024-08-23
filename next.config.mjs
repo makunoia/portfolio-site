@@ -41,11 +41,37 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/projects/:project",
+        source: "/projects/:project*",
         headers: [
           {
             key: "Cache-Control",
             value: "s-maxage=1, stale-while-revalidate=59",
+          },
+        ],
+      },
+      {
+        source: "/projects/[project]",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=1, stale-while-revalidate=59",
+          },
+          {
+            key: "x-slug",
+            value: ":[project]",
+          },
+        ],
+      },
+      {
+        source: "/journal/:slug",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=1, stale-while-revalidate=59",
+          },
+          {
+            key: "x-slug",
+            value: ":slug",
           },
         ],
       },
