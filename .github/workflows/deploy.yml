@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      NODE_ENV: production
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -43,7 +46,7 @@ jobs:
           username: ${{ secrets.DROPLET_USER }}
           key: ${{ secrets.DROPLET_KEY }}
           source: "./.next/"
-          target: "/var/www/your_project/.next"
+          target: "/var/www/portfolio-site/.next"
 
       - name: Restart your application
         uses: appleboy/ssh-action@v0.1.6
@@ -52,4 +55,4 @@ jobs:
           username: ${{ secrets.DROPLET_USER }}
           key: ${{ secrets.DROPLET_KEY }}
           script: |
-            pm2 restart your_project || pm2 start npm --name "your_project" -- start
+            pm2 restart portfolio-site || pm2 start npm --name "portfolio-site" -- start
