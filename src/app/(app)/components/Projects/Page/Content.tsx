@@ -12,6 +12,8 @@ import ContentObserver from "@/components/Journal/ContentObserver";
 import ScrollSpy, { ScrollSpyType } from "@/components/Projects/ScrollSpy";
 import BackButton from "@/components/Projects/BackButton";
 
+const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
+
 const LockedProject = dynamic(
   () => import("@/components/Projects/LockedProject/Server")
 );
@@ -49,6 +51,7 @@ const Page = async ({ projectSlug }: { projectSlug: string }) => {
 
   return (
     <>
+      <MixpanelTracker event={`Viewed ${project.title}`} />
       {locked && !authorized ? (
         <LockedProject codename={codename} desc={project.desc} />
       ) : (
@@ -62,7 +65,7 @@ const Page = async ({ projectSlug }: { projectSlug: string }) => {
               <BackButton />
               <div
                 id="page-title"
-                className="flex flex-col md:flex-row gap-24px justify-between"
+                className="flex flex-col md:flex-row gap-40px justify-between"
               >
                 <div className="flex flex-col gap-24px w-full sm:min-w-[350px]">
                   <div className="flex flex-col gap-4px">
@@ -70,7 +73,7 @@ const Page = async ({ projectSlug }: { projectSlug: string }) => {
                       as="h1"
                       size="display"
                       weight="normal"
-                      className="lg:text-nowrap"
+                      className="lg:text-pretty"
                     >
                       {project.title}
                     </Text>
@@ -109,7 +112,7 @@ const Page = async ({ projectSlug }: { projectSlug: string }) => {
                   size="lead"
                   weight="normal"
                   multiline
-                  className="text hidden md:inline-flex"
+                  className="text hidden md:inline-flex lg:min-w-[250px]"
                 >
                   {project.desc}
                 </Text>

@@ -1,5 +1,6 @@
 import {
   BooleanItem,
+  EntrySection,
   InfoItem,
   JournalEntry,
   MediaItem,
@@ -61,7 +62,7 @@ export type LexicalBlock = (
     }
   | {
       type: "block";
-      fields: Showcase;
+      fields: Showcase | EntrySection;
     }
   | {
       type: "heading";

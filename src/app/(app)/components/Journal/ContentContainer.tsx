@@ -27,7 +27,7 @@ export default ({ content }: { content: ReactNode }) => {
     <motion.div
       layout
       ref={scope}
-      className="flex flex-col gap-16px px-24px pb-24px"
+      className="flex flex-col gap-24px px-24px pb-24px w-full sm:max-w-[500px]"
     >
       <motion.hr layout key="hr" exit={{ opacity: 0 }} />
       <motion.div
@@ -36,7 +36,9 @@ export default ({ content }: { content: ReactNode }) => {
         animate={{ opacity: 1 }}
         className="flex flex-col gap-16px"
       >
-        <Suspense fallback={<JournalEntrySkeleton />}>{content}</Suspense>
+        <AnimatePresence>
+          <Suspense fallback={<JournalEntrySkeleton />}>{content}</Suspense>
+        </AnimatePresence>
       </motion.div>
     </motion.div>
   );

@@ -336,6 +336,17 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EntrySection".
+ */
+export interface EntrySection {
+  lead: string;
+  content: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'entry-section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {

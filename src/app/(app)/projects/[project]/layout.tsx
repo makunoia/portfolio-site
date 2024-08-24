@@ -1,3 +1,6 @@
+export const revalidate = 3600;
+export const experimental_ppr = true;
+
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
 import { getProject, getProjects } from "@/lib/payload-actions";

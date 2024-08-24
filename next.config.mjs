@@ -67,6 +67,32 @@ const nextConfig = {
         ],
       },
       {
+        source: "/journal",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=1, stale-while-revalidate=59",
+          },
+          {
+            key: "x-slug",
+            value: "Journal Entries",
+          },
+        ],
+      },
+      {
+        source: "/journal/:slug",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=1, stale-while-revalidate=59",
+          },
+          {
+            key: "x-slug",
+            value: "Journal Entry",
+          },
+        ],
+      },
+      {
         source: "/about-me",
         headers: [
           {

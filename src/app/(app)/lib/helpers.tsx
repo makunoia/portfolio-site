@@ -7,6 +7,7 @@ import MediaItem from "@/components/AboutMe/MediaItem";
 import { Asset, JournalEntry, Project, ProjectTag } from "payload-types";
 import { AboutMeSection, LexicalBlock } from "@/types";
 import { MouseEventHandler } from "react";
+import EntrySection from "../components/Journal/EntrySection";
 
 //Mouse Event handler for List Items on Projects and Journal page
 export const handleMouseEvents: MouseEventHandler<HTMLAnchorElement> = (
@@ -142,21 +143,20 @@ export const renderLexicalContent = (root: LexicalBlock) => {
 
             case "paragraph":
               return content?.length ? (
-                <div
-                  className="flex flex-col gap-4px"
-                  key={`type-${child.type}-${i}`}
-                >
-                  {content?.map((block, i) => (
-                    <Text
-                      as="p"
-                      size="body"
-                      className="text-subtle"
-                      multiline
-                      key={`type-${block.type}-${i}`}
-                    >
-                      {block.text}
-                    </Text>
-                  ))}
+                <div className="flex flex-col" key={`type-${child.type}-${i}`}>
+                  {content?.map((block, i) =>
+                    block.text ? (
+                      <Text
+                        as="p"
+                        size="body"
+                        className="text-subtle"
+                        multiline
+                        key={`type-${block.type}-${i}`}
+                      >
+                        {block.text}
+                      </Text>
+                    ) : null
+                  )}
                 </div>
               ) : null;
 
@@ -194,15 +194,28 @@ export const renderLexicalContent = (root: LexicalBlock) => {
           }
         } else if (type === "block") {
           const blockType = child.fields.blockType;
-          return blockType === "showcase" ? (
-            <Showcase
-              image={child.fields.image}
-              title={child.fields.title}
-              desc={child.fields.desc}
-              tag={child.fields.tag}
-              key={`type-${blockType}-${i}}`}
-            />
-          ) : null;
+
+          switch (blockType) {
+            case "showcase":
+              return (
+                <Showcase
+                  image={child.fields.image}
+                  title={child.fields.title}
+                  desc={child.fields.desc}
+                  tag={child.fields.tag}
+                  key={`type-${blockType}-${i}}`}
+                />
+              );
+
+            case "entry-section":
+              return (
+                <EntrySection
+                  lead={child.fields.lead}
+                  content={child.fields.content}
+                  key={`type-${blockType}-${i}}`}
+                />
+              );
+          }
         } else if (type === "horizontalrule") {
           return <hr key={`type-${type}-${i}`} />;
         }

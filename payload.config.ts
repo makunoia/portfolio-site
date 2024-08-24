@@ -32,6 +32,7 @@ import {
 
 import sharp from "sharp";
 import Showcase from "@/app/(payload)/blocks/Showcase";
+import EntrySection from "@/app/(payload)/blocks/EntrySection";
 
 export default buildConfig({
   editor: lexicalEditor({
@@ -45,7 +46,7 @@ export default buildConfig({
       HorizontalRuleFeature(),
       InlineCodeFeature(),
       BlocksFeature({
-        blocks: [Showcase],
+        blocks: [Showcase, EntrySection],
       }),
     ],
   }),
