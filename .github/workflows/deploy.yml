@@ -22,23 +22,19 @@ jobs:
       - name: Install dependencies using pnpm
         run: npm install -g pnpm && pnpm install
 
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_PORT: ${{ secrets.PORT }}
-          envkey_DATABASE_URI: ${{ secrets.DATABASE_URI }}
-          envkey_PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
-          envkey_CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          envkey_CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
-          envkey_CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
-          envkey_CLOUDFLARE_BUCKET_NAME: ${{ secrets.CLOUDFLARE_BUCKET_NAME }}
-          envkey_CLOUDFLARE_BUCKET_PUBLIC_LINK: ${{ secrets.CLOUDFLARE_BUCKET_PUBLIC_LINK }}
-          envkey_CLOUDFLARE_REGION: ${{ secrets.CLOUDFLARE_REGION }}
-          envkey_NEXT_PUBLIC_BUILD_DATE: ${{ secrets.NEXT_PUBLIC_BUILD_DATE }}
-          envkey_MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
-
       - name: Build the project
         run: pnpm run build
+        env:
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
+          CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_BUCKET_NAME: ${{ secrets.CLOUDFLARE_BUCKET_NAME }}
+          CLOUDFLARE_BUCKET_PUBLIC_LINK: ${{ secrets.CLOUDFLARE_BUCKET_PUBLIC_LINK }}
+          CLOUDFLARE_REGION: ${{ secrets.CLOUDFLARE_REGION }}
+          NEXT_PUBLIC_BUILD_DATE: ${{ secrets.NEXT_PUBLIC_BUILD_DATE }}
+          MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
 
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/scp-action@v0.1.4
