@@ -22,19 +22,20 @@ jobs:
       - name: Install dependencies using pnpm
         run: npm install -g pnpm && pnpm install
 
-      - name: Create .env file
-        env:
-          DATABASE_URI: ${{ secrets.DATABASE_URI }}
-          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
-          CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_BUCKET_NAME: ${{ secrets.CLOUDFLARE_BUCKET_NAME }}
-          CLOUDFLARE_BUCKET_PUBLIC_LINK: ${{ secrets.CLOUDFLARE_BUCKET_PUBLIC_LINK }}
-          CLOUDFLARE_REGION: ${{ secrets.CLOUDFLARE_REGION }}
-          NEXT_PUBLIC_BUILD_DATE: ${{ secrets.NEXT_PUBLIC_BUILD_DATE }}
-          MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
-        run: node generate-env.js
+      - name: "Create env file"
+        run: |
+          touch .env
+          echo DATABASE_URI: ${{ secrets.DATABASE_URI }} >> .env
+          echo PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }} >> .env
+          echo CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }} >> .env
+          echo CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }} >> .env
+          echo CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }} >> .env
+          echo CLOUDFLARE_BUCKET_NAME: ${{ secrets.CLOUDFLARE_BUCKET_NAME }} >> .env
+          echo CLOUDFLARE_BUCKET_PUBLIC_LINK: ${{ secrets.CLOUDFLARE_BUCKET_PUBLIC_LINK }} >> .env
+          echo CLOUDFLARE_REGION: ${{ secrets.CLOUDFLARE_REGION }} >> .env
+          echo NEXT_PUBLIC_BUILD_DATE: ${{ secrets.NEXT_PUBLIC_BUILD_DATE }} >> .env
+          echo MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }} >> .env
+          cat .env
 
       - name: Build the project
         run: pnpm run build
