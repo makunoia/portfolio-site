@@ -22,6 +22,18 @@ jobs:
         run: npm install -g pnpm && pnpm install
 
       - name: Build the project
+        env:
+          PORT: ${{ secrets.PORT }}
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
+          CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_BUCKET_NAME: ${{ secrets.CLOUDFLARE_BUCKET_NAME }}
+          CLOUDFLARE_BUCKET_PUBLIC_LINK: ${{ secrets.CLOUDFLARE_BUCKET_PUBLIC_LINK }}
+          CLOUDFLARE_REGION: ${{ secrets.CLOUDFLARE_REGION }}
+          NEXT_PUBLIC_BUILD_DATE: ${{ secrets.NEXT_PUBLIC_BUILD_DATE }}
+          MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
         run: pnpm run build
 
       - name: Deploy to DigitalOcean Droplet
