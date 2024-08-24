@@ -1,0 +1,43 @@
+name: Deploy to DigitalOcean Droplet
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies using pnpm
+        run: npm install -g pnpm && pnpm install
+
+      - name: Build the project
+        run: pnpm run build
+
+      - name: Deploy to DigitalOcean Droplet
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_KEY }}
+          source: "./.next/"
+          target: "/var/www/your_project/.next"
+
+      - name: Restart your application
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_KEY }}
+          script: |
+            pm2 restart your_project || pm2 start npm --name "your_project" -- start
