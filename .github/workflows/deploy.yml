@@ -21,7 +21,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies using pnpm
-        run: pnpm install
+        run: npm install -g pnpm && pnpm install
 
       - name: "Create env file"
         run: |
