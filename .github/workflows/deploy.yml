@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: production
+    environment: Production
 
     steps:
       - name: Checkout code
@@ -51,6 +51,10 @@ jobs:
           NEXT_PUBLIC_BUILD_DATE: ${{ secrets.NEXT_PUBLIC_BUILD_DATE }}
           MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
 
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -60,6 +64,11 @@ jobs:
           source: "./.next/"
           target: "/var/www/portfolio-site/.next"
 
+  reset-app:
+    runs-on: ubuntu-latest
+    environment: Production
+
+    steps:
       - name: Restart your application
         uses: appleboy/ssh-action@v0.1.6
         with:
