@@ -12,14 +12,20 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: "18"
+          version: 9
 
-      - name: Install dependencies using pnpm
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version:
+          cache: "pnpm"
+
+      - name: Install dependencies
         run: pnpm install
 
       - name: "Create env file"
@@ -63,10 +69,10 @@ jobs:
     environment: Production
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: ./.next/
