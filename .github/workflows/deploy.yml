@@ -18,10 +18,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-          cache: "pnpm"
 
       - name: Install dependencies using pnpm
-        run: npm install -g pnpm && pnpm install
+        run: pnpm install
 
       - name: "Create env file"
         run: |
