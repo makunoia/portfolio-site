@@ -84,7 +84,7 @@ jobs:
           username: ${{ secrets.DROPLET_USER }}
           password: ${{secrets.DROPLET_PASSWORD}}
           source: "./.next/"
-          target: "/var/www/portfolio-site/.next"
+          target: "/portfolio-site/.next"
 
   reset-droplet:
     needs: deploy
