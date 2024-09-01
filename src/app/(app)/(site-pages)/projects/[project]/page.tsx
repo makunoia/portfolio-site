@@ -4,11 +4,9 @@ import ProjectPageSkeleton from "@/components/Skeletons/ProjectPage";
 
 const Page = async ({ params }: { params: { project: string } }) => {
   return (
-    <>
-      <Suspense fallback={<ProjectPageSkeleton />}>
-        <Content projectSlug={params.project} />
-      </Suspense>
-    </>
+    <Suspense fallback={<ProjectPageSkeleton />}>
+      <Content projectSlug={params.project} />
+    </Suspense>
   );
 };
 

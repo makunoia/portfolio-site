@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Cookie } from "lucide-react";
 
-const LockedProjectForm = () => {
+const LockedProjectForm = ({ redirectTo }: { redirectTo: string }) => {
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
   const router = useRouter();
 
@@ -22,9 +22,9 @@ const LockedProjectForm = () => {
 
       if (valid) {
         toast.success("Access granted!", {
-          description: "This page will be refreshed.",
+          description: "You now have access to private content.",
         });
-        router.refresh();
+        router.push(redirectTo);
       } else {
         toast.error("Wrong password.");
       }

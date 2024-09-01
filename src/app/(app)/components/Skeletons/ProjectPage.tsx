@@ -1,7 +1,9 @@
 "use client";
 
 import dynamic from "next/dynamic";
-const BackButton = dynamic(() => import("@/components/Projects/BackButton"));
+const BackButton = dynamic(
+  () => import("@/app/(app)/components/Projects/BackButton")
+);
 
 export default () => {
   return (

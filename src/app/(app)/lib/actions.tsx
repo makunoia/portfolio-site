@@ -1,8 +1,6 @@
 "use server";
-
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 const payload = await getPayloadHMR({ config });
@@ -24,7 +22,6 @@ export const validatePassword = async (
 
   if (enteredPassword === data.value) {
     cookies().set("auth", "true");
-    revalidatePath("/projects/[project]/page", "page");
     return true;
   } else return false;
 };
