@@ -1,13 +1,14 @@
 "use client";
+
 import * as Form from "@radix-ui/react-form";
 import Text from "@/components/Text";
 import { FormEvent, useState } from "react";
-import { validatePassword } from "@/lib/actions";
-import { useRouter } from "next/navigation";
+import { redirectTo, validatePassword } from "@/lib/actions";
 import { toast } from "sonner";
 import { Cookie } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-const LockedProjectForm = ({ redirectTo }: { redirectTo: string }) => {
+const LockedProjectForm = () => {
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
   const router = useRouter();
 
@@ -18,13 +19,13 @@ const LockedProjectForm = ({ redirectTo }: { redirectTo: string }) => {
       setIsFormSubmitting(true);
 
       const formData = new FormData(event.currentTarget);
-      const valid = await validatePassword(formData);
+      const isValid = await validatePassword(formData);
 
-      if (valid) {
+      if (isValid) {
         toast.success("Access granted!", {
           description: "You now have access to private content.",
         });
-        router.push(redirectTo);
+        redirectTo();
       } else {
         toast.error("Wrong password.");
       }

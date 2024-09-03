@@ -7,22 +7,15 @@ import PageListSkeleton from "@/components/Skeletons/PageList";
 import ListContainer from "@/components/Home/ListContainer";
 import AuthenticateForm from "@/components/Authenticate/Form";
 
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-const payload = await getPayloadHMR({ config });
-
 import { Project } from "payload-types";
 import BackButton from "@/app/(app)/components/Projects/BackButton";
+import { getCollection } from "@/lib/payload-actions";
 
-const Authenticate = async ({
-  searchParams,
-}: {
-  searchParams: { redirectTo: string };
-}) => {
+const Authenticate = async () => {
   const authCookie = cookies().get("auth");
   const authorized = authCookie ? Boolean(authCookie.value) : false;
 
-  const { docs } = await payload.find({
+  const projects = await getCollection({
     collection: "projects",
     limit: 5,
     sort: "-year",
@@ -33,7 +26,7 @@ const Authenticate = async ({
     },
   });
 
-  const items = docs as Project[];
+  const items = projects as Project[];
 
   return (
     <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
@@ -57,7 +50,7 @@ const Authenticate = async ({
         </Text>
       </div>
 
-      <AuthenticateForm redirectTo={searchParams.redirectTo || "/"} />
+      <AuthenticateForm />
 
       <hr />
       <div className="flex flex-col gap-24px">

@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import Users from "./app/(payload)/collections/Users";
+import { cache } from "react";
 
-export const getLockedPages = async (host: string) => {
+export const getLockedPages = cache(async (host: string) => {
   const res = await fetch(`${host}/api/projects?where[isLocked][equals]=true`, {
     headers: {
       Authorization: `${Users.slug} API-Key ${process.env.PAYLOAD_API_KEY}`,
@@ -14,7 +15,7 @@ export const getLockedPages = async (host: string) => {
     .filter((doc: any) => doc.isLocked === true)
     .map((doc: any) => doc.slug);
   return lockedPages;
-};
+});
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -31,8 +32,11 @@ export async function middleware(request: NextRequest) {
   if (isPageView) {
     if (!authCookie && isLocked) {
       const url = new URL("/authenticate", request.url);
-      url.searchParams.set("redirectTo", pathname);
-      return NextResponse.redirect(url);
+      const response = NextResponse.redirect(url);
+      response.cookies.set("redirectTo", pathname);
+
+      request.cookies.set;
+      return response;
     }
   } else {
     return NextResponse.next();
@@ -43,9 +47,12 @@ export const config = {
   matcher: [
     {
       source: "/projects/:project*",
-      missing: [
-        { type: "header", key: "next-router-prefetch" },
-        { type: "header", key: "purpose", value: "prefetch" },
+      has: [
+        {
+          type: "header",
+          key: "accept",
+          value: "(?!.*_next).*",
+        },
       ],
     },
   ],
