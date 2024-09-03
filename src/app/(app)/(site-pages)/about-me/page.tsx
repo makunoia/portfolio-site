@@ -6,7 +6,7 @@ import Sections from "@/components/AboutMe/Sections";
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 import { Asset } from "payload-types";
-import LinksRow from "../components/LinksRow";
+import LinksRow from "@/components/LinksRow";
 import { getPageData } from "@/lib/payload-actions";
 
 const Page = async () => {

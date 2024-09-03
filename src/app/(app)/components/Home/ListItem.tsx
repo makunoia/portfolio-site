@@ -5,7 +5,7 @@ import { ArrowUpRight, Lock } from "lucide-react";
 import Link from "next/link";
 
 const ListItemCVA = cva([
-  "relative group",
+  "w-full relative group",
   "flex flex-row justify-between items-center gap-12px",
   "transition-all duration-200 ease-out cursor-pointer",
 ]);

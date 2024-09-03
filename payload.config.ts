@@ -83,9 +83,6 @@ export default buildConfig({
       },
     }),
   ],
-  upload: {
-    staticDir: `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/`,
-  },
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),

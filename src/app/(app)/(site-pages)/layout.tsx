@@ -3,7 +3,7 @@ import Footer from "@/app/(app)/components/Footer/Index";
 import { Toaster } from "@/app/(app)/components/Sonner";
 
 import { NeueMontreal, NeueMontrealMono } from "@/fonts";
-import "./styles/globals.css";
+import "../styles/globals.css";
 import dynamic from "next/dynamic";
 
 const VercelAnalytics = dynamic(() => import("@/components/VercelAnalytics"));

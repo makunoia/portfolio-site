@@ -29,7 +29,7 @@ const Footer = () => {
       <div className="flex flex-col gap-30px md:flex-row md:justify-between">
         <div className="order-last md:order-first flex flex-col gap-4px justify-end">
           <div>
-            <Text className="text-info">I create for the Creator</Text>
+            <Text className="text-info">God is a designer.</Text>
           </div>
           <Text className="text-subtle">{`Last updated ${buildDate}`}</Text>
         </div>

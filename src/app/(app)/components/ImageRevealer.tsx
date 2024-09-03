@@ -22,6 +22,7 @@ const ImageRevealer = ({
   return (
     <div className="bg relative overflow-hidden w-fullh-auto aspect-[5/3] md:h-[400px] rounded-8px pointer-events-auto">
       <Image
+        priority
         className="showcase-before-photo absolute"
         src={beforeImage.url as string}
         alt={beforeImage.alt || title}
@@ -30,9 +31,7 @@ const ImageRevealer = ({
         style={{
           objectFit: "cover",
         }}
-        loading="lazy"
         role="presentation"
-        priority
       />
 
       <div
@@ -40,6 +39,7 @@ const ImageRevealer = ({
         style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
       >
         <Image
+          priority
           src={afterImage.url as string}
           alt={afterImage.alt || title}
           width={700}
@@ -47,9 +47,7 @@ const ImageRevealer = ({
           style={{
             objectFit: "cover",
           }}
-          loading="lazy"
           role="presentation"
-          priority
         />
       </div>
 

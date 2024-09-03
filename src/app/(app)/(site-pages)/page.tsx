@@ -1,15 +1,15 @@
 import React, { lazy, Suspense } from "react";
 import Image from "next/image";
 import LinksRow from "@/components/LinksRow";
-import Logo from "./assets/logo.svg";
+import Logo from "../assets/logo.svg";
 import HeroSection from "@/components/HeroSections/Home";
 
-import { TimerContextProvider } from "./contexts/TimerContext";
+import { TimerContextProvider } from "../contexts/TimerContext";
 
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 import { MetadataSeed } from "@/lib/metadata";
-import SectionsContainer from "./components/Home/SectionsContainer";
+import SectionsContainer from "../components/Home/SectionsContainer";
 
 const MixpanelTracker = lazy(() => import("@/components/MixpanelTracker"));
 

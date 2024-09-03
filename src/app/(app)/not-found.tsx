@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 import Text from "@/components/Text";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import ListContainer from "@/components/Home/ListContainer";
-import BackButton from "@/components/Projects/BackButton";
+import BackButton from "@/app/(app)/components/Projects/BackButton";
 
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";

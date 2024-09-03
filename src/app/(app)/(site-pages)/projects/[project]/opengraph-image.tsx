@@ -31,7 +31,6 @@ export default async function Image({
   ).then((res) => res.arrayBuffer());
 
   const slug = params.project;
-  console.log(slug, "slug");
   const { docs } = await payload.find({
     collection: "projects",
     where: {

@@ -1,5 +1,4 @@
 export const revalidate = 3600;
-export const experimental_ppr = true;
 
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
@@ -9,11 +8,9 @@ export async function generateStaticParams() {
   const projects = await getProjects();
   return projects
     .map((project) => {
-      if (!project.isLocked) {
-        return {
-          project: project.slug,
-        };
-      }
+      return {
+        project: project.slug,
+      };
     })
     .filter(Boolean);
 }

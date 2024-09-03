@@ -1,24 +1,30 @@
 "use client";
+
 import Text from "@/components/Text";
 import { useEffect, useState } from "react";
-import moment from "moment-timezone";
 
-const TimeAndStatus = () => {
+export default function TimeAndStatus() {
   const timeZone = "America/New_York";
-  const [time, setTime] = useState(moment.tz(timeZone));
+  const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    const timerID = setInterval(() => setTime(moment.tz(timeZone)), 1000);
-
+    const timerID = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timerID);
-  }, [timeZone]);
+  }, []);
+
+  const formatTime = (date: Date) => {
+    return new Intl.DateTimeFormat("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      timeZone: timeZone,
+    }).format(date);
+  };
 
   return (
     <div className="flex flex-col items-start md:items-end gap-4px">
-      <Text weight="medium">Montreal, Canada</Text>
-      <Text>{time.format("h:mm A")}</Text>
+      <Text className="font-medium">Montreal, Canada</Text>
+      <Text>{formatTime(time)}</Text>
     </div>
   );
-};
-
-export default TimeAndStatus;
+}
