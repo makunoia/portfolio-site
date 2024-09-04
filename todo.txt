@@ -53,9 +53,8 @@
 // ✅ Retire Webflow site
 
 // Final Polishes
-// Journal Entry: Reinventing Myself
-// Update Featured Images
-// Update Storybook image in Multiverse case study
+// ✅ Update Featured Images
+// ✅ Update Storybook image in Multiverse case study
 // Mask gradient for footer Globe
 // Apply to jobs
 
