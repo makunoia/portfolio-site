@@ -13,7 +13,7 @@ import ContentObserver from "@/components/Journal/ContentObserver";
 import ScrollSpy, { ScrollSpyType } from "@/components/Projects/ScrollSpy";
 import BackButton from "@/app/(app)/components/Projects/BackButton";
 
-const MixpanelTracker = lazy(() => import("@/components/MixpanelTracker"));
+const AnalyticsTracker = lazy(() => import("@/components/AnalyticsTracker"));
 
 import { InViewProvider } from "@/contexts/InViewContext";
 import { Archive } from "lucide-react";
@@ -44,7 +44,7 @@ const Page = async ({ projectSlug }: { projectSlug: string }) => {
 
   return (
     <>
-      <MixpanelTracker event={`Viewed ${project.title}`} />
+      <AnalyticsTracker event={`${project.title}`} />
 
       <InViewProvider>
         {sections?.length ? (

@@ -9,7 +9,7 @@ import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 import { MetadataSeed } from "@/lib/metadata";
 import SectionsContainer from "../components/Home/SectionsContainer";
 
-const MixpanelTracker = lazy(() => import("@/components/MixpanelTracker"));
+const AnalyticsTracker = lazy(() => import("@/components/AnalyticsTracker"));
 
 export function generateMetadata() {
   return {
@@ -34,7 +34,7 @@ export function generateMetadata() {
 const Page = () => {
   return (
     <>
-      <MixpanelTracker event="Viewed Homepage" />
+      <AnalyticsTracker event="Homepage" />
       <main className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]">
         <div className="flex flex-col gap-30px transition-all ease-in-out">
           <div className="flex justify-between">

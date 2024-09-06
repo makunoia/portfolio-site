@@ -8,6 +8,7 @@ import { cva } from "class-variance-authority";
 import { FeaturedProject } from "@/types";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
+import { track } from "@vercel/analytics";
 
 const style = cva([
   "w-full h-[270px] sm:h-[290px]",
@@ -121,6 +122,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           id="featured-projects-container"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
+          onClick={() => track(`Clicked Featured Project: ${link}`)}
         >
           <LazyMotion features={domAnimation}>
             <m.div

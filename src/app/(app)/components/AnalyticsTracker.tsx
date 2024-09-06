@@ -1,11 +1,11 @@
 "use client";
 
-import tracker from "@/lib/mixpanel";
+import { track } from "@vercel/analytics";
 import { useEffect } from "react";
 
 export default ({ event }: { event: string }) => {
   useEffect(() => {
-    tracker(event);
+    track("Viewed", { page: event });
   }, []);
   return null;
 };

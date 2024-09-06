@@ -7,7 +7,7 @@ import JournalHero from "@/components/HeroSections/Journal";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import { MetadataSeed } from "@/lib/metadata";
 
-const MixpanelTracker = lazy(() => import("@/components/MixpanelTracker"));
+const AnalyticsTracker = lazy(() => import("@/components/AnalyticsTracker"));
 
 export function generateMetadata() {
   return {
@@ -33,7 +33,7 @@ const Layout = ({ content }: { content: ReactNode }) => {
   return (
     <>
       <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
-        <MixpanelTracker event="Viewed Journal" />
+        <AnalyticsTracker event="Journal" />
         <JournalHero />
 
         <Suspense fallback={<PageListSkeleton />}>

@@ -69,9 +69,6 @@ importers:
       graphql:
         specifier: ^16.8.1
         version: 16.9.0
-      mixpanel:
-        specifier: ^0.18.0
-        version: 0.18.0
       next:
         specifier: 15.0.0-canary.134
         version: 15.0.0-canary.134(babel-plugin-react-compiler@0.0.0)(react-dom@19.0.0-rc-4f604941-20240830(react@19.0.0-rc-4f604941-20240830))(react@19.0.0-rc-4f604941-20240830)(sass@1.77.4)
@@ -115,9 +112,6 @@ importers:
       '@types/express':
         specifier: ^4.17.9
         version: 4.17.21
-      '@types/mixpanel-browser':
-        specifier: ^2.49.1
-        version: 2.49.1
       '@types/node':
         specifier: ^20.14.9
         version: 20.15.0
@@ -1870,9 +1864,6 @@ packages:
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
 
-  '@types/mixpanel-browser@2.49.1':
-    resolution: {integrity: sha512-W9VZxD7haNMenkRwXxPZBJLhED7Sx1l89nZsGcWi3WzdIk417k/KnpmfDFn2sEyL31G/h0rY1E6erAny+8ItOw==}
-
   '@types/node@20.15.0':
     resolution: {integrity: sha512-eQf4OkH6gA9v1W0iEpht/neozCsZKMTK+C4cU6/fv7wtJCCL8LEQ4hie2Ln8ZP/0YYM2xGj7//f8xyqItkJ6QA==}
 
@@ -2028,10 +2019,6 @@ packages:
     resolution: {integrity: sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==}
     engines: {node: '>=0.4.0'}
     hasBin: true
-
-  agent-base@6.0.2:
-    resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
-    engines: {node: '>= 6.0.0'}
 
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -3163,10 +3150,6 @@ packages:
     resolution: {integrity: sha512-oUExvfNckrpTpDazph7kNG8sQi5au3BeTo0idaZFXEhTaJKu7GNJCLHI0rYY2wljm548MSTM+Ljj/c6anqu2zQ==}
     engines: {node: '>= 0.4.0'}
 
-  https-proxy-agent@5.0.0:
-    resolution: {integrity: sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==}
-    engines: {node: '>= 6'}
-
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
 
@@ -3557,10 +3540,6 @@ packages:
   minipass@7.1.2:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
-
-  mixpanel@0.18.0:
-    resolution: {integrity: sha512-VyUoiLB/S/7abYYHGD5x0LijeuJCUabG8Hb+FvYU3Y99xHf1Qh+s4/pH9lt50fRitAHncWbU1FE01EknUfVVjQ==}
-    engines: {node: '>=10.0'}
 
   mkdirp-classic@0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
@@ -7162,8 +7141,6 @@ snapshots:
 
   '@types/mime@1.3.5': {}
 
-  '@types/mixpanel-browser@2.49.1': {}
-
   '@types/node@20.15.0':
     dependencies:
       undici-types: 6.13.0
@@ -7320,12 +7297,6 @@ snapshots:
       acorn: 8.12.1
 
   acorn@8.12.1: {}
-
-  agent-base@6.0.2:
-    dependencies:
-      debug: 4.3.6
-    transitivePeerDependencies:
-      - supports-color
 
   ajv@6.12.6:
     dependencies:
@@ -8682,13 +8653,6 @@ snapshots:
 
   http-status@1.6.2: {}
 
-  https-proxy-agent@5.0.0:
-    dependencies:
-      agent-base: 6.0.2
-      debug: 4.3.6
-    transitivePeerDependencies:
-      - supports-color
-
   ieee754@1.2.1: {}
 
   ignore@5.3.2: {}
@@ -9035,12 +8999,6 @@ snapshots:
   minimist@1.2.8: {}
 
   minipass@7.1.2: {}
-
-  mixpanel@0.18.0:
-    dependencies:
-      https-proxy-agent: 5.0.0
-    transitivePeerDependencies:
-      - supports-color
 
   mkdirp-classic@0.5.3: {}
 

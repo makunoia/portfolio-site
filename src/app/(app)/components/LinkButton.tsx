@@ -4,7 +4,7 @@ import Text from "./Text";
 import Link from "next/link";
 import { cva } from "class-variance-authority";
 import { ArrowUpRight } from "lucide-react";
-import track from "@/lib/mixpanel";
+import { track } from "@vercel/analytics";
 
 const ButtonCVA = cva([
   "group",

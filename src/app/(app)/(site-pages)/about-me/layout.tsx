@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
-const MixpanelTracker = dynamic(() => import("@/components/MixpanelTracker"));
+const AnalyticsTracker = dynamic(() => import("@/components/AnalyticsTracker"));
 
 export function generateMetadata() {
   return {
@@ -26,7 +26,7 @@ export function generateMetadata() {
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <main className="max-w-[500px] mx-auto mt-[40px] mb-[80px] flex flex-col gap-60px">
-      <MixpanelTracker event="Viewed About Me" />
+      <AnalyticsTracker event="About Me" />
       {children}
     </main>
   );
