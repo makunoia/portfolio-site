@@ -9,7 +9,7 @@ import { Suspense } from "react";
 //Homepage sections parallel fetching
 export default async () => {
   const featuredProjects = getFeaturedProjects();
-  const archivedProjects = getCollection({
+  const cachedArchivedProjects = await getCollection({
     collection: "projects",
     sort: "-year",
     limit: 3,
@@ -19,7 +19,8 @@ export default async () => {
       },
     },
   });
-  const journalItems = getCollection({
+
+  const cachedJournalItems = await getCollection({
     collection: "journal-entries",
     sort: "-createdAt",
     limit: 3,
@@ -27,8 +28,8 @@ export default async () => {
 
   const [featProjects, projects, journalEntries] = await Promise.all([
     featuredProjects,
-    archivedProjects,
-    journalItems,
+    cachedArchivedProjects,
+    cachedJournalItems,
   ]);
 
   return (

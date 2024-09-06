@@ -44,7 +44,7 @@ const Page = async ({ projectSlug }: { projectSlug: string }) => {
 
   return (
     <>
-      <AnalyticsTracker event={`${project.title}`} />
+      <AnalyticsTracker page={`${project.title}`} />
 
       <InViewProvider>
         {sections?.length ? (

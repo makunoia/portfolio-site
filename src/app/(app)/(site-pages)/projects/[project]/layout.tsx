@@ -2,18 +2,7 @@ export const dynamic = "force-static";
 
 import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
-import { getProject, getProjects } from "@/lib/payload-actions";
-
-// export async function generateStaticParams() {
-//   const projects = await getProjects();
-//   return projects
-//     .map((project) => {
-//       return {
-//         project: project.slug,
-//       };
-//     })
-//     .filter(Boolean);
-// }
+import { getProject } from "@/lib/payload-actions";
 
 export async function generateMetadata({
   params,

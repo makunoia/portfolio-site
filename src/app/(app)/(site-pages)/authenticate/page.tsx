@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { Lock } from "lucide-react";
 
@@ -12,9 +11,6 @@ import BackButton from "@/app/(app)/components/Projects/BackButton";
 import { getCollection } from "@/lib/payload-actions";
 
 const Authenticate = async () => {
-  const authCookie = cookies().get("auth");
-  const authorized = authCookie ? Boolean(authCookie.value) : false;
-
   const projects = await getCollection({
     collection: "projects",
     limit: 5,

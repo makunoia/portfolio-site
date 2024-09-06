@@ -28,7 +28,7 @@ export function generateMetadata() {
 const Page = () => {
   return (
     <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
-      <AnalyticsTracker event="All Projects" />
+      <AnalyticsTracker page="All Projects" />
       <ProjectsHero />
 
       <Suspense fallback={<PageListSkeleton />}>

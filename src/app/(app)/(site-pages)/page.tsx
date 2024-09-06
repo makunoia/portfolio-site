@@ -34,7 +34,7 @@ export function generateMetadata() {
 const Page = () => {
   return (
     <>
-      <AnalyticsTracker event="Homepage" />
+      <AnalyticsTracker page="Homepage" />
       <main className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]">
         <div className="flex flex-col gap-30px transition-all ease-in-out">
           <div className="flex justify-between">

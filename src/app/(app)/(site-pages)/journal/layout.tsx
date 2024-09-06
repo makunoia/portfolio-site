@@ -33,7 +33,7 @@ const Layout = ({ content }: { content: ReactNode }) => {
   return (
     <>
       <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
-        <AnalyticsTracker event="Journal" />
+        <AnalyticsTracker page="Journal" />
         <JournalHero />
 
         <Suspense fallback={<PageListSkeleton />}>
