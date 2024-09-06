@@ -4,8 +4,6 @@ import LinksRow from "@/components/LinksRow";
 import Logo from "../assets/logo.svg";
 import HeroSection from "@/components/HeroSections/Home";
 
-import { TimerContextProvider } from "../contexts/TimerContext";
-
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
 import { MetadataSeed } from "@/lib/metadata";
@@ -57,9 +55,7 @@ const Page = () => {
 
         <hr />
 
-        <TimerContextProvider>
-          <SectionsContainer />
-        </TimerContextProvider>
+        <SectionsContainer />
       </main>
     </>
   );

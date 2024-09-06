@@ -1,92 +1,93 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Text from "@/components/Text";
 import Link from "next/link";
 import Image from "next/image";
-import useInterval from "@/hooks/useInterval";
 import { cva } from "class-variance-authority";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { m, LazyMotion, useAnimate, domAnimation } from "framer-motion";
-import { TimerContext } from "@/contexts/TimerContext";
 import { FeaturedProject } from "@/types";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { m, LazyMotion, domAnimation } from "framer-motion";
+
+const style = cva([
+  "w-full h-[270px] sm:h-[290px]",
+  "relative group cursor-pointer",
+  "flex flex-row place-content-end",
+  "rounded-4px sm:rounded-12px bg-subtle/20 overflow-hidden",
+  "shadow-md shadow-neutral-200/0 hover:shadow-neutral-300",
+  "outline outline-neutral-100/0 hover:outline-neutral-200",
+  "transition-all ease-in duration-300",
+]);
+
+const imageContainer = cva(["absolute left-0px", "h-full w-full sm:w-[60%]"]);
+
+const imageStyle = cva(
+  [
+    "w-full h-[220px]",
+    "sm:w-[350px] sm:h-[250px]",
+    "absolute left-16px bottom-8px",
+    "overflow-visible",
+    "transition-all ease-in-out duration-300",
+  ],
+  {
+    variants: {
+      shown: {
+        true: "opacity-1 translate-y-8px delay-200",
+        false: "opacity-0 translate-y-40px",
+      },
+    },
+  }
+);
+
+const infoStyle = cva([
+  "relative",
+  "flex flex-col justify-end gap-12px",
+  "p-16px sm:p-24px sm:pl-0px",
+  "w-full sm:w-[50%]",
+]);
 
 const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [link, setLink] = useState<string>("");
+
+  const [progress, setProgress] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
   const showArrowsAndBar = projects.length > 1;
   const duration = 5000;
 
-  const timerContext = useContext(TimerContext);
-  const { resetTimer, setResetTimer } = timerContext;
+  const GoToPreviousItem = useCallback(() => {
+    setActiveIndex(
+      (prevIndex) => (prevIndex - 1 + projects.length) % projects.length
+    );
+    setProgress(0);
+  }, []);
 
-  const style = cva([
-    "w-full h-[240px] sm:h-[290px]",
-    "relative group cursor-pointer",
-    "flex flex-row place-content-end",
-    "rounded-4px sm:rounded-12px bg-subtle/20 overflow-hidden",
-    "shadow-md shadow-neutral-200/0 hover:shadow-neutral-300",
-    "outline outline-neutral-100/0 hover:outline-neutral-200",
-    "transition-all ease-in duration-300",
-  ]);
+  const GoToNextItem = useCallback(() => {
+    setActiveIndex((prevIndex) => (prevIndex + 1) % projects.length);
+    setProgress(0);
+  }, []);
 
-  const imageContainer = cva(["absolute left-0px", "h-full w-full sm:w-[60%]"]);
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
 
-  const imageStyle = cva(
-    [
-      "w-full h-[220px]",
-      "sm:w-[350px] sm:h-[250px]",
-      "absolute left-0px -bottom-8px",
-      "overflow-visible",
-      "transition-all ease-in-out duration-300",
-    ],
-    {
-      variants: {
-        shown: {
-          true: "opacity-1 translate-y-8px delay-200",
-          false: "opacity-0 translate-y-40px",
-        },
-      },
+    if (!isPaused) {
+      timer = setInterval(() => {
+        setProgress((oldProgress) => {
+          if (oldProgress >= 100) {
+            GoToNextItem();
+            return 0;
+          }
+          return oldProgress + 100 / (duration / 100);
+        });
+      }, 100);
     }
-  );
-
-  const infoStyle = cva([
-    "relative",
-    "flex flex-col justify-end gap-12px",
-    "p-16px sm:p-24px sm:pl-0px",
-    "w-full sm:w-[50%]",
-  ]);
-
-  useInterval(
-    () => {
-      setActiveIndex((prevIndex) =>
-        prevIndex === projects.length - 1 ? 0 : prevIndex + 1
-      );
-    },
-    duration,
-    resetTimer,
-    setResetTimer
-  );
+    return () => clearInterval(timer);
+  }, [isPaused, GoToNextItem]);
 
   useEffect(() => {
     setLink(projects[activeIndex].slug);
   }, [activeIndex]);
-
-  const PreviousItem = () => {
-    if (activeIndex === 0) {
-      setActiveIndex(projects.length - 1);
-    } else setActiveIndex((curr) => --curr);
-
-    setResetTimer(true);
-  };
-
-  const NextItem = () => {
-    if (activeIndex === projects.length - 1) {
-      setActiveIndex(0);
-    } else setActiveIndex((curr) => ++curr);
-
-    setResetTimer(true);
-  };
 
   return (
     <section
@@ -101,11 +102,11 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
         {showArrowsAndBar ? (
           <div className="flex flex-row gap-4px">
             <ChevronLeft
-              onClick={() => PreviousItem()}
+              onClick={() => GoToPreviousItem()}
               className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
             />
             <ChevronRight
-              onClick={() => NextItem()}
+              onClick={() => GoToNextItem()}
               className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
             />
           </div>
@@ -117,8 +118,9 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           prefetch
           className={style()}
           href={`/projects/${link}`}
-          as={`/projects/${link}`}
           id="featured-projects-container"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
           <LazyMotion features={domAnimation}>
             <m.div
@@ -189,9 +191,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
             <TextOverlayBG />
           </div>
 
-          {showArrowsAndBar ? (
-            <ProgressBar duration={duration} currIndex={activeIndex} />
-          ) : null}
+          {showArrowsAndBar ? <ProgressBar progress={progress} /> : null}
         </Link>
       ) : (
         <div className="text">No projects</div>
@@ -200,47 +200,21 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   );
 };
 
-const ProgressBar = ({
-  duration,
-  currIndex,
-}: {
-  duration: number;
-  currIndex: number;
-}) => {
+const ProgressBar = ({ progress }: { progress: number }) => {
   const styles = cva([
     "w-0px h-2px",
     "absolute bottom-0px left-0px z-10",
     "bg-inverse",
   ]);
 
-  const [scope, animate] = useAnimate();
-  const startAnimation = () => {
-    animate(
-      scope.current,
-      { width: "100%" },
-      {
-        ease: "linear",
-        duration: duration / 1000,
-      }
-    );
-  };
-
-  useEffect(() => {
-    const animation = async () => {
-      if (scope.animations.length > 0) {
-        await animate(scope.current, { width: "0px" });
-        startAnimation();
-      } else {
-        startAnimation();
-      }
-    };
-
-    animation();
-  }, [currIndex]);
-
   return (
     <LazyMotion features={domAnimation}>
-      <m.div ref={scope} className={styles()} />;
+      <m.div
+        className={styles()}
+        initial={{ width: 0 }}
+        animate={{ width: `${progress}%` }}
+        transition={{ duration: 0.1, ease: "linear" }}
+      />
     </LazyMotion>
   );
 };
@@ -263,13 +237,13 @@ const ArrowButton = () => {
 
 const TextOverlayBG = () => {
   const styles = cva([
-    "w-[140%] h-[30%] sm:w-[120%] sm:h-[60%] sm:-rotate-12 rounded-40px",
+    "w-full h-[30%] sm:w-[120%] sm:h-[60%] sm:-rotate-12 rounded-40px",
     "absolute bottom-0px right-[0px] sm:-bottom-[50px] sm:-right-[60px] z-10",
     "bg-gradient-to-r from-neutral-100 to-neutral-100/80",
     "blur-[40px] sm:blur-[50px]",
   ]);
 
-  return <div className={styles()}></div>;
+  return <div className={styles()} />;
 };
 
 const BackgroundLight = ({
