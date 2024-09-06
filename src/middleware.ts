@@ -1,21 +1,31 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import Users from "./app/(payload)/collections/Users";
-import { cache } from "react";
+import { unstable_cache } from "next/cache";
 
-export const getLockedPages = cache(async (host: string) => {
-  const res = await fetch(`${host}/api/projects?where[isLocked][equals]=true`, {
-    headers: {
-      Authorization: `${Users.slug} API-Key ${process.env.PAYLOAD_API_KEY}`,
-    },
-  });
-  const response = await res.json();
+export const getLockedPages = unstable_cache(
+  async (host: string) => {
+    const res = await fetch(
+      `${host}/api/projects?where[isLocked][equals]=true`,
+      {
+        headers: {
+          Authorization: `${Users.slug} API-Key ${process.env.PAYLOAD_API_KEY}`,
+        },
+      }
+    );
+    const response = await res.json();
 
-  const lockedPages = response.docs
-    .filter((doc: any) => doc.isLocked === true)
-    .map((doc: any) => doc.slug);
-  return lockedPages;
-});
+    const lockedPages = response.docs
+      .filter((doc: any) => doc.isLocked === true)
+      .map((doc: any) => doc.slug);
+
+    return lockedPages;
+  },
+  ["lockedPages"],
+  {
+    tags: ["lockedPages"],
+  }
+);
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
