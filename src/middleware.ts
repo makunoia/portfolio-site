@@ -2,10 +2,17 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export const getLockedPages = () => {
-  const envProjects = process.env.NEXT_PUBLIC_LOCKED_PROJECTS;
-  const lockedPages = envProjects ? envProjects : "";
+  const allLockedPages = {
+    staging: ["project-mark-lviii"],
+    production: ["project-red"],
+  };
 
-  return lockedPages?.split(",");
+  const lockedPages =
+    allLockedPages[
+      process.env.VERCEL_ENV === "production" ? "production" : "staging"
+    ];
+
+  return lockedPages;
 };
 
 export async function middleware(request: NextRequest) {
