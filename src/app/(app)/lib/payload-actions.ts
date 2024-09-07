@@ -165,6 +165,7 @@ export const getLockedProjects = unstable_cache(
   }
 );
 
+// Currently unused by middleware
 export const getLockedPages = unstable_cache(
   async (host: string) => {
     const res = await fetch(
