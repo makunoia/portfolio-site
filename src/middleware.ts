@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export const getLockedPages = () => {
-  const lockedPages = process.env.LOCKED_PROJECTS
-    ? process.env.LOCKED_PROJECTS
+  const lockedPages = process.env.NEXT_PUBLIC_LOCKED_PROJECTS
+    ? process.env.NEXT_PUBLIC_LOCKED_PROJECTS
     : "";
 
   return lockedPages?.split(",");
