@@ -80,7 +80,12 @@ export const getCollection = async ({
 
   return unstable_cache(
     async () => docs as Project[] | JournalEntry[],
-    ["collection", collection],
+    [
+      "collection",
+      `collection:${collection}`,
+      `collectionLimit:${limit}`,
+      `collectionSort:${sort}`,
+    ],
     {
       tags: ["collection", `collection:${collection}`],
     }

@@ -6,11 +6,10 @@ import { FormEvent, useState } from "react";
 import { redirectTo, validatePassword } from "@/lib/actions";
 import { toast } from "sonner";
 import { Cookie } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { track } from "@vercel/analytics";
 
 const LockedProjectForm = () => {
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,8 +24,10 @@ const LockedProjectForm = () => {
         toast.success("Access granted!", {
           description: "You now have access to private content.",
         });
+        track("Authorization attempt", { valid: true });
         redirectTo();
       } else {
+        track("Authorization attempt", { valid: false });
         toast.error("Wrong password.");
       }
     } catch (error) {

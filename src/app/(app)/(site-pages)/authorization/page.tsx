@@ -4,7 +4,7 @@ import { Lock } from "lucide-react";
 import Text from "@/components/Text";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import ListContainer from "@/components/Home/ListContainer";
-import AuthenticateForm from "@/components/Authenticate/Form";
+import AuthorizationForm from "@/components/Authorization/Form";
 
 import { Project } from "payload-types";
 import BackButton from "@/app/(app)/components/Projects/BackButton";
@@ -46,7 +46,7 @@ const Authenticate = async () => {
         </Text>
       </div>
 
-      <AuthenticateForm />
+      <AuthorizationForm />
 
       <hr />
       <div className="flex flex-col gap-24px">

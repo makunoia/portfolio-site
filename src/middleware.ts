@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
 
   if (isPageView) {
     if (!authCookie && isLocked) {
-      const url = new URL("/authenticate", request.url);
+      const url = new URL("/authorization", request.url);
       const response = NextResponse.redirect(url);
       response.cookies.set("redirectTo", pathname);
 
