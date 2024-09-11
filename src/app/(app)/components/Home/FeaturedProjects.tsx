@@ -9,9 +9,10 @@ import { FeaturedProject } from "@/types";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import { track } from "@vercel/analytics";
+import { cn } from "../../lib/utils";
 
 const style = cva([
-  "w-full h-[270px] sm:h-[290px]",
+  "w-full h-[270px] sm:h-[300px]",
   "relative group cursor-pointer",
   "flex flex-row place-content-end",
   "rounded-4px sm:rounded-12px bg-subtle/20 overflow-hidden",
@@ -24,9 +25,8 @@ const imageContainer = cva(["absolute left-0px", "h-full w-full sm:w-[60%]"]);
 
 const imageStyle = cva(
   [
-    "w-full h-[220px]",
-    "sm:w-[350px] sm:h-[250px]",
-    "absolute left-16px bottom-8px",
+    "w-[350px] sm:w-full h-full",
+    "absolute left-[50%] translate-x-[-50%] sm:left-8px sm:translate-x-0px",
     "overflow-visible",
     "transition-all ease-in-out duration-300",
   ],
@@ -141,14 +141,13 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                     })}
                   >
                     <Image
+                      fill
+                      priority
+                      quality={85}
                       className="select-none"
                       src={project.featuredData.image.url}
                       alt={project.featuredData.image.alt || ""}
-                      style={{ objectFit: "contain", objectPosition: "center" }}
-                      sizes="350px"
-                      quality={85}
-                      fill
-                      priority
+                      style={{ objectFit: "cover", objectPosition: "top" }}
                     />
                   </div>
                 );
@@ -170,17 +169,30 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           <div className={infoStyle()}>
             <ArrowButton />
 
-            <div className="relative">
+            <>
               {projects.map((project, i) => (
                 <div
                   key={project.slug}
-                  className={`flex flex-col gap-4px w-full absolute z-20 bottom-0px transition-all ease-in-out duration-300  ${
-                    activeIndex === i
-                      ? "opacity-100 translate-y-0px"
-                      : "opacity-0 translate-y-40px"
-                  }`}
+                  className={cn(
+                    `sm:w-4/5`,
+                    `flex flex-col gap-4px p-12px rounded-8px`,
+                    `transition-all ease-in-out duration-300`,
+                    `absolute z-20 left-8px right-8px bottom-8px sm:left-auto sm:right-8px`,
+                    `bg-gradient-to-br from-neutral-100/80 to-neutral-100`,
+                    `backdrop-blur-sm`,
+                    `${
+                      activeIndex === i
+                        ? "opacity-100 translate-y-0px"
+                        : "opacity-0 translate-y-40px"
+                    }`
+                  )}
                 >
-                  <Text as="h3" size="body-large" weight="medium">
+                  <Text
+                    as="h3"
+                    size="body-large"
+                    weight="medium"
+                    className="whitespace-nowrap"
+                  >
                     {project.title}
                   </Text>
                   <Text className="text-subtle" as="p" size="caption" multiline>
@@ -188,9 +200,9 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                   </Text>
                 </div>
               ))}
-            </div>
+            </>
 
-            <TextOverlayBG />
+            {/* <TextOverlayBG /> */}
           </div>
 
           {showArrowsAndBar ? <ProgressBar progress={progress} /> : null}
@@ -239,10 +251,10 @@ const ArrowButton = () => {
 
 const TextOverlayBG = () => {
   const styles = cva([
-    "w-full h-[30%] sm:w-[120%] sm:h-[60%] sm:-rotate-12 rounded-40px",
-    "absolute bottom-0px right-[0px] sm:-bottom-[50px] sm:-right-[60px] z-10",
-    "bg-gradient-to-r from-neutral-100 to-neutral-100/80",
-    "blur-[40px] sm:blur-[50px]",
+    "w-full h-[30%] sm:w-[120%] sm:h-[120px] sm:-rotate-6 rounded-tl-24px",
+    "absolute bottom-0px right-[0px] sm:-bottom-[20px] sm:-right-[30px] z-10",
+    "bg-gradient-to-br from-neutral-100/20 to-neutral-100",
+    "blur-[30px]",
   ]);
 
   return <div className={styles()} />;
