@@ -56,26 +56,29 @@
 // ✅ Update Featured Images
 // ✅ Update Storybook image in Multiverse case study
 // ✅ Mask gradient for footer Globe
-// ✅ Apply to jobs
+// ✅ Enhance image reveal slider
 
 // RND
 // ✅ Optimize Speed (Should have RND on this)
 
-// Nice to haves
+// Phase 2
 // Project page: Contributors with links to their linkedIn or portfolio
 // Light/Dark Mode trigger with icon animation
-// Color picker for Featured Projects
+// Gallery Page
+// Multiverse Update
+
+// Nice to haves
 // About Me: Piano Covers
+// Color picker for Featured Projects
 // Loading Lottie for Journal Content
 // Journal Full Screen
 // The Gospel page
 // Rotate to location - Footer Globe Interaction
 // Animated lock opening
-// ✅ Enhance image reveal slider
+
 
 // WEEKLY ENTRIES
 // Journal Entry: Thoughts (Notion, Jira, Atlas)
 // Journal Entry: Road to Design Engineer
 // Journal Entry: PayloadCMS + NextJS = Portfolio
-// Journal Entry: Carlos Yulo Gold (Preparation and Success)
 // Building Performant apps
