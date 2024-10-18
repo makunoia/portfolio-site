@@ -4,7 +4,7 @@ import bundleAnalyzer from "@next/bundle-analyzer";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    ppr: "incremental",
+    ppr: true,
     reactCompiler: false,
     optimizePackageImports: ["moment-timezone", "moment"],
   },

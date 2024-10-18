@@ -2,6 +2,9 @@ import type { CollectionConfig } from "payload";
 
 const JournalEntries: CollectionConfig = {
   slug: "journal-entries",
+  versions: {
+    drafts: true,
+  },
   labels: {
     singular: "Journal Entry",
     plural: "Journal Entries",

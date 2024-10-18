@@ -1,4 +1,4 @@
-import { CollectionConfig } from "payload";
+import { BlocksField, BlocksFieldValidation, CollectionConfig } from "payload";
 import InfoItem from "../blocks/InfoItem";
 import BooleanItem from "../blocks/BooleanItem";
 import MediaItem from "../blocks/MediaItem";
@@ -116,16 +116,23 @@ const Pages: CollectionConfig = {
           type: "blocks",
           required: true,
           blocks: [InfoItem, BooleanItem, MediaItem],
-          validate: (data) => {
-            const content = data;
-            if (content.length === 0) {
-              return true;
-            }
-
-            const firstValue = content[0]["blockType"];
-            for (let i = 1; i < content.length; i++) {
-              if (content[i]["blockType"] !== firstValue) {
-                return "All blocks must be the same in a section.";
+          validate: (value) => {
+            const content = value;
+            if (
+              Array.isArray(content) &&
+              content.every(
+                (item) => typeof item === "object" && "blockType" in item
+              )
+            ) {
+              if (content.length === 0) {
+                return true;
+              } else {
+                const firstValue = content[0]["blockType"];
+                for (let i = 1; i < content.length; i++) {
+                  if (content[i]["blockType"] !== firstValue) {
+                    return "All blocks must be the same in a section.";
+                  }
+                }
               }
             }
 

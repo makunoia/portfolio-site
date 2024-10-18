@@ -20,6 +20,7 @@ export interface Config {
     'journal-entry-tags': JournalEntryTag;
     assets: Asset;
     globals: Global;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -114,6 +115,7 @@ export interface Project {
   isArchived?: boolean | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -276,6 +278,7 @@ export interface JournalEntry {
   };
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -297,6 +300,57 @@ export interface Global {
   type: 'Text' | 'File';
   value?: string | null;
   document?: (string | null) | Asset;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: string;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: string | Project;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'project-tags';
+        value: string | ProjectTag;
+      } | null)
+    | ({
+        relationTo: 'my-roles';
+        value: string | MyRole;
+      } | null)
+    | ({
+        relationTo: 'journal-entries';
+        value: string | JournalEntry;
+      } | null)
+    | ({
+        relationTo: 'journal-entry-tags';
+        value: string | JournalEntryTag;
+      } | null)
+    | ({
+        relationTo: 'assets';
+        value: string | Asset;
+      } | null)
+    | ({
+        relationTo: 'globals';
+        value: string | Global;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
   updatedAt: string;
   createdAt: string;
 }

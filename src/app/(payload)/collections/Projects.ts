@@ -1,9 +1,11 @@
 import { CollectionConfig } from "payload";
 import Showcase from "../blocks/Showcase";
-// import { BlockRowLabel, SectionRowLabel } from "../components/RowLabel";
 
 const Projects: CollectionConfig = {
   slug: "projects",
+  versions: {
+    drafts: true,
+  },
   labels: {
     singular: "Project",
     plural: "Projects",
