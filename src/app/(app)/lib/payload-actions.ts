@@ -10,7 +10,7 @@ import { FeaturedProject, LockedProject, ProjectsByYear } from "../types";
 import { CollectionSlug } from "payload";
 const payload = await getPayload({ config });
 
-export const getPageData = async (slug: string) => {
+export const getPageData = unstable_cache(async (slug: string) => {
   const { docs } = await payload.find({
     collection: "pages",
     where: {
@@ -20,14 +20,10 @@ export const getPageData = async (slug: string) => {
     },
   });
 
-  const data = docs[0];
+  return docs[0];
+});
 
-  return unstable_cache(async () => data, [slug], {
-    tags: ["cachedPage"],
-  })();
-};
-
-export const getEntryContent = async (slug: string) => {
+export const getEntryContent = unstable_cache(async (slug: string) => {
   const { docs } = await payload.find({
     collection: "journal-entries",
     where: {
@@ -37,13 +33,11 @@ export const getEntryContent = async (slug: string) => {
     },
   });
 
-  const entry = docs[0];
-  return unstable_cache(async () => entry.content, [entry.slug], {
-    tags: [`entry:${entry.slug}`],
-  })();
-};
+  //Return the entry content
+  return docs[0].content;
+});
 
-export const getProject = async (slug: string) => {
+export const getProject = unstable_cache(async (slug: string) => {
   const req = await payload.find({
     collection: "projects",
     where: {
@@ -53,12 +47,8 @@ export const getProject = async (slug: string) => {
     },
   });
 
-  const project = req.docs[0];
-
-  return unstable_cache(async () => project, [project.slug], {
-    tags: [`project:${project.slug}`],
-  })();
-};
+  return req.docs[0];
+});
 
 export const getCollection = async ({
   collection,
