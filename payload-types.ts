@@ -92,8 +92,6 @@ export interface User {
   password?: string | null;
 }
 /**
- * Manage your projects
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */

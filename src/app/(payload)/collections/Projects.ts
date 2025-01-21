@@ -12,7 +12,6 @@ const Projects: CollectionConfig = {
   },
   admin: {
     useAsTitle: "title",
-    description: "Manage your projects",
     defaultColumns: [
       "title",
       "year",
