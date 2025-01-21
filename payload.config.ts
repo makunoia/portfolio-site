@@ -37,16 +37,29 @@ import sharp from "sharp";
 import Showcase from "@/app/(payload)/blocks/Showcase";
 import EntrySection from "@/app/(payload)/blocks/EntrySection";
 
+import { OAuth2Client } from "google-auth-library";
+
+const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN, EMAIL_USER } =
+  process.env;
+
+const credentials = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+credentials.setCredentials({
+  refresh_token: REFRESH_TOKEN,
+});
+
+const accessToken = await credentials.getAccessToken();
+
 const transport = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   secure: true,
   auth: {
     type: "OAuth2",
-    user: process.env.EMAIL_USER,
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    refreshToken: process.env.REFRESH_TOKEN,
+    user: EMAIL_USER,
+    clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    refreshToken: REFRESH_TOKEN,
+    accessToken: accessToken.token ? accessToken.token.toString() : "",
   },
 });
 
@@ -69,9 +82,7 @@ export default buildConfig({
   email: nodemailerAdapter({
     transport,
     defaultFromName: "Mark Noya",
-    defaultFromAddress: process.env.EMAIL_USER
-      ? process.env.EMAIL_USER
-      : "markbriannoya@gmail.com",
+    defaultFromAddress: EMAIL_USER ? EMAIL_USER : "markbriannoya@gmail.com",
   }),
   collections: [
     Users,
