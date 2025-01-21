@@ -6,8 +6,8 @@ import ListContainer from "@/components/Home/ListContainer";
 import BackButton from "@/app/(app)/components/Projects/BackButton";
 
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-const payload = await getPayloadHMR({ config });
+import { getPayload } from "payload";
+const payload = await getPayload({ config });
 
 import { Project } from "payload-types";
 

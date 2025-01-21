@@ -17,7 +17,11 @@ import MyRoles from "@/app/(payload)/collections/tags/MyRoles";
 import JournalEntryTags from "@/app/(payload)/collections/tags/JournalEntryTags";
 import Globals from "@/app/(payload)/collections/Globals";
 
+import nodemailer from "nodemailer";
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
+
 import {
+  lexicalEditor,
   BlockquoteFeature,
   BlocksFeature,
   BoldFeature,
@@ -25,7 +29,6 @@ import {
   HorizontalRuleFeature,
   InlineCodeFeature,
   ItalicFeature,
-  lexicalEditor,
   ParagraphFeature,
   UnderlineFeature,
 } from "@payloadcms/richtext-lexical";
@@ -33,6 +36,19 @@ import {
 import sharp from "sharp";
 import Showcase from "@/app/(payload)/blocks/Showcase";
 import EntrySection from "@/app/(payload)/blocks/EntrySection";
+
+const transport = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    type: "OAuth2",
+    user: process.env.EMAIL_USER,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    refreshToken: process.env.REFRESH_TOKEN,
+  },
+});
 
 export default buildConfig({
   editor: lexicalEditor({
@@ -49,6 +65,13 @@ export default buildConfig({
         blocks: [Showcase, EntrySection],
       }),
     ],
+  }),
+  email: nodemailerAdapter({
+    transport,
+    defaultFromName: "Mark Noya",
+    defaultFromAddress: process.env.EMAIL_USER
+      ? process.env.EMAIL_USER
+      : "markbriannoya@gmail.com",
   }),
   collections: [
     Users,
@@ -94,5 +117,9 @@ export default buildConfig({
     user: Users.slug,
   },
   cors: "*",
+  async onInit(payload) {
+    //test connections here
+  },
+
   sharp,
 });

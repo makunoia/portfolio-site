@@ -2,13 +2,13 @@
 
 import config from "@payload-config";
 import Users from "@/app/(payload)/collections/Users";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import { unstable_cache } from "next/cache";
 import { GroupByYear } from "@/lib/helpers";
 import { JournalEntry, Project } from "payload-types";
 import { FeaturedProject, LockedProject, ProjectsByYear } from "../types";
 import { CollectionSlug } from "payload";
-const payload = await getPayloadHMR({ config });
+const payload = await getPayload({ config });
 
 export const getPageData = async (slug: string) => {
   const { docs } = await payload.find({

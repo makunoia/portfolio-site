@@ -24,13 +24,33 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  collectionsJoins: {};
+  collectionsSelect: {
+    users: UsersSelect<false> | UsersSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    'project-tags': ProjectTagsSelect<false> | ProjectTagsSelect<true>;
+    'my-roles': MyRolesSelect<false> | MyRolesSelect<true>;
+    'journal-entries': JournalEntriesSelect<false> | JournalEntriesSelect<true>;
+    'journal-entry-tags': JournalEntryTagsSelect<false> | JournalEntryTagsSelect<true>;
+    assets: AssetsSelect<false> | AssetsSelect<true>;
+    globals: GlobalsSelect<false> | GlobalsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
   db: {
     defaultIDType: string;
   };
   globals: {};
+  globalsSelect: {};
   locale: null;
   user: User & {
     collection: 'users';
+  };
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -72,6 +92,8 @@ export interface User {
   password?: string | null;
 }
 /**
+ * Manage your projects
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
@@ -80,6 +102,9 @@ export interface Project {
   title: string;
   type: string;
   year: string;
+  /**
+   * Appears on the project page hero section and the front page if featured
+   */
   desc: string;
   slug: string;
   status: 'ONGOING' | 'DONE' | 'SUNSET';
@@ -102,16 +127,34 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Users won't be able to access this project unless they provide a password
+   */
   isLocked?: boolean | null;
+  /**
+   * Provide a codename and a password for this locked project
+   */
   lockedData?: {
     codename: string;
   };
+  /**
+   * Add this project to the Featured Projects carousel displayed on the homepage
+   */
   isFeatured?: boolean | null;
   featuredData?: {
     image: string | Asset;
+    /**
+     * Enter a valid HEX code
+     */
     gradientStart: string;
+    /**
+     * Enter a valid HEX code
+     */
     gradientEnd: string;
   };
+  /**
+   * Archived projects adds a section on the project page
+   */
   isArchived?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -142,6 +185,9 @@ export interface ProjectTag {
  * via the `definition` "Showcase".
  */
 export interface Showcase {
+  /**
+   * Add a before and after image of the showcase
+   */
   isRevealer?: boolean | null;
   image?: (string | null) | Asset;
   images?: {
@@ -150,6 +196,9 @@ export interface Showcase {
   };
   title: string;
   desc?: string | null;
+  /**
+   * A small badge at the opposite end of the title
+   */
   tag?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -197,6 +246,9 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Your status will be displayed as a badge on the home page hero section
+   */
   status?: ('employed' | 'open') | null;
   pagePhotos?: {
     portrait: string | Asset;
@@ -387,6 +439,266 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  type?: T;
+  year?: T;
+  desc?: T;
+  slug?: T;
+  status?: T;
+  yearDone?: T;
+  role?: T;
+  tag?: T;
+  sections?:
+    | T
+    | {
+        title?: T;
+        htmlID?: T;
+        blocks?:
+          | T
+          | {
+              lead?: T;
+              copy?: T;
+              htmlID?: T;
+              showcase?:
+                | T
+                | {
+                    showcase?: T | ShowcaseSelect<T>;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  isLocked?: T;
+  lockedData?:
+    | T
+    | {
+        codename?: T;
+      };
+  isFeatured?: T;
+  featuredData?:
+    | T
+    | {
+        image?: T;
+        gradientStart?: T;
+        gradientEnd?: T;
+      };
+  isArchived?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Showcase_select".
+ */
+export interface ShowcaseSelect<T extends boolean = true> {
+  isRevealer?: T;
+  image?: T;
+  images?:
+    | T
+    | {
+        beforeImage?: T;
+        afterImage?: T;
+      };
+  title?: T;
+  desc?: T;
+  tag?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  name?: T;
+  intro?: T;
+  status?: T;
+  pagePhotos?:
+    | T
+    | {
+        portrait?: T;
+        cover?: T;
+      };
+  sections?:
+    | T
+    | {
+        title?: T;
+        layout?: T;
+        content?:
+          | T
+          | {
+              'info-item'?: T | InfoItemSelect<T>;
+              'T-item'?: T | BooleanItemSelect<T>;
+              'media-item'?: T | MediaItemSelect<T>;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InfoItem_select".
+ */
+export interface InfoItemSelect<T extends boolean = true> {
+  label?: T;
+  desc?: T;
+  tag?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BooleanItem_select".
+ */
+export interface BooleanItemSelect<T extends boolean = true> {
+  label?: T;
+  value?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaItem_select".
+ */
+export interface MediaItemSelect<T extends boolean = true> {
+  label?: T;
+  genre?: T;
+  tag?: T;
+  poster?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-tags_select".
+ */
+export interface ProjectTagsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "my-roles_select".
+ */
+export interface MyRolesSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "journal-entries_select".
+ */
+export interface JournalEntriesSelect<T extends boolean = true> {
+  title?: T;
+  type?: T;
+  slug?: T;
+  date?: T;
+  tag?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "journal-entry-tags_select".
+ */
+export interface JournalEntryTagsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "assets_select".
+ */
+export interface AssetsSelect<T extends boolean = true> {
+  name?: T;
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "globals_select".
+ */
+export interface GlobalsSelect<T extends boolean = true> {
+  name?: T;
+  type?: T;
+  value?: T;
+  document?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

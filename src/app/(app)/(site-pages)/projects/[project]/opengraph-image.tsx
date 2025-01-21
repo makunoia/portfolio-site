@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-const payload = await getPayloadHMR({ config });
+import { getPayload } from "payload";
+const payload = await getPayload({ config });
 
 // Image metadata
 export const alt = "Mark Noya | Product Designer";

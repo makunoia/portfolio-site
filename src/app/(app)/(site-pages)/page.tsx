@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import Image from "next/image";
 import LinksRow from "@/components/LinksRow";
-import Logo from "../assets/logo.svg";
+import Logo from "@/assets/logo.svg";
 import HeroSection from "@/components/HeroSections/Home";
 
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";

@@ -8,8 +8,13 @@ import { getPageData } from "@/lib/payload-actions";
 const HomeHero = async () => {
   const data = await getPageData("Home");
 
-  const copy = data.intro?.root.children as LexicalBlock;
-  const status = data.status as "employed" | "open";
+  let copy: LexicalBlock = [];
+  let status: React.ComponentProps<typeof StatusBadge>["status"];
+
+  if (data) {
+    copy = data?.intro?.root.children as LexicalBlock;
+    status = data.status as "employed" | "open";
+  }
 
   return (
     <div className="flex flex-col gap-24px w-[90%]">

@@ -11,7 +11,7 @@ const tracker = async (
   eventName: string,
   eventProperties?: Record<string, any>
 ) => {
-  const ip = headers().get("X-Forwarded-For");
+  const ip = (await headers()).get("X-Forwarded-For");
   const userID = await getUserUUID();
 
   const additionalProperties = {

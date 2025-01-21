@@ -1,12 +1,12 @@
 import config from "@payload-config";
 import PaginationItem from "./PaginationItem";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import { GroupByYear } from "@/lib/helpers";
 import { ProjectsByYear } from "@/types";
 import { Project } from "payload-types";
 
 const getPages = async (currSlug: string) => {
-  const payload = await getPayloadHMR({ config });
+  const payload = await getPayload({ config });
 
   const req = await payload.find({
     collection: "projects",

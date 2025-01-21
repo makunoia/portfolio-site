@@ -4,8 +4,8 @@ import { LexicalBlock } from "@/app/(app)/types";
 import { renderLexicalContent } from "@/lib/helpers";
 
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-const payload = await getPayloadHMR({ config });
+import { getPayload } from "payload";
+const payload = await getPayload({ config });
 
 const ProjectsHero = async () => {
   const { docs } = await payload.find({

@@ -1,11 +1,11 @@
 import LinkButton from "@/components/LinkButton";
 
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import { Asset } from "payload-types";
 
 const getResume = async () => {
-  const payload = await getPayloadHMR({ config });
+  const payload = await getPayload({ config });
   const { docs } = await payload.find({
     collection: "globals",
     where: {

@@ -1,15 +1,15 @@
 "use server";
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const payload = await getPayloadHMR({ config });
+const payload = await getPayload({ config });
 
 export const validatePassword = async (
   formData: FormData
 ): Promise<boolean> => {
-  const cookie = cookies();
+  const cookie = await cookies();
   const enteredPassword = formData.get("password");
   const response = await payload.find({
     collection: "globals",
@@ -30,8 +30,8 @@ export const validatePassword = async (
   }
 };
 
-export const redirectTo = () => {
-  const cookie = cookies();
+export const redirectTo = async () => {
+  const cookie = await cookies();
   const redirectCookie = cookie.get("redirectTo");
 
   const url = redirectCookie ? redirectCookie.value : "/";
@@ -40,7 +40,7 @@ export const redirectTo = () => {
 };
 
 export const getUserUUID = async () => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   let userUUID = cookieStore.get("userUUID");
   return userUUID;
 };

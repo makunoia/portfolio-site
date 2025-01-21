@@ -4,11 +4,12 @@ import { ReactNode } from "react";
 import { MetadataSeed } from "@/lib/metadata";
 import { getProject } from "@/lib/payload-actions";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { project: string };
-}) {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ project: string }>;
+  }
+) {
+  const params = await props.params;
   const projectData = await getProject(params.project);
 
   return {
