@@ -107,9 +107,6 @@ importers:
       next-themes:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      nodemailer:
-        specifier: ^6.9.16
-        version: 6.9.16
       payload:
         specifier: latest
         version: 3.18.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)

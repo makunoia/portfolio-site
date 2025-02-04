@@ -17,7 +17,6 @@ import MyRoles from "@/app/(payload)/collections/tags/MyRoles";
 import JournalEntryTags from "@/app/(payload)/collections/tags/JournalEntryTags";
 import Globals from "@/app/(payload)/collections/Globals";
 
-import nodemailer from "nodemailer";
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 
 import {
@@ -39,29 +38,22 @@ import EntrySection from "@/app/(payload)/blocks/EntrySection";
 
 import { OAuth2Client } from "google-auth-library";
 
-const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN, EMAIL_USER } =
-  process.env;
+const {
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECT_URI,
+  REFRESH_TOKEN,
+  EMAIL_USER,
+  GMAIL_PASS,
+} = process.env;
 
-const credentials = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-credentials.setCredentials({
-  refresh_token: REFRESH_TOKEN,
-});
-
-const accessToken = await credentials.getAccessToken();
-
-const transport = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+const transportOptions = {
+  service: "gmail",
   auth: {
-    type: "OAuth2",
     user: EMAIL_USER,
-    clientId: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
-    refreshToken: REFRESH_TOKEN,
-    accessToken: accessToken.token ? accessToken.token.toString() : "",
+    pass: GMAIL_PASS,
   },
-});
+};
 
 export default buildConfig({
   editor: lexicalEditor({
@@ -80,7 +72,7 @@ export default buildConfig({
     ],
   }),
   email: nodemailerAdapter({
-    transport,
+    transportOptions,
     defaultFromName: "Mark Noya",
     defaultFromAddress: EMAIL_USER ? EMAIL_USER : "markbriannoya@gmail.com",
   }),
