@@ -36,16 +36,7 @@ import sharp from "sharp";
 import Showcase from "@/app/(payload)/blocks/Showcase";
 import EntrySection from "@/app/(payload)/blocks/EntrySection";
 
-import { OAuth2Client } from "google-auth-library";
-
-const {
-  CLIENT_ID,
-  CLIENT_SECRET,
-  REDIRECT_URI,
-  REFRESH_TOKEN,
-  EMAIL_USER,
-  GMAIL_PASS,
-} = process.env;
+const { EMAIL_USER, GMAIL_PASS } = process.env;
 
 const transportOptions = {
   service: "gmail",

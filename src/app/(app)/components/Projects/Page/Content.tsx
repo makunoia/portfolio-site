@@ -28,11 +28,11 @@ const Page = async ({ projectSlug }: { projectSlug: string }) => {
     notFound();
   }
 
+  console.log(project);
+
   const { sections } = project;
-  // There's a bug in Payload 3.0 relations that affect type setting
-  // This is a temporary measure to enforce proper type
   const tag = project.tag as ProjectTag;
-  const role: MyRole = project.role as MyRole;
+  const role = project.role as MyRole;
   const archived = project.isArchived;
   const locked = project.isLocked;
 
@@ -81,11 +81,11 @@ const Page = async ({ projectSlug }: { projectSlug: string }) => {
                 </div>
                 <div className="flex flex-row gap-8px">
                   <HeroBadge label={project.year} />
-                  <HeroBadge label={tag.name} />
+                  {tag && <HeroBadge label={tag.name} />}
                 </div>
 
                 <div className="flex flex-row gap-40px">
-                  <HeroOverline label="Role" value={role.name} />
+                  {role && <HeroOverline label="Role" value={role.name} />}
                   <HeroOverline label="Status" value={status[project.status]} />
                   {locked && (
                     <HeroOverline
