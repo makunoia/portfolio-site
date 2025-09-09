@@ -2,7 +2,7 @@ export const dynamic = "force-static";
 import React from "react";
 
 import lazy from "next/dynamic";
-import { notFound } from "next/navigation";
+import {notFound} from "next/navigation";
 
 import Text from "@/components/Text";
 import Pagination from "@/components/Projects/Pagination";
@@ -10,27 +10,25 @@ import HeroBadge from "@/components/Projects/Page/HeroBadge";
 import HeroOverline from "@/components/Projects/Page/HeroOverline";
 import ProjectContent from "@/components/Projects/ProjectContent";
 import ContentObserver from "@/components/Journal/ContentObserver";
-import ScrollSpy, { ScrollSpyType } from "@/components/Projects/ScrollSpy";
+import ScrollSpy, {ScrollSpyType} from "@/components/Projects/ScrollSpy";
 import BackButton from "@/app/(app)/components/Projects/BackButton";
 
 const AnalyticsTracker = lazy(() => import("@/components/AnalyticsTracker"));
 
-import { InViewProvider } from "@/contexts/InViewContext";
-import { Archive } from "lucide-react";
+import {InViewProvider} from "@/contexts/InViewContext";
+import {Archive} from "lucide-react";
 
-import { MyRole, ProjectTag } from "payload-types";
-import { getProject } from "@/lib/payload-actions";
+import {MyRole, ProjectTag} from "payload-types";
+import {getProject} from "@/lib/payload-actions";
 
-const Page = async ({ projectSlug }: { projectSlug: string }) => {
+const Page = async ({projectSlug}: {projectSlug: string}) => {
   const project = await getProject(projectSlug);
 
   if (!project) {
     notFound();
   }
 
-  console.log(project);
-
-  const { sections } = project;
+  const {sections} = project;
   const tag = project.tag as ProjectTag;
   const role = project.role as MyRole;
   const archived = project.isArchived;

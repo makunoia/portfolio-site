@@ -4,9 +4,9 @@ import InfoItem from "@/components/AboutMe/InfoItem";
 import BooleanItem from "@/components/AboutMe/BooleanItem";
 import MediaItem from "@/components/AboutMe/MediaItem";
 
-import { Asset, JournalEntry, Project, ProjectTag } from "payload-types";
-import { AboutMeSection, LexicalBlock } from "@/types";
-import { MouseEventHandler } from "react";
+import {Asset, JournalEntry, Project, ProjectTag} from "payload-types";
+import {AboutMeSection, LexicalBlock} from "@/types";
+import {MouseEventHandler} from "react";
 import EntrySection from "../components/Journal/EntrySection";
 
 //Mouse Event handler for List Items on Projects and Journal page
@@ -270,7 +270,7 @@ export const AnimationVariants = {
       opacity: 0,
       y: 10,
     },
-    shown: {
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
@@ -281,8 +281,8 @@ export const AnimationVariants = {
   },
 
   container: {
-    hidden: { opacity: 0 },
-    shown: {
+    hidden: {opacity: 0},
+    visible: {
       opacity: 1,
       transition: {
         duration: 0.8,
@@ -298,15 +298,17 @@ export const AnimationVariants = {
       filter: "blur(20px)",
       y: 50,
     },
-    shown: {
+    visible: {
       opacity: 1,
       filter: "blur(0px)",
       y: 0,
-      transition: {
-        duration: 0.2,
+      animate: {
         type: "spring",
         stiffness: 400,
         damping: 80,
+      },
+      transition: {
+        duration: 0.6,
       },
     },
   },

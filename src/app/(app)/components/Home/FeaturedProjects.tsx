@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Text from "@/components/Text";
 import Link from "next/link";
 import Image from "next/image";
-import { cva } from "class-variance-authority";
-import { FeaturedProject } from "@/types";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { m, LazyMotion, domAnimation } from "framer-motion";
-import { track } from "@vercel/analytics";
-import { cn } from "../../lib/utils";
+import {cva} from "class-variance-authority";
+import {FeaturedProject} from "@/types";
+import {ArrowUpRight, ChevronLeft, ChevronRight} from "lucide-react";
+import {m, LazyMotion, domAnimation} from "framer-motion";
+import {track} from "@vercel/analytics";
+import {cn} from "../../lib/utils";
 
 const style = cva([
   "w-full h-[270px] sm:h-[300px]",
@@ -47,7 +47,7 @@ const infoStyle = cva([
   "w-full sm:w-[50%]",
 ]);
 
-const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
+const FeaturedProjects = ({projects}: {projects: FeaturedProject[]}) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [link, setLink] = useState<string>("");
 
@@ -87,7 +87,9 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   }, [isPaused, GoToNextItem]);
 
   useEffect(() => {
-    setLink(projects[activeIndex].slug);
+    projects.length
+      ? setLink(projects[activeIndex].slug)
+      : console.log("No projects found.");
   }, [activeIndex]);
 
   return (
@@ -127,9 +129,9 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
           <LazyMotion features={domAnimation}>
             <m.div
               layout
-              initial={{ translateY: 100, opacity: 0 }}
-              animate={{ translateY: 0, opacity: 100 }}
-              transition={{ type: "spring", delay: 0.3 }}
+              initial={{translateY: 100, opacity: 0}}
+              animate={{translateY: 0, opacity: 100}}
+              transition={{type: "spring", delay: 0.3}}
               className={imageContainer()}
             >
               {projects.map((project, i) => {
@@ -144,10 +146,11 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
                       fill
                       priority
                       quality={85}
+                      sizes="80vw"
                       className="select-none"
                       src={project.featuredData.image.url}
                       alt={project.featuredData.image.alt || ""}
-                      style={{ objectFit: "cover", objectPosition: "top" }}
+                      style={{objectFit: "cover", objectPosition: "top"}}
                     />
                   </div>
                 );
@@ -214,7 +217,7 @@ const FeaturedProjects = ({ projects }: { projects: FeaturedProject[] }) => {
   );
 };
 
-const ProgressBar = ({ progress }: { progress: number }) => {
+const ProgressBar = ({progress}: {progress: number}) => {
   const styles = cva([
     "w-0px h-2px",
     "absolute bottom-0px left-0px z-10",
@@ -225,9 +228,9 @@ const ProgressBar = ({ progress }: { progress: number }) => {
     <LazyMotion features={domAnimation}>
       <m.div
         className={styles()}
-        initial={{ width: 0 }}
-        animate={{ width: `${progress}%` }}
-        transition={{ duration: 0.1, ease: "linear" }}
+        initial={{width: 0}}
+        animate={{width: `${progress}%`}}
+        transition={{duration: 0.1, ease: "linear"}}
       />
     </LazyMotion>
   );
@@ -264,7 +267,7 @@ const BackgroundLight = ({
   gradient,
   shown,
 }: {
-  gradient: { start: string; end: string };
+  gradient: {start: string; end: string};
   shown: boolean;
 }) => {
   const styles = cva(
@@ -289,7 +292,7 @@ const BackgroundLight = ({
     background: `linear-gradient(125deg, ${gradient.start} 50%, ${gradient.end} 0%)`,
   };
 
-  return <div className={styles({ shown })} style={gradientStyle} />;
+  return <div className={styles({shown})} style={gradientStyle} />;
 };
 
 export default FeaturedProjects;

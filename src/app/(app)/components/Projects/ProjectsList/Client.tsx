@@ -1,17 +1,17 @@
 "use client";
-import { ProjectsByYear } from "@/app/(app)/types";
+import {ProjectsByYear} from "@/app/(app)/types";
 import SectionDivider from "../../SectionDivider";
 import ProjectItem from "../ListItem";
-import { m, LazyMotion, domAnimation } from "framer-motion";
-import { AnimationVariants } from "@/lib/helpers";
+import {m, LazyMotion, domAnimation} from "framer-motion";
+import {AnimationVariants} from "@/lib/helpers";
 
-const ProjectsList = ({ projects }: { projects: ProjectsByYear }) => {
+const ProjectsList = ({projects}: {projects: ProjectsByYear}) => {
   return (
     <LazyMotion features={domAnimation}>
       <m.div
         variants={AnimationVariants.section}
         initial="hidden"
-        animate="shown"
+        animate="visible"
         className="flex flex-col gap-40px"
       >
         {projects.map((item) => {
@@ -25,7 +25,7 @@ const ProjectsList = ({ projects }: { projects: ProjectsByYear }) => {
               <m.div className="flex flex-col gap-16px">
                 {item.projects
                   ? item.projects.map((project) => {
-                      const { id, title, desc, tag, slug, locked, codename } =
+                      const {id, title, desc, tag, slug, locked, codename} =
                         project;
 
                       return locked ? (

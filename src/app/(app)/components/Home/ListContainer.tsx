@@ -17,7 +17,7 @@ import {
   AnimationVariants,
 } from "@/lib/helpers";
 
-import { m, LazyMotion, domAnimation } from "framer-motion";
+import {m, LazyMotion, domAnimation} from "framer-motion";
 
 const ListContainer = ({
   link,
@@ -34,11 +34,11 @@ const ListContainer = ({
             className="flex flex-col gap-16px"
             variants={AnimationVariants.container}
             initial="hidden"
-            animate="shown"
+            animate="visible"
           >
             {items.map((item) => {
               if (isProject(item)) {
-                const { title, year, slug, isLocked, id } = item;
+                const {title, year, slug, isLocked, id} = item;
                 const tag: ProjectTag = item.tag as ProjectTag;
                 return (
                   <m.div

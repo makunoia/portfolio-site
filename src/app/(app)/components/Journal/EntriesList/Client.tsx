@@ -1,11 +1,11 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 
 import JournalPage from "@/components/Journal/JournalPage";
 import SectionDivider from "@/components/SectionDivider";
-import { toast } from "sonner";
+import {toast} from "sonner";
 
-import { usePathname, useRouter } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {
   m,
   LazyMotion,
@@ -13,8 +13,8 @@ import {
   LayoutGroup,
   domAnimation,
 } from "framer-motion";
-import { JournalEntriesByYear } from "@/types";
-import { AnimationVariants } from "@/lib/helpers";
+import {JournalEntriesByYear} from "@/types";
+import {AnimationVariants} from "@/lib/helpers";
 
 const JournalEntriesList = ({
   content,
@@ -30,7 +30,7 @@ const JournalEntriesList = ({
   const [showOverlay, setShowOverlay] = useState(false);
   const [allEntrySlugs] = useState(
     entries
-      ? entries.flatMap(({ entries }) => entries.map((entry) => entry.slug))
+      ? entries.flatMap(({entries}) => entries.map((entry) => entry.slug))
       : []
   );
   const [AllEntriesByYear] = useState<JournalEntriesByYear | null>(entries);
@@ -56,7 +56,7 @@ const JournalEntriesList = ({
       <m.div
         variants={AnimationVariants.section}
         initial="hidden"
-        animate="shown"
+        animate="visible"
         className="flex flex-col gap-40px"
       >
         {AllEntriesByYear ? (
@@ -104,9 +104,9 @@ const Overlay = ({
     <AnimatePresence>
       <m.div
         onClick={() => handleClick()}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.4 }}
-        exit={{ opacity: 0 }}
+        initial={{opacity: 0}}
+        animate={{opacity: 0.4}}
+        exit={{opacity: 0}}
         className="absolute bg inset-0px z-10"
       />
     </AnimatePresence>

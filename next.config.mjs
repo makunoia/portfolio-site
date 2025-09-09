@@ -1,4 +1,4 @@
-import { withPayload } from "@payloadcms/next/withPayload";
+import {withPayload} from "@payloadcms/next/withPayload";
 import bundleAnalyzer from "@next/bundle-analyzer";
 
 /** @type {import('next').NextConfig} */
@@ -36,6 +36,7 @@ const nextConfig = {
     ],
     loader: "custom",
     loaderFile: "./src/app/(app)/lib/loader.ts",
+    qualities: [85],
   },
   async headers() {
     return [

@@ -1,0 +1,5 @@
+---
+description: Always use the Motion animation library to create smooth and advanced animation.
+globs: src/app/**/*.tsx
+alwaysApply: true
+---
