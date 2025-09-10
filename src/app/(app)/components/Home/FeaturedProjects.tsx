@@ -7,7 +7,7 @@ import Image from "next/image";
 import {cva} from "class-variance-authority";
 import {FeaturedProject} from "@/types";
 import {ArrowUpRight, ChevronLeft, ChevronRight} from "lucide-react";
-import {m, LazyMotion, domAnimation} from "framer-motion";
+import {m, LazyMotion, domAnimation} from "motion/react";
 import {track} from "@vercel/analytics";
 import {cn} from "../../lib/utils";
 

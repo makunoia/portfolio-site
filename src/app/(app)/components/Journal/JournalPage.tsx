@@ -1,20 +1,20 @@
 "use client";
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, {ReactNode, useEffect, useRef, useState} from "react";
 import {
   motion,
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
-} from "framer-motion";
+} from "motion/react";
 import Text from "@/components/Text";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { XIcon } from "lucide-react";
-import { JournalEntry, JournalEntryTag } from "payload-types";
-import { formatDate, handleMouseEvents } from "@/lib/helpers";
+import {usePathname} from "next/navigation";
+import {XIcon} from "lucide-react";
+import {JournalEntry, JournalEntryTag} from "payload-types";
+import {formatDate, handleMouseEvents} from "@/lib/helpers";
 
 import ContentContainer from "./ContentContainer";
-import { track } from "@vercel/analytics";
+import {track} from "@vercel/analytics";
 
 const JournalPage = ({
   content,
@@ -26,7 +26,7 @@ const JournalPage = ({
   const page = useRef<HTMLDivElement>(null);
 
   const currPath = usePathname();
-  const { scrollY } = useScroll({ container: page });
+  const {scrollY} = useScroll({container: page});
   const [isPageOpen, setIsPageOpen] = useState(false);
   const [isContentOpen, setIsContentOpen] = useState(false);
   const [showScrollHeader, setShowScrollHeader] = useState(false);
@@ -68,7 +68,7 @@ const JournalPage = ({
   };
 
   const OpenPageOrchestration = async () => {
-    track("Viewed", { page: `${data.title}` });
+    track("Viewed", {page: `${data.title}`});
     setIsPageOpen(true);
     await delay(500);
     setIsContentOpen(true);
@@ -157,14 +157,14 @@ const JournalPage = ({
   );
 };
 
-const CloseButton = ({ onClick }: { onClick: () => {} }) => {
+const CloseButton = ({onClick}: {onClick: () => {}}) => {
   return (
     <motion.div
       onClick={() => onClick()}
       layout="position"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
       className="close-button p-2px flex rounded-4px h-fit bg hover:bg-subtle border shadow-sm cursor-pointer pointer-events-auto"
     >
       <XIcon size={20} />
@@ -184,9 +184,9 @@ const ScrollHeader = ({
   return (
     <motion.div
       layout="position"
-      initial={{ opacity: 0, top: "0px" }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{opacity: 0, top: "0px"}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
       className={`journal-page-header w-full sticky z-10 -mb-[48px] flex px-24px py-12px bg shadow-2xl`}
     >
       <motion.div layout className="w-full">

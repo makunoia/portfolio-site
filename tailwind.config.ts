@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type {Config} from "tailwindcss";
 
 const config: Config = {
   darkMode: "selector",
@@ -45,6 +45,7 @@ const config: Config = {
         1100: "hsl(var(--primitive-1100) / <alpha-value>)",
         1200: "hsl(var(--primitive-1200) / <alpha-value>)",
       },
+      brand: "hsl(var(--brand) / <alpha-value>)",
     },
     backgroundColor: {
       DEFAULT: "hsl(var(--bg-default) / <alpha-value>)",
@@ -54,6 +55,8 @@ const config: Config = {
       success: "hsl(var(--utility-success) / <alpha-value>)",
       info: "hsl(var(--utility-info) / <alpha-value>)",
       danger: "hsl(var(--utility-danger) / <alpha-value>)",
+
+      brand: "hsl(var(--bg-brand) / <alpha-value>)",
     },
     textColor: {
       DEFAULT: "hsl(var(--fg-default) / <alpha-value>)",
@@ -63,11 +66,15 @@ const config: Config = {
       success: "hsl(var(--utility-success) / <alpha-value>)",
       info: "hsl(var(--utility-info) / <alpha-value>)",
       danger: "hsl(var(--utility-danger) / <alpha-value>)",
+
+      brand: "hsl(var(--fg-brand) / <alpha-value>)",
     },
     fill: {
       DEFAULT: "hsl(var(--fg-default) / <alpha-value>)",
       subtle: "hsl(var(--fg-subtle) / <alpha-value>)",
       inverse: "hsl(var(--fg-inverse) / <alpha-value>)",
+
+      brand: "hsl(var(--fg-brand) / <alpha-value>)",
     },
     borderRadius: {
       none: "0",
@@ -86,6 +93,7 @@ const config: Config = {
     borderColor: {
       DEFAULT: "hsl(var(--border-default)/ <alpha-value>)",
       inverse: "hsl(var(--border-inverse) / <alpha-value>)",
+      brand: "hsl(var(--border-brand) / <alpha-value>)",
     },
     fontSize: {
       caption: ["0.75rem", "0.875rem"],

@@ -17,7 +17,7 @@ import {
   AnimationVariants,
 } from "@/lib/helpers";
 
-import {m, LazyMotion, domAnimation} from "framer-motion";
+import {m, LazyMotion, domAnimation} from "motion/react";
 
 const ListContainer = ({
   link,

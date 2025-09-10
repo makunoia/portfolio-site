@@ -34,6 +34,8 @@
     --opacity-90: 0.9;
     --opacity-100: 1;
 
+    --brand: 254deg 55% 63%;
+
     --utility-success: 122.4deg 88.2% 50%;
     --utility-info: 211deg 88% 50%;
     --utility-danger: 3deg 91% 52%;
@@ -56,13 +58,16 @@
     --bg-default: var(--primitive-100);
     --bg-subtle: var(--primitive-400);
     --bg-inverse: var(--primitive-1200);
+    --bg-brand: var(--brand);
 
     --fg-default: var(--primitive-1200);
     --fg-subtle: var(--primitive-1100);
     --fg-inverse: var(--primitive-100);
+    --fg-brand: var(--brand);
 
     --border-default: var(--primitive-400);
     --border-inverse: var(--primitive-1200);
+    --border-brand: var(--brand);
 
     --trackline: var(--primitive-600);
     --trackline-hover: var(--primitive-900);
@@ -88,13 +93,16 @@
     --bg-default: var(--primitive-100);
     --bg-subtle: var(--primitive-300);
     --bg-inverse: var(--primitive-1200);
+    --bg-brand: var(--brand);
 
     --fg-default: var(--primitive-1200);
     --fg-subtle: var(--primitive-1100);
     --fg-inverse: var(--primitive-100);
+    --fg-brand: var(--brand);
 
     --border-default: var(--primitive-800);
     --border-inverse: var(--primitive-1200);
+    --border-brand: var(--brand);
 
     --shadow-default: var(--primitive-400);
   }
@@ -129,6 +137,16 @@
 }
 
 @layer components {
+  /* Assistant input: prevent WebKit autofill from painting a white background */
+  #assistant-input:-webkit-autofill,
+  #assistant-input:-webkit-autofill:hover,
+  #assistant-input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-text-fill-color: hsl(var(--fg-default));
+    transition: background-color 9999s ease-in-out 0s;
+  }
+
   #observer {
     display: none;
 

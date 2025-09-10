@@ -1,13 +1,20 @@
-import React, { lazy, Suspense } from "react";
+import React, {lazy, Suspense} from "react";
 import Image from "next/image";
 import LinksRow from "@/components/LinksRow";
 import Logo from "@/assets/logo.svg";
-import HeroSection from "@/components/HeroSections/Home";
+
+import {
+  getPageData,
+  getCollection,
+  getFeaturedProjects,
+} from "@/lib/payload-actions";
+import {LexicalBlock} from "@/app/(app)/types";
+import {Project} from "payload-types";
 
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
-import { MetadataSeed } from "@/lib/metadata";
-import SectionsContainer from "../components/Home/SectionsContainer";
+import {MetadataSeed} from "@/lib/metadata";
+import MainLayout from "@/app/(app)/components/MainLayout";
 
 const AnalyticsTracker = lazy(() => import("@/components/AnalyticsTracker"));
 
@@ -31,32 +38,58 @@ export function generateMetadata() {
   };
 }
 
-const Page = () => {
+const Page = async () => {
+  let copy: LexicalBlock = [];
+  let status: "employed" | "open" | undefined = "employed";
+
+  // Fetch all data in parallel
+  const pageData = getPageData("Home");
+  const featuredProjects = getFeaturedProjects();
+  const archivedProjects = getCollection({
+    collection: "projects",
+    sort: "-year",
+    limit: 3,
+    where: {
+      isFeatured: {
+        not_equals: true,
+      },
+    },
+  }) as Promise<Project[]>;
+
+  const [data, featProjects, projects] = await Promise.all([
+    pageData,
+    featuredProjects,
+    archivedProjects,
+  ]);
+
+  if (data) {
+    copy = data?.intro?.root.children as LexicalBlock;
+    status = data.status as "employed" | "open";
+  }
+
   return (
     <>
       <AnalyticsTracker page="Homepage" />
-      <main className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]">
-        <div className="flex flex-col gap-30px transition-all ease-in-out">
-          <div className="flex justify-between">
-            <Image
-              alt="Logo"
-              src={Logo}
-              style={{ width: 45, height: "auto" }}
-              priority
-            />
 
-            <Suspense fallback={<LinksRowSkeleton />}>
-              <LinksRow />
-            </Suspense>
-          </div>
+      <div className="flex justify-between px-[5%] pt-[2%]">
+        <Image
+          alt="Logo"
+          src={Logo}
+          style={{width: 45, height: "auto"}}
+          priority
+        />
 
-          <HeroSection />
-        </div>
+        <Suspense fallback={<LinksRowSkeleton />}>
+          <LinksRow />
+        </Suspense>
+      </div>
 
-        <hr />
-
-        <SectionsContainer />
-      </main>
+      <MainLayout
+        copy={copy}
+        status={status}
+        featuredProjects={featProjects}
+        archivedProjects={projects}
+      />
     </>
   );
 };

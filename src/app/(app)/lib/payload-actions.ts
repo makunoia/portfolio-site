@@ -2,29 +2,36 @@
 
 import config from "@payload-config";
 import Users from "@/app/(payload)/collections/Users";
-import { getPayload } from "payload";
-import { unstable_cache } from "next/cache";
-import { GroupByYear } from "@/lib/helpers";
-import { JournalEntry, Project } from "payload-types";
-import { FeaturedProject, LockedProject, ProjectsByYear } from "../types";
-import { CollectionSlug } from "payload";
-const payload = await getPayload({ config });
+import {getPayload} from "payload";
+import {unstable_cache} from "next/cache";
+import {GroupByYear} from "@/lib/helpers";
+import {JournalEntry, Project} from "payload-types";
+import {FeaturedProject, LockedProject, ProjectsByYear} from "../types";
+import {CollectionSlug} from "payload";
+const payload = await getPayload({config});
 
-export const getPageData = unstable_cache(async (slug: string) => {
-  const { docs } = await payload.find({
-    collection: "pages",
-    where: {
-      name: {
-        equals: slug,
+export const getPageData = unstable_cache(
+  async (slug: string) => {
+    const {docs} = await payload.find({
+      collection: "pages",
+      where: {
+        name: {
+          equals: slug,
+        },
       },
-    },
-  });
+    });
 
-  return docs[0];
-});
+    return docs[0];
+  },
+  ["pageData"],
+  {
+    tags: ["pageData"],
+    revalidate: 3600,
+  }
+);
 
 export const getEntryContent = unstable_cache(async (slug: string) => {
-  const { docs } = await payload.find({
+  const {docs} = await payload.find({
     collection: "journal-entries",
     where: {
       slug: {
@@ -61,7 +68,7 @@ export const getCollection = async ({
   limit: number;
   where?: {};
 }) => {
-  const { docs } = await payload.find({
+  const {docs} = await payload.find({
     collection,
     limit,
     sort,
@@ -83,7 +90,7 @@ export const getCollection = async ({
 };
 
 export const getEntries = unstable_cache(async () => {
-  const { docs } = await payload.find({
+  const {docs} = await payload.find({
     collection: "journal-entries",
   });
 
@@ -92,7 +99,7 @@ export const getEntries = unstable_cache(async () => {
 
 export const getProjects = unstable_cache(
   async () => {
-    const { docs } = await payload.find({
+    const {docs} = await payload.find({
       collection: "projects",
     });
 
@@ -100,7 +107,7 @@ export const getProjects = unstable_cache(
     return projects;
   },
   ["allProjects"],
-  { tags: ["allProjects"] }
+  {tags: ["allProjects"]}
 );
 
 export const getAllProjectsByYear = unstable_cache(
@@ -117,12 +124,12 @@ export const getAllProjectsByYear = unstable_cache(
     return AllProjectsByYear;
   },
   ["projectsByYear"],
-  { tags: ["projectsByYear"] }
+  {tags: ["projectsByYear"]}
 );
 
 export const getFeaturedProjects = unstable_cache(
   async () => {
-    const { docs } = await payload.find({
+    const {docs} = await payload.find({
       collection: "projects",
       where: {
         isFeatured: {
@@ -142,7 +149,7 @@ export const getFeaturedProjects = unstable_cache(
 
 export const getLockedProjects = unstable_cache(
   async () => {
-    const { docs } = await payload.find({
+    const {docs} = await payload.find({
       collection: "projects",
       where: {
         isLocked: {

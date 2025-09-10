@@ -12,7 +12,7 @@ import {
   AnimatePresence,
   LayoutGroup,
   domAnimation,
-} from "framer-motion";
+} from "motion/react";
 import {JournalEntriesByYear} from "@/types";
 import {AnimationVariants} from "@/lib/helpers";
 
