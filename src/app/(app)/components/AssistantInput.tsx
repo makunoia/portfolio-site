@@ -27,7 +27,8 @@ const AssistantInput = ({
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const isActive = isFocused || value.length > 0;
+  const hasValue = value.trim().length > 0;
+  const isActive = isFocused || hasValue;
 
   return (
     <form
@@ -37,7 +38,7 @@ const AssistantInput = ({
     >
       {/* Background container styled via tokens to match mock */}
       <div
-        className="w-full transition-all ease-in-out duration-300 border hover:border-inverse/50 rounded-[60px] pr-10px pl-16px py-12px flex items-center gap-12px overflow-hidden cursor-text"
+        className="w-full transition-all ease-in-out duration-300 border hover:border-inverse/50 rounded-[60px] pr-10px pl-20px py-10px flex items-center gap-12px overflow-hidden cursor-text"
         onClick={() => inputRef.current?.focus()}
         style={{
           background:
@@ -57,22 +58,39 @@ const AssistantInput = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder={placeholder}
-          className="flex-1 bg-transparent outline-none text-body leading-body placeholder:opacity-60"
+          className="flex-1 bg-transparent outline-none text-body-large leading-body placeholder:opacity-60"
           style={{color: "hsl(var(--fg-default))", background: "transparent"}}
         />
 
         <motion.button
           type="submit"
           aria-label="Send question"
+          disabled={!hasValue}
           initial={{x: 32, opacity: 0}}
-          animate={isActive ? {x: 0, opacity: 1} : {x: 32, opacity: 0}}
-          transition={{type: "spring", stiffness: 400, damping: 30, mass: 0.7}}
-          className="shrink-0 w-[40px] h-[40px] rounded-full grid place-items-center"
+          animate={{
+            x: isActive ? 0 : 32,
+            opacity: isActive ? 1 : 0,
+            backgroundColor: hasValue
+              ? "hsl(var(--brand))"
+              : "hsl(var(--primitive-600))",
+            color: hasValue
+              ? "hsl(var(--fg-inverse))"
+              : "hsl(var(--fg-subtle))",
+            borderColor: hasValue
+              ? "hsl(var(--border-brand))"
+              : "hsl(var(--border-default))",
+          }}
+          transition={{
+            x: {type: "spring", stiffness: 400, damping: 30, mass: 0.7},
+            opacity: {duration: 0.2, ease: "easeOut"},
+            backgroundColor: {duration: 0.25},
+            color: {duration: 0.25},
+            borderColor: {duration: 0.25},
+          }}
+          className="transition-colors duration-300 ease-in-out shrink-0 w-[40px] h-[40px] rounded-full grid place-items-center border"
           style={{
-            background:
-              "linear-gradient(45deg, hsl(var(--primitive-900)), hsl(var(--primitive-1100)))",
-            color: "hsl(var(--fg-inverse))",
-            border: "1px solid hsl(var(--primitive-900))",
+            opacity: hasValue ? 1 : 0.7,
+            cursor: hasValue ? "pointer" : "not-allowed",
           }}
         >
           <SendHorizonal className="text w-20px h-20px" />

@@ -14,7 +14,7 @@ type HeroSummaryProps = {
 };
 
 const HomeHero = ({copy, status}: HeroSummaryProps) => {
-  const [showAssistant, setShowAssistant] = useState(false);
+  const [showAssistant, setShowAssistant] = useState(true);
 
   const fadeVariants = {
     initial: {opacity: 0, y: 20},
@@ -119,16 +119,27 @@ const PromptSuggestion = ({
   samplePrompt: string;
 }) => {
   return (
-    <div
-      className="text flex flex-col gap-4px p-16px rounded-16px border border-brand/10 w-full h-fit"
+    <motion.div
+      className="text flex flex-col gap-4px p-16px rounded-16px border w-full h-fit cursor-pointer select-none"
       style={{
+        ["--ps-alpha" as any]: 0.1,
+        ["--ps-alpha2" as any]: 0.05,
+        ["--ps-border" as any]: 0.12,
         background:
-          "linear-gradient(135deg, hsl(var(--brand) / 0.1), hsl(var(--brand) / 0.05))",
+          "linear-gradient(135deg, hsl(var(--brand) / var(--ps-alpha)), hsl(var(--brand) / var(--ps-alpha2)))",
+        borderColor: "hsl(var(--brand) / var(--ps-border))",
       }}
+      whileHover={{
+        ["--ps-alpha" as any]: 0.22,
+        ["--ps-alpha2" as any]: 0.12,
+        ["--ps-border" as any]: 0.45,
+      }}
+      whileTap={{scale: 0.98}}
+      transition={{duration: 0.25, ease: "easeInOut"}}
     >
       <span className="text-caption font-medium">{header}</span>
       <p className="text-caption">{samplePrompt}</p>
-    </div>
+    </motion.div>
   );
 };
 
