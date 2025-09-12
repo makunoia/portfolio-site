@@ -17,6 +17,8 @@
     "generate:importmap": "payload generate:importmap"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^2.0.28",
+    "@ai-sdk/react": "^2.0.39",
     "@aws-sdk/client-s3": "^3.884.0",
     "@lexical/headless": "^0.23.1",
     "@lexical/html": "^0.23.1",
@@ -38,6 +40,7 @@
     "@payloadcms/ui": "latest",
     "@radix-ui/react-accordion": "^1.2.12",
     "@types/uuid": "^10.0.0",
+    "ai": "^5.0.39",
     "babel-plugin-react-compiler": "19.0.0-beta-decd7b8-20250118",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -52,11 +55,14 @@
     "payload": "^3.54.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "sharp": "0.33.5",
     "sonner": "^2.0.7",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "three": "^0.172.0"
+    "three": "^0.172.0",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
     "@next/env": "15.1.5",

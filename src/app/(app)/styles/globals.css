@@ -137,6 +137,57 @@
 }
 
 @layer components {
+  /* Skeleton shimmer */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background: hsl(var(--primitive-300));
+  }
+
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      hsla(var(--fg-inverse), 0.06),
+      rgba(255, 255, 255, 0)
+    );
+    animation: skeleton-shimmer 1.2s infinite;
+  }
+
+  @keyframes skeleton-shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Animated gradient loading text */
+  .animated-gradient-text {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--fg-subtle)) 0%,
+      hsl(var(--fg-default)) 50%,
+      hsl(var(--fg-subtle)) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-pan 1.2s linear infinite;
+  }
+
+  @keyframes gradient-pan {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+
   /* Assistant input: prevent WebKit autofill from painting a white background */
   #assistant-input:-webkit-autofill,
   #assistant-input:-webkit-autofill:hover,

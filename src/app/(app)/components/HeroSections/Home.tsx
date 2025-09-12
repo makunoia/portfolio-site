@@ -1,7 +1,7 @@
 "use client";
 
 import ToggleSwitch from "@/components/ToggleSwitch";
-import AssistantInput from "@/app/(app)/components/AssistantInput";
+import AssistantPanel from "@/app/(app)/components/Assistant/AssistantPanel";
 import StatusBadge from "@/components/StatusBadge";
 import {useState} from "react";
 import {LexicalBlock} from "@/app/(app)/types";
@@ -15,6 +15,8 @@ type HeroSummaryProps = {
 
 const HomeHero = ({copy, status}: HeroSummaryProps) => {
   const [showAssistant, setShowAssistant] = useState(true);
+  const [conversationActive, setConversationActive] = useState(false);
+  const [endSignal, setEndSignal] = useState(0);
 
   const fadeVariants = {
     initial: {opacity: 0, y: 20},
@@ -37,13 +39,13 @@ const HomeHero = ({copy, status}: HeroSummaryProps) => {
   };
 
   return (
-    <LayoutGroup>
+    <LayoutGroup id="home-hero">
       <div className="w-full">
         {/* Content container with smooth height transitions */}
         <motion.div
           layout
           transition={layoutTransition}
-          className="overflow-hidden"
+          className={showAssistant ? "overflow-visible" : "overflow-hidden"}
         >
           <AnimatePresence mode="wait">
             {!showAssistant ? (
@@ -72,22 +74,10 @@ const HomeHero = ({copy, status}: HeroSummaryProps) => {
                 className="flex items-center justify-center flex-col gap-24px w-full"
                 layout
               >
-                <h1 className="text-heading text"> Talk to my assistant</h1>
-                <AssistantInput />
-                <div className="flex flex-row gap-14px w-full">
-                  <PromptSuggestion
-                    header="Ask a question"
-                    samplePrompt="What is Mark's best competency?"
-                  />
-                  <PromptSuggestion
-                    header="Summarize"
-                    samplePrompt="Tell me about Mark's work experience."
-                  />
-                  <PromptSuggestion
-                    header="Find information"
-                    samplePrompt="What is Mark's email address?"
-                  />
-                </div>
+                <AssistantPanel
+                  onConversationActiveChange={setConversationActive}
+                  endConversationSignal={endSignal}
+                />
               </motion.div>
             )}
           </AnimatePresence>
@@ -95,51 +85,58 @@ const HomeHero = ({copy, status}: HeroSummaryProps) => {
 
         {/* Toggle Switch */}
         <motion.div
-          className="flex justify-center my-40px"
+          className={`flex justify-center min-h-[44px] ${conversationActive ? "my-20px" : "my-40px"}`}
           layout
           transition={layoutTransition}
         >
-          <ToggleSwitch
-            leftLabel="Talk to Assistant"
-            rightLabel="View summary"
-            isRightActive={!showAssistant}
-            onToggle={(isRightActive) => setShowAssistant(!isRightActive)}
-          />
+          <AnimatePresence mode="wait">
+            {conversationActive ? (
+              <motion.button
+                key="end-convo"
+                className="text px-16px py-10px rounded-16px border"
+                style={{
+                  backgroundColor: "hsl(var(--utility-danger) / 0.12)",
+                  borderColor: "hsl(var(--utility-danger) / 0.35)",
+                  color: "hsl(var(--utility-danger))",
+                }}
+                whileHover={{
+                  scale: 1.02,
+                  backgroundColor: "hsl(var(--utility-danger) / 0.18)",
+                }}
+                whileTap={{scale: 0.98}}
+                transition={{duration: 0.2, ease: "easeInOut"}}
+                initial={{opacity: 0, y: 8}}
+                animate={{opacity: 1, y: 0}}
+                exit={{opacity: 0, y: -8}}
+                layout
+                onClick={() => {
+                  setEndSignal((v) => v + 1);
+                  setConversationActive(false);
+                }}
+              >
+                End conversation
+              </motion.button>
+            ) : (
+              <motion.div
+                key="toggle"
+                className="inline-block"
+                initial={{opacity: 0, y: 8}}
+                animate={{opacity: 1, y: 0}}
+                exit={{opacity: 0, y: -8}}
+                layout
+              >
+                <ToggleSwitch
+                  leftLabel="Talk to Assistant"
+                  rightLabel="View summary"
+                  isRightActive={!showAssistant}
+                  onToggle={(isRightActive) => setShowAssistant(!isRightActive)}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
     </LayoutGroup>
-  );
-};
-
-const PromptSuggestion = ({
-  header,
-  samplePrompt,
-}: {
-  header: string;
-  samplePrompt: string;
-}) => {
-  return (
-    <motion.div
-      className="text flex flex-col gap-4px p-16px rounded-16px border w-full h-fit cursor-pointer select-none"
-      style={{
-        ["--ps-alpha" as any]: 0.1,
-        ["--ps-alpha2" as any]: 0.05,
-        ["--ps-border" as any]: 0.12,
-        background:
-          "linear-gradient(135deg, hsl(var(--brand) / var(--ps-alpha)), hsl(var(--brand) / var(--ps-alpha2)))",
-        borderColor: "hsl(var(--brand) / var(--ps-border))",
-      }}
-      whileHover={{
-        ["--ps-alpha" as any]: 0.22,
-        ["--ps-alpha2" as any]: 0.12,
-        ["--ps-border" as any]: 0.45,
-      }}
-      whileTap={{scale: 0.98}}
-      transition={{duration: 0.25, ease: "easeInOut"}}
-    >
-      <span className="text-caption font-medium">{header}</span>
-      <p className="text-caption">{samplePrompt}</p>
-    </motion.div>
   );
 };
 
