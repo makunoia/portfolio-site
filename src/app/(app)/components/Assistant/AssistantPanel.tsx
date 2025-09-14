@@ -55,6 +55,8 @@ const AssistantPanel = ({
   }, [isUserScrolling]);
 
   const trySendMessage = (text: string): boolean => {
+    // If previously collapsed, expand to reveal history on next interaction
+    if (isCollapsed) setIsCollapsed(false);
     // Synchronous lock to prevent race conditions from rapid Enter presses
     if (getWindowSessionLock() || abortCtrl || isLockedRef.current)
       return false;
@@ -133,10 +135,11 @@ const AssistantPanel = ({
   const hasStarted = thread.length > 0;
   const [suggestionsReady, setSuggestionsReady] = useState(true);
   const [threadReveal, setThreadReveal] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
-    onConversationActiveChange?.(hasStarted);
-  }, [hasStarted, onConversationActiveChange]);
+    onConversationActiveChange?.(hasStarted && !isCollapsed);
+  }, [hasStarted, isCollapsed, onConversationActiveChange]);
 
   // Cleanup on unmount: abort any in-flight request and release session locks
   useEffect(() => {
@@ -161,6 +164,13 @@ const AssistantPanel = ({
       setThreadReveal(true);
     }
   }, [hasStarted, threadReveal]);
+
+  // When user ends the conversation, reshow suggestions in collapsed state
+  useEffect(() => {
+    if (isCollapsed) {
+      setSuggestionsReady(true);
+    }
+  }, [isCollapsed]);
 
   // Keep the latest messages in view only when already at bottom; avoid scroll fighting
   useEffect(() => {
@@ -219,7 +229,6 @@ const AssistantPanel = ({
       const target = bottomRef.current;
 
       if (!rootEl || !target) {
-        // Wait next frame until both refs exist, avoids noisy setState retries
         requestAnimationFrame(waitForRefsThenObserve);
         return;
       }
@@ -307,7 +316,7 @@ const AssistantPanel = ({
       setAbortCtrl(null);
       isLockedRef.current = false;
       setWindowSessionLock(false);
-      setThread([]);
+      setIsCollapsed(true);
       setThreadReveal(false);
     }
   }, [endConversationSignal]);
@@ -349,156 +358,132 @@ const AssistantPanel = ({
       <motion.h1
         className="self-center text-heading text"
         initial={false}
-        animate={hasStarted ? {opacity: 0, y: -12} : {opacity: 1, y: 0}}
+        animate={
+          !hasStarted || isCollapsed ? {opacity: 1, y: 0} : {opacity: 0, y: -12}
+        }
         transition={{duration: 0.22, ease: "easeOut"}}
-        aria-hidden={hasStarted}
+        aria-hidden={!(!hasStarted || isCollapsed)}
         style={{contain: "layout paint", willChange: "transform, opacity"}}
       >
         Anything I can help you with?
       </motion.h1>
 
       <motion.div
-        className={
-          hasStarted
-            ? "relative w-full flex flex-col min-h-0 h-[40vh] overflow-hidden"
-            : "w-full"
-        }
+        className={"w-full"}
         layout="position"
         transition={{type: "spring", stiffness: 400, damping: 40, mass: 0.8}}
       >
-        <motion.div
-          className={
-            hasStarted
-              ? "flex-1 min-h-0 overflow-y-auto px-20px"
-              : "w-full flex flex-col"
-          }
-          ref={scrollRef}
-          onScroll={hasStarted ? handleScroll : undefined}
-          layout="position"
-          layoutScroll
-        >
-          {/* Render chat thread with bottom reference for sticky chevron */}
-          <div className="flex flex-col">
-            {thread.map((m) => {
-              if (m.role === "user") {
-                return (
-                  <motion.div
-                    key={m.id}
-                    initial={{opacity: 0, y: 6}}
-                    animate={{opacity: 1, y: 0}}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 26,
-                      mass: 0.8,
-                    }}
-                    layout="position"
-                    className="w-full flex-col justify-items-end pt-40px first:pt-0px"
-                  >
-                    <ChatBubble message={m.text} />
-                    <div className="h-40px" />
-                  </motion.div>
-                );
-              }
-              return (
-                <motion.div
-                  key={m.id}
-                  initial={{opacity: 0, y: 6}}
-                  animate={{opacity: 1, y: 0}}
-                  transition={{
+        <AssistantInput
+          onSubmit={trySendMessage}
+          isStreaming={!!abortCtrl}
+          sessionLocked={sessionLocked}
+          onStop={stopStreaming}
+          expanded={hasStarted && !isCollapsed}
+          aboveContent={
+            hasStarted && !isCollapsed ? (
+              <motion.div
+                layout
+                className="relative w-full flex flex-col min-h-0 h-full"
+                transition={{
+                  layout: {
                     type: "spring",
-                    stiffness: 300,
-                    damping: 26,
-                    mass: 0.8,
-                  }}
-                  layout="position"
+                    stiffness: 420,
+                    damping: 40,
+                    mass: 0.7,
+                  },
+                }}
+              >
+                <motion.div
+                  layout
+                  className="flex-1 min-h-0 overflow-y-auto"
+                  ref={scrollRef}
+                  onScroll={handleScroll}
+                  layoutScroll
                 >
-                  <AssistantStream text={m.text} stopped={m.stopped} />
+                  {/* Render chat thread with bottom reference for sticky chevron */}
+                  <div className="flex flex-col">
+                    {thread.map((m) => {
+                      if (m.role === "user") {
+                        return (
+                          <motion.div
+                            key={m.id}
+                            initial={{opacity: 0, y: 6}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{
+                              type: "spring",
+                              stiffness: 300,
+                              damping: 26,
+                              mass: 0.8,
+                            }}
+                            layout="position"
+                            className="w-full flex-col justify-items-end pt-24px"
+                          >
+                            <ChatBubble message={m.text} />
+                            <div className="h-40px" />
+                          </motion.div>
+                        );
+                      }
+                      return (
+                        <motion.div
+                          key={m.id}
+                          initial={{opacity: 0, y: 6}}
+                          animate={{opacity: 1, y: 0}}
+                          transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 26,
+                            mass: 0.8,
+                          }}
+                          layout="position"
+                        >
+                          <AssistantStream text={m.text} stopped={m.stopped} />
+                        </motion.div>
+                      );
+                    })}
+                    <div ref={bottomRef} className="h-4px mt-20px pt-[50px]" />
+                  </div>
                 </motion.div>
-              );
-            })}
-            <div ref={bottomRef} className="h-4px mt-20px" />
-          </div>
-        </motion.div>
 
-        {/* Chevron overlayed (absolute) so it does not affect scroll height */}
-        <AnimatePresence initial={false} mode="popLayout">
-          {hasStarted && !atBottom && !suppressChevron && (
-            <motion.button
-              type="button"
-              aria-label="Jump to latest"
-              onClick={() => {
-                setIsUserScrolling(false);
-                setAutoScrollEnabled(true);
-                setSuppressChevron(true);
-                programmaticScrollRef.current = true;
-                bottomRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "end",
-                });
-              }}
-              className="absolute bottom-12px left-1/2 z-30 w-[40px] h-[40px] rounded-full grid place-items-center border bg-[hsl(var(--primitive-300))] pointer-events-auto"
-              style={{
-                borderColor: "hsl(var(--border-default))",
-                color: "hsl(var(--fg-default))",
-                translate: "0 -80px",
-                boxShadow: "0 4px 16px hsl(var(--shadow) / 0.35)",
-              }}
-              initial={{opacity: 0, y: 8}}
-              animate={{opacity: 1, y: 0}}
-              exit={{opacity: 0, y: -8}}
-              transition={{duration: 0.2, ease: "easeOut"}}
-            >
-              <ChevronDown className="w-20px h-20px" />
-            </motion.button>
-          )}
-        </AnimatePresence>
-
-        <motion.div
-          className={
-            hasStarted
-              ? "flex-shrink-0 pt-12px bg-[hsl(var(--bg)/0.6)] backdrop-blur-md w-full z-10"
-              : ""
+                {/* Chevron overlayed (absolute) so it does not affect scroll height */}
+                <AnimatePresence initial={false} mode="popLayout">
+                  {!atBottom && !suppressChevron && (
+                    <motion.button
+                      type="button"
+                      aria-label="Jump to latest"
+                      onClick={() => {
+                        setIsUserScrolling(false);
+                        setAutoScrollEnabled(true);
+                        setSuppressChevron(true);
+                        programmaticScrollRef.current = true;
+                        bottomRef.current?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "end",
+                        });
+                      }}
+                      className="absolute bottom-12px left-1/2 z-30 w-[40px] h-[40px] rounded-full grid place-items-center border bg-[hsl(var(--primitive-300))] pointer-events-auto"
+                      style={{
+                        borderColor: "hsl(var(--border-default))",
+                        color: "hsl(var(--fg-default))",
+                        translate: "0 -55px",
+                        boxShadow: "0 4px 16px hsl(var(--shadow) / 0.35)",
+                      }}
+                      initial={{opacity: 0, y: 8}}
+                      animate={{opacity: 1, y: 0}}
+                      exit={{opacity: 0, y: -8}}
+                      transition={{duration: 0.2, ease: "easeOut"}}
+                    >
+                      <ChevronDown className="w-20px h-20px" />
+                    </motion.button>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ) : null
           }
-          style={{
-            paddingBottom: "calc(env(safe-area-inset-bottom) + 8px)",
-            WebkitBackdropFilter: hasStarted
-              ? "saturate(180%) blur(12px)"
-              : undefined,
-          }}
-          layout="position"
-          onLayoutAnimationComplete={() => {
-            if (!hasStarted) {
-              setSuggestionsReady(true);
-            }
-          }}
-        >
-          {hasStarted ? (
-            <div className="w-full pb-8px">
-              <div className="w-full flex items-center gap-12px">
-                <div className="flex-1 min-w-0">
-                  <AssistantInput
-                    onSubmit={trySendMessage}
-                    isStreaming={!!abortCtrl}
-                    sessionLocked={sessionLocked}
-                    onStop={stopStreaming}
-                  />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <AssistantInput
-              onSubmit={trySendMessage}
-              isStreaming={!!abortCtrl}
-              sessionLocked={sessionLocked}
-              onStop={stopStreaming}
-            />
-          )}
-        </motion.div>
+        />
       </motion.div>
 
       {/* Prompt Suggestions  */}
-      {!hasStarted && suggestionsReady && (
+      {(!hasStarted || isCollapsed) && suggestionsReady && (
         <motion.div
           className="flex flex-row gap-14px w-full"
           layout

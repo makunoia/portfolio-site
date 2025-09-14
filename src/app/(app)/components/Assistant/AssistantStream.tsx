@@ -132,6 +132,7 @@ const AssistantStream = ({
                     className="mb-12px last-of-type:mb-0px whitespace-pre-wrap"
                   />
                 ),
+                hr: ({node, ...props}) => <hr {...props} className="mb-12px" />,
               };
               return (
                 <ReactMarkdown
