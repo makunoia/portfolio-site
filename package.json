@@ -14,7 +14,8 @@
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "ci": "payload migrate && npm build",
     "generate:types": "payload generate:types",
-    "generate:importmap": "payload generate:importmap"
+    "generate:importmap": "payload generate:importmap",
+    "embed:personal": "node scripts/embed-personal-info.js"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.28",
@@ -78,6 +79,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "cssnano": "^7.1.1",
+    "dotenv": "^17.2.2",
     "eslint": "^9.35.0",
     "eslint-config-next": "15.1.5",
     "lucide-react": "^0.473.0",
