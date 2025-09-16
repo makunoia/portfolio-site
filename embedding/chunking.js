@@ -1,43 +1,6 @@
-#!/usr/bin/env node
-
-/**
- * Script to embed personal information into Pinecone using Vercel AI SDK embeddings.
- * Run after updating personal-info.json
- *
- * Usage: node scripts/embed-personal-info.js
- */
-
-import fs from "fs/promises";
-import path from "path";
-import {openai} from "@ai-sdk/openai";
-import {embedMany} from "ai";
-import dotenv from "dotenv";
-
-// Load environment variables for standalone Node script
-// Prefer .env.local; fallback to .env
-dotenv.config({path: path.join(process.cwd(), ".env.local")});
-dotenv.config();
-
-const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
-const PINECONE_INDEX_HOST = process.env.PINECONE_INDEX_HOST; // e.g. https://<index>-<project>.svc.<env>.pinecone.io
-const PINECONE_NAMESPACE = process.env.PINECONE_NAMESPACE || undefined;
-
-function assertEnv() {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error(
-      "OPENAI_API_KEY is not set. Add it to .env.local and re-run the script."
-    );
-  }
-  if (!PINECONE_API_KEY || !PINECONE_INDEX_HOST) {
-    throw new Error(
-      "PINECONE_API_KEY or PINECONE_INDEX_HOST missing. Configure Pinecone env vars."
-    );
-  }
-}
-
-function chunkContent(content, maxChunkSize = 800) {
+export function chunkContent(content, maxChunkSize = 800) {
   const chunks = [];
-  const sentences = content
+  const sentences = String(content)
     .split(/[.!?]+/)
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
@@ -54,18 +17,21 @@ function chunkContent(content, maxChunkSize = 800) {
   return chunks;
 }
 
-function personalInfoToChunks(personalInfo) {
+export function personalInfoToChunks(personalInfo) {
   const chunks = [];
+
+  // Basic info
   const links = [];
   if (personalInfo.website) links.push(`Website: ${personalInfo.website}`);
   if (personalInfo.linkedin) links.push(`LinkedIn: ${personalInfo.linkedin}`);
   if (personalInfo.github) links.push(`GitHub: ${personalInfo.github}`);
   chunks.push({
-    content: `Name: ${personalInfo.name}. Bio: ${personalInfo.bio}. Location: ${personalInfo.location}. Email: ${personalInfo.email}. ${links.join(", ")}`,
+    content: `Name: ${personalInfo.name}. Bio: ${personalInfo.bio}. Location: ${personalInfo.location}. Email: ${personalInfo.email}. ${links.join(". ")}`,
     type: "basic_info",
     source: "personal_info",
   });
 
+  // Experience
   if (Array.isArray(personalInfo.experience)) {
     personalInfo.experience.forEach((exp, i) => {
       const skills = Array.isArray(exp.skills)
@@ -84,24 +50,39 @@ function personalInfoToChunks(personalInfo) {
     });
   }
 
+  // Education
+  if (Array.isArray(personalInfo.education)) {
+    personalInfo.education.forEach((edu, i) => {
+      chunks.push({
+        content: `Education ${i + 1}: ${edu.degree} at ${edu.institution} (${edu.year}).`,
+        type: "education",
+        source: "personal_info",
+      });
+    });
+  }
+
+  // Skills
   if (personalInfo.skills) {
-    const cats = [];
+    const parts = [];
     if (Array.isArray(personalInfo.skills.core_domains))
-      cats.push(`Core Domains: ${personalInfo.skills.core_domains.join(", ")}`);
+      parts.push(
+        `Core Domains: ${personalInfo.skills.core_domains.join(", ")}`
+      );
     if (Array.isArray(personalInfo.skills.tools))
-      cats.push(`Tools: ${personalInfo.skills.tools.join(", ")}`);
+      parts.push(`Tools: ${personalInfo.skills.tools.join(", ")}`);
     if (Array.isArray(personalInfo.skills.methodologies))
-      cats.push(
+      parts.push(
         `Methodologies: ${personalInfo.skills.methodologies.join(", ")}`
       );
-    if (cats.length)
+    if (parts.length)
       chunks.push({
-        content: cats.join(". "),
+        content: parts.join(". "),
         type: "skills",
         source: "personal_info",
       });
   }
 
+  // Projects (full schema)
   if (Array.isArray(personalInfo.projects)) {
     personalInfo.projects.forEach((project, i) => {
       const title = project.title || project.name || `Project ${i + 1}`;
@@ -174,6 +155,7 @@ function personalInfoToChunks(personalInfo) {
     });
   }
 
+  // Certifications
   if (Array.isArray(personalInfo.certifications)) {
     personalInfo.certifications.forEach((cert, i) => {
       chunks.push({
@@ -184,6 +166,7 @@ function personalInfoToChunks(personalInfo) {
     });
   }
 
+  // Achievements
   if (Array.isArray(personalInfo.achievements)) {
     personalInfo.achievements.forEach((a, i) => {
       chunks.push({
@@ -194,6 +177,7 @@ function personalInfoToChunks(personalInfo) {
     });
   }
 
+  // Languages
   if (Array.isArray(personalInfo.languages)) {
     const languagesText = personalInfo.languages
       .map((l) => `${l.language} (${l.proficiency})`)
@@ -205,6 +189,7 @@ function personalInfoToChunks(personalInfo) {
     });
   }
 
+  // Availability
   if (personalInfo.availability) {
     chunks.push({
       content: `Availability: ${personalInfo.availability.status}. Remote work: ${
@@ -220,76 +205,3 @@ function personalInfoToChunks(personalInfo) {
 
   return chunks;
 }
-
-async function pineconeUpsert(vectors) {
-  const body = {vectors};
-  if (PINECONE_NAMESPACE) body.namespace = PINECONE_NAMESPACE;
-  const res = await fetch(`${PINECONE_INDEX_HOST}/vectors/upsert`, {
-    method: "POST",
-    headers: {"content-type": "application/json", "api-key": PINECONE_API_KEY},
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Pinecone upsert failed: ${res.status} ${text}`);
-  }
-}
-
-async function main() {
-  try {
-    console.log("🚀 Starting personal information embedding process...");
-
-    assertEnv();
-
-    const personalInfoPath = path.join(process.cwd(), "personal-info.json");
-    try {
-      await fs.access(personalInfoPath);
-    } catch {
-      console.error("❌ Error: personal-info.json file not found!");
-      console.log(
-        "Please create the personal-info.json file first with your information."
-      );
-      process.exit(1);
-    }
-
-    console.log("📄 Reading personal information...");
-    const personalInfo = JSON.parse(
-      await fs.readFile(personalInfoPath, "utf-8")
-    );
-    console.log(`✅ Found personal information for: ${personalInfo.name}`);
-
-    console.log("🧩 Preparing chunks...");
-    const chunks = personalInfoToChunks(personalInfo);
-
-    console.log("🔡 Generating embeddings...");
-    const {embeddings} = await embedMany({
-      model: openai.embedding("text-embedding-3-small"),
-      values: chunks.map((c) => c.content),
-    });
-
-    console.log("📤 Upserting to Pinecone...");
-    const vectors = embeddings.map((values, i) => ({
-      id: `personal_info_${chunks[i].type}_${i}`,
-      values,
-      metadata: chunks[i],
-    }));
-
-    const batchSize = 100;
-    for (let i = 0; i < vectors.length; i += batchSize) {
-      const batch = vectors.slice(i, i + batchSize);
-      await pineconeUpsert(batch);
-    }
-
-    console.log(
-      `✅ Successfully embedded ${vectors.length} chunks of personal information!`
-    );
-    console.log(
-      "🎉 Your assistant is now ready to answer questions about your background!"
-    );
-  } catch (error) {
-    console.error("❌ Error during embedding process:", error.message);
-    process.exit(1);
-  }
-}
-
-main();

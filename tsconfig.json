@@ -36,8 +36,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(payload)/admin/importMap.js",
-    "src/app/(app)/lib/vector-db.js"
+    "src/app/(payload)/admin/importMap.js"
   ],
   "exclude": ["node_modules"]
 }

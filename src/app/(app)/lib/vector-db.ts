@@ -1,8 +1,5 @@
 import {openai} from "@ai-sdk/openai";
-import {embedMany, embed} from "ai";
-import fs from "fs/promises";
-import path from "path";
-import {personalInfoToChunks} from "./personal-chunking.js";
+import {embed} from "ai";
 
 // Pinecone (HTTP) configuration
 const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
@@ -23,34 +20,6 @@ if (!PINECONE_INDEX_HOST) {
 
 // Embedding model configuration (1536 dims)
 const embeddingModel = openai.embedding("text-embedding-3-small");
-
-// Minimal Pinecone HTTP helpers (Edge-compatible)
-async function pineconeUpsert(
-  vectors: Array<{
-    id: string;
-    values: number[];
-    metadata?: Record<string, any>;
-  }>
-) {
-  if (!PINECONE_API_KEY || !PINECONE_INDEX_HOST) {
-    throw new Error("Pinecone credentials (API key/host) are missing");
-  }
-  const body: any = {vectors};
-  if (PINECONE_NAMESPACE) body.namespace = PINECONE_NAMESPACE;
-
-  const res = await fetch(`${PINECONE_INDEX_HOST}/vectors/upsert`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "api-key": PINECONE_API_KEY,
-    },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Pinecone upsert failed: ${res.status} ${text}`);
-  }
-}
 
 async function pineconeQuery(
   vector: number[],
@@ -77,85 +46,6 @@ async function pineconeQuery(
   }
   const json = await res.json();
   return json;
-}
-
-// Function to chunk content into smaller pieces for better embedding
-function chunkContent(content: string, maxChunkSize: number = 1000): string[] {
-  const chunks: string[] = [];
-  const sentences = content.split(/[.!?]+/).filter((s) => s.trim().length > 0);
-
-  let currentChunk = "";
-
-  for (const sentence of sentences) {
-    const trimmedSentence = sentence.trim();
-    if (
-      currentChunk.length + trimmedSentence.length > maxChunkSize &&
-      currentChunk.length > 0
-    ) {
-      chunks.push(currentChunk.trim());
-      currentChunk = trimmedSentence;
-    } else {
-      currentChunk += (currentChunk ? ". " : "") + trimmedSentence;
-    }
-  }
-
-  if (currentChunk.trim().length > 0) {
-    chunks.push(currentChunk.trim());
-  }
-
-  return chunks;
-}
-
-// Function to generate embeddings for multiple chunks
-async function generateEmbeddings(chunks: string[]): Promise<number[][]> {
-  try {
-    const {embeddings} = await embedMany({
-      model: embeddingModel,
-      values: chunks,
-    });
-    return embeddings;
-  } catch (error) {
-    console.error("Error generating embeddings:", error);
-    throw new Error("Failed to generate embeddings");
-  }
-}
-
-// Function to upsert personal information into vector database
-export async function upsertPersonalInfo() {
-  try {
-    // Read personal information from JSON file
-    const personalInfoPath = path.join(process.cwd(), "personal-info.json");
-    const data = await fs.readFile(personalInfoPath, "utf-8");
-    const personalInfo = JSON.parse(data);
-
-    // Convert personal information to searchable chunks
-    const chunks = personalInfoToChunks(personalInfo);
-
-    // Generate embeddings for each chunk
-    const embeddings = await generateEmbeddings(chunks.map((c) => c.content));
-
-    // Prepare vectors for Pinecone upsert
-    const vectors = embeddings.map((values, i) => ({
-      id: `personal_info_${chunks[i].type}_${i}`,
-      values,
-      metadata: chunks[i],
-    }));
-
-    // Batch upsert to stay within API limits
-    const batchSize = 100;
-    for (let i = 0; i < vectors.length; i += batchSize) {
-      const batch = vectors.slice(i, i + batchSize);
-      await pineconeUpsert(batch);
-    }
-
-    console.log(
-      `Successfully upserted ${vectors.length} chunks of personal information`
-    );
-    return {success: true, chunksCount: vectors.length};
-  } catch (error) {
-    console.error("Error upserting personal information:", error);
-    throw new Error("Failed to upsert personal information");
-  }
 }
 
 // Function to find relevant content based on user query
@@ -205,5 +95,3 @@ export async function getPersonalContext(query: string): Promise<string> {
     return "Unable to retrieve personal information context.";
   }
 }
-
-// Pinecone-based implementation; no in-memory store exported
