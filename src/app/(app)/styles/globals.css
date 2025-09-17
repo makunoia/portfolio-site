@@ -131,12 +131,26 @@
 
   @media screen and (max-width: 768px) {
     body {
-      padding: 0px 40px;
+      padding: 0px 20px;
     }
   }
 }
 
 @layer components {
+  /* Glass blur utility for translucent overlays */
+  .blurred-overlay {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Fallback: if backdrop-filter is unsupported, increase opacity for readability */
+  @supports not (
+    (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))
+  ) {
+    .blurred-overlay {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+  }
   /* Skeleton shimmer */
   .skeleton {
     position: relative;

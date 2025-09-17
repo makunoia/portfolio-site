@@ -109,6 +109,173 @@
       "year": "2021"
     }
   ],
+  "product_design_flow": [
+    {
+      "step": 1,
+      "title": "Discovery & Research",
+      "description": "Understand the business, users, and market context.",
+      "activities": [
+        "Interview stakeholders to understand business vision, goals, constraints, and target audience",
+        "Conduct light user research (interviews, surveys, desk/competitive/heuristic analysis)",
+        "Create personas, journey maps, and initial problem hypotheses"
+      ],
+      "deliverables": ["Personas", "Journey maps", "Problem hypotheses"],
+      "tags": [
+        "discovery",
+        "research",
+        "stakeholders",
+        "users",
+        "personas",
+        "journey maps",
+        "market analysis",
+        "collaboration"
+      ]
+    },
+    {
+      "step": 2,
+      "title": "Problem Definition",
+      "description": "Translate findings into structured problem framing.",
+      "activities": [
+        "Define clear problem statements",
+        "Identify opportunity areas",
+        "Establish hypothesis for solutions"
+      ],
+      "deliverables": ["Problem statements", "Opportunity map", "Hypothesis"],
+      "tags": [
+        "problem definition",
+        "problem statements",
+        "opportunities",
+        "success metrics",
+        "prioritization"
+      ]
+    },
+    {
+      "step": 3,
+      "title": "Structure & Scope",
+      "description": "Finalize user stories and structural foundation before UI exploration.",
+      "activities": [
+        "Write and finalize user stories",
+        "Create information architecture (flows, hierarchies, screen maps)",
+        "Define functional requirements"
+      ],
+      "deliverables": [
+        "User stories",
+        "Information architecture",
+        "Screen maps"
+      ],
+      "tags": [
+        "structure",
+        "scope",
+        "user stories",
+        "information architecture",
+        "IA"
+      ]
+    },
+    {
+      "step": 4,
+      "title": "Design Exploration & Prototyping",
+      "description": "Explore and refine design solutions.",
+      "activities": [
+        "Explore solutions with low-fidelity concepts and wireframes",
+        "Iterate toward mid- and high-fidelity prototypes",
+        "Ensure accessibility and consistency with design system"
+      ],
+      "deliverables": ["Wireframes", "Prototypes"],
+      "tags": [
+        "design",
+        "exploration",
+        "wireframes",
+        "prototyping",
+        "high fidelity",
+        "design system",
+        "accessibility",
+        "collaboration"
+      ]
+    },
+    {
+      "step": 5,
+      "title": "Feedback & Validation",
+      "description": "Validate solutions with both business stakeholders and end users.",
+      "activities": [
+        "Present concepts to clients/stakeholders with design rationale",
+        "Conduct usability testing with users (3–8 participants)",
+        "Validate business alignment and user usability"
+      ],
+      "deliverables": ["Client feedback notes", "Usability test reports"],
+      "tags": [
+        "feedback",
+        "validation",
+        "usability testing",
+        "stakeholder review",
+        "client feedback"
+      ]
+    },
+    {
+      "step": 6,
+      "title": "Iteration & Refinement",
+      "description": "Refine designs based on collected feedback.",
+      "activities": [
+        "Apply feedback from both clients and users",
+        "Prioritize critical issues for business and usability impact",
+        "Polish flows, visuals, and interactions"
+      ],
+      "deliverables": ["Refined designs", "Updated flows", "Interaction specs"],
+      "tags": [
+        "iteration",
+        "refinement",
+        "improvement",
+        "visual polish",
+        "interaction design"
+      ]
+    },
+    {
+      "step": 7,
+      "title": "Delivery & Handoff",
+      "description": "Prepare design assets and collaborate with development.",
+      "activities": [
+        "Prepare annotated design files and style guides",
+        "Provide design system components/specs",
+        "Collaborate with developers during build",
+        "Support QA design reviews"
+      ],
+      "deliverables": [
+        "Annotated Figma files",
+        "Design system specs",
+        "Assets for development"
+      ],
+      "tags": [
+        "handoff",
+        "delivery",
+        "developer collaboration",
+        "design specs",
+        "QA",
+        "style guide"
+      ]
+    },
+    {
+      "step": 8,
+      "title": "Post-Launch Evaluation",
+      "description": "Measure success and feed improvements back into the loop.",
+      "activities": [
+        "Monitor analytics (funnels, retention, NPS, support tickets)",
+        "Collect post-launch user and client feedback",
+        "Plan improvements and loop back to Problem Definition"
+      ],
+      "deliverables": [
+        "Analytics reports",
+        "Feedback summary",
+        "Improvement backlog"
+      ],
+      "tags": [
+        "post-launch",
+        "evaluation",
+        "analytics",
+        "NPS",
+        "feedback",
+        "continuous improvement"
+      ]
+    }
+  ],
   "projects": [
     {
       "type": "Project",

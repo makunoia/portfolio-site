@@ -71,7 +71,7 @@ const Page = async () => {
     <>
       <AnalyticsTracker page="Homepage" />
 
-      <div className="flex justify-between px-[5%] pt-[2%]">
+      <div className="flex justify-between px-0px md:px-[5%] pt-[5%]">
         <Image
           alt="Logo"
           src={Logo}

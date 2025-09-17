@@ -54,13 +54,24 @@
     }
   ],
   "skills": {
-    "core_domains": [
+    "core": [
       "Design Systems",
       "UI/UX Design",
       "Prototyping",
       "Motion Design",
       "UX Audits",
-      "Accessibility"
+      "Accessibility",
+      "Web Development with React",
+      "AI integration in the design process",
+      "Leadership",
+      "Mentorship",
+      "Team Management",
+      "Project Management",
+      "Time Management",
+      "Discipline",
+      "Academic Excellence",
+      "English Proficiency",
+      "Essay Writing"
     ],
     "tools": [
       "Figma",
@@ -79,12 +90,92 @@
       "Collaborative Workshops"
     ]
   },
-  "achievements": [
-    "Led design systems that impacted 10+ projects within Multisys. :contentReference[oaicite:5]{index=5}",
-    "Improved merchant onboarding flow to achieve a threefold increase in successful registrations. :contentReference[oaicite:6]{index=6}",
-    "Redesigned an eFinance mobile app to improve accessibility for middle-aged Filipino users. :contentReference[oaicite:7]{index=7}",
-    "Documented design system guidelines; trained team of 15+ designers to transition from Adobe XD to Figma. :contentReference[oaicite:8]{index=8}"
-  ],
+  "achievements": {
+    "academic": [
+      {
+        "title": "Graduated Cum Laude",
+        "institution": "STI College Ortigas-Cainta",
+        "year": 2018,
+        "description": "Finished Bachelor of Science in Information Technology with honors (Cum Laude)",
+        "skillsDeveloped": ["Discipline", "Time Management", "Academic Rigor"]
+      },
+      {
+        "title": "Dean's List",
+        "institution": "STI College Ortigas-Cainta",
+        "year": 2018,
+        "description": "Consistently received Dean's List awards for academic excellence",
+        "skillsDeveloped": [
+          "Academic Excellence",
+          "Time Management",
+          "Discipline"
+        ]
+      },
+      {
+        "title": "President of Brilliant Youth for Technological Excellence Society (BYTES)",
+        "institution": "STI College Ortigas-Cainta",
+        "year": 2018,
+        "description": "Led a team of 10+ students in organizing tech events and workshops, mentored senior high school students in programming and design",
+        "skillsDeveloped": ["Leadership", "Team Management", "Mentorship"]
+      },
+      {
+        "title": "Essay Writing Champion",
+        "institution": "STI College Ortigas-Cainta",
+        "year": 2018,
+        "description": "Recognized competitor and champion for essay writing competitions from junior to senior year college",
+        "skillsDeveloped": ["Essay Writing", "English Proficiency"]
+      },
+      {
+        "title": "Leadership Award, Student Council President",
+        "institution": "The Academy of Christian Excellence Montessori",
+        "year": 2018,
+        "description": "Recognized for leadership and academic excellence as Student Council President",
+        "skillsDeveloped": ["Leadership", "Academic Excellence"]
+      }
+    ],
+    "career": [
+      {
+        "title": "Design Systems Leadership at Multisys",
+        "company": "Multisys Technologies Corporation",
+        "yearRange": "2022-2025",
+        "description": "Led design system efforts across multiple product teams, improved consistency and reduced UI bugs and rework in production",
+        "impact": {"reducedUIErrors": "-30%", "teamAdoptionCount": 8},
+        "skillsDeveloped": [
+          "Design Systems Architecture",
+          "Cross-Team Collaboration",
+          "Mentorship"
+        ]
+      },
+      {
+        "title": "Launch of TranspoPay eTicketing",
+        "company": "Self / Freelance / Project",
+        "year": 2024,
+        "description": "Designed and released the eTicketing UI/UX for commuters, streamlining ticket purchase flow and improving user satisfaction",
+        "impact": {
+          "userSatisfactionIncrease": "20%",
+          "timeToTicketPurchaseReduction": "50%"
+        },
+        "skillsDeveloped": ["UX Flows", "Mobile Payments", "User Research"]
+      }
+    ],
+    "personalGrowth": [
+      {
+        "title": "Mastered Motion Design with Rive",
+        "year": 2023,
+        "description": "Self-taught advanced animation techniques; incorporated micro-animations in portfolio designs to enhance user delight",
+        "skillsDeveloped": [
+          "Motion Design",
+          "Self Learning",
+          "Attention to Detail"
+        ]
+      },
+      {
+        "title": "Published Design Reflections",
+        "year": 2025,
+        "description": "Wrote multiple journal/reflection posts (e.g. on training arcs, design engineering) sharing learnings, failures, and process improvements",
+        "skillsDeveloped": ["Writing", "Reflection", "Process Improvement"]
+      }
+    ]
+  },
   "education": [
     {
       "degree": "Bachelor of Science in Information Technology, Cum Laude",
@@ -118,6 +209,10 @@
       "summary": "Design system powering multiple web apps; shipped tokens and component library.",
       "detailedText": "Led systemization of primitives → tokens → components. Introduced audit → propose → pilot → roll-out loop; cut UI defects and handoff churn.",
       "role": ["Product Designer", "Design Engineer"],
+      "impact": {
+        "reducedUIErrors": "-30%",
+        "teamAdoptionCount": 8
+      },
       "domain": "design-system",
       "tags": ["design-system", "tokens", "figma", "react"],
       "dates": {"start": "2024-11", "end": null},
@@ -131,7 +226,7 @@
       "status": "ongoing",
       "privacy": "public",
       "client": "Internal",
-      "collaborators": [{"name": "", "role": ""}],
+      "collaborators": [],
       "lastUpdated": "2025-09-16"
     }
   ],

@@ -23,7 +23,7 @@ const MainLayout = ({
     <LazyMotion features={domAnimation}>
       <LayoutGroup>
         <motion.main
-          className="max-w-[700px] mx-auto py-[80px] flex flex-col gap-[60px]"
+          className="max-w-[700px] mx-auto pt-60px pb-[80px] flex flex-col gap-[60px]"
           layout
           transition={{duration: 0.3, ease: "easeInOut"}}
         >

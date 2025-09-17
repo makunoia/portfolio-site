@@ -1,6 +1,6 @@
 "use client";
 
-import {useRef, useState, ReactNode} from "react";
+import {useRef, useState, ReactNode, useEffect} from "react";
 import {motion} from "motion/react";
 import {SendHorizonal, CircleStop} from "lucide-react";
 
@@ -43,7 +43,24 @@ const AssistantInput = ({
   };
 
   const [isFocused, setIsFocused] = useState(false);
+  const [isPointerInside, setIsPointerInside] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Lock page scroll while the assistant input is focused
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!isPointerInside) return;
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverscroll = body.style.overscrollBehavior;
+    html.style.overflow = "hidden";
+    body.style.overscrollBehavior = "contain";
+    return () => {
+      html.style.overflow = prevHtmlOverflow;
+      body.style.overscrollBehavior = prevBodyOverscroll;
+    };
+  }, [isPointerInside]);
 
   const hasValue = value.trim().length > 0;
   const canSend = !isStreaming && !sessionLocked && hasValue;
@@ -62,21 +79,31 @@ const AssistantInput = ({
           e.stopPropagation();
         }
       }}
-      className={`relative w-full ${className}`}
+      className={`relative w-full ${className} transition-all ease-in-out duration-300 ${expanded ? "h-[50vh]" : "h-fit"}`}
       aria-label="Talk to my assistant"
       autoComplete="off"
     >
-      {/* Background container styled via tokens to match mock */}
       <motion.div
         layout
         layoutId={layoutId}
-        className={`relative w-full ${expanded ? "h-[40vh]" : "h-[60px]"} transition-colors ease-in-out duration-300 border hover:border-inverse/20 flex ${expanded ? "flex-col items-stretch" : "items-center"} overflow-hidden cursor-text`}
+        className={`relative w-full ${expanded ? "h-[60vh] translate-y-[-90px]" : "h-[60px] translate-x-[0px]"}  transition-colors ease-in-out duration-300 border flex ${expanded ? "flex-col items-stretch" : "items-center hover:border-inverse/10"} overflow-hidden cursor-text`}
         onClick={() => inputRef.current?.focus()}
+        onPointerEnter={() => setIsPointerInside(true)}
+        onPointerLeave={() => setIsPointerInside(false)}
         initial={false}
-        animate={{borderRadius: expanded ? 20 : 60}}
+        animate={{
+          borderRadius: expanded ? 20 : 60,
+          y: expanded ? -90 : 0,
+        }}
         transition={{
           layout: {type: "spring", stiffness: 420, damping: 40, mass: 0.7},
           borderRadius: {
+            type: "spring",
+            stiffness: 420,
+            damping: 40,
+            mass: 0.7,
+          },
+          y: {
             type: "spring",
             stiffness: 420,
             damping: 40,
@@ -87,13 +114,13 @@ const AssistantInput = ({
           background:
             "linear-gradient(90deg, hsl(var(--primitive-400)), hsl(var(--primitive-200)))",
           boxShadow: "0 1px 0 hsl(var(--primitive-200)) inset",
-          willChange: "height, transform, border-radius",
+          willChange: "height, transform, border-radius, translateY",
         }}
       >
         {expanded && aboveContent ? (
           <motion.div
             layout
-            className="w-full px-20px min-h-0 overflow-hidden flex-1"
+            className="w-full min-h-0 overflow-hidden flex-1"
             transition={{
               layout: {type: "spring", stiffness: 420, damping: 40, mass: 0.7},
             }}
@@ -109,7 +136,7 @@ const AssistantInput = ({
 
         <motion.div
           layout
-          className={`absolute bottom-0px w-full flex items-center py-18px ${expanded ? "mt-auto" : ""}`}
+          className={`absolute bottom-0px w-full flex items-center py-18px ${expanded ? "blurred-overlay mt-auto" : ""}`}
           initial={false}
           animate={{
             backgroundColor: expanded ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0)",

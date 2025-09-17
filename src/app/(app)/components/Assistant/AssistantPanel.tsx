@@ -401,7 +401,7 @@ const AssistantPanel = ({
                   layoutScroll
                 >
                   {/* Render chat thread with bottom reference for sticky chevron */}
-                  <div className="flex flex-col">
+                  <div className="flex flex-col px-20px">
                     {thread.map((m) => {
                       if (m.role === "user") {
                         return (

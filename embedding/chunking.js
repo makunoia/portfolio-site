@@ -64,10 +64,11 @@ export function personalInfoToChunks(personalInfo) {
   // Skills
   if (personalInfo.skills) {
     const parts = [];
-    if (Array.isArray(personalInfo.skills.core_domains))
-      parts.push(
-        `Core Domains: ${personalInfo.skills.core_domains.join(", ")}`
-      );
+    // Support new schema: skills.core (with fallback to legacy core_domains)
+    const core = Array.isArray(personalInfo.skills.core)
+      ? personalInfo.skills.core
+      : null;
+    if (core) parts.push(`Core: ${core.join(", ")}`);
     if (Array.isArray(personalInfo.skills.tools))
       parts.push(`Tools: ${personalInfo.skills.tools.join(", ")}`);
     if (Array.isArray(personalInfo.skills.methodologies))
@@ -95,6 +96,7 @@ export function personalInfoToChunks(personalInfo) {
       const domain = project.domain;
       const status = project.status;
       const outcomes = project.outcomes;
+      const impact = project.impact; // new schema support
       const caseStudy = project.links?.caseStudy || project.link;
       const live = project.links?.live || project.live_url;
       const dates = project.dates;
@@ -112,6 +114,31 @@ export function personalInfoToChunks(personalInfo) {
             )
         : undefined;
       const lastUpdated = project.lastUpdated;
+
+      // Build impact text from various possible shapes (string | array | object)
+      let impactText = "";
+      if (impact) {
+        if (typeof impact === "string") {
+          impactText = `Impact: ${impact}`;
+        } else if (Array.isArray(impact)) {
+          impactText = `Impact: ${impact.join(", ")}`;
+        } else if (typeof impact === "object") {
+          const impactParts = [];
+          if (impact.summary) impactParts.push(`Summary: ${impact.summary}`);
+          if (impact.metrics && typeof impact.metrics === "object") {
+            const metricsPairs = Object.entries(impact.metrics).map(
+              ([k, v]) => `${k}: ${v}`
+            );
+            if (metricsPairs.length)
+              impactParts.push(`Metrics: ${metricsPairs.join(", ")}`);
+          }
+          if (Array.isArray(impact.highlights))
+            impactParts.push(`Highlights: ${impact.highlights.join(", ")}`);
+          impactText = impactParts.length
+            ? `Impact: ${impactParts.join(". ")}`
+            : `Impact: ${JSON.stringify(impact)}`;
+        }
+      }
 
       const parts = [
         `${title}. ${description}`,
@@ -132,6 +159,7 @@ export function personalInfoToChunks(personalInfo) {
         domain ? `Domain: ${domain}` : "",
         status ? `Status: ${status}` : "",
         outcomes ? `Outcomes: ${outcomes}` : "",
+        impactText || "",
         privacy ? `Privacy: ${privacy}` : "",
         client ? `Client: ${client}` : "",
         collaborators && collaborators.length
@@ -155,6 +183,43 @@ export function personalInfoToChunks(personalInfo) {
     });
   }
 
+  // Product Design Flow
+  if (Array.isArray(personalInfo.product_design_flow)) {
+    personalInfo.product_design_flow.forEach((stepObj, i) => {
+      const stepNumber = stepObj.step ?? i + 1;
+      const title = stepObj.title || "";
+      const description = stepObj.description || "";
+      const activities = Array.isArray(stepObj.activities)
+        ? stepObj.activities.join(", ")
+        : stepObj.activities || "";
+      const deliverables = Array.isArray(stepObj.deliverables)
+        ? stepObj.deliverables.join(", ")
+        : stepObj.deliverables || "";
+      const tags = Array.isArray(stepObj.tags)
+        ? stepObj.tags.join(", ")
+        : stepObj.tags || "";
+
+      const parts = [
+        `Step ${stepNumber}${title ? ` — ${title}` : ""}: ${description}`.trim(),
+        activities ? `Activities: ${activities}` : "",
+        deliverables ? `Deliverables: ${deliverables}` : "",
+        tags ? `Tags: ${tags}` : "",
+      ].filter(Boolean);
+
+      const longText = parts.join(". ");
+      const split = chunkContent(longText, 800);
+      split.forEach((piece, j) => {
+        chunks.push({
+          content: `Product Design Flow ${stepNumber}${
+            split.length > 1 ? ` (part ${j + 1})` : ""
+          }: ${piece}`,
+          type: "product_design_flow",
+          source: "personal_info",
+        });
+      });
+    });
+  }
+
   // Certifications
   if (Array.isArray(personalInfo.certifications)) {
     personalInfo.certifications.forEach((cert, i) => {
@@ -166,13 +231,19 @@ export function personalInfoToChunks(personalInfo) {
     });
   }
 
-  // Achievements
-  if (Array.isArray(personalInfo.achievements)) {
-    personalInfo.achievements.forEach((a, i) => {
-      chunks.push({
-        content: `Achievement ${i + 1}: ${a}`,
-        type: "achievement",
-        source: "personal_info",
+  // Achievements (categorized schema)
+  if (
+    personalInfo.achievements &&
+    typeof personalInfo.achievements === "object"
+  ) {
+    Object.entries(personalInfo.achievements).forEach(([category, list]) => {
+      if (!Array.isArray(list)) return;
+      list.forEach((a, i) => {
+        chunks.push({
+          content: `Achievement (${category}) ${i + 1}: ${a}`,
+          type: "achievement",
+          source: "personal_info",
+        });
       });
     });
   }
