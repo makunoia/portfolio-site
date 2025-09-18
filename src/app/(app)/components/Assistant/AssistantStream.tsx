@@ -34,7 +34,7 @@ const AssistantStream = ({
   }, [isLoading, phrases.length]);
   return (
     <div className="w-full flex justify-start text">
-      <div className="w-full max-w-[75%] min-w-0">
+      <div className="w-full min-w-0">
         {isLoading ? (
           stopped ? (
             <div className="mt-6">
@@ -61,7 +61,7 @@ const AssistantStream = ({
           )
         ) : (
           <div
-            className="group prose prose-invert max-w-none text-body-large leading-relaxed break-words [word-break:break-word] overflow-x-auto mt-6 overflow-visible"
+            className="assistant-prose group max-w-none text-body-large break-words [word-break:break-word] overflow-x-auto mt-6 overflow-visible"
             style={{contain: "layout paint", willChange: "contents"}}
           >
             {(() => {
@@ -69,8 +69,7 @@ const AssistantStream = ({
                 a: ({node, ...props}) => (
                   <a
                     {...props}
-                    className="underline text"
-                    style={{color: "hsl(var(--fg-brand))"}}
+                    className="text"
                     target="_blank"
                     rel="noreferrer noopener"
                   />
@@ -78,20 +77,13 @@ const AssistantStream = ({
                 code: (props) => {
                   const {className, children, ...rest} = props as any;
                   return (
-                    <code
-                      className={`px-1 py-[2px] rounded-[4px] bg-[hsl(var(--primitive-300))] text ${className ?? ""}`}
-                      {...rest}
-                    >
+                    <code className={`text ${className ?? ""}`} {...rest}>
                       {children}
                     </code>
                   );
                 },
                 table: ({node, ...props}) => (
-                  <table
-                    {...props}
-                    className="table-fixed w-full border-collapse text-left text"
-                    style={{borderColor: "hsl(var(--border-default))"}}
-                  />
+                  <table {...props} className="text" />
                 ),
                 thead: ({node, ...props}) => (
                   <thead {...props} className="text" />
@@ -99,40 +91,15 @@ const AssistantStream = ({
                 tbody: ({node, ...props}) => (
                   <tbody {...props} className="text" />
                 ),
-                tr: ({node, ...props}) => (
-                  <tr
-                    {...props}
-                    className="border"
-                    style={{borderColor: "hsl(var(--border-default))"}}
-                  />
-                ),
-                th: ({node, ...props}) => (
-                  <th
-                    {...props}
-                    className="px-12px py-8px font-medium border bg-[hsl(var(--primitive-300))]"
-                    style={{borderColor: "hsl(var(--border-default))"}}
-                  />
-                ),
-                td: ({node, ...props}) => (
-                  <td
-                    {...props}
-                    className="px-12px py-8px align-top border"
-                    style={{borderColor: "hsl(var(--border-default))"}}
-                  />
-                ),
-                ul: ({node, ...props}) => (
-                  <ul {...props} className="list-disc pl-16px" />
-                ),
-                ol: ({node, ...props}) => (
-                  <ol {...props} className="list-decimal pl-16px" />
-                ),
+                tr: ({node, ...props}) => <tr {...props} className="text" />,
+                th: ({node, ...props}) => <th {...props} className="text" />,
+                td: ({node, ...props}) => <td {...props} className="text" />,
+                ul: ({node, ...props}) => <ul {...props} className="text" />,
+                ol: ({node, ...props}) => <ol {...props} className="text" />,
                 p: ({node, ...props}) => (
-                  <p
-                    {...props}
-                    className="mb-12px last-of-type:mb-0px whitespace-pre-wrap"
-                  />
+                  <p {...props} className="text whitespace-pre-wrap" />
                 ),
-                hr: ({node, ...props}) => <hr {...props} className="mb-12px" />,
+                hr: ({node, ...props}) => <hr {...props} className="" />,
               };
               return (
                 <ReactMarkdown

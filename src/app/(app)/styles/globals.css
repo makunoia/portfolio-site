@@ -143,6 +143,81 @@
     backdrop-filter: blur(10px);
   }
 
+  /* Assistant prose defaults: readable spacing for headings, lists, tables, code */
+  .assistant-prose {
+    line-height: 1.9;
+  }
+
+  .assistant-prose :where(p, ul, ol, table, blockquote, pre, hr) {
+    margin-top: var(--spacing-16px);
+    margin-bottom: var(--spacing-16px);
+  }
+
+  /* Ensure utilities like text-body-large don't override child line-heights */
+  .assistant-prose :where(p, li, td) {
+    line-height: 1.9;
+  }
+
+  .assistant-prose :where(h1, h2, h3, h4) {
+    margin-top: var(--spacing-30px);
+    margin-bottom: var(--spacing-16px);
+    line-height: 1.35;
+  }
+
+  .assistant-prose h1 {
+    font-size: var(--assistant-h1, 1.5rem);
+  }
+  .assistant-prose h2 {
+    font-size: var(--assistant-h2, 1.25rem);
+  }
+  .assistant-prose h3 {
+    font-size: var(--assistant-h3, 1.125rem);
+  }
+  .assistant-prose h4 {
+    font-size: var(--assistant-h4, 1rem);
+  }
+
+  .assistant-prose ul {
+    list-style: disc;
+    padding-left: var(--spacing-20px);
+  }
+  .assistant-prose ol {
+    list-style: decimal;
+    padding-left: var(--spacing-20px);
+  }
+  .assistant-prose li {
+    margin: var(--spacing-8px) 0;
+  }
+
+  .assistant-prose a {
+    color: hsl(var(--fg-brand));
+    text-decoration: underline;
+  }
+
+  .assistant-prose code {
+    padding: 0 var(--spacing-4px);
+    border-radius: 4px;
+    background: hsl(var(--primitive-300));
+  }
+  .assistant-prose pre {
+    padding: var(--spacing-12px);
+    border-radius: 8px;
+    background: hsl(var(--primitive-300));
+    overflow: auto;
+  }
+
+  .assistant-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    border-color: hsl(var(--border-default));
+  }
+  .assistant-prose th,
+  .assistant-prose td {
+    border: 1px solid hsl(var(--border-default));
+    padding: var(--spacing-8px) var(--spacing-12px);
+    vertical-align: top;
+  }
+
   /* Fallback: if backdrop-filter is unsupported, increase opacity for readability */
   @supports not (
     (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))

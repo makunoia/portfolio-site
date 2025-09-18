@@ -497,14 +497,17 @@ const AssistantPanel = ({
           <PromptSuggestion
             header="Ask a question"
             samplePrompt="What is Mark's best competency?"
+            onSelect={trySendMessage}
           />
           <PromptSuggestion
             header="Summarize"
             samplePrompt="Tell me about Mark's work experience."
+            onSelect={trySendMessage}
           />
           <PromptSuggestion
             header="Find information"
             samplePrompt="What is Mark's email address?"
+            onSelect={trySendMessage}
           />
         </motion.div>
       )}

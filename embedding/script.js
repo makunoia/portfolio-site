@@ -34,6 +34,32 @@ function assertEnv() {
   }
 }
 
+// Pinecone metadata only allows string | number | boolean | string[] (no null/undefined)
+function sanitizeMetadata(metadata) {
+  const out = {};
+  for (const [key, value] of Object.entries(metadata || {})) {
+    if (value === null || value === undefined) continue;
+    const t = typeof value;
+    if (t === "string" || t === "number" || t === "boolean") {
+      out[key] = value;
+      continue;
+    }
+    if (Array.isArray(value)) {
+      const onlyStrings = value.filter((v) => typeof v === "string");
+      if (onlyStrings.length > 0) out[key] = onlyStrings;
+      continue;
+    }
+    // Fallback: stringify any other object types
+    try {
+      out[key] = JSON.stringify(value);
+    } catch (_) {
+      // last resort: toString
+      out[key] = String(value);
+    }
+  }
+  return out;
+}
+
 async function pineconeUpsert(vectors) {
   const body = {vectors};
   if (PINECONE_NAMESPACE) body.namespace = PINECONE_NAMESPACE;
@@ -87,7 +113,7 @@ async function main() {
     const vectors = embeddings.map((values, i) => ({
       id: `personal_info_${chunks[i].type}_${i}`,
       values,
-      metadata: chunks[i],
+      metadata: sanitizeMetadata(chunks[i]),
     }));
 
     const batchSize = 100;

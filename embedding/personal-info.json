@@ -10,7 +10,11 @@
     {
       "title": "Product Designer, Design Systems Lead",
       "company": "Multisys Technologies Corporation",
+      "aliases": ["Multisys", "Multisys Tech"],
       "duration": "October 2019 – Present",
+      "dates": {"start": "2019-10", "end": null},
+      "location": "Metro Manila, Philippines",
+      "employment_type": "Full-time",
       "description": "Leading design systems initiatives; designing web platforms, mobile apps, marketing sites. Collaborating with cross-functional teams to optimize user flows, perform UI/UX audits, and ensure consistent experiences. Facilitated design handoff to engineering, and led adoption of tools / processes across projects.",
       "skills": [
         "Design Systems",
@@ -25,7 +29,11 @@
     {
       "title": "Web Developer & Graphics Designer",
       "company": "InnoXcell (Hong Kong)",
+      "aliases": ["InnoXcell", "InnoXcell HK"],
       "duration": "November 2018 – September 2019",
+      "dates": {"start": "2018-11", "end": "2019-09"},
+      "location": "Hong Kong",
+      "employment_type": "Full-time",
       "description": "Created marketing materials, web graphics, banners, and managed website updates. Worked under tight deadlines, collaborated with event producers, maintained UX and brand consistency across event-related collateral.",
       "skills": [
         "Web Design",
@@ -39,7 +47,11 @@
     {
       "title": "Junior Front-End Developer",
       "company": "Tanda",
+      "aliases": ["Tanda Philippines"],
       "duration": "July 2018 – September 2018",
+      "dates": {"start": "2018-07", "end": "2018-09"},
+      "location": "Philippines",
+      "employment_type": "Full-time",
       "description": "Built and maintained marketing-site web pages using front-end technologies. Ensured responsive layouts and collaborated with design / content teams.",
       "skills": ["Front-End Web", "HTML/CSS", "Responsive Design", "Teamwork"],
       "tools": ["WordPress", "Adobe Photoshop", "Adobe Illustrator"]
@@ -47,7 +59,11 @@
     {
       "title": "Designer & Web Developer Intern",
       "company": "ReconTech Solutions",
+      "aliases": ["ReconTech", "Recon Tech"],
       "duration": "December 2017 – March 2018",
+      "dates": {"start": "2017-12", "end": "2018-03"},
+      "location": "Philippines",
+      "employment_type": "Internship",
       "description": "Interned as designer/developer; worked on WordPress sites, social media graphics, layout design. Learned fundamentals of UI/UX, web layout, content design in live projects.",
       "skills": ["WordPress", "Graphic Design", "Web Layouts"],
       "tools": ["WordPress", "Adobe Photoshop", "Adobe Illustrator"]
@@ -146,10 +162,10 @@
         ]
       },
       {
-        "title": "Launch of TranspoPay eTicketing",
-        "company": "Self / Freelance / Project",
+        "title": "Launch of AppendPay",
+        "company": "Multisys Technologies Corporation",
         "year": 2024,
-        "description": "Designed and released the eTicketing UI/UX for commuters, streamlining ticket purchase flow and improving user satisfaction",
+        "description": "Designed and released the an eFinance platform",
         "impact": {
           "userSatisfactionIncrease": "20%",
           "timeToTicketPurchaseReduction": "50%"
@@ -159,20 +175,15 @@
     ],
     "personalGrowth": [
       {
-        "title": "Mastered Motion Design with Rive",
+        "title": "French Language B1 Level",
         "year": 2023,
-        "description": "Self-taught advanced animation techniques; incorporated micro-animations in portfolio designs to enhance user delight",
+        "description": "Learned French language to meet immigration requirements",
         "skillsDeveloped": [
-          "Motion Design",
+          "French Language",
           "Self Learning",
-          "Attention to Detail"
+          "Discipline",
+          "Dedication"
         ]
-      },
-      {
-        "title": "Published Design Reflections",
-        "year": 2025,
-        "description": "Wrote multiple journal/reflection posts (e.g. on training arcs, design engineering) sharing learnings, failures, and process improvements",
-        "skillsDeveloped": ["Writing", "Reflection", "Process Improvement"]
       }
     ]
   },

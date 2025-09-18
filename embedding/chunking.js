@@ -31,7 +31,7 @@ export function personalInfoToChunks(personalInfo) {
     source: "personal_info",
   });
 
-  // Experience
+  // Enhanced Experience with rich metadata and chunking
   if (Array.isArray(personalInfo.experience)) {
     personalInfo.experience.forEach((exp, i) => {
       const skills = Array.isArray(exp.skills)
@@ -40,12 +40,42 @@ export function personalInfoToChunks(personalInfo) {
       const tools = Array.isArray(exp.tools)
         ? exp.tools.join(", ")
         : exp.tools || undefined;
-      chunks.push({
-        content: `Experience ${i + 1}: ${exp.title} at ${exp.company} (${exp.duration}). ${exp.description}. Skills: ${skills}${
-          tools ? `. Tools: ${tools}` : ""
-        }`,
+
+      // Rich metadata for filtering and context
+      const meta = {
         type: "experience",
         source: "personal_info",
+        company: exp.company,
+        aliases: Array.isArray(exp.aliases) ? exp.aliases : undefined,
+        title: exp.title,
+        duration: exp.duration,
+        start: exp.start || exp.dates?.start,
+        end: exp.end || exp.dates?.end,
+        location: exp.location,
+        employment_type: exp.employment_type,
+        skills_list: Array.isArray(exp.skills) ? exp.skills : undefined,
+        tools_list: Array.isArray(exp.tools) ? exp.tools : undefined,
+      };
+
+      // Build comprehensive experience text
+      const baseText = [
+        `${exp.title} at ${exp.company}${exp.duration ? ` (${exp.duration})` : ""}.`,
+        exp.description || "",
+        `Skills: ${skills}`,
+        tools ? `Tools: ${tools}` : "",
+        exp.location ? `Location: ${exp.location}` : "",
+        exp.employment_type ? `Employment Type: ${exp.employment_type}` : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
+
+      // Split long experience descriptions into multiple chunks
+      const split = chunkContent(baseText, 600);
+      split.forEach((piece, j) => {
+        chunks.push({
+          ...meta,
+          content: `Experience ${i + 1}${split.length > 1 ? ` (part ${j + 1})` : ""}: ${piece}`,
+        });
       });
     });
   }
@@ -129,7 +159,7 @@ export function personalInfoToChunks(personalInfo) {
             const metricsPairs = Object.entries(impact.metrics).map(
               ([k, v]) => `${k}: ${v}`
             );
-            if (metricsPairs.length)
+            if (metricsParts.length)
               impactParts.push(`Metrics: ${metricsPairs.join(", ")}`);
           }
           if (Array.isArray(impact.highlights))
@@ -231,18 +261,93 @@ export function personalInfoToChunks(personalInfo) {
     });
   }
 
-  // Achievements (categorized schema)
+  // Achievements (categorized schema: strings or rich objects)
   if (
     personalInfo.achievements &&
     typeof personalInfo.achievements === "object"
   ) {
     Object.entries(personalInfo.achievements).forEach(([category, list]) => {
       if (!Array.isArray(list)) return;
-      list.forEach((a, i) => {
-        chunks.push({
-          content: `Achievement (${category}) ${i + 1}: ${a}`,
-          type: "achievement",
-          source: "personal_info",
+
+      list.forEach((ach, i) => {
+        // Normalize achievement fields
+        let title = "";
+        let organization = ""; // institution | company | organization
+        let year = "";
+        let description = "";
+        let impact = undefined; // string | array | object
+        let skillsDeveloped = undefined; // array
+
+        if (typeof ach === "string") {
+          description = ach;
+        } else if (ach && typeof ach === "object") {
+          title = ach.title || "";
+          organization =
+            ach.institution || ach.company || ach.organization || "";
+          year = ach.yearRange || ach.year || "";
+          description = ach.description || "";
+          impact = ach.impact;
+          skillsDeveloped = Array.isArray(ach.skillsDeveloped)
+            ? ach.skillsDeveloped
+            : undefined;
+        }
+
+        // Build impact text from various shapes
+        let impactText = "";
+        if (impact) {
+          if (typeof impact === "string") {
+            impactText = `Impact: ${impact}`;
+          } else if (Array.isArray(impact)) {
+            impactText = `Impact: ${impact.join(", ")}`;
+          } else if (typeof impact === "object") {
+            const parts = [];
+            if (impact.summary) parts.push(`Summary: ${impact.summary}`);
+            if (impact.metrics && typeof impact.metrics === "object") {
+              const pairs = Object.entries(impact.metrics).map(
+                ([k, v]) => `${k}: ${v}`
+              );
+              if (pairs.length) parts.push(`Metrics: ${pairs.join(", ")}`);
+            }
+            if (Array.isArray(impact.highlights))
+              parts.push(`Highlights: ${impact.highlights.join(", ")}`);
+            impactText = parts.length
+              ? `Impact: ${parts.join(". ")}`
+              : `Impact: ${JSON.stringify(impact)}`;
+          }
+        }
+
+        const header = [
+          title ? `${title}` : "Achievement",
+          organization ? `— ${organization}` : "",
+          year ? `(${year})` : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
+
+        const details = [
+          description,
+          impactText,
+          skillsDeveloped && skillsDeveloped.length
+            ? `Skills Developed: ${skillsDeveloped.join(", ")}`
+            : "",
+        ]
+          .filter(Boolean)
+          .join(". ");
+
+        const longText = [header, details].filter(Boolean).join(". ");
+        const split = chunkContent(longText, 700);
+
+        split.forEach((piece, j) => {
+          chunks.push({
+            content: `Achievement (${category}) ${i + 1}${
+              split.length > 1 ? ` (part ${j + 1})` : ""
+            }: ${piece}`,
+            type: "achievement",
+            category,
+            organization: organization || undefined,
+            year: year || undefined,
+            source: "personal_info",
+          });
         });
       });
     });

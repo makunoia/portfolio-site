@@ -5,9 +5,11 @@ import {motion} from "motion/react";
 const PromptSuggestion = ({
   header,
   samplePrompt,
+  onSelect,
 }: {
   header: string;
   samplePrompt: string;
+  onSelect?: (prompt: string) => void;
 }) => {
   return (
     <motion.div
@@ -32,6 +34,15 @@ const PromptSuggestion = ({
       whileTap={{scale: 0.98}}
       transition={{duration: 0.25, ease: "easeInOut"}}
       layout
+      role="button"
+      tabIndex={0}
+      onClick={() => onSelect?.(samplePrompt)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelect?.(samplePrompt);
+        }
+      }}
     >
       <span className="text-caption font-medium">{header}</span>
       <p className="text-caption">{samplePrompt}</p>

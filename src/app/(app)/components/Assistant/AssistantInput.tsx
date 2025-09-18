@@ -214,7 +214,22 @@ const AssistantInput = ({
               type={isStreaming ? "button" : canSend ? "submit" : "button"}
               aria-label={isStreaming ? "Stop response" : "Send question"}
               disabled={isStreaming ? false : !canSend}
-              onClick={isStreaming ? onStop : undefined}
+              onMouseDown={(e) => {
+                // Prevent default early to avoid any chance of form submit on re-render
+                if (isStreaming) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }
+              }}
+              onClick={(e) => {
+                if (isStreaming) {
+                  // Ensure this click never triggers a form submit even if the button
+                  // re-renders to type="submit" before the browser default action.
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onStop?.();
+                }
+              }}
               initial={{x: 24, opacity: 0}}
               animate={{
                 x: isActive ? 0 : 24,
