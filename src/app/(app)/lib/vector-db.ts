@@ -54,24 +54,30 @@ async function pineconeQuery(
 function buildExperienceFilterFromQuery(query: string) {
   const q = query.toLowerCase();
   const mentionsExperience =
-    /\b(experience|worked|employer|company|role|at\s+|job|position|career)\b/i.test(
+    /\b(experience|worked|employer|company|role|job|position|career)\b/i.test(
       query
     );
 
-  if (!mentionsExperience) return null;
+  // Don't apply experience filter for education-related queries
+  const mentionsEducation =
+    /\b(graduate|graduation|school|college|university|education|degree|study|studied)\b/i.test(
+      query
+    );
+
+  if (!mentionsExperience || mentionsEducation) return null;
 
   // Enhanced company extraction - handles various patterns
   const patterns = [
     /\bat\s+([A-Z][\w&.\- ]+(?:\s+\([^)]+\))?)/i, // "at Company (Location)"
     /\bwith\s+([A-Z][\w&.\- ]+)/i, // "with Company"
-    /\b(multisys|innocxell|tanda|recontech)\b/i, // Known company names
+    /\b(multisys|innoxcell|tanda|recontech)\b/i, // Known company names (fixed InnoXcell)
   ];
 
   let rawCompany = null;
   for (const pattern of patterns) {
     const match = query.match(pattern);
     if (match) {
-      rawCompany = match[1]?.trim();
+      rawCompany = (match[1] || match[0])?.trim();
       break;
     }
   }
@@ -80,7 +86,23 @@ function buildExperienceFilterFromQuery(query: string) {
 
   if (rawCompany) {
     // Support both exact company match and aliases
-    filter.$or = [{company: {$eq: rawCompany}}, {aliases: {$in: [rawCompany]}}];
+    const variants = new Set<string>();
+    const base = rawCompany;
+    variants.add(base);
+    variants.add(base.toLowerCase());
+    variants.add(base.toUpperCase());
+    // Title Case variant
+    variants.add(
+      base
+        .toLowerCase()
+        .split(/\s+/)
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ")
+    );
+    filter.$or = [
+      {company: {$in: Array.from(variants)}},
+      {aliases: {$in: Array.from(variants)}},
+    ];
   }
 
   return filter;
@@ -123,39 +145,87 @@ export async function getPersonalContext(
   minSimilarity = 0.7
 ): Promise<string> {
   try {
+    // Pass 1: try with experience filter if confidently extracted
     const xpFilter = buildExperienceFilterFromQuery(query);
-    let relevantContent = await findRelevantContent(
+    let results = await findRelevantContent(
       query,
       PINECONE_TOPK_DEFAULT,
-      xpFilter
+      xpFilter || undefined
     );
 
-    // Filter by confidence threshold
-    relevantContent = relevantContent.filter(
+    // Threshold filter
+    let relevantContent = results.filter(
       (item: any) => item.similarity >= minSimilarity
     );
 
+    // Pass 2: if none, retry without filter and slightly lower threshold
     if (relevantContent.length === 0) {
-      return "I don't have enough relevant information to answer that question accurately.";
+      results = await findRelevantContent(
+        query,
+        Math.max(PINECONE_TOPK_DEFAULT, 10)
+      );
+      relevantContent = results.filter(
+        (item: any) => item.similarity >= Math.min(0.6, minSimilarity)
+      );
+    }
+
+    // Pass 3: if still none, try to fetch some general/basic info regardless of similarity
+    if (relevantContent.length === 0) {
+      try {
+        const general = await pineconeQuery(
+          (await embed({model: embeddingModel, value: query})).embedding,
+          5,
+          true,
+          {
+            type: {
+              $in: [
+                "basic_info",
+                "skills",
+                "faq",
+                "project",
+                "experience",
+                "education",
+              ],
+            },
+          }
+        );
+        const generalMatches = Array.isArray(general.matches)
+          ? general.matches
+          : [];
+        relevantContent = generalMatches.map((m: any) => ({
+          content: m.metadata?.content,
+          type: m.metadata?.type,
+          source: m.metadata?.source,
+          company: m.metadata?.company,
+          title: m.metadata?.title,
+          similarity: m.score,
+        }));
+      } catch {}
+    }
+
+    // Final guard: if absolutely nothing, return a minimal basic profile hint
+    if (!relevantContent || relevantContent.length === 0) {
+      return "Personal Information Context:\n[INFO] Unable to retrieve relevant chunks at this time.";
     }
 
     // Sort by similarity and add confidence indicators
     const sortedContent = relevantContent
       .sort((a: any, b: any) => b.similarity - a.similarity)
-      .slice(0, 5); // Top 5 most relevant
+      .slice(0, 5);
 
     const context = sortedContent
-      .map((item: any, i: number) => {
+      .map((item: any) => {
         const confidence =
           item.similarity > 0.85
             ? "HIGH"
             : item.similarity > 0.75
               ? "MED"
               : "LOW";
+        const type = (item.type || "").toString().toUpperCase();
         const header =
           item.company && item.title
-            ? `[${item.type?.toUpperCase()} - ${item.company}] (${confidence})`
-            : `[${item.type?.toUpperCase()}] (${confidence})`;
+            ? `[${type} - ${item.company}] (${confidence})`
+            : `[${type}] (${confidence})`;
         return `${header} ${item.content}`;
       })
       .join("\n\n");

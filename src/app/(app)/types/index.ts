@@ -15,10 +15,7 @@ type ProjectListItem = {
   desc: string;
   tag: string;
   slug: string;
-} & (
-  | { locked: true; codename: string }
-  | { locked: false; codename?: undefined }
-);
+} & ({locked: true; codename: string} | {locked: false; codename?: undefined});
 
 export type FeaturedProject = {
   id: string;
@@ -48,8 +45,8 @@ export type LockedProject = {
 };
 
 export type ContentType = Project["sections"];
-export type ProjectsByYear = { year: string; projects: ProjectListItem[] }[];
-export type JournalEntriesByYear = { year: string; entries: JournalEntry[] }[];
+export type ProjectsByYear = {year: string; projects: ProjectListItem[]}[];
+export type JournalEntriesByYear = {year: string; entries: JournalEntry[]}[];
 
 // Lexical Root.Children
 export type LexicalBlock = (
@@ -72,7 +69,7 @@ export type LexicalBlock = (
         type: "text" | "linebreak";
       }[];
     }
-  | { type: "horizontalrule" }
+  | {type: "horizontalrule"}
 )[];
 
 export type AboutMeSection = {
@@ -88,4 +85,23 @@ export const LexicalStyleMap = {
   9: "bold and underlined",
   10: "italic",
   11: "italic and bold",
+};
+
+// Chat Assistant Types
+export type UsefulLink = {
+  resource_name: string;
+  resource_link: string;
+};
+
+export type StructuredChatResponse = {
+  text: string;
+  usefulLinks?: UsefulLink[];
+};
+
+export type ChatMessage = {
+  id: string;
+  text: string;
+  role: "user" | "assistant";
+  stopped?: boolean;
+  structuredData?: StructuredChatResponse;
 };

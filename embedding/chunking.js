@@ -93,11 +93,12 @@ export function personalInfoToChunks(personalInfo) {
     });
   }
 
-  // Education
+  // Education - Enhanced for better discoverability
   if (Array.isArray(personalInfo.education)) {
     personalInfo.education.forEach((edu, i) => {
+      const content = `Academic Background ${i + 1}: ${edu.degree} at ${edu.institution} (${edu.year}). Education: ${edu.degree}. Institution/College: ${edu.institution}. Graduation: ${edu.year}. Academic qualifications. Educational background. College degree.`;
       chunks.push({
-        content: `Education ${i + 1}: ${edu.degree} at ${edu.institution} (${edu.year}).`,
+        content,
         type: "education",
         source: "personal_info",
       });

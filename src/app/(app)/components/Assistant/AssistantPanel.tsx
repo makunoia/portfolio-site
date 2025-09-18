@@ -17,6 +17,7 @@ import AssistantStream from "@/app/(app)/components/Assistant/AssistantStream";
 import {motion, AnimatePresence} from "motion/react";
 import {ChevronDown} from "lucide-react";
 import PromptSuggestion from "@/app/(app)/components/Assistant/PromptSuggestion";
+import {ChatMessage} from "@/app/(app)/types";
 
 // Scroll/observer tuning (module-scope to avoid re-creation)
 const BOTTOM_PX_HYSTERESIS = 6;
@@ -29,9 +30,7 @@ const AssistantPanel = ({
   onConversationActiveChange?: (active: boolean) => void;
   endConversationSignal?: number;
 }) => {
-  const [thread, setThread] = useState<
-    {id: string; text: string; role: "user" | "assistant"; stopped?: boolean}[]
-  >([]);
+  const [thread, setThread] = useState<ChatMessage[]>([]);
 
   const [abortCtrl, setAbortCtrl] = useState<AbortController | null>(null);
   const isLockedRef = useRef(false);
@@ -108,15 +107,43 @@ const AssistantPanel = ({
         });
         const reader = res.body?.getReader();
         if (!reader) return;
-        let aText = "";
+
+        let currentText = "";
+        let structuredData: any = null;
         const decoder = new TextDecoder();
+
         while (true) {
           const {done, value} = await reader.read();
           if (done) break;
-          aText += decoder.decode(value, {stream: true});
-          setThread((prev) =>
-            prev.map((m) => (m.id === aid ? {...m, text: aText} : m))
-          );
+
+          const chunk = decoder.decode(value, {stream: true});
+          const lines = chunk.split("\n").filter((line) => line.trim());
+
+          for (const line of lines) {
+            try {
+              const parsed = JSON.parse(line);
+              if (parsed.text !== undefined) {
+                currentText = parsed.text;
+              }
+              if (parsed.usefulLinks !== undefined) {
+                structuredData = parsed;
+              }
+
+              setThread((prev) =>
+                prev.map((m) =>
+                  m.id === aid
+                    ? {
+                        ...m,
+                        text: currentText,
+                        structuredData: structuredData,
+                      }
+                    : m
+                )
+              );
+            } catch (e) {
+              // Skip invalid JSON lines
+            }
+          }
         }
       } catch {
       } finally {
@@ -402,7 +429,7 @@ const AssistantPanel = ({
                 >
                   {/* Render chat thread with bottom reference for sticky chevron */}
                   <div className="flex flex-col px-20px">
-                    {thread.map((m) => {
+                    {thread.map((m, index) => {
                       if (m.role === "user") {
                         return (
                           <motion.div
@@ -423,6 +450,11 @@ const AssistantPanel = ({
                           </motion.div>
                         );
                       }
+
+                      // Check if this is the latest assistant message
+                      const isLatestAssistantMessage =
+                        index === thread.length - 1 && m.role === "assistant";
+
                       return (
                         <motion.div
                           key={m.id}
@@ -436,7 +468,13 @@ const AssistantPanel = ({
                           }}
                           layout="position"
                         >
-                          <AssistantStream text={m.text} stopped={m.stopped} />
+                          <AssistantStream
+                            text={m.text}
+                            stopped={m.stopped}
+                            structuredData={m.structuredData}
+                            isStreaming={!!abortCtrl}
+                            isLatestMessage={isLatestAssistantMessage}
+                          />
                         </motion.div>
                       );
                     })}
@@ -484,32 +522,58 @@ const AssistantPanel = ({
 
       {/* Prompt Suggestions  */}
       {(!hasStarted || isCollapsed) && suggestionsReady && (
-        <motion.div
-          className="flex flex-row gap-14px w-full"
-          layout
-          initial="hidden"
-          animate="show"
-          transition={{
-            staggerChildren: 0.08,
-            delayChildren: 0.05,
-          }}
-        >
-          <PromptSuggestion
-            header="Ask a question"
-            samplePrompt="What is Mark's best competency?"
-            onSelect={trySendMessage}
-          />
-          <PromptSuggestion
-            header="Summarize"
-            samplePrompt="Tell me about Mark's work experience."
-            onSelect={trySendMessage}
-          />
-          <PromptSuggestion
-            header="Find information"
-            samplePrompt="What is Mark's email address?"
-            onSelect={trySendMessage}
-          />
-        </motion.div>
+        <div className="relative w-full overflow-hidden">
+          <motion.div
+            className="flex gap-12px w-full overflow-x-auto scrollbar-none rounded-16px"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+            layout
+            initial="hidden"
+            animate="show"
+            transition={{
+              staggerChildren: 0.06,
+              delayChildren: 0.05,
+            }}
+          >
+            <PromptSuggestion
+              header="Ask a question"
+              samplePrompt="What is Mark's best competency?"
+              onSelect={trySendMessage}
+            />
+            <PromptSuggestion
+              header="Work Experience"
+              samplePrompt="Tell me about Mark's work experience."
+              onSelect={trySendMessage}
+            />
+            <PromptSuggestion
+              header="Contact Info"
+              samplePrompt="What is Mark's email address?"
+              onSelect={trySendMessage}
+            />
+            <PromptSuggestion
+              header="Skills & Tech"
+              samplePrompt="What technologies does Mark specialize in?"
+              onSelect={trySendMessage}
+            />
+            <PromptSuggestion
+              header="Recent Projects"
+              samplePrompt="Show me Mark's latest projects."
+              onSelect={trySendMessage}
+            />
+            <PromptSuggestion
+              header="Role Fit"
+              samplePrompt="How would Mark fit as a senior developer?"
+              onSelect={trySendMessage}
+            />
+            <PromptSuggestion
+              header="Background"
+              samplePrompt="Tell me about Mark's educational background."
+              onSelect={trySendMessage}
+            />
+          </motion.div>
+        </div>
       )}
     </motion.div>
   );

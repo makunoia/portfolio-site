@@ -17,7 +17,7 @@ const PromptSuggestion = ({
         hidden: {opacity: 0, y: 8},
         show: {opacity: 1, y: 0},
       }}
-      className="text flex flex-col gap-4px p-16px rounded-16px border w-full h-fit cursor-pointer select-none"
+      className="text flex flex-col gap-4px p-16px rounded-16px border min-w-[200px] flex-shrink-0 h-fit cursor-pointer select-none"
       style={{
         ["--ps-alpha" as any]: 0.1,
         ["--ps-alpha2" as any]: 0.05,
