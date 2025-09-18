@@ -1,6 +1,27 @@
 import {openai} from "@ai-sdk/openai";
 import {streamText} from "ai";
 import {getPersonalContext} from "../../../(app)/lib/vector-db";
+import {headers} from "next/headers";
+
+// Simple in-memory rate limiter (use Redis in production)
+const rateLimiter = new Map<string, {count: number; resetTime: number}>();
+
+function checkRateLimit(ip: string, limit = 10, windowMs = 60000) {
+  const now = Date.now();
+  const userLimit = rateLimiter.get(ip);
+
+  if (!userLimit || now > userLimit.resetTime) {
+    rateLimiter.set(ip, {count: 1, resetTime: now + windowMs});
+    return true;
+  }
+
+  if (userLimit.count >= limit) {
+    return false;
+  }
+
+  userLimit.count++;
+  return true;
+}
 
 export const maxDuration = 30;
 export const runtime = "edge";
@@ -8,6 +29,18 @@ export const runtime = "edge";
 type IncomingMessage = {role: "user" | "assistant"; text: string};
 
 export async function POST(req: Request) {
+  // Get IP from headers
+  const headersList = await headers();
+  const ip =
+    headersList.get("x-forwarded-for") ||
+    headersList.get("x-real-ip") ||
+    "unknown";
+
+  if (!checkRateLimit(ip)) {
+    console.log("Rate limit exceeded");
+    return new Response("Rate limit exceeded", {status: 429});
+  }
+
   const {messages}: {messages: IncomingMessage[]} = await req.json();
 
   // Get the latest user message
@@ -26,19 +59,26 @@ export async function POST(req: Request) {
   }
 
   // Create system message with personal context
-  const systemPrompt = `You are a helpful AI assistant for a portfolio website. You have access to the user's personal information and should use it to provide accurate, personalized responses about their background, experience, skills, projects, and achievements.
+  const systemPrompt = `You are an assistant to visitors on Mark's portfolio website. You have access to his personal and professional information through a knowledge base.
 
-${personalContext ? `\nHere is relevant personal information for the current query:\n${personalContext}\n` : ""}
+GUIDELINES:
+- ONLY answer questions about Mark's background, experience, skills, projects, and achievements.
+- If a user ask for fit for a role, compare Mark's profile to the role requirements to answer the question accurately with a list of why Mark is a good fit for the role.
+- If asked about topics outside Mark's professional/personal context, politely redirect: "I can only help with questions about Mark's background and experience."
+- Be concise but informative (2-3 paragraphs max unless specifically asked for details)
+- If you're unsure about specific details, say "I don't have that specific information" rather than guessing
+- For contact requests, direct users to Mark's email: markbriannoya@gmail.com or LinkedIn
+- Never make up information not provided in the context
 
-Guidelines:
-- Always be helpful and professional
-- Use the personal information provided to give accurate responses
-- If you don't have specific information about something, say so rather than making assumptions
-- Focus on the user's professional background, skills, and achievements
-- Be concise but informative
-- If asked about contact information, projects, or experience, refer to the personal information provided
+RESPONSE STYLE:
+- Professional but conversational
+- Use the third person when speaking for Mark ("Mark has experience in...")
+- Include specific examples and metrics when available
+- Format lists and technical details clearly
 
-Remember: You should only respond based on the personal information provided. If the query is not related to the user's professional background or personal information, politely redirect the conversation to topics you can help with.`;
+${personalContext ? `\nCONTEXT:\n${personalContext}` : ""}
+
+Remember: Only respond based on the provided context. If the question isn't related to Mark's professional background, politely redirect.`;
 
   // Prepare messages with system context
   const messagesWithContext = [

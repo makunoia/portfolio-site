@@ -25,8 +25,21 @@ export function personalInfoToChunks(personalInfo) {
   if (personalInfo.website) links.push(`Website: ${personalInfo.website}`);
   if (personalInfo.linkedin) links.push(`LinkedIn: ${personalInfo.linkedin}`);
   if (personalInfo.github) links.push(`GitHub: ${personalInfo.github}`);
+  if (personalInfo.cv_resume)
+    links.push(`CV/Resume: ${personalInfo.cv_resume}`);
+  const basicParts = [
+    `Name: ${personalInfo.name}`,
+    personalInfo.bio ? `Bio: ${personalInfo.bio}` : "",
+    personalInfo.location ? `Location: ${personalInfo.location}` : "",
+    personalInfo.email ? `Email: ${personalInfo.email}` : "",
+    personalInfo.birthday ? `Birthday: ${personalInfo.birthday}` : "",
+    Number.isFinite(personalInfo.age) || typeof personalInfo.age === "number"
+      ? `Age: ${personalInfo.age}`
+      : "",
+    links.length ? links.join(". ") : "",
+  ].filter(Boolean);
   chunks.push({
-    content: `Name: ${personalInfo.name}. Bio: ${personalInfo.bio}. Location: ${personalInfo.location}. Email: ${personalInfo.email}. ${links.join(". ")}`,
+    content: basicParts.join(". "),
     type: "basic_info",
     source: "personal_info",
   });
@@ -376,6 +389,24 @@ export function personalInfoToChunks(personalInfo) {
       }`,
       type: "availability",
       source: "personal_info",
+    });
+  }
+
+  // FAQ
+  if (Array.isArray(personalInfo.faq)) {
+    personalInfo.faq.forEach((item, i) => {
+      if (!item || (!item.question && !item.answer)) return;
+      const q = item.question ? `Q: ${item.question}` : "Q:";
+      const a = item.answer ? `A: ${item.answer}` : "A:";
+      const content = `${q}. ${a}`;
+      const split = chunkContent(content, 600);
+      split.forEach((piece, j) => {
+        chunks.push({
+          content: `FAQ ${i + 1}${split.length > 1 ? ` (part ${j + 1})` : ""}: ${piece}`,
+          type: "faq",
+          source: "personal_info",
+        });
+      });
     });
   }
 

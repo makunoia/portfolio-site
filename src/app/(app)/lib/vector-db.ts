@@ -118,49 +118,46 @@ export async function findRelevantContent(
 }
 
 // Enhanced function to get context for AI assistant
-export async function getPersonalContext(query: string): Promise<string> {
+export async function getPersonalContext(
+  query: string,
+  minSimilarity = 0.7
+): Promise<string> {
   try {
     const xpFilter = buildExperienceFilterFromQuery(query);
-
-    // First pass: if experience-related, prefilter to experience; else general
     let relevantContent = await findRelevantContent(
       query,
       PINECONE_TOPK_DEFAULT,
-      xpFilter || undefined
+      xpFilter
     );
 
-    // Fallback: if too few results, do a general search and merge
-    if ((relevantContent?.length || 0) < 2) {
-      const general = await findRelevantContent(query, PINECONE_TOPK_DEFAULT);
-      // Merge unique by content to avoid duplicates
-      const seen = new Set<string>();
-      relevantContent = [...(relevantContent || []), ...general].filter((r) => {
-        const key = (r.type || "") + ":" + (r.content || "");
-        if (seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      });
+    // Filter by confidence threshold
+    relevantContent = relevantContent.filter(
+      (item: any) => item.similarity >= minSimilarity
+    );
+
+    if (relevantContent.length === 0) {
+      return "I don't have enough relevant information to answer that question accurately.";
     }
 
-    if (!relevantContent.length) {
-      return "No relevant personal information found for this query.";
-    }
+    // Sort by similarity and add confidence indicators
+    const sortedContent = relevantContent
+      .sort((a: any, b: any) => b.similarity - a.similarity)
+      .slice(0, 5); // Top 5 most relevant
 
-    const context = relevantContent
-      .map(
-        (item: {
-          type?: string;
-          content?: string;
-          company?: string;
-          title?: string;
-        }) => {
-          const header =
-            item.company && item.title
-              ? `[${(item.type || "context").toUpperCase()} - ${item.company}]`
-              : `[${(item.type || "context").toUpperCase()}]`;
-          return `${header} ${item.content || ""}`;
-        }
-      )
+    const context = sortedContent
+      .map((item: any, i: number) => {
+        const confidence =
+          item.similarity > 0.85
+            ? "HIGH"
+            : item.similarity > 0.75
+              ? "MED"
+              : "LOW";
+        const header =
+          item.company && item.title
+            ? `[${item.type?.toUpperCase()} - ${item.company}] (${confidence})`
+            : `[${item.type?.toUpperCase()}] (${confidence})`;
+        return `${header} ${item.content}`;
+      })
       .join("\n\n");
 
     return `Personal Information Context:\n${context}`;
