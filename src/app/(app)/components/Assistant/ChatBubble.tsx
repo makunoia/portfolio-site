@@ -18,8 +18,7 @@ const ChatBubble = ({message}: {message: string}) => {
       className="rounded-24px px-16px py-10px max-w-[75%]"
       style={{
         background:
-          "linear-gradient(135deg, hsl(var(--brand) / 0.18), hsl(var(--brand) / 0.10))",
-        color: "hsl(var(--fg-inverse))",
+          "linear-gradient(135deg, color-mix(in oklch, var(--brand) 18%, transparent), color-mix(in oklch, var(--brand) 10%, transparent))",
       }}
     >
       <p className="text text-body-large leading-[1.6]">{message}</p>

@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cva } from "class-variance-authority";
-import { Slot } from "@radix-ui/react-slot";
+import {usePathname} from "next/navigation";
+import {cva} from "class-variance-authority";
+import {Slot} from "@radix-ui/react-slot";
 
 import Text from "@/components/Text";
-import { Home, Palette, NotebookText, User } from "lucide-react";
+import {Home, Palette, NotebookText, User} from "lucide-react";
+import ThemeToggle from "@/app/(app)/components/ThemeToggle";
 
 const NavbarContainerCVA = cva([
   "sticky z-20 bottom-40px mx-auto w-fit h-40px",
@@ -61,6 +62,7 @@ const Navbar = () => {
           url="/about-me"
           active={slug === "/about-me"}
         />
+        <ThemeToggle className="ml-4px" />
       </div>
     </nav>
   );
@@ -77,7 +79,7 @@ const NavbarButton = ({
   url: string;
   active?: boolean;
 }) => {
-  const NavbarButtonStyle = NavbarButtonCVA({ active });
+  const NavbarButtonStyle = NavbarButtonCVA({active});
   return (
     <Link prefetch href={url} as={url} aria-label={label}>
       <div className={NavbarButtonStyle}>

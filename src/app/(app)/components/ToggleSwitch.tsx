@@ -23,9 +23,9 @@ const ToggleSwitch = ({
 
       <button
         onClick={() => onToggle(!isRightActive)}
-        className="relative w-[35px] h-[22px] rounded-24px p-1px focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand"
+        className="relative w-[35px] h-[22px] rounded-24px p-1px"
         style={{
-          background: "hsl(var(--brand))",
+          background: "var(--brand)",
         }}
         aria-label={`Toggle between ${leftLabel} and ${rightLabel}`}
       >

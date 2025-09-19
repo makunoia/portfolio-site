@@ -25,7 +25,19 @@ const UsefulLinks = ({links}: UsefulLinksProps) => {
             href={link.resource_link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-4px p-8px rounded-8px border border-[hsl(var(--border-default))] bg-[hsl(var(--primitive-200))] hover:bg-[hsl(var(--primitive-300))] hover:border-[hsl(var(--border-hover))] transition-all duration-200 shadow-sm hover:shadow-md"
+            className="flex items-center gap-4px p-8px rounded-8px border transition-all duration-200 shadow-sm hover:shadow-md"
+            style={{
+              borderColor: "var(--border-default)",
+              backgroundColor: "var(--primitive-200)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--primitive-300)";
+              e.currentTarget.style.borderColor = "var(--border-hover)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--primitive-200)";
+              e.currentTarget.style.borderColor = "var(--border-default)";
+            }}
             initial={{opacity: 0, y: 8}}
             animate={{opacity: 1, y: 0}}
             transition={{
@@ -35,11 +47,23 @@ const UsefulLinks = ({links}: UsefulLinksProps) => {
             }}
           >
             <div className="flex-1 min-w-0">
-              <span className="text-body text-[hsl(var(--fg-default))] font-medium truncate block no-underline">
+              <span
+                className="text-body font-medium truncate block no-underline"
+                style={{color: "var(--fg-default)"}}
+              >
                 {link.resource_name}
               </span>
             </div>
-            <ExternalLink className="w-12px h-12px text-[hsl(var(--fg-muted))] hover:text-[hsl(var(--fg-default))] transition-colors duration-200 flex-shrink-0" />
+            <ExternalLink
+              className="w-12px h-12px transition-colors duration-200 flex-shrink-0"
+              style={{color: "var(--fg-subtle)"}}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--fg-default)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "var(--fg-subtle)";
+              }}
+            />
           </motion.a>
         ))}
       </div>

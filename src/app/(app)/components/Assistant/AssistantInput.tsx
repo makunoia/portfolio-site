@@ -93,7 +93,7 @@ const AssistantInput = ({
         initial={false}
         animate={{
           borderRadius: expanded ? 20 : 60,
-          y: expanded ? -90 : 0,
+          y: expanded ? -10 : 0,
         }}
         transition={{
           layout: {type: "spring", stiffness: 420, damping: 40, mass: 0.7},
@@ -112,8 +112,8 @@ const AssistantInput = ({
         }}
         style={{
           background:
-            "linear-gradient(90deg, hsl(var(--primitive-400)), hsl(var(--primitive-200)))",
-          boxShadow: "0 1px 0 hsl(var(--primitive-200)) inset",
+            "linear-gradient(90deg, var(--primitive-400), var(--primitive-200))",
+          boxShadow: "0 1px 0 var(--primitive-200) inset",
           willChange: "height, transform, border-radius, translateY",
         }}
       >
@@ -202,7 +202,7 @@ const AssistantInput = ({
             spellCheck={false}
             className="w-3/4 h-24px flex-1 bg-transparent outline-none text-body-large leading-body placeholder:opacity-60"
             style={{
-              color: "hsl(var(--fg-default))",
+              color: "var(--fg-default)",
               background: "transparent",
             }}
           />
@@ -244,24 +244,24 @@ const AssistantInput = ({
                 opacity: isStreaming || canSend ? 1 : 0.7,
                 cursor: isStreaming || canSend ? "pointer" : "not-allowed",
                 backgroundColor: isStreaming
-                  ? "hsl(var(--utility-danger) / 0.9)"
+                  ? "color-mix(in oklch, var(--utility-danger) 90%, transparent)"
                   : canSend
-                    ? "hsl(var(--brand))"
-                    : "hsl(var(--primitive-600))",
+                    ? "var(--brand)"
+                    : "var(--primitive-600)",
                 color: isStreaming
-                  ? "hsl(var(--fg-inverse))"
+                  ? "var(--fg-inverse)"
                   : canSend
-                    ? "hsl(var(--fg-inverse))"
-                    : "hsl(var(--fg-subtle))",
+                    ? "var(--fg-inverse)"
+                    : "var(--fg-subtle)",
                 borderColor: isStreaming
-                  ? "hsl(var(--utility-danger))"
+                  ? "var(--utility-danger)"
                   : canSend
-                    ? "hsl(var(--border-brand))"
-                    : "hsl(var(--border-default))",
+                    ? "var(--border-brand)"
+                    : "var(--border-default)",
               }}
             >
               {isStreaming ? (
-                <CircleStop className="text w-20px h-20px" />
+                <CircleStop className="text-white w-20px h-20px" />
               ) : (
                 <SendHorizonal className="text w-20px h-20px" />
               )}

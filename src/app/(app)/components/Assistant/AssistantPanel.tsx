@@ -498,12 +498,13 @@ const AssistantPanel = ({
                           block: "end",
                         });
                       }}
-                      className="absolute bottom-12px left-1/2 z-30 w-[40px] h-[40px] rounded-full grid place-items-center border bg-[hsl(var(--primitive-300))] pointer-events-auto"
+                      className="absolute bottom-12px left-1/2 z-30 w-[40px] h-[40px] rounded-full grid place-items-center border pointer-events-auto"
                       style={{
-                        borderColor: "hsl(var(--border-default))",
-                        color: "hsl(var(--fg-default))",
+                        backgroundColor: "var(--primitive-300)",
+                        color: "var(--fg-default)",
                         translate: "0 -55px",
-                        boxShadow: "0 4px 16px hsl(var(--shadow) / 0.35)",
+                        boxShadow:
+                          "0 4px 16px color-mix(in oklch, var(--shadow-default) 35%, transparent)",
                       }}
                       initial={{opacity: 0, y: 8}}
                       animate={{opacity: 1, y: 0}}

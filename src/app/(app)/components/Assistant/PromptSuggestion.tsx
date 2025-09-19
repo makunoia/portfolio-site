@@ -19,17 +19,18 @@ const PromptSuggestion = ({
       }}
       className="text flex flex-col gap-4px p-16px rounded-16px border min-w-[200px] flex-shrink-0 h-fit cursor-pointer select-none"
       style={{
-        ["--ps-alpha" as any]: 0.1,
-        ["--ps-alpha2" as any]: 0.05,
-        ["--ps-border" as any]: 0.12,
+        ["--ps-alpha" as any]: "10%",
+        ["--ps-alpha2" as any]: "5%",
+        ["--ps-border" as any]: "12%",
         background:
-          "linear-gradient(135deg, hsl(var(--brand) / var(--ps-alpha)), hsl(var(--brand) / var(--ps-alpha2)))",
-        borderColor: "hsl(var(--brand) / var(--ps-border))",
+          "linear-gradient(135deg, color-mix(in oklch, var(--brand) var(--ps-alpha), transparent), color-mix(in oklch, var(--brand) var(--ps-alpha2), transparent))",
+        borderColor:
+          "color-mix(in oklch, var(--brand) var(--ps-border), transparent)",
       }}
       whileHover={{
-        ["--ps-alpha" as any]: 0.22,
-        ["--ps-alpha2" as any]: 0.12,
-        ["--ps-border" as any]: 0.45,
+        ["--ps-alpha" as any]: "22%",
+        ["--ps-alpha2" as any]: "12%",
+        ["--ps-border" as any]: "45%",
       }}
       whileTap={{scale: 0.98}}
       transition={{duration: 0.25, ease: "easeInOut"}}

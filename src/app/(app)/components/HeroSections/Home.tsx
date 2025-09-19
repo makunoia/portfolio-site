@@ -95,13 +95,16 @@ const HomeHero = ({copy, status}: HeroSummaryProps) => {
                 key="end-convo"
                 className="text px-16px py-10px rounded-16px border"
                 style={{
-                  backgroundColor: "hsl(var(--utility-danger) / 0.12)",
-                  borderColor: "hsl(var(--utility-danger) / 0.35)",
-                  color: "hsl(var(--utility-danger))",
+                  backgroundColor:
+                    "color-mix(in oklch, var(--utility-danger) 12%, transparent)",
+                  borderColor:
+                    "color-mix(in oklch, var(--utility-danger) 35%, transparent)",
+                  color: "var(--utility-danger)",
                 }}
                 whileHover={{
                   scale: 1.02,
-                  backgroundColor: "hsl(var(--utility-danger) / 0.18)",
+                  backgroundColor:
+                    "color-mix(in oklch, var(--utility-danger) 18%, transparent)",
                 }}
                 whileTap={{scale: 0.98}}
                 transition={{duration: 0.2, ease: "easeInOut"}}

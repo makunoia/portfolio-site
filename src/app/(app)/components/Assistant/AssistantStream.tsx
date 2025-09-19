@@ -142,13 +142,23 @@ const AssistantStream = ({
                 <div className="flex flex-wrap gap-4px mt-8px">
                   {/* Create skeleton cards that match expected link names */}
                   <div
-                    className="flex items-center gap-4px p-8px rounded-8px border border-[hsl(var(--border-default))] bg-[hsl(var(--primitive-200))] animate-pulse"
-                    style={{width: "110px"}}
+                    className="flex items-center gap-4px p-8px rounded-8px border animate-pulse"
+                    style={{
+                      width: "110px",
+                      borderColor: "var(--border-default)",
+                      backgroundColor: "var(--primitive-200)",
+                    }}
                   >
                     <div className="flex-1">
-                      <div className="h-4 bg-[hsl(var(--primitive-300))] rounded animate-pulse"></div>
+                      <div
+                        className="h-4 rounded animate-pulse"
+                        style={{backgroundColor: "var(--primitive-300)"}}
+                      ></div>
                     </div>
-                    <div className="w-12px h-12px bg-[hsl(var(--primitive-300))] rounded animate-pulse flex-shrink-0"></div>
+                    <div
+                      className="w-12px h-12px rounded animate-pulse flex-shrink-0"
+                      style={{backgroundColor: "var(--primitive-300)"}}
+                    ></div>
                   </div>
                 </div>
               </motion.div>

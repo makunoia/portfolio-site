@@ -1,0 +1,15 @@
+[profiles.my-profile]
+model = "gpt-5-codex"
+model_provider = "openai"
+approval_mode = "auto"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = true
+
+[tools]
+web_search = true
+
+[network_allowlist]
+domains = ["tailwindcss.com", "platform.openai.com", "payloadcms.com", "nextjs.org"]
+http_methods = ["GET", "HEAD", "OPTIONS"]
