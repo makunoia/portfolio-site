@@ -5,8 +5,13 @@ import Users from "@/app/(payload)/collections/Users";
 import {getPayload} from "payload";
 import {unstable_cache} from "next/cache";
 import {GroupByYear} from "@/lib/helpers";
-import {JournalEntry, Project} from "payload-types";
-import {FeaturedProject, LockedProject, ProjectsByYear} from "../types";
+import {GalleryItem, JournalEntry, Project} from "payload-types";
+import {
+  FeaturedProject,
+  GalleryEntry,
+  LockedProject,
+  ProjectsByYear,
+} from "../types";
 import {CollectionSlug} from "payload";
 const payload = await getPayload({config});
 
@@ -176,6 +181,87 @@ export const getLockedProjects = unstable_cache(
   ["lockedProjects"],
   {
     tags: ["lockedProjects", "collection:projects"],
+    revalidate: 3600,
+  }
+);
+
+export const getGalleryItems = unstable_cache(
+  async () => {
+    const {docs} = await payload.find({
+      collection: "gallery-items",
+      depth: 1,
+      limit: 200,
+      sort: "-publishedAt",
+    });
+
+    const publicLink = process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK;
+
+    const items = (docs as GalleryItem[]).map((item) => {
+      const posterDoc =
+        item.poster && typeof item.poster === "object"
+          ? item.poster
+          : null;
+
+      const url =
+        item.url ||
+        (item.filename && publicLink
+          ? `${publicLink}/${item.filename}`
+          : "");
+
+      const resolvedPosterUrl = posterDoc
+        ? posterDoc.url ||
+          (posterDoc.filename && publicLink
+            ? `${publicLink}/${posterDoc.filename}`
+            : null)
+        : null;
+
+      const poster =
+        posterDoc && resolvedPosterUrl
+          ? {
+              url: resolvedPosterUrl,
+              alt: posterDoc.alt,
+              width: posterDoc.width,
+              height: posterDoc.height,
+            }
+          : null;
+
+      const mapped: GalleryEntry = {
+        id: item.id,
+        title: item.title,
+        category: item.category,
+        description: item.description,
+        externalUrl: item.externalUrl,
+        url,
+        mimeType:
+          item.mimeType || (item.category === "photo" ? "image/jpeg" : "video/mp4"),
+        width: item.width,
+        height: item.height,
+        poster,
+        createdAt: item.createdAt,
+        sortOrder: item.sortOrder,
+        publishedAt: item.publishedAt,
+      };
+
+      return mapped;
+    });
+
+    return items.sort((a, b) => {
+      const orderA = a.sortOrder ?? Number.MAX_SAFE_INTEGER;
+      const orderB = b.sortOrder ?? Number.MAX_SAFE_INTEGER;
+
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+
+      const dateA = a.publishedAt || a.createdAt;
+      const dateB = b.publishedAt || b.createdAt;
+
+      return new Date(dateB).getTime() - new Date(dateA).getTime();
+    });
+  },
+  ["gallery-items"],
+  {
+    tags: ["gallery", "gallery-items", "collection:gallery-items"],
     revalidate: 3600,
   }
 );
