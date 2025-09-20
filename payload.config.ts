@@ -11,6 +11,7 @@ import Pages from "@/app/(payload)/collections/Pages";
 import Projects from "@/app/(payload)/collections/Projects";
 import Users from "@/app/(payload)/collections/Users";
 import Assets from "@/app/(payload)/collections/Assets";
+import GalleryItems from "@/app/(payload)/collections/GalleryItems";
 import JournalEntries from "@/app/(payload)/collections/JournalEntries";
 import ProjectTags from "@/app/(payload)/collections/tags/ProjectTags";
 import MyRoles from "@/app/(payload)/collections/tags/MyRoles";
@@ -70,6 +71,7 @@ export default buildConfig({
   collections: [
     Users,
     Projects,
+    GalleryItems,
     Pages,
     ProjectTags,
     MyRoles,
@@ -82,6 +84,13 @@ export default buildConfig({
     s3Storage({
       collections: {
         assets: {
+          generateFileURL: ({ filename }) => {
+            return `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/${filename}`;
+          },
+          disableLocalStorage: true,
+          disablePayloadAccessControl: true,
+        },
+        "gallery-items": {
           generateFileURL: ({ filename }) => {
             return `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/${filename}`;
           },

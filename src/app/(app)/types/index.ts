@@ -1,6 +1,7 @@
 import {
   BooleanItem,
   EntrySection,
+  GalleryItem,
   InfoItem,
   JournalEntry,
   MediaItem,
@@ -104,4 +105,27 @@ export type ChatMessage = {
   role: "user" | "assistant";
   stopped?: boolean;
   structuredData?: StructuredChatResponse;
+};
+
+export type GalleryPoster = {
+  url: string;
+  alt?: string | null;
+  width?: number | null;
+  height?: number | null;
+};
+
+export type GalleryEntry = {
+  id: string;
+  title: string;
+  category: GalleryItem["category"];
+  description?: string | null;
+  externalUrl?: string | null;
+  url: string;
+  mimeType: string;
+  width?: number | null;
+  height?: number | null;
+  poster?: GalleryPoster | null;
+  createdAt: string;
+  sortOrder?: number | null;
+  publishedAt?: string | null;
 };

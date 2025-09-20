@@ -1,8 +1,8 @@
-import { BlocksField, BlocksFieldValidation, CollectionConfig } from "payload";
+import {BlocksField, BlocksFieldValidation, CollectionConfig} from "payload";
 import InfoItem from "../blocks/InfoItem";
 import BooleanItem from "../blocks/BooleanItem";
 import MediaItem from "../blocks/MediaItem";
-import { invalidateCacheTags } from "../lib/revalidateTags";
+import {invalidateCacheTags} from "../lib/revalidateTags";
 
 const Pages: CollectionConfig = {
   slug: "pages",
@@ -31,7 +31,7 @@ const Pages: CollectionConfig = {
       label: "Page Name",
       name: "name",
       type: "select",
-      options: ["Home", "Projects", "Journal", "About Me"],
+      options: ["Home", "Projects", "Gallery", "Journal", "About Me"],
       required: true,
       unique: true,
     },
@@ -47,8 +47,8 @@ const Pages: CollectionConfig = {
       required: true,
       defaultValue: "employed",
       options: [
-        { label: "Employed", value: "employed" },
-        { label: "Open for Work", value: "open" },
+        {label: "Employed", value: "employed"},
+        {label: "Open for Work", value: "open"},
       ],
       admin: {
         description:
@@ -114,8 +114,8 @@ const Pages: CollectionConfig = {
               type: "select",
               required: true,
               options: [
-                { label: "Stack", value: "stack" },
-                { label: "Two-Column Grid", value: "two-col" },
+                {label: "Stack", value: "stack"},
+                {label: "Two-Column Grid", value: "two-col"},
               ],
               admin: {
                 width: "50%",

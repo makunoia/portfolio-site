@@ -6,7 +6,7 @@ import {cva} from "class-variance-authority";
 import {Slot} from "@radix-ui/react-slot";
 
 import Text from "@/components/Text";
-import {Home, Palette, NotebookText, User} from "lucide-react";
+import {Home, Palette, NotebookText, User, Images} from "lucide-react";
 import ThemeToggle from "@/app/(app)/components/ThemeToggle";
 
 const NavbarContainerCVA = cva([
@@ -50,6 +50,12 @@ const Navbar = () => {
           icon={Palette}
           url="/projects"
           active={slug === "/projects"}
+        />
+        <NavbarButton
+          label="Gallery"
+          icon={Images}
+          url="/gallery"
+          active={slug === "/gallery"}
         />
         <NavbarButton
           label="Journal"

@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     projects: Project;
+    'gallery-items': GalleryItem;
     pages: Page;
     'project-tags': ProjectTag;
     'my-roles': MyRole;
@@ -84,6 +85,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    'gallery-items': GalleryItemsSelect<false> | GalleryItemsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'project-tags': ProjectTagsSelect<false> | ProjectTagsSelect<true>;
     'my-roles': MyRolesSelect<false> | MyRolesSelect<true>;
@@ -287,11 +289,36 @@ export interface Asset {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-items".
+ */
+export interface GalleryItem {
+  id: string;
+  title: string;
+  category: 'photo' | 'reel' | 'video';
+  description?: string | null;
+  poster?: (string | null) | Asset;
+  externalUrl?: string | null;
+  sortOrder?: number | null;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
   id: string;
-  name: 'Home' | 'Projects' | 'Journal' | 'About Me';
+  name: 'Home' | 'Projects' | 'Gallery' | 'Journal' | 'About Me';
   intro?: {
     root: {
       type: string;
@@ -430,6 +457,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: string | Project;
+      } | null)
+    | ({
+        relationTo: 'gallery-items';
+        value: string | GalleryItem;
       } | null)
     | ({
         relationTo: 'pages';
@@ -597,6 +628,30 @@ export interface ShowcaseSelect<T extends boolean = true> {
   tag?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-items_select".
+ */
+export interface GalleryItemsSelect<T extends boolean = true> {
+  title?: T;
+  category?: T;
+  description?: T;
+  poster?: T;
+  externalUrl?: T;
+  sortOrder?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

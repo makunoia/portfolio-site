@@ -1,87 +1,8 @@
-import type {
-  CollectionConfig,
-  CollectionAfterDeleteHook,
-  CollectionBeforeValidateHook,
-} from "payload";
+import type {CollectionConfig} from "payload";
 import {
-  S3Client,
-  DeleteObjectCommandInput,
-  DeleteObjectCommand,
-} from "@aws-sdk/client-s3";
-
-const S3 = new S3Client({
-  region: process.env.CLOUDFLARE_REGION,
-  endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID as string,
-    secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY as string,
-  },
-});
-
-const Bucket = process.env.CLOUDFLARE_BUCKET_NAME as string;
-
-const HandleUpload: CollectionBeforeValidateHook = async ({
-  data,
-  req,
-  originalDoc,
-}) => {
-  var file;
-
-  const isNewFileType =
-    !originalDoc || originalDoc?.mimeType !== data?.mimeType;
-
-  // If incoming file has a different mime type, change file name
-  // Otherwise, retain the file name.
-  const filename = originalDoc
-    ? isNewFileType
-      ? data?.filename
-      : originalDoc?.filename
-    : data?.filename;
-
-  if (req.file) file = req.file.data;
-
-  const deleteFile = async (filename: string) => {
-    const deleteParams: DeleteObjectCommandInput = {
-      Bucket,
-      Key: filename,
-    };
-
-    try {
-      await S3.send(new DeleteObjectCommand(deleteParams));
-      console.log(`File deleted.`);
-    } catch (err) {
-      console.error("Error deleting file:", err);
-    }
-  };
-
-  // If uploaded file is a new file type, delete the old file.
-  isNewFileType && originalDoc && deleteFile(originalDoc?.filename);
-
-  const newData = {
-    ...data,
-    filename,
-  };
-
-  return newData;
-};
-
-const HandleDelete: CollectionAfterDeleteHook = async ({ doc }) => {
-  const deleteFile = async (filename: string) => {
-    const deleteParams: DeleteObjectCommandInput = {
-      Bucket,
-      Key: filename,
-    };
-
-    try {
-      await S3.send(new DeleteObjectCommand(deleteParams));
-      console.log(`File deleted.`);
-    } catch (err) {
-      console.error("Error deleting file:", err);
-    }
-  };
-
-  await deleteFile(doc.filename);
-};
+  handleCloudflareDelete,
+  handleCloudflareUpload,
+} from "./hooks/cloudflareStorage";
 
 const Assets: CollectionConfig = {
   slug: "assets",
@@ -95,7 +16,7 @@ const Assets: CollectionConfig = {
     staticDir: `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/`,
     disableLocalStorage: true,
     mimeTypes: ["image/*", "application/pdf"],
-    adminThumbnail: ({ doc }) =>
+    adminThumbnail: ({doc}) =>
       `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/${doc.filename}`,
   },
   fields: [
@@ -105,24 +26,26 @@ const Assets: CollectionConfig = {
       type: "text",
       hooks: {
         beforeValidate: [
-          ({ value, siblingData }) => {
+          ({value, siblingData}) => {
             if (!value) {
               return siblingData.filename;
-            } else return value;
+            }
+            return value;
           },
         ],
       },
     },
-    { label: "Alt text", name: "alt", type: "text" },
+    {label: "Alt text", name: "alt", type: "text"},
     {
       name: "url",
       type: "text",
     },
   ],
   hooks: {
-    beforeValidate: [HandleUpload],
-    afterDelete: [HandleDelete],
+    beforeValidate: [handleCloudflareUpload],
+    afterDelete: [handleCloudflareDelete],
   },
 };
 
 export default Assets;
+
