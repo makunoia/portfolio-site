@@ -27,7 +27,7 @@ const LinkButton = ({
       onClick={() => track(`Accessed ${label}`)}
     >
       <button className={`${ButtonStyle}`}>
-        <Text as="span" size="caption" weight="medium" className="text">
+        <Text as="span" size="caption" weight="medium" className="text-fg-default">
           {label}
         </Text>
         <ArrowUpRight

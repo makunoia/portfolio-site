@@ -94,7 +94,7 @@ const ContentBlock = ({
       <Text
         as="p"
         size="body"
-        className="text-subtle whitespace-pre-line"
+        className="text-fg-subtle whitespace-pre-line"
         multiline
       >
         {children}

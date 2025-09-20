@@ -20,7 +20,7 @@ const ImageRevealer = ({
   };
 
   return (
-    <div className="bg relative overflow-hidden w-fullh-auto aspect-[5/3] md:h-[400px] rounded-8px pointer-events-auto">
+    <div className="bg-bg-default relative overflow-hidden w-fullh-auto aspect-[5/3] md:h-[400px] rounded-8px pointer-events-auto">
       <Image
         priority
         className="showcase-before-photo absolute"
@@ -61,7 +61,7 @@ const ImageRevealer = ({
       />
       <div className="img-revealer-line" style={{ left: `${position}%` }} />
       <div className="img-revealer-handle" style={{ left: `${position}%` }}>
-        <UnfoldHorizontal className="text" />
+        <UnfoldHorizontal className="text-fg-default" />
       </div>
     </div>
   );

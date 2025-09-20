@@ -79,7 +79,7 @@ const JournalEntriesList = ({
             </LayoutGroup>
           ))
         ) : (
-          <div className="text">No records</div>
+          <div className="text-fg-default">No records</div>
         )}
 
         {showOverlay && <Overlay setShow={setShowOverlay} />}
@@ -107,7 +107,7 @@ const Overlay = ({
         initial={{opacity: 0}}
         animate={{opacity: 0.4}}
         exit={{opacity: 0}}
-        className="absolute bg inset-0px z-10"
+        className="absolute bg-bg-default inset-0px z-10"
       />
     </AnimatePresence>
   );

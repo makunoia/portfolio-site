@@ -94,7 +94,7 @@ const ListContainer = ({
             </m.div>
           </m.div>
         ) : (
-          <div className="text">No records found.</div>
+          <div className="text-fg-default">No records found.</div>
         )}
       </LazyMotion>
     </>

@@ -133,7 +133,7 @@ export const renderLexicalContent = (root: LexicalBlock) => {
                     size="body-large"
                     weight="normal"
                     multiline
-                    className="text-subtle"
+                    className="text-fg-subtle"
                     key={`type-${i}-${child.tag}`}
                   >
                     {block.text}
@@ -149,7 +149,7 @@ export const renderLexicalContent = (root: LexicalBlock) => {
                       <Text
                         as="p"
                         size="body"
-                        className="text-subtle"
+                        className="text-fg-subtle"
                         multiline
                         key={`type-${block.type}-${i}`}
                       >

@@ -1,5 +1,6 @@
 import { CollectionConfig } from "payload";
 import Showcase from "../blocks/Showcase";
+import { invalidateCacheTags } from "../lib/revalidateTags";
 
 const Projects: CollectionConfig = {
   slug: "projects",
@@ -9,6 +10,36 @@ const Projects: CollectionConfig = {
   labels: {
     singular: "Project",
     plural: "Projects",
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        invalidateCacheTags([
+          "project",
+          "allProjects",
+          "projectsByYear",
+          "featuredProjects",
+          "lockedProjects",
+          "lockedPages",
+          "collection",
+          "collection:projects",
+        ]);
+      },
+    ],
+    afterDelete: [
+      async () => {
+        invalidateCacheTags([
+          "project",
+          "allProjects",
+          "projectsByYear",
+          "featuredProjects",
+          "lockedProjects",
+          "lockedPages",
+          "collection",
+          "collection:projects",
+        ]);
+      },
+    ],
   },
   admin: {
     useAsTitle: "title",

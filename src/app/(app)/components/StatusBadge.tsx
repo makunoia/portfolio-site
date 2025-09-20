@@ -12,8 +12,8 @@ const BadgeCVA = cva(
   {
     variants: {
       status: {
-        employed: "bg-info/10",
-        open: "bg-success/10",
+        employed: "bg-bg-info/10",
+        open: "bg-bg-success/10",
       },
     },
   }
@@ -22,8 +22,8 @@ const BadgeCVA = cva(
 const IndicatorCVA = cva("rounded-full w-8px h-8px animate-pulse", {
   variants: {
     status: {
-      employed: "bg-info",
-      open: "bg-success",
+      employed: "bg-bg-info",
+      open: "bg-bg-success",
     },
   },
 });

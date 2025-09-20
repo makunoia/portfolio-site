@@ -8,19 +8,6 @@
     var(--font-neue-montreal-mono), "Roboto Mono", ui-monospace, SFMono-Regular,
     Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* --opacity-0: 0;
-  --opacity-1: 1;
-  --opacity-10: 0.1;
-  --opacity-20: 0.2;
-  --opacity-30: 0.3;
-  --opacity-40: 0.4;
-  --opacity-50: 0.5;
-  --opacity-60: 0.6;
-  --opacity-70: 0.7;
-  --opacity-80: 0.8;
-  --opacity-90: 0.9;
-  --opacity-100: 1; */
-
   --spacing-0px: 0rem;
   --spacing-2px: 0.125rem;
   --spacing-4px: 0.25rem;
@@ -82,82 +69,29 @@
   --color-success: var(--utility-success);
   --color-info: var(--utility-info);
   --color-danger: var(--utility-danger);
-}
 
-@utility text {
-  color: var(--fg-default);
-}
+  --color-fg-default: var(--fg-default);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-inverse: var(--fg-inverse);
+  --color-fg-brand: var(--fg-brand);
+  --color-fg-success: var(--utility-success);
+  --color-fg-info: var(--utility-info);
+  --color-fg-danger: var(--utility-danger);
 
-@utility text-subtle {
-  color: var(--fg-subtle);
-}
+  --color-bg-default: var(--bg-default);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-inverse: var(--bg-inverse);
+  --color-bg-brand: var(--bg-brand);
+  --color-bg-success: var(--utility-success);
+  --color-bg-info: var(--utility-info);
+  --color-bg-danger: var(--utility-danger);
 
-@utility text-inverse {
-  color: var(--fg-inverse);
-}
+  --color-border-default: var(--border-default);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-inverse: var(--border-inverse);
+  --color-border-brand: var(--border-brand);
 
-@utility text-brand {
-  color: var(--fg-brand);
-}
-
-@utility text-success {
-  color: var(--utility-success);
-}
-
-@utility text-info {
-  color: var(--utility-info);
-}
-
-@utility text-danger {
-  color: var(--utility-danger);
-}
-
-@utility bg {
-  background-color: var(--bg-default);
-}
-
-@utility bg-subtle {
-  background-color: var(--bg-subtle);
-}
-
-@utility bg-inverse {
-  background-color: var(--bg-inverse);
-}
-
-@utility bg-brand {
-  background-color: var(--bg-brand);
-}
-
-@utility bg-success {
-  background-color: var(--utility-success);
-}
-
-@utility bg-info {
-  background-color: var(--utility-info);
-}
-
-@utility bg-danger {
-  background-color: var(--utility-danger);
-}
-
-@utility fill {
-  fill: var(--fg-default);
-}
-
-@utility fill-inverse {
-  fill: var(--fg-inverse);
-}
-
-@utility border {
-  border-color: var(--border-default);
-}
-
-@utility border-inverse {
-  border-color: var(--border-inverse);
-}
-
-@utility border-brand {
-  border-color: var(--border-brand);
+  --shadow-default: var(--shadow-default);
 }
 
 @layer base {
@@ -180,24 +114,56 @@
     --spacing-60px: 3.75rem;
     --spacing-80px: 5rem;
 
-    /* --opacity-0: 0;
-    --opacity-1: 1;
-    --opacity-10: 0.1;
-    --opacity-20: 0.2;
-    --opacity-30: 0.3;
-    --opacity-40: 0.4;
-    --opacity-50: 0.5;
-    --opacity-60: 0.6;
-    --opacity-70: 0.7;
-    --opacity-80: 0.8;
-    --opacity-90: 0.9;
-    --opacity-100: 1; */
-
     --brand: oklch(0.62 0.2 272);
 
     --utility-success: oklch(0.72 0.2 148);
     --utility-info: oklch(0.65 0.18 232);
     --utility-danger: oklch(0.61 0.24 25);
+
+    --assistant-input-bg: color-mix(
+      in oklch,
+      var(--bg-subtle) 62%,
+      transparent
+    );
+    --assistant-input-bg-expanded: color-mix(
+      in oklch,
+      var(--bg-subtle) 72%,
+      transparent
+    );
+    --assistant-input-overlay: color-mix(
+      in oklch,
+      var(--bg-subtle) 52%,
+      transparent
+    );
+    --assistant-input-shadow: 0 1px 0
+      color-mix(in oklch, var(--border-default) 28%, transparent) inset;
+
+    --light-streak-color: color-mix(
+      in oklch,
+      var(--fg-default) 80%,
+      transparent
+    );
+
+    --navbar-button-hover-bg: color-mix(
+      in oklch,
+      var(--bg-subtle) 65%,
+      transparent
+    );
+    --navbar-button-hover-border: color-mix(
+      in oklch,
+      var(--border-default) 35%,
+      transparent
+    );
+    --navbar-button-active-bg: color-mix(
+      in oklch,
+      var(--bg-subtle) 70%,
+      transparent
+    );
+    --navbar-button-active-border: color-mix(
+      in oklch,
+      var(--border-default) 55%,
+      transparent
+    );
   }
 
   :root[class~="dark"] {
@@ -225,6 +191,7 @@
     --fg-brand: var(--brand);
 
     --border-default: var(--primitive-1000);
+    --border-subtle: var(--primitive-700);
     --border-inverse: var(--primitive-1200);
     --border-brand: var(--brand);
 
@@ -233,6 +200,43 @@
     --trackline-active: var(--primitive-1200);
 
     --shadow-default: var(--primitive-200);
+
+    --assistant-input-bg: color-mix(
+      in oklch,
+      oklch(0.28 0.003 260) 55%,
+      transparent
+    );
+    --assistant-input-bg-expanded: color-mix(
+      in oklch,
+      oklch(0.24 0.003 260) 68%,
+      transparent
+    );
+    --assistant-input-overlay: color-mix(
+      in oklch,
+      oklch(0.24 0.003 260) 48%,
+      transparent
+    );
+    --assistant-input-shadow: 0 1px 0
+      color-mix(in oklch, var(--primitive-700) 30%, transparent) inset;
+
+    --navbar-button-hover-bg: color-mix(
+      in oklch,
+      var(--primitive-400) 30%,
+      transparent
+    );
+    --navbar-button-hover-border: color-mix(
+      in oklch,
+      var(--primitive-700) 40%,
+      transparent
+    );
+    --navbar-button-active-bg: oklch(0.12 0 0);
+    --navbar-button-active-border: oklch(0.2 0 0);
+
+    --light-streak-color: color-mix(
+      in oklch,
+      var(--fg-default) 60%,
+      transparent
+    );
   }
 
   :root[class~="light"] {
@@ -249,8 +253,8 @@
     --primitive-1100: oklch(0.43 0.015 260);
     --primitive-1200: oklch(0.2 0.03 260);
 
-    --bg-default: var(--primitive-100);
-    --bg-subtle: var(--primitive-300);
+    --bg-default: var(--primitive-300);
+    --bg-subtle: var(--primitive-400);
     --bg-inverse: var(--primitive-1200);
     --bg-brand: var(--brand);
 
@@ -260,6 +264,7 @@
     --fg-brand: var(--brand);
 
     --border-default: var(--primitive-400);
+    --border-subtle: var(--primitive-300);
     --border-inverse: var(--primitive-1200);
     --border-brand: var(--brand);
 
@@ -268,6 +273,51 @@
     --trackline-active: var(--primitive-1200);
 
     --shadow-default: var(--primitive-400);
+
+    --assistant-input-bg: color-mix(
+      in oklch,
+      oklch(0.97 0.001 260) 58%,
+      transparent
+    );
+    --assistant-input-bg-expanded: color-mix(
+      in oklch,
+      oklch(0.93 0.001 260) 70%,
+      transparent
+    );
+    --assistant-input-overlay: color-mix(
+      in oklch,
+      oklch(0.93 0.001 260) 46%,
+      transparent
+    );
+    --assistant-input-shadow: 0 1px 0
+      color-mix(in oklch, var(--primitive-500) 18%, transparent) inset;
+
+    --navbar-button-hover-bg: color-mix(
+      in oklch,
+      oklch(0.96 0 0) 60%,
+      transparent
+    );
+    --navbar-button-hover-border: color-mix(
+      in oklch,
+      var(--primitive-400) 30%,
+      transparent
+    );
+    --navbar-button-active-bg: color-mix(
+      in oklch,
+      var(--primitive-400) 65%,
+      transparent
+    );
+    --navbar-button-active-border: color-mix(
+      in oklch,
+      var(--primitive-700) 40%,
+      transparent
+    );
+
+    --light-streak-color: color-mix(
+      in oklch,
+      oklch(1 0 0) 92%,
+      var(--bg-inverse) 40%
+    );
   }
 
   html {
@@ -284,6 +334,12 @@
     min-height: 100vh;
     color: var(--fg-default);
     background-color: var(--bg-default);
+  }
+
+  *,
+  *::before,
+  *::after {
+    border-color: var(--border-default);
   }
 
   main {
@@ -623,15 +679,18 @@
   }
 
   .light-streak {
-    width: 900px;
-    height: 70px;
-    opacity: 40%;
-    transform: rotate(30deg);
     position: absolute;
     left: -30em;
-    top: 0px;
+    top: 0;
+    width: 900px;
+    height: 70px;
+    opacity: 45%;
+    transform: rotate(30deg);
     filter: blur(150px);
-    background: var(--fg-default);
+    pointer-events: none;
+    border-radius: 999px;
+    background: var(--light-streak-color);
+    z-index: -1;
   }
 
   .status-badge {
@@ -716,6 +775,25 @@
     }
   }
 
+  .navbar-button {
+    backdrop-filter: blur(6px);
+  }
+
+  .navbar-button:not(.is-active):hover {
+    background: var(--navbar-button-hover-bg);
+    border-color: var(--navbar-button-hover-border);
+  }
+
+  .navbar-button.is-active {
+    background: var(--navbar-button-active-bg);
+    border-color: var(--navbar-button-active-border);
+  }
+
+  .navbar-button.is-active:hover {
+    background: var(--navbar-button-active-bg);
+    border-color: var(--navbar-button-active-border);
+  }
+
   #footer-globe:after {
     content: "";
     position: absolute;
@@ -755,6 +833,21 @@
           to right,
           var(--primitive-700),
           var(--primitive-200)
+        );
+      }
+    }
+
+    /* Light mode: make navbar background lighter and soften the inner gradient */
+    .navbar {
+      background: var(--primitive-100);
+      border-bottom: 1px solid var(--primitive-300);
+
+      &:before {
+        box-shadow: 0px 1px 4px var(--primitive-300);
+        background: linear-gradient(
+          0deg,
+          var(--primitive-100),
+          var(--primitive-400)
         );
       }
     }

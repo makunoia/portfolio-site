@@ -19,7 +19,7 @@ type TextType = {
   className?: string;
 };
 
-const TextStyles = cva("text", {
+const TextStyles = cva("text-fg-default", {
   variants: {
     size: {
       caption: "text-caption tracking-wide",

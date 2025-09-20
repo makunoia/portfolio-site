@@ -1,6 +1,7 @@
 "use client";
 import createGlobe from "cobe";
-import { useEffect, useRef } from "react";
+import {useEffect, useMemo, useRef} from "react";
+import {useTheme} from "next-themes";
 
 //Montreal
 // phi: -0.8,
@@ -8,32 +9,53 @@ import { useEffect, useRef } from "react";
 
 const Globe = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  useEffect(() => {
-    if (canvasRef.current) {
-      const globe = createGlobe(canvasRef.current, {
-        devicePixelRatio: 2,
-        width: 400,
-        height: 400,
-        phi: 2.3,
-        theta: -0.3,
-        dark: 0.8,
-        scale: 3,
-        diffuse: 4,
-        mapSamples: 20000,
-        mapBrightness: 6,
-        baseColor: [0.3, 0.3, 0.3],
-        markerColor: [1, 1, 1],
-        glowColor: [0.75, 0.75, 0.75],
-        offset: [250, 150],
-        markers: [{ location: [14.5531994, 121.2189578], size: 0.07 }],
-        onRender: (state) => {},
-      });
+  const {resolvedTheme} = useTheme();
 
-      return () => {
-        globe.destroy();
+  const theme = resolvedTheme === "light" ? "light" : "dark";
+
+  const colorScheme = useMemo(() => {
+    if (theme === "light") {
+      return {
+        baseColor: [0.97, 0.97, 0.97] as [number, number, number],
+        markerColor: [0.2, 0.2, 0.2] as [number, number, number],
+        glowColor: [0.99, 0.99, 0.99] as [number, number, number],
+        dark: 0.06,
       };
     }
-  }, [canvasRef]);
+
+    return {
+      baseColor: [0.3, 0.3, 0.3] as [number, number, number],
+      markerColor: [1, 1, 1] as [number, number, number],
+      glowColor: [0.75, 0.75, 0.75] as [number, number, number],
+      dark: 0.8,
+    };
+  }, [theme]);
+
+  useEffect(() => {
+    if (!canvasRef.current) {
+      return undefined;
+    }
+
+    const globe = createGlobe(canvasRef.current, {
+      devicePixelRatio: 2,
+      width: 400,
+      height: 400,
+      phi: 2.3,
+      theta: -0.3,
+      scale: 3,
+      diffuse: 4,
+      mapSamples: 20000,
+      mapBrightness: 6,
+      offset: [250, 150],
+      markers: [{location: [14.5531994, 121.2189578], size: 0.07}],
+      onRender: () => {},
+      ...colorScheme,
+    });
+
+    return () => {
+      globe.destroy();
+    };
+  }, [colorScheme]);
 
   return (
     <div

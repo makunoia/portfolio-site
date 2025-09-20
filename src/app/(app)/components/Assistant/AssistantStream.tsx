@@ -44,7 +44,7 @@ const AssistantStream = ({
       a: ({node, ...props}) => (
         <a
           {...props}
-          className="text"
+          className="text-fg-default"
           target="_blank"
           rel="noreferrer noopener"
         />
@@ -52,21 +52,27 @@ const AssistantStream = ({
       code: (props) => {
         const {className, children, ...rest} = props as any;
         return (
-          <code className={`text ${className ?? ""}`} {...rest}>
+          <code className={`text-fg-default ${className ?? ""}`} {...rest}>
             {children}
           </code>
         );
       },
-      table: ({node, ...props}) => <table {...props} className="text" />,
-      thead: ({node, ...props}) => <thead {...props} className="text" />,
-      tbody: ({node, ...props}) => <tbody {...props} className="text" />,
-      tr: ({node, ...props}) => <tr {...props} className="text" />,
-      th: ({node, ...props}) => <th {...props} className="text" />,
-      td: ({node, ...props}) => <td {...props} className="text" />,
-      ul: ({node, ...props}) => <ul {...props} className="text" />,
-      ol: ({node, ...props}) => <ol {...props} className="text" />,
+      table: ({node, ...props}) => (
+        <table {...props} className="text-fg-default" />
+      ),
+      thead: ({node, ...props}) => (
+        <thead {...props} className="text-fg-default" />
+      ),
+      tbody: ({node, ...props}) => (
+        <tbody {...props} className="text-fg-default" />
+      ),
+      tr: ({node, ...props}) => <tr {...props} className="text-fg-default" />,
+      th: ({node, ...props}) => <th {...props} className="text-fg-default" />,
+      td: ({node, ...props}) => <td {...props} className="text-fg-default" />,
+      ul: ({node, ...props}) => <ul {...props} className="text-fg-default" />,
+      ol: ({node, ...props}) => <ol {...props} className="text-fg-default" />,
       p: ({node, ...props}) => (
-        <p {...props} className="text whitespace-pre-wrap" />
+        <p {...props} className="text-fg-default whitespace-pre-wrap" />
       ),
       hr: ({node, ...props}) => <hr {...props} className="" />,
     }),
@@ -92,7 +98,7 @@ const AssistantStream = ({
     return () => clearInterval(id);
   }, [isLoading, phrases.length]);
   return (
-    <div className="w-full flex justify-start text">
+    <div className="w-full flex justify-start text-fg-default">
       <div className="w-full min-w-0">
         {isLoading ? (
           stopped ? (
@@ -137,12 +143,12 @@ const AssistantStream = ({
                 initial={{opacity: 0, y: 8}}
                 animate={{opacity: 1, y: 0}}
                 transition={{duration: 0.3, ease: "easeOut"}}
-                className="mt-12px pt-8px border-t border-subtle"
+                className="mt-12px pt-8px border-t border-border-subtle"
               >
                 <div className="flex flex-wrap gap-4px mt-8px">
                   {/* Create skeleton cards that match expected link names */}
                   <div
-                    className="flex items-center gap-4px p-8px rounded-8px border animate-pulse"
+                    className="flex items-center gap-4px py-4px px-8px rounded-8px border animate-pulse"
                     style={{
                       width: "110px",
                       borderColor: "var(--border-default)",

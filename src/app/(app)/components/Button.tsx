@@ -29,7 +29,7 @@ const Button = ({
   return (
     <button className={`${ButtonStyle} button group`}>
       <div className="button-bg group-hover:opacity-40 group-hover:translate-x-[80px] transition-all ease-in-out duration-300" />
-      <Text size="caption" weight="medium" className="text">
+      <Text size="caption" weight="medium" className="text-fg-default">
         {label}
       </Text>
     </button>

@@ -93,7 +93,7 @@ const HomeHero = ({copy, status}: HeroSummaryProps) => {
             {conversationActive ? (
               <motion.button
                 key="end-convo"
-                className="text px-16px py-10px rounded-16px border"
+                className="text-fg-default px-16px py-10px rounded-16px border"
                 style={{
                   backgroundColor:
                     "color-mix(in oklch, var(--utility-danger) 12%, transparent)",

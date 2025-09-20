@@ -15,7 +15,7 @@ export type ScrollSpyType = {
 const ScrollSpy = ({sections}: {sections: ScrollSpyType[]}) => {
   return (
     <div className="sticky pl-24px top-24px min-w-[150px] ml-auto flex flex-col gap-4px">
-      <Text size="body" className="text-subtle mb-12px">
+      <Text size="body" className="text-fg-subtle mb-12px">
         Content
       </Text>
       <LazyMotion features={domAnimation}>
@@ -104,8 +104,8 @@ const ScrollSpyItem = ({
           <Text
             className={`text-wrap text-left transition-colors duration-300 ease-in-out ${
               inView.section === id
-                ? "text font-medium"
-                : "text-subtle/60 hover:text-subtle"
+                ? "text-fg-default font-medium"
+                : "text-fg-subtle/60 hover:text-fg-subtle"
             }`}
           >
             {title}
@@ -137,8 +137,8 @@ const ScrollSpyItem = ({
                 childID={`scrollspy-item-${htmlID}`}
               />
               <Text
-                className={`transition-color duration-300 ease-in-out group-hover:text text-wrap ${
-                  inView.block == htmlID ? "text" : "text-subtle/40 "
+                className={`transition-color duration-300 ease-in-out group-hover:text-fg-default text-wrap ${
+                  inView.block == htmlID ? "text-fg-default" : "text-fg-subtle/40 "
                 }`}
               >
                 {lead}

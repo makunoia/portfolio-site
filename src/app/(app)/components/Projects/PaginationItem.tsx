@@ -22,21 +22,21 @@ const PaginationItem = ({
       href={link}
       className={`group flex gap-16px cursor-pointer ${right && "self-end"}`}
     >
-      {left && <ChevronLeft className="text" size={16} />}
+      {left && <ChevronLeft className="text-fg-default" size={16} />}
       <div
         className={`${
           left ? "items-start" : "items-end"
         } flex flex-col gap-4px`}
       >
-        <Text className={`text-subtle/90 group-hover:text-subtle`}>{desc}</Text>
+        <Text className={`text-fg-subtle/90 group-hover:text-fg-subtle`}>{desc}</Text>
         <Text
-          className={`text group-hover:underline ${right && "text-right"}`}
+          className={`text-fg-default group-hover:underline ${right && "text-right"}`}
           weight="medium"
         >
           {label}
         </Text>
       </div>
-      {right && <ChevronRight className="text" size={16} />}
+      {right && <ChevronRight className="text-fg-default" size={16} />}
     </Link>
   );
 };

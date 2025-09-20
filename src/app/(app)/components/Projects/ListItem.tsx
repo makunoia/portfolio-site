@@ -32,14 +32,14 @@ const ProjectItem = ({
         <div className="flex flex-col gap-4px">
           <div className="flex gap-4px">
             <Text size="body">{locked ? codename : title}</Text>
-            {locked && <Lock size={14} className="text" />}
+            {locked && <Lock size={14} className="text-fg-default" />}
           </div>
-          <Text size="caption" className="text-subtle" multiline>
+          <Text size="caption" className="text-fg-subtle" multiline>
             {desc}
           </Text>
         </div>
-        <div className="flex h-fit items-center rounded-10px bg-subtle/40 px-10px py-8px">
-          <Text size="caption" className="text-subtle text-nowrap">
+        <div className="flex h-fit items-center rounded-10px bg-bg-subtle/40 px-10px py-8px">
+          <Text size="caption" className="text-fg-subtle text-nowrap">
             {tag}
           </Text>
         </div>

@@ -5,7 +5,7 @@ import {embed} from "ai";
 const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
 const PINECONE_INDEX_HOST = process.env.PINECONE_INDEX_HOST; // e.g. https://<index>-<project>.svc.<env>.pinecone.io
 const PINECONE_NAMESPACE = process.env.PINECONE_NAMESPACE || undefined; // optional
-const PINECONE_TOPK_DEFAULT = 8; // Increased from 5
+const PINECONE_TOPK_DEFAULT = 16; // Increased from 8
 
 if (!PINECONE_API_KEY) {
   console.warn(
@@ -184,6 +184,7 @@ export async function getPersonalContext(
                 "faq",
                 "project",
                 "experience",
+                "experience_summary",
                 "education",
               ],
             },
@@ -208,12 +209,44 @@ export async function getPersonalContext(
       return "Personal Information Context:\n[INFO] Unable to retrieve relevant chunks at this time.";
     }
 
-    // Sort by similarity and add confidence indicators
-    const sortedContent = relevantContent
-      .sort((a: any, b: any) => b.similarity - a.similarity)
-      .slice(0, 5);
+    // Sort by similarity
+    const sorted = relevantContent.sort(
+      (a: any, b: any) => b.similarity - a.similarity
+    );
 
-    const context = sortedContent
+    // Ensure coverage: include experience summary if present, and at most one experience per company
+    const selected: any[] = [];
+    const seenCompanies = new Set<string>();
+
+    for (const item of sorted) {
+      if ((item.type || "").toString() === "experience_summary") {
+        selected.push(item);
+        break;
+      }
+    }
+
+    for (const item of sorted) {
+      if ((item.type || "").toString() === "experience") {
+        const key = (item.company || "").toString().toLowerCase();
+        if (key && !seenCompanies.has(key)) {
+          seenCompanies.add(key);
+          selected.push(item);
+        }
+      }
+      if (selected.length >= 12) break;
+    }
+
+    if (selected.length < 12) {
+      for (const item of sorted) {
+        if ((item.type || "").toString() !== "experience") {
+          if (!selected.includes(item)) selected.push(item);
+        }
+        if (selected.length >= 12) break;
+      }
+    }
+
+    const context = selected
+      .slice(0, 12)
       .map((item: any) => {
         const confidence =
           item.similarity > 0.85

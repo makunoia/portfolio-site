@@ -1,10 +1,23 @@
 import { CollectionConfig } from "payload";
+import { invalidateCacheTags } from "../lib/revalidateTags";
 
 const Globals: CollectionConfig = {
   slug: "globals",
   labels: {
     singular: "Global",
     plural: "Globals",
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        invalidateCacheTags(["collection", "collection:globals"]);
+      },
+    ],
+    afterDelete: [
+      async () => {
+        invalidateCacheTags(["collection", "collection:globals"]);
+      },
+    ],
   },
   admin: {
     group: "Settings",

@@ -19,18 +19,18 @@ const ToggleSwitch = ({
 }: ToggleSwitchProps) => {
   return (
     <div className={`flex items-center gap-16px ${className}`}>
-      <span className="text-body font-medium text">{leftLabel}</span>
+      <span className="text-body font-medium text-fg-default">{leftLabel}</span>
 
       <button
         onClick={() => onToggle(!isRightActive)}
-        className="relative w-[35px] h-[22px] rounded-24px p-1px"
+        className="relative w-[35px] h-[22px] rounded-24px p-1px cursor-pointer"
         style={{
           background: "var(--brand)",
         }}
         aria-label={`Toggle between ${leftLabel} and ${rightLabel}`}
       >
         <motion.div
-          className="w-[14px] h-[14px] rounded-full bg-inverse shadow-sm"
+          className="w-[14px] h-[14px] rounded-full shadow-sm bg-white"
           animate={{
             x: isRightActive ? 18 : 4,
           }}
@@ -42,7 +42,9 @@ const ToggleSwitch = ({
         />
       </button>
 
-      <span className="text-body font-medium text">{rightLabel}</span>
+      <span className="text-body font-medium text-fg-default">
+        {rightLabel}
+      </span>
     </div>
   );
 };

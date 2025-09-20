@@ -1,7 +1,6 @@
 import React, {lazy, Suspense} from "react";
-import Image from "next/image";
 import LinksRow from "@/components/LinksRow";
-import Logo from "@/assets/logo.svg";
+import Logo from "@/components/Logo";
 
 import {
   getPageData,
@@ -72,11 +71,11 @@ const Page = async () => {
       <AnalyticsTracker page="Homepage" />
 
       <div className="flex justify-between px-0px pl-[10px] md:px-[5%] pt-[5%]">
-        <Image
-          alt="Logo"
-          src={Logo}
-          style={{width: 45, height: "auto"}}
-          priority
+        <Logo
+          width={45}
+          height={18}
+          className="text-fg-default"
+          aria-label="Logo"
         />
 
         <Suspense fallback={<LinksRowSkeleton />}>

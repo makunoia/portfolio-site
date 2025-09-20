@@ -8,7 +8,7 @@ const ProjectsList = async () => {
   return AllProjectsByYear ? (
     <List projects={AllProjectsByYear} />
   ) : (
-    <div className="text">No Projects found.</div>
+    <div className="text-fg-default">No Projects found.</div>
   );
 };
 

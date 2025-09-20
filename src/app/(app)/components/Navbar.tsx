@@ -21,15 +21,16 @@ const NavbarCVA = cva([
 
 const NavbarButtonCVA = cva(
   [
+    "navbar-button",
     "inline-flex cursor-pointer",
     "p-8px md:px-12px rounded-6px",
-    "hover:bg-subtle/80",
+    "border border-transparent",
     "transition-colors ease-in-out duration-200",
   ],
   {
     variants: {
       active: {
-        true: "bg",
+        true: "is-active",
       },
     },
   }
@@ -83,7 +84,7 @@ const NavbarButton = ({
   return (
     <Link prefetch href={url} as={url} aria-label={label}>
       <div className={NavbarButtonStyle}>
-        <Slot className="text w-24px h-24px block md:hidden">{<Icon />}</Slot>
+        <Slot className="text-fg-default w-24px h-24px block md:hidden">{<Icon />}</Slot>
         <Text size="body" className="text-nowrap hidden md:block">
           {label}
         </Text>

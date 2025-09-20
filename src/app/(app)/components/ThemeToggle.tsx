@@ -28,7 +28,7 @@ const ThemeToggle = ({className}: ThemeToggleProps) => {
         "relative inline-flex items-center justify-center",
         "p-8px md:px-12px rounded-6px",
         "transition-colors duration-200 ease-in-out",
-        "hover:bg-subtle/80 focus-visible:outline-2",
+        "hover:bg-bg-subtle/80 focus-visible:outline-2",
         "focus-visible:outline-offset-2 focus-visible:outline-brand",
         className
       )}

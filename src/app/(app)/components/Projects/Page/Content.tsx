@@ -72,7 +72,7 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
                     size="lead"
                     weight="normal"
                     multiline
-                    className="text inline-flex md:hidden"
+                    className="text-fg-default inline-flex md:hidden"
                   >
                     {project.desc}
                   </Text>
@@ -98,7 +98,7 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
                 size="lead"
                 weight="normal"
                 multiline
-                className="text hidden md:inline-flex lg:min-w-[250px]"
+                className="text-fg-default hidden md:inline-flex lg:min-w-[250px]"
               >
                 {project.desc}
               </Text>
@@ -115,23 +115,23 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
 
           {archived ? (
             <div className="flex flex-col gap-16px md:col-start-2 md:col-end-3 w-full items-center">
-              <div className="p-12px bg-subtle shadow-lg shadow-neutral-200 w-fit h-fit rounded-12px bg-gradient-to-b from-neutral-200 to-neutral-100">
-                <Archive size={40} className="text" />
+              <div className="p-12px bg-bg-subtle shadow-lg shadow-neutral-200 w-fit h-fit rounded-12px bg-gradient-to-b from-neutral-200 to-neutral-100">
+                <Archive size={40} className="text-fg-default" />
               </div>
               <div className="flex flex-col gap-12px items-center">
                 <div className="flex flex-col gap-4px">
                   <Text
                     size="caption"
-                    className="text-subtle text-center uppercase tracking-[.1em]"
+                    className="text-fg-subtle text-center uppercase tracking-[.1em]"
                   >
                     {`${status[project.status]} in ${project.yearDone}`}
                   </Text>
-                  <Text size="lead" className="text">
+                  <Text size="lead" className="text-fg-default">
                     This project is archived
                   </Text>
                 </div>
 
-                <Text size="body" className="text-subtle">
+                <Text size="body" className="text-fg-subtle">
                   You can learn more about this project by reaching out.
                 </Text>
               </div>

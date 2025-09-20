@@ -5,14 +5,14 @@ import Text from "../Text";
 const BooleanItem = ({ label, done }: { label: string; done?: boolean }) => {
   return (
     <li className="flex items-center gap-8px">
-      <div className="flex items-center justify-center w-18px h-18px bg-subtle border-subtle rounded-4px">
+      <div className="flex items-center justify-center w-18px h-18px bg-bg-subtle border-border-subtle rounded-4px">
         {done && (
-          <Slot className="text-caption text">
+          <Slot className="text-caption text-fg-default">
             <Check size={12} strokeWidth={4} />
           </Slot>
         )}
       </div>
-      <Text className={done ? "opacity-70 text-subtle line-through" : "text"}>
+      <Text className={done ? "opacity-70 text-fg-subtle line-through" : "text-fg-default"}>
         {label}
       </Text>
     </li>

@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { invalidateCacheTags } from "../lib/revalidateTags";
 
 const JournalEntries: CollectionConfig = {
   slug: "journal-entries",
@@ -8,6 +9,28 @@ const JournalEntries: CollectionConfig = {
   labels: {
     singular: "Journal Entry",
     plural: "Journal Entries",
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        invalidateCacheTags([
+          "journalEntries",
+          "entryContent",
+          "collection",
+          "collection:journal-entries",
+        ]);
+      },
+    ],
+    afterDelete: [
+      async () => {
+        invalidateCacheTags([
+          "journalEntries",
+          "entryContent",
+          "collection",
+          "collection:journal-entries",
+        ]);
+      },
+    ],
   },
   admin: {
     useAsTitle: "title",

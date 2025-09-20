@@ -25,37 +25,48 @@ export const getPageData = unstable_cache(
   },
   ["pageData"],
   {
-    tags: ["pageData"],
+    tags: ["pageData", "collection:pages"],
     revalidate: 3600,
   }
 );
 
-export const getEntryContent = unstable_cache(async (slug: string) => {
-  const {docs} = await payload.find({
-    collection: "journal-entries",
-    where: {
-      slug: {
-        equals: slug,
+export const getEntryContent = unstable_cache(
+  async (slug: string) => {
+    const {docs} = await payload.find({
+      collection: "journal-entries",
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-  });
+    });
 
-  //Return the entry content
-  return docs[0].content;
-});
+    return docs[0].content;
+  },
+  ["entryContent"],
+  {
+    tags: ["entryContent", "journalEntries", "collection:journal-entries"],
+  }
+);
 
-export const getProject = unstable_cache(async (slug: string) => {
-  const req = await payload.find({
-    collection: "projects",
-    where: {
-      slug: {
-        equals: slug,
+export const getProject = unstable_cache(
+  async (slug: string) => {
+    const req = await payload.find({
+      collection: "projects",
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-  });
+    });
 
-  return req.docs[0];
-});
+    return req.docs[0];
+  },
+  ["project"],
+  {
+    tags: ["project", "collection:projects"],
+  }
+);
 
 export const getCollection = async ({
   collection,
@@ -95,6 +106,8 @@ export const getEntries = unstable_cache(async () => {
   });
 
   return GroupByYear(docs);
+}, ["journalEntries"], {
+  tags: ["journalEntries", "collection:journal-entries"],
 });
 
 export const getProjects = unstable_cache(
@@ -107,7 +120,7 @@ export const getProjects = unstable_cache(
     return projects;
   },
   ["allProjects"],
-  {tags: ["allProjects"]}
+  {tags: ["allProjects", "collection:projects"]}
 );
 
 export const getAllProjectsByYear = unstable_cache(
@@ -124,7 +137,7 @@ export const getAllProjectsByYear = unstable_cache(
     return AllProjectsByYear;
   },
   ["projectsByYear"],
-  {tags: ["projectsByYear"]}
+  {tags: ["projectsByYear", "collection:projects"]}
 );
 
 export const getFeaturedProjects = unstable_cache(
@@ -142,7 +155,7 @@ export const getFeaturedProjects = unstable_cache(
   },
   ["featuredProjects"],
   {
-    tags: ["featuredProjects"],
+    tags: ["featuredProjects", "collection:projects"],
     revalidate: 3600,
   }
 );
@@ -162,7 +175,7 @@ export const getLockedProjects = unstable_cache(
   },
   ["lockedProjects"],
   {
-    tags: ["lockedProjects"],
+    tags: ["lockedProjects", "collection:projects"],
     revalidate: 3600,
   }
 );
@@ -188,6 +201,6 @@ export const getLockedPages = unstable_cache(
   },
   ["lockedPages"],
   {
-    tags: ["lockedPages"],
+    tags: ["lockedPages", "collection:projects"],
   }
 );

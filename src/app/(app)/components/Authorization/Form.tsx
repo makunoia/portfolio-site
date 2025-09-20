@@ -49,18 +49,18 @@ const LockedProjectForm = () => {
           </Form.Label>
 
           <Form.Message match="valueMissing">
-            <Text className="text-danger">Enter valid text</Text>
+            <Text className="text-fg-danger">Enter valid text</Text>
           </Form.Message>
         </div>
 
-        <div className="flex items-center border border-opacity-80 p-4px rounded-8px bg/90 hover:bg transition-colors ease-in-out duration-300">
+        <div className="flex items-center border border-opacity-80 p-4px rounded-8px bg-bg-default/90 hover:bg-bg-default transition-colors ease-in-out duration-300">
           <Form.Control asChild>
             <input
               id="password-field"
               name="password"
               autoComplete="off"
               disabled={isFormSubmitting}
-              className="w-full pl-8px h-fit text bg-subtle/0 text-body-large outline-none autofill:bg-subtle/0"
+              className="w-full pl-8px h-fit text-fg-default bg-bg-subtle/0 text-body-large outline-none autofill:bg-bg-subtle/0"
               required
             />
           </Form.Control>
@@ -68,10 +68,10 @@ const LockedProjectForm = () => {
           <Form.Submit asChild>
             <button
               disabled={isFormSubmitting}
-              className="bg hover:bg-subtle disabled:bg-subtle/20 disabled:text-subtle/70 transition-colors ease-in-out duration-300 px-8px py-4px rounded-4px"
+              className="bg-bg-default hover:bg-bg-subtle disabled:bg-bg-subtle/20 disabled:text-fg-subtle/70 transition-colors ease-in-out duration-300 px-8px py-4px rounded-4px"
             >
-              <Text size="caption" weight="medium" className="text">
-                <Text className="text text-nowrap">
+              <Text size="caption" weight="medium" className="text-fg-default">
+                <Text className="text-fg-default text-nowrap">
                   {isFormSubmitting ? "Please wait..." : "Submit"}
                 </Text>
               </Text>
@@ -80,10 +80,10 @@ const LockedProjectForm = () => {
         </div>
 
         <Form.Message className="flex gap-4px mt-4px items-center">
-          <Text className="text-subtle" size="caption">
+          <Text className="text-fg-subtle" size="caption">
             Your access will be saved in a cookie
           </Text>
-          <Cookie size={10} className="text" />
+          <Cookie size={10} className="text-fg-default" />
         </Form.Message>
       </Form.Field>
     </Form.Root>

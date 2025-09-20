@@ -30,8 +30,8 @@ const Authenticate = async () => {
         <div className="flex flex-col gap-24px">
           <BackButton />
           <div className="flex flex-col gap-12px">
-            <div className="flex w-fit h-fit gap-8px items-center bg-subtle/60 px-8px py-6px rounded-8px">
-              <Lock size={12} className="text" />
+            <div className="flex w-fit h-fit gap-8px items-center bg-bg-subtle/60 px-8px py-6px rounded-8px">
+              <Lock size={12} className="text-fg-default" />
               <Text size="caption">Locked</Text>
             </div>
             <div className="flex flex-row gap-12px items-center ">
@@ -39,7 +39,7 @@ const Authenticate = async () => {
             </div>
           </div>
         </div>
-        <Text size="body" className="text-subtle" multiline>
+        <Text size="body" className="text-fg-subtle" multiline>
           Some pages are hidden to ensure that only specific individuals can
           access private information. If you'd like access, please feel free to
           reach out to me.

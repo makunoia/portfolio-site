@@ -2,12 +2,25 @@ import { BlocksField, BlocksFieldValidation, CollectionConfig } from "payload";
 import InfoItem from "../blocks/InfoItem";
 import BooleanItem from "../blocks/BooleanItem";
 import MediaItem from "../blocks/MediaItem";
+import { invalidateCacheTags } from "../lib/revalidateTags";
 
 const Pages: CollectionConfig = {
   slug: "pages",
   labels: {
     singular: "Page",
     plural: "Pages",
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        invalidateCacheTags(["pageData", "collection", "collection:pages"]);
+      },
+    ],
+    afterDelete: [
+      async () => {
+        invalidateCacheTags(["pageData", "collection", "collection:pages"]);
+      },
+    ],
   },
   admin: {
     useAsTitle: "name",

@@ -16,7 +16,7 @@ const UsefulLinks = ({links}: UsefulLinksProps) => {
       initial={{opacity: 0, y: 8}}
       animate={{opacity: 1, y: 0}}
       transition={{duration: 0.3, ease: "easeOut"}}
-      className="mt-12px pt-8px border-t border-subtle"
+      className="mt-12px pt-8px border-t border-border-subtle"
     >
       <div className="flex flex-wrap gap-4px mt-8px">
         {links.map((link, index) => (
@@ -25,7 +25,7 @@ const UsefulLinks = ({links}: UsefulLinksProps) => {
             href={link.resource_link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-4px p-8px rounded-8px border transition-all duration-200 shadow-sm hover:shadow-md"
+            className="flex items-center gap-4px py-4px px-8px rounded-8px border transition-all duration-200 shadow-sm hover:shadow-md no-underline"
             style={{
               borderColor: "var(--border-default)",
               backgroundColor: "var(--primitive-200)",

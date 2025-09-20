@@ -14,7 +14,7 @@ const SectionDivider = ({header, id}: {header: string; id?: string}) => {
       >
         <Text
           size="overline"
-          className="text-nowrap text-subtle uppercase tracking-widest"
+          className="text-nowrap text-fg-subtle uppercase tracking-widest"
         >
           {header}
         </Text>

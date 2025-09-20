@@ -46,6 +46,12 @@ const AssistantInput = ({
   const [isPointerInside, setIsPointerInside] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const containerBackground = expanded
+    ? "var(--assistant-input-bg-expanded)"
+    : "var(--assistant-input-bg)";
+  const containerShadow = "var(--assistant-input-shadow)";
+  const expandedOverlayBackground = "var(--assistant-input-overlay)";
+
   // Lock page scroll while the assistant input is focused
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -86,7 +92,7 @@ const AssistantInput = ({
       <motion.div
         layout
         layoutId={layoutId}
-        className={`relative w-full ${expanded ? "h-[60vh] translate-y-[-90px]" : "h-[60px] translate-x-[0px]"}  transition-colors ease-in-out duration-300 border flex ${expanded ? "flex-col items-stretch" : "items-center hover:border-inverse/10"} overflow-hidden cursor-text`}
+        className={`relative w-full ${expanded ? "h-[60vh] translate-y-[-90px]" : "h-[60px] translate-x-[0px]"}  transition-colors ease-in-out duration-300 border-border-default/40 flex ${expanded ? "flex-col items-stretch" : "items-center hover:border-border-inverse/10"} overflow-hidden cursor-text`}
         onClick={() => inputRef.current?.focus()}
         onPointerEnter={() => setIsPointerInside(true)}
         onPointerLeave={() => setIsPointerInside(false)}
@@ -111,9 +117,8 @@ const AssistantInput = ({
           },
         }}
         style={{
-          background:
-            "linear-gradient(90deg, var(--primitive-400), var(--primitive-200))",
-          boxShadow: "0 1px 0 var(--primitive-200) inset",
+          backgroundColor: containerBackground,
+          boxShadow: containerShadow,
           willChange: "height, transform, border-radius, translateY",
         }}
       >
@@ -139,7 +144,9 @@ const AssistantInput = ({
           className={`absolute bottom-0px w-full flex items-center py-18px ${expanded ? "blurred-overlay mt-auto" : ""}`}
           initial={false}
           animate={{
-            backgroundColor: expanded ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0)",
+            backgroundColor: expanded
+              ? expandedOverlayBackground
+              : "transparent",
             paddingLeft: expanded ? 20 : 16,
             paddingRight: expanded ? 12 : 0,
           }}
@@ -200,11 +207,7 @@ const AssistantInput = ({
             autoCorrect="off"
             autoCapitalize="none"
             spellCheck={false}
-            className="w-3/4 h-24px flex-1 bg-transparent outline-none text-body-large leading-body placeholder:opacity-60"
-            style={{
-              color: "var(--fg-default)",
-              background: "transparent",
-            }}
+            className="w-3/4 h-24px flex-1 text-fg-default bg-transparent outline-none text-body-large leading-body placeholder:opacity-60"
           />
 
           <div
@@ -239,31 +242,27 @@ const AssistantInput = ({
                 x: {type: "spring", stiffness: 400, damping: 30, mass: 0.7},
                 opacity: {duration: 0.2, ease: "easeOut"},
               }}
-              className="transition-colors duration-300 ease-in-out shrink-0 w-[40px] h-[40px] rounded-full grid place-items-center border"
+              className={`${
+                isStreaming
+                  ? "text-fg-inverse bg-bg-danger/90"
+                  : canSend
+                    ? "text-white bg-bg-brand"
+                    : "text-fg-subtle/20 bg-bg-subtle/70"
+              } transition-colors duration-300 ease-in-out shrink-0 w-[40px] h-[40px] rounded-full grid place-items-center border-bg-default/10`}
               style={{
                 opacity: isStreaming || canSend ? 1 : 0.7,
                 cursor: isStreaming || canSend ? "pointer" : "not-allowed",
-                backgroundColor: isStreaming
-                  ? "color-mix(in oklch, var(--utility-danger) 90%, transparent)"
-                  : canSend
-                    ? "var(--brand)"
-                    : "var(--primitive-600)",
-                color: isStreaming
-                  ? "var(--fg-inverse)"
-                  : canSend
-                    ? "var(--fg-inverse)"
-                    : "var(--fg-subtle)",
                 borderColor: isStreaming
                   ? "var(--utility-danger)"
                   : canSend
-                    ? "var(--border-brand)"
+                    ? "var(--border-border-brand)"
                     : "var(--border-default)",
               }}
             >
               {isStreaming ? (
                 <CircleStop className="text-white w-20px h-20px" />
               ) : (
-                <SendHorizonal className="text w-20px h-20px" />
+                <SendHorizonal className="w-20px h-20px" />
               )}
             </motion.button>
           </div>

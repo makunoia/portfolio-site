@@ -91,6 +91,22 @@ export function personalInfoToChunks(personalInfo) {
         });
       });
     });
+
+    // Add a consolidated experience summary chunk for reliable retrieval
+    if (personalInfo.experience.length) {
+      const summary = personalInfo.experience
+        .map((exp) => {
+          const title = exp.title ? `${exp.title}` : "";
+          const duration = exp.duration ? ` (${exp.duration})` : "";
+          return `- ${exp.company}: ${title}${duration}`;
+        })
+        .join("\n");
+      chunks.push({
+        content: `Experience Summary:\n${summary}`,
+        type: "experience_summary",
+        source: "personal_info",
+      });
+    }
   }
 
   // Education - Enhanced for better discoverability

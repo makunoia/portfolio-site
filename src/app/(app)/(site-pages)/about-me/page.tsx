@@ -29,13 +29,13 @@ const Page = async () => {
           style={{
             objectFit: "cover",
           }}
-          className="h-full rounded-12px bg/70"
+          className="h-full rounded-12px bg-bg-default/70"
         />
         <Image
           priority
           src={profilePhotoSrc.url as string}
           alt={profilePhotoSrc.alt as string}
-          className="absolute -left-8px -bottom-24px rounded-full border-inverse border-[4px] bg"
+          className="absolute -left-8px -bottom-24px rounded-full border-border-inverse border-[4px] bg-bg-default"
           sizes="(max-width: 1200px) 100px, 150px"
           style={{
             objectFit: "fill",
@@ -56,7 +56,7 @@ const Page = async () => {
             size="body"
             weight="normal"
             multiline
-            className="text-subtle"
+            className="text-fg-subtle"
           >
             Nice to meet me
           </Text>

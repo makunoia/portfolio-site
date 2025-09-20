@@ -383,7 +383,7 @@ const AssistantPanel = ({
       layout="position"
     >
       <motion.h1
-        className="self-center text-heading text"
+        className="self-center text-heading text-fg-default"
         initial={false}
         animate={
           !hasStarted || isCollapsed ? {opacity: 1, y: 0} : {opacity: 0, y: -12}
@@ -523,7 +523,7 @@ const AssistantPanel = ({
 
       {/* Prompt Suggestions  */}
       {(!hasStarted || isCollapsed) && suggestionsReady && (
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full">
           <motion.div
             className="flex gap-12px w-full overflow-x-auto scrollbar-none rounded-16px"
             style={{

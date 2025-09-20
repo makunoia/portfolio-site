@@ -21,7 +21,7 @@ const ChatBubble = ({message}: {message: string}) => {
           "linear-gradient(135deg, color-mix(in oklch, var(--brand) 18%, transparent), color-mix(in oklch, var(--brand) 10%, transparent))",
       }}
     >
-      <p className="text text-body-large leading-[1.6]">{message}</p>
+      <p className="text-fg-default text-body-large leading-[1.6]">{message}</p>
     </motion.div>
   );
 };
