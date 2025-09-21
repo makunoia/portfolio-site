@@ -21,15 +21,15 @@ export const handleMouseEvents: MouseEventHandler<HTMLAnchorElement> = (
     for (let i = 0; i < items.length; i++) {
       const item = items[i] as HTMLElement;
       if (item === target) {
-        item.classList.remove("not-hovered-item");
+        item.classList.remove("opacity-40");
       } else {
-        item.classList.add("not-hovered-item");
+        item.classList.add("opacity-40");
       }
     }
   } else if (event.type === "mouseleave") {
     for (let i = 0; i < items.length; i++) {
       const item = items[i] as HTMLElement;
-      item.classList.remove("not-hovered-item");
+      item.classList.remove("opacity-40");
     }
   }
 };

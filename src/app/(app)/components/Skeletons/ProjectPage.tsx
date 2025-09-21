@@ -7,7 +7,7 @@ const BackButton = dynamic(
 
 export default () => {
   return (
-    <main className="project-page-grid mx-auto my-[80px]">
+    <main className="mx-auto my-[80px] grid w-full max-w-[1200px] grid-cols-1 gap-y-20 gap-x-8 md:grid-cols-[1fr_minmax(300px,700px)_1fr]">
       <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
         <BackButton />
         <div

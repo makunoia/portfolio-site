@@ -21,8 +21,11 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <VercelAnalytics />
-          <div className="absolute overflow-hidden inset-0px -z-10">
-            <div className="light-streak"></div>
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            <div
+              className="pointer-events-none absolute left-[-30em] top-0 h-[70px] w-[900px] rotate-[30deg] rounded-[999px] opacity-45 blur-[150px]"
+              style={{background: "var(--light-streak-color)"}}
+            />
           </div>
           {children}
           <Navbar />

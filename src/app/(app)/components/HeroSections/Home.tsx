@@ -7,6 +7,18 @@ import {useState} from "react";
 import {LexicalBlock} from "@/app/(app)/types";
 import {renderLexicalContent} from "@/lib/helpers";
 import {motion, AnimatePresence, LayoutGroup} from "motion/react";
+import {cva} from "class-variance-authority";
+
+const endConversationButton = cva(
+  [
+    "rounded-16px border px-16px py-10px text-body transition-all duration-200 ease-in-out shadow-sm text-fg-default",
+    "bg-[linear-gradient(135deg,color-mix(in_oklch,var(--utility-danger)_var(--danger-alpha1),var(--danger-base)),color-mix(in_oklch,var(--utility-danger)_var(--danger-alpha2),var(--danger-base)))]",
+    "border-[color:color-mix(in_oklch,var(--utility-danger)_var(--danger-border),transparent)]",
+    "[--danger-base:transparent] [--danger-alpha1:12%] [--danger-alpha2:6%] [--danger-border:35%]",
+    "hover:[--danger-alpha1:18%] hover:[--danger-alpha2:10%] hover:[--danger-border:45%]",
+    "light:[--danger-base:#ffffff] light:[--danger-alpha1:88%] light:[--danger-alpha2:68%] light:[--danger-border:72%] light:text-white light:hover:[--danger-alpha1:92%] light:hover:[--danger-alpha2:74%] light:hover:[--danger-border:82%]",
+  ].join(" "),
+);
 
 type HeroSummaryProps = {
   copy: LexicalBlock;
@@ -93,19 +105,8 @@ const HomeHero = ({copy, status}: HeroSummaryProps) => {
             {conversationActive ? (
               <motion.button
                 key="end-convo"
-                className="text-fg-default px-16px py-10px rounded-16px border"
-                style={{
-                  backgroundColor:
-                    "color-mix(in oklch, var(--utility-danger) 12%, transparent)",
-                  borderColor:
-                    "color-mix(in oklch, var(--utility-danger) 35%, transparent)",
-                  color: "var(--utility-danger)",
-                }}
-                whileHover={{
-                  scale: 1.02,
-                  backgroundColor:
-                    "color-mix(in oklch, var(--utility-danger) 18%, transparent)",
-                }}
+                className={endConversationButton()}
+                whileHover={{scale: 1.02}}
                 whileTap={{scale: 0.98}}
                 transition={{duration: 0.2, ease: "easeInOut"}}
                 initial={{opacity: 0, y: 8}}

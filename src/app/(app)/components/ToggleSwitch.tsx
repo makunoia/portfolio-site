@@ -17,11 +17,25 @@ const ToggleSwitch = ({
   onToggle,
   className = "",
 }: ToggleSwitchProps) => {
+  const handleSetActive = (nextIsRightActive: boolean) => {
+    if (nextIsRightActive !== isRightActive) {
+      onToggle(nextIsRightActive);
+    }
+  };
+
   return (
     <div className={`flex items-center gap-16px ${className}`}>
-      <span className="text-body font-medium text-fg-default">{leftLabel}</span>
+      <button
+        type="button"
+        onClick={() => handleSetActive(false)}
+        className="text-body font-normal text-fg-default select-none cursor-pointer bg-transparent border-0 p-0"
+        aria-pressed={!isRightActive}
+      >
+        {leftLabel}
+      </button>
 
       <button
+        type="button"
         onClick={() => onToggle(!isRightActive)}
         className="relative w-[35px] h-[22px] rounded-24px p-1px cursor-pointer"
         style={{
@@ -42,9 +56,14 @@ const ToggleSwitch = ({
         />
       </button>
 
-      <span className="text-body font-medium text-fg-default">
+      <button
+        type="button"
+        onClick={() => handleSetActive(true)}
+        className="text-body text-fg-default select-none cursor-pointer bg-transparent border-0 p-0"
+        aria-pressed={isRightActive}
+      >
         {rightLabel}
-      </span>
+      </button>
     </div>
   );
 };

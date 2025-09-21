@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant light (&:where(.light &));
+
 @theme {
   --font-sans:
     var(--font-neue-montreal), -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -148,6 +150,9 @@
       transparent
     );
 
+    --assistant-suggestion-bg: oklch(0.94 0.006 230);
+    --assistant-suggestion-bg-hover: oklch(0.96 0.006 230);
+
     --light-streak-color: color-mix(
       in oklch,
       var(--fg-default) 80%,
@@ -174,6 +179,8 @@
       var(--border-default) 55%,
       transparent
     );
+
+    --navbar-container-bg: rgba(12, 16, 28, 0.46);
 
     /* Navbar gradient border variables */
     --navbar-border-lit: color-mix(
@@ -247,6 +254,9 @@
       transparent
     );
 
+    --assistant-suggestion-bg: oklch(0.15 0.008 250);
+    --assistant-suggestion-bg-hover: oklch(0.18 0.009 250);
+
     --navbar-button-hover-bg: color-mix(
       in oklch,
       var(--primitive-400) 30%,
@@ -265,6 +275,8 @@
       var(--fg-default) 60%,
       transparent
     );
+
+    --navbar-container-bg: rgba(12, 16, 28, 0.46);
   }
 
   :root[class~="light"] {
@@ -322,6 +334,9 @@
       transparent
     );
 
+    --assistant-suggestion-bg: oklch(0.94 0.006 230);
+    --assistant-suggestion-bg-hover: oklch(0.96 0.006 230);
+
     --navbar-button-hover-bg: color-mix(
       in oklch,
       oklch(0.96 0 0) 60%,
@@ -332,15 +347,25 @@
       var(--primitive-400) 30%,
       transparent
     );
-    --navbar-button-active-bg: color-mix(
+    --navbar-button-active-top: color-mix(
       in oklch,
-      var(--bg-brand) 35%,
-      var(--primitive-300)
+      var(--bg-brand) 88%,
+      var(--primitive-200) 12%
+    );
+    --navbar-button-active-bottom: color-mix(
+      in oklch,
+      var(--bg-brand) 72%,
+      var(--primitive-500) 28%
+    );
+    --navbar-button-active-bg: linear-gradient(
+      180deg,
+      var(--navbar-button-active-top) 0%,
+      var(--navbar-button-active-bottom) 100%
     );
     --navbar-button-active-border: color-mix(
       in oklch,
-      var(--primitive-700) 40%,
-      transparent
+      var(--bg-brand) 62%,
+      var(--primitive-500)
     );
 
     --light-streak-color: color-mix(
@@ -348,6 +373,8 @@
       oklch(1 0 0) 92%,
       var(--bg-inverse) 40%
     );
+
+    --navbar-container-bg: #ffffff;
 
     /* Light mode: brighter highlight for top-lit navbar border */
     --navbar-border-lit: color-mix(
@@ -390,155 +417,6 @@
     width: 100%;
   }
 
-  @media screen and (max-width: 768px) {
-    body {
-      padding: 0px 20px;
-    }
-  }
-}
-
-@layer components {
-  /* Glass blur utility for translucent overlays */
-  .blurred-overlay {
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-  }
-
-  /* Assistant prose defaults: readable spacing for headings, lists, tables, code */
-  .assistant-prose {
-    line-height: 1.9;
-  }
-
-  .assistant-prose :where(p, ul, ol, table, blockquote, pre, hr) {
-    margin-top: var(--spacing-16px);
-    margin-bottom: var(--spacing-16px);
-  }
-
-  /* Ensure utilities like text-body-large don't override child line-heights */
-  .assistant-prose :where(p, li, td) {
-    line-height: 1.9;
-  }
-
-  .assistant-prose :where(h1, h2, h3, h4) {
-    margin-top: var(--spacing-30px);
-    margin-bottom: var(--spacing-16px);
-    line-height: 1.35;
-  }
-
-  .assistant-prose h1 {
-    font-size: var(--assistant-h1, 1.5rem);
-  }
-  .assistant-prose h2 {
-    font-size: var(--assistant-h2, 1.25rem);
-  }
-  .assistant-prose h3 {
-    font-size: var(--assistant-h3, 1.125rem);
-  }
-  .assistant-prose h4 {
-    font-size: var(--assistant-h4, 1rem);
-  }
-
-  .assistant-prose ul {
-    list-style: disc;
-    padding-left: var(--spacing-20px);
-  }
-  .assistant-prose ol {
-    list-style: decimal;
-    padding-left: var(--spacing-20px);
-  }
-  .assistant-prose li {
-    margin: var(--spacing-8px) 0;
-  }
-
-  .assistant-prose a {
-    color: var(--fg-brand);
-    text-decoration: underline;
-  }
-
-  .assistant-prose code {
-    padding: 0 var(--spacing-4px);
-    border-radius: 4px;
-    background: var(--primitive-300);
-  }
-  .assistant-prose pre {
-    padding: var(--spacing-12px);
-    border-radius: 8px;
-    background: var(--primitive-300);
-    overflow: auto;
-  }
-
-  .assistant-prose table {
-    width: 100%;
-    border-collapse: collapse;
-    border-color: var(--border-default);
-  }
-  .assistant-prose th,
-  .assistant-prose td {
-    border: 1px solid var(--border-default);
-    padding: var(--spacing-8px) var(--spacing-12px);
-    vertical-align: top;
-  }
-
-  /* Fallback: if backdrop-filter is unsupported, increase opacity for readability */
-  @supports not (
-    (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))
-  ) {
-    .blurred-overlay {
-      background-color: rgba(0, 0, 0, 0.5) !important;
-    }
-  }
-  /* Skeleton shimmer */
-  .skeleton {
-    position: relative;
-    overflow: hidden;
-    background: var(--primitive-300);
-  }
-
-  .skeleton::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0),
-      color-mix(in oklch, transparent 94%, var(--fg-inverse) 6%),
-      rgba(255, 255, 255, 0)
-    );
-    animation: skeleton-shimmer 1.2s infinite;
-  }
-
-  @keyframes skeleton-shimmer {
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  /* Animated gradient loading text */
-  .animated-gradient-text {
-    background-image: linear-gradient(
-      90deg,
-      var(--fg-subtle) 0%,
-      var(--fg-default) 50%,
-      var(--fg-subtle) 100%
-    );
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gradient-pan 1.2s linear infinite;
-  }
-
-  @keyframes gradient-pan {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 200% 50%;
-    }
-  }
-
-  /* Assistant input: prevent WebKit autofill from painting a white background */
   #assistant-input:-webkit-autofill,
   #assistant-input:-webkit-autofill:hover,
   #assistant-input:-webkit-autofill:focus {
@@ -548,406 +426,36 @@
     transition: background-color 9999s ease-in-out 0s;
   }
 
-  #observer {
-    display: none;
-
-    position: fixed;
-    height: calc(100vh - 80%);
-    top: 0;
-    width: 100%;
-    border-bottom: 1px solid red;
-    z-index: 100;
-
-    &:before {
-      content: "";
-      position: absolute;
-      height: 100%;
-      margin-top: 10%;
-      width: 100%;
-      border-top: 1px solid lightgreen;
-    }
-  }
-
-  .project-page-grid {
-    display: grid;
-    grid-template-columns: 1fr minmax(300px, 700px) 1fr;
-    grid-gap: 10px;
-    max-width: 1200px;
-    column-gap: 32px;
-    row-gap: 80px;
-  }
-
-  .spy-items-container {
-    position: relative;
-    overflow: hidden;
-    padding-left: 2px;
-    padding-top: 2px;
-  }
-
-  .spy-items-container .spy-item:first-child {
-    margin-top: 0px;
-  }
-
-  .spy-items-container .spy-item:last-child {
-    margin-bottom: 8px;
-  }
-
-  .spy-item {
-    cursor: pointer;
-    width: fit-content;
-    position: relative;
-    display: flex;
-    padding-left: 18px;
-    margin-top: 8px;
-
-    &:hover {
-      opacity: 100%;
-    }
-  }
-
-  .spy-items-container[data-state="open"] {
-    animation: slideDown 300ms cubic-bezier(0.9, 0, 0.4, 1);
-  }
-
-  .spy-items-container[data-state="closed"] {
-    animation: slideUp 300ms cubic-bezier(0.9, 0, 0.4, 1);
-  }
-
-  @keyframes slideDown {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
-
-  .trackline.hovered {
-    border-color: var(--trackline-hover);
-    z-index: 2;
-  }
-
-  .trackline.active {
-    border-color: var(--trackline-active);
-    z-index: 3;
-  }
-
-  .trackline {
-    transition: border-color 300ms ease-in-out;
-    mix-blend-mode: lighten;
-    position: absolute;
-    bottom: calc(100% - 8px);
-    left: 0px;
-    width: 12px;
-    border: 1px solid var(--trackline);
-    border-right: 0px;
-    border-top: 0px;
-    border-radius: 0px 0px 0px 8px;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  :root[class~="light"] .trackline {
-    mix-blend-mode: normal;
-  }
-
-  /* Styling the range input */
-  input[type="range"].image-revealer {
-    position: absolute;
-    z-index: 10;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    -webkit-appearance: none; /* Remove default styling */
-    background: transparent; /* Transparent background */
-  }
-
-  /* Handle styling */
-  input[type="range"].image-revealer::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Remove default styling */
-    width: 60px;
-    height: 60px;
-    border-radius: 50%; /* Round handle */
-    cursor: ew-resize; /* Pointer cursor */
-    opacity: 0;
-  }
-
-  /* Firefox */
-  input[type="range"].image-revealer::-moz-range-thumb {
-    width: 60px;
-    height: 60px;
-    background: var(--bg-default);
-    border-radius: 50%; /* Round handle */
-    cursor: ew-resize; /* Pointer cursor */
-    opacity: 0;
-  }
-
-  input[type="range"].image-revealer::-ms-thumb {
-    width: 60px;
-    height: 60px;
-    background: var(--bg-default);
-    border-radius: 50%; /* Round handle */
-    cursor: ew-resize; /* Pointer cursor */
-    opacity: 0;
-  }
-
-  .img-revealer-line {
-    position: absolute;
-    transform: translateX(-50%);
-    pointer-events: none;
-    width: 4px;
-    height: 100%;
-    background: var(--bg-default);
-    box-shadow: var(--shadow-default);
-  }
-
-  .img-revealer-handle {
-    position: absolute;
-    top: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    border-radius: 100%;
-    background: var(--bg-default);
-    transform: translate(-50%, -50%);
-    /* pointer-events: none; */
-  }
-
-  .light-streak {
-    position: absolute;
-    left: -30em;
-    top: 0;
-    width: 900px;
-    height: 70px;
-    opacity: 45%;
-    transform: rotate(30deg);
-    filter: blur(150px);
-    pointer-events: none;
-    border-radius: 999px;
-    background: var(--light-streak-color);
-    z-index: -1;
-  }
-
-  .status-badge {
-    background: linear-gradient(
-      -175deg,
-      var(--primitive-600),
-      var(--primitive-300),
-      var(--primitive-200)
-    );
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: -1;
-      margin: -1px;
-      border-radius: 9px;
-      background: linear-gradient(
-        10deg,
-        var(--primitive-100),
-        var(--primitive-800)
-      );
-    }
-  }
-
-  .journal-page-header {
-    width: inherit;
-  }
-
-  .not-hovered-item {
-    opacity: 40%;
-  }
-
-  .button {
-    border-color: var(--primitive-300);
-    clip-path: margin-box;
-    background: var(--primitive-100);
-  }
-
-  .button:hover {
-    cursor: pointer;
-  }
-
-  .button-bg {
-    opacity: 0%;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    border-radius: 6px;
-    box-shadow: var(--shadow-default);
-    background: linear-gradient(
-      35deg,
-      var(--primitive-100) 40%,
-      var(--primitive-800)
-    );
-  }
-
-  .badge {
-    background: var(--primitive-200);
-  }
-
-  .navbar {
-    background: rgba(12, 16, 28, 0.46);
-    box-shadow: 0 12px 32px -22px
-      color-mix(in oklch, var(--shadow-default) 60%, transparent);
-    -webkit-backdrop-filter: blur(18px);
-    backdrop-filter: blur(18px);
-  }
-
-  .navbar::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      to bottom,
-      var(--navbar-border-lit) 0%,
-      color-mix(in oklch, var(--navbar-border-lit) 30%, transparent) 45%,
-      transparent 100%
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-  }
-
-  :root[class~="light"] .navbar {
-    background: rgba(12, 16, 28, 0.34);
-    box-shadow: 0 18px 36px -24px
-      color-mix(in oklch, var(--primitive-900) 16%, transparent);
-  }
-
-  :root[class~="dark"] .navbar {
-    background: rgba(12, 16, 28, 0.46);
-  }
-
-  .navbar-button {
-    backdrop-filter: none;
-  }
-
-  .navbar-button:not(.is-active):hover {
-    background: var(--navbar-button-hover-bg);
-    border-color: var(--navbar-button-hover-border);
-  }
-
-  .navbar-button.is-active {
-    background: var(--navbar-button-active-bg);
-    border-color: var(--navbar-button-active-border);
-  }
-
-  .navbar-button.is-active:hover {
-    background: var(--navbar-button-active-bg);
-    border-color: var(--navbar-button-active-border);
-  }
-
-  #footer-globe:after {
-    content: "";
-    position: absolute;
-    z-index: 5;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
-    background: linear-gradient(to top, var(--bg-default), transparent);
-    width: 100%;
-    height: 2em;
-  }
-
-  #footer-globe:before {
-    content: "";
-    position: absolute;
-    z-index: 5;
-    top: 0;
-    bottom: 0;
-    right: -1px;
-    pointer-events: none;
-    background: linear-gradient(to left, var(--bg-default), transparent);
-    height: 100%;
-    width: 8em;
-  }
-
-  :root[class~="light"] {
-    .status-badge {
-      background: linear-gradient(
-        0.45turn,
-        var(--primitive-400),
-        var(--primitive-300),
-        var(--primitive-100)
-      );
-
-      &:before {
-        background: linear-gradient(
-          to right,
-          var(--primitive-700),
-          var(--primitive-200)
-        );
-      }
-    }
-
-    /* Light mode: make navbar background lighter and soften the inner gradient */
-    .navbar {
-      background: var(--primitive-100);
-      /* Remove solid border in favor of gradient outline */
-      border: 0;
-
-      &:before {
-        box-shadow: 0px 1px 4px var(--primitive-300);
-        background: linear-gradient(
-          0deg,
-          var(--primitive-100),
-          var(--primitive-400)
-        );
-      }
-    }
-
-    /* Stronger top highlight and faster fade for light mode */
-    .navbar::after {
-      background: linear-gradient(
-        to bottom,
-        var(--navbar-border-lit) 0%,
-        color-mix(in oklch, var(--navbar-border-lit) 35%, transparent) 40%,
-        transparent 100%
-      );
-    }
-
-    .badge {
-      background: var(--primitive-300);
-    }
-  }
-
   @media screen and (max-width: 768px) {
-    .project-page-grid {
-      grid-template-columns: 1fr;
+    body {
+      padding: 0px 20px;
     }
   }
 }
 
-/* Hide scrollbar for horizontal suggestions */
-.scrollbar-none {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+@keyframes gradient-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }

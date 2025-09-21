@@ -187,7 +187,7 @@ const ScrollHeader = ({
       initial={{opacity: 0, top: "0px"}}
       animate={{opacity: 1}}
       exit={{opacity: 0}}
-      className={`journal-page-header w-full sticky z-10 -mb-[48px] flex px-24px py-12px bg-bg-default shadow-2xl`}
+      className="sticky z-10 -mb-[48px] flex w-full px-24px py-12px bg-bg-default shadow-2xl"
     >
       <motion.div layout className="w-full">
         <motion.div

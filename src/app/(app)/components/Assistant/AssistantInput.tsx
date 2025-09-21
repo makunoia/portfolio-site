@@ -2,6 +2,9 @@
 
 import {useRef, useState, ReactNode, useEffect} from "react";
 import {motion} from "motion/react";
+import {cva} from "class-variance-authority";
+
+import {cn} from "@/lib/utils";
 import {SendHorizonal, CircleStop} from "lucide-react";
 
 type AssistantInputProps = {
@@ -17,6 +20,21 @@ type AssistantInputProps = {
   // Toggles the container from fixed input height to expandable layout
   expanded?: boolean;
 };
+
+const overlayVariants = cva(
+  "absolute bottom-0 w-full flex items-center py-[18px] transition-[padding,background-color] duration-300 ease-in-out",
+  {
+    variants: {
+      expanded: {
+        true: "mt-auto backdrop-blur-[10px]",
+        false: "",
+      },
+    },
+    defaultVariants: {
+      expanded: false,
+    },
+  }
+);
 
 const AssistantInput = ({
   placeholder = "Is there anything you want to know about Mark?",
@@ -75,6 +93,10 @@ const AssistantInput = ({
     expanded || isActive || isPointerInside
       ? "var(--assistant-input-border-active)"
       : "var(--assistant-input-border)";
+
+  const overlayClassName = cn(
+    overlayVariants({expanded})
+  );
 
   return (
     <form
@@ -148,7 +170,7 @@ const AssistantInput = ({
 
         <motion.div
           layout
-          className={`absolute bottom-0px w-full flex items-center py-18px ${expanded ? "blurred-overlay mt-auto" : ""}`}
+          className={overlayClassName}
           initial={false}
           animate={{
             backgroundColor: expanded

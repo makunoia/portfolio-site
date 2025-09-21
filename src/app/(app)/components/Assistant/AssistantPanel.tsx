@@ -525,7 +525,7 @@ const AssistantPanel = ({
       {(!hasStarted || isCollapsed) && suggestionsReady && (
         <div className="relative w-full">
           <motion.div
-            className="flex gap-12px w-full overflow-x-auto scrollbar-none rounded-16px"
+            className="flex w-full gap-12px overflow-x-auto rounded-16px [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
