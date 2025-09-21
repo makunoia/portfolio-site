@@ -27,14 +27,6 @@ const cardVariants: Variants = {
   exit: {opacity: 0, y: 20, scale: 0.95, transition: {duration: 0.18}},
 };
 
-const overlayVariants: Variants = {
-  rest: {opacity: 0},
-  hover: {
-    opacity: 1,
-    transition: {duration: 0.3, ease: "easeOut"},
-  },
-};
-
 const mediaVariants: Variants = {
   rest: {scale: 1, transition: {duration: 0.35, ease: "easeOut"}},
   hover: {scale: 1.03, transition: {duration: 0.35, ease: "easeOut"}},
@@ -87,15 +79,7 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     return false;
   }, [item.width, item.height, item.category]);
 
-  const aspectRatio = useMemo(() => {
-    if (item.width && item.height) {
-      return `${item.width} / ${item.height}`;
-    }
-
-    if (item.category === "reel") return "9 / 16";
-    if (item.category === "video") return "16 / 9";
-    return "4 / 5";
-  }, [item.category, item.width, item.height]);
+  const aspectRatio = "1 / 1";
 
   const handleMouseEnter = useCallback(() => {
     if (item.category === "photo") return;
@@ -113,72 +97,58 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
   }, [item.category]);
 
   const body = (
-    <div className="relative overflow-hidden rounded-16px border-[12px] border-white bg-white shadow-[0_12px_20px_-10px_rgba(0,0,0,0.6)] dark:border-neutral-200 dark:bg-neutral-200">
+    <div className="relative overflow-hidden rounded-16px border-[12px] border-white bg-white shadow-[0_16px_36px_-20px_rgba(15,23,42,0.22)] dark:border-white dark:bg-neutral-200 dark:shadow-[0_12px_24px_-12px_rgba(0,0,0,0.45)]">
       <m.div
         variants={mediaVariants}
         initial="rest"
         animate="rest"
         className="relative"
-          style={{aspectRatio}}
-        >
-          {item.category === "photo" ? (
-            <Image
-              src={item.url}
-              alt={item.description || item.title}
-              fill
-              sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-              className="h-full w-full object-cover"
-              priority={false}
-            />
-          ) : (
-            <video
-              ref={videoRef}
-              muted
-              playsInline
-              loop
-              preload="metadata"
-              poster={item.poster?.url}
-              className="h-full w-full object-cover"
-            >
-              <source src={item.url} type={item.mimeType} />
-            </video>
-          )}
-          <m.div
-            variants={overlayVariants}
-            initial="rest"
-            animate="rest"
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg-default/85 via-transparent to-transparent"
+        style={{aspectRatio}}
+      >
+        {item.category === "photo" ? (
+          <Image
+            src={item.url}
+            alt={item.description || item.title}
+            fill
+            sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="h-full w-full object-cover"
+            priority={false}
           />
-        </m.div>
-
-        <div className="flex flex-col gap-6px p-14px">
-          <Text as="h3" size="body-large" weight="medium">
-            {item.title}
-          </Text>
-          {item.description ? (
-            <Text
-              as="p"
-              size="body"
-              multiline
-              className="text-fg-subtle"
-            >
-              {item.description}
+        ) : (
+          <video
+            ref={videoRef}
+            muted
+            playsInline
+            loop
+            preload="metadata"
+            poster={item.poster?.url}
+            className="h-full w-full object-cover"
+          >
+            <source src={item.url} type={item.mimeType} />
+          </video>
+        )}
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/75 via-black/25 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 dark:from-bg-default/90 dark:via-bg-default/25">
+          <div className="flex flex-col gap-6px p-14px text-white drop-shadow-sm dark:text-fg-default">
+            <Text as="h3" size="body-large" weight="medium">
+              {item.title}
             </Text>
-          ) : null}
-
-          <div className="flex items-center justify-between text-caption text-fg-subtle">
-            <span className="rounded-9999 bg-bg-subtle/80 px-10px py-4px uppercase tracking-wide">
-              {categoryLabel[item.category]}
-            </span>
-            {item.externalUrl ? (
-              <span className="text-fg-default/70 transition group-hover:text-fg-default">
-                View ↗
-              </span>
+            {item.description ? (
+              <Text as="p" size="body" multiline className="text-white/80 dark:text-fg-subtle">
+                {item.description}
+              </Text>
             ) : null}
+
+            <div className="flex items-center justify-between text-caption text-white/70 dark:text-fg-subtle">
+              <span className="rounded-9999 bg-white/15 px-10px py-4px uppercase tracking-wide">
+                {categoryLabel[item.category]}
+              </span>
+              {item.externalUrl ? <span className="text-white">View ↗</span> : null}
+            </div>
           </div>
         </div>
-      </div>
-    );
+      </m.div>
+    </div>
+  );
 
   const motionProps = {
     variants: cardVariants,

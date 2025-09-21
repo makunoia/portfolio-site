@@ -1,13 +1,13 @@
 "use client";
-import React, { HTMLAttributes } from "react";
+import React, {HTMLAttributes} from "react";
 import Text from "./Text";
 import Link from "next/link";
-import { cva } from "class-variance-authority";
-import { ArrowUpRight } from "lucide-react";
-import { track } from "@vercel/analytics";
+import {cva} from "class-variance-authority";
+import {ArrowUpRight} from "lucide-react";
+import {track} from "@vercel/analytics";
 
 const ButtonCVA = cva([
-  "group",
+  "group cursor-pointer",
   "inline-flex justify-center items-center",
   "shadow-neutral-800",
 ]);
@@ -27,13 +27,18 @@ const LinkButton = ({
       onClick={() => track(`Accessed ${label}`)}
     >
       <button className={`${ButtonStyle}`}>
-        <Text as="span" size="caption" weight="medium" className="text-fg-default">
+        <Text
+          as="span"
+          size="caption"
+          weight="medium"
+          className="text-fg-default"
+        >
           {label}
         </Text>
         <ArrowUpRight
           size={16}
           strokeWidth={1}
-          className="transition-colors ease-in-out duration-150 stroke-neutral-700 group-hover:stroke-neutral-1100"
+          className="transition-colors ease-in-out duration-150 stroke-neutral-800 group-hover:stroke-neutral-1100"
         />
       </button>
     </Link>

@@ -137,6 +137,16 @@
     );
     --assistant-input-shadow: 0 1px 0
       color-mix(in oklch, var(--border-default) 28%, transparent) inset;
+    --assistant-input-border: color-mix(
+      in oklch,
+      var(--border-default) 22%,
+      transparent
+    );
+    --assistant-input-border-active: color-mix(
+      in oklch,
+      var(--border-default) 32%,
+      transparent
+    );
 
     --light-streak-color: color-mix(
       in oklch,
@@ -164,23 +174,31 @@
       var(--border-default) 55%,
       transparent
     );
+
+    /* Navbar gradient border variables */
+    --navbar-border-lit: color-mix(
+      in oklch,
+      var(--fg-default) 22%,
+      var(--border-default)
+    );
+    --navbar-border-fade: var(--bg-default);
   }
 
   :root[class~="dark"] {
-    --primitive-100: oklch(0.14 0.02 264);
-    --primitive-200: oklch(0.18 0.018 264);
-    --primitive-300: oklch(0.22 0.016 264);
-    --primitive-400: oklch(0.26 0.014 264);
-    --primitive-500: oklch(0.3 0.013 264);
-    --primitive-600: oklch(0.35 0.012 264);
-    --primitive-700: oklch(0.42 0.011 264);
-    --primitive-800: oklch(0.5 0.01 264);
-    --primitive-900: oklch(0.58 0.009 264);
-    --primitive-1000: oklch(0.64 0.008 264);
-    --primitive-1100: oklch(0.78 0.007 264);
-    --primitive-1200: oklch(0.92 0.006 264);
+    --primitive-100: oklch(0.14 0.012 250);
+    --primitive-200: oklch(0.18 0.011 250);
+    --primitive-300: oklch(0.22 0.01 250);
+    --primitive-400: oklch(0.26 0.01 250);
+    --primitive-500: oklch(0.3 0.01 250);
+    --primitive-600: oklch(0.35 0.01 250);
+    --primitive-700: oklch(0.42 0.01 250);
+    --primitive-800: oklch(0.5 0.01 250);
+    --primitive-900: oklch(0.58 0.012 250);
+    --primitive-1000: oklch(0.64 0.013 250);
+    --primitive-1100: oklch(0.78 0.014 250);
+    --primitive-1200: oklch(0.92 0.015 250);
 
-    --bg-default: var(--primitive-100);
+    --bg-default: var(--primitive-200);
     --bg-subtle: var(--primitive-400);
     --bg-inverse: var(--primitive-1200);
     --bg-brand: var(--brand);
@@ -218,6 +236,16 @@
     );
     --assistant-input-shadow: 0 1px 0
       color-mix(in oklch, var(--primitive-700) 30%, transparent) inset;
+    --assistant-input-border: color-mix(
+      in oklch,
+      var(--border-default) 12%,
+      transparent
+    );
+    --assistant-input-border-active: color-mix(
+      in oklch,
+      var(--border-default) 24%,
+      transparent
+    );
 
     --navbar-button-hover-bg: color-mix(
       in oklch,
@@ -240,20 +268,20 @@
   }
 
   :root[class~="light"] {
-    --primitive-100: oklch(0.99 0.004 260);
-    --primitive-200: oklch(0.97 0.004 260);
-    --primitive-300: oklch(0.94 0.006 260);
-    --primitive-400: oklch(0.9 0.007 260);
-    --primitive-500: oklch(0.86 0.01 260);
-    --primitive-600: oklch(0.83 0.01 260);
-    --primitive-700: oklch(0.78 0.012 260);
-    --primitive-800: oklch(0.72 0.012 260);
-    --primitive-900: oklch(0.6 0.012 260);
-    --primitive-1000: oklch(0.55 0.012 260);
-    --primitive-1100: oklch(0.43 0.015 260);
-    --primitive-1200: oklch(0.2 0.03 260);
+    --primitive-100: oklch(0.99 0.003 230);
+    --primitive-200: oklch(0.97 0.004 230);
+    --primitive-300: oklch(0.94 0.005 230);
+    --primitive-400: oklch(0.9 0.006 230);
+    --primitive-500: oklch(0.86 0.008 230);
+    --primitive-600: oklch(0.83 0.01 230);
+    --primitive-700: oklch(0.78 0.012 230);
+    --primitive-800: oklch(0.72 0.014 230);
+    --primitive-900: oklch(0.6 0.017 230);
+    --primitive-1000: oklch(0.55 0.019 230);
+    --primitive-1100: oklch(0.43 0.022 230);
+    --primitive-1200: oklch(0.2 0.032 230);
 
-    --bg-default: var(--primitive-300);
+    --bg-default: var(--primitive-200);
     --bg-subtle: var(--primitive-400);
     --bg-inverse: var(--primitive-1200);
     --bg-brand: var(--brand);
@@ -274,23 +302,25 @@
 
     --shadow-default: var(--primitive-400);
 
-    --assistant-input-bg: color-mix(
-      in oklch,
-      oklch(0.97 0.001 260) 58%,
-      transparent
-    );
-    --assistant-input-bg-expanded: color-mix(
-      in oklch,
-      oklch(0.93 0.001 260) 70%,
-      transparent
-    );
+    --assistant-input-bg: #ffffff;
+    --assistant-input-bg-expanded: #ffffff;
     --assistant-input-overlay: color-mix(
       in oklch,
-      oklch(0.93 0.001 260) 46%,
+      var(--primitive-300) 40%,
       transparent
     );
     --assistant-input-shadow: 0 1px 0
       color-mix(in oklch, var(--primitive-500) 18%, transparent) inset;
+    --assistant-input-border: color-mix(
+      in oklch,
+      var(--border-default) 20%,
+      transparent
+    );
+    --assistant-input-border-active: color-mix(
+      in oklch,
+      var(--border-default) 32%,
+      transparent
+    );
 
     --navbar-button-hover-bg: color-mix(
       in oklch,
@@ -304,8 +334,8 @@
     );
     --navbar-button-active-bg: color-mix(
       in oklch,
-      var(--primitive-400) 65%,
-      transparent
+      var(--bg-brand) 35%,
+      var(--primitive-300)
     );
     --navbar-button-active-border: color-mix(
       in oklch,
@@ -318,6 +348,14 @@
       oklch(1 0 0) 92%,
       var(--bg-inverse) 40%
     );
+
+    /* Light mode: brighter highlight for top-lit navbar border */
+    --navbar-border-lit: color-mix(
+      in oklch,
+      var(--fg-inverse) 85%,
+      transparent
+    );
+    --navbar-border-fade: var(--bg-default);
   }
 
   html {
@@ -595,10 +633,12 @@
 
   .trackline.hovered {
     border-color: var(--trackline-hover);
+    z-index: 2;
   }
 
   .trackline.active {
     border-color: var(--trackline-active);
+    z-index: 3;
   }
 
   .trackline {
@@ -612,6 +652,12 @@
     border-right: 0px;
     border-top: 0px;
     border-radius: 0px 0px 0px 8px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  :root[class~="light"] .trackline {
+    mix-blend-mode: normal;
   }
 
   /* Styling the range input */
@@ -730,6 +776,11 @@
   .button {
     border-color: var(--primitive-300);
     clip-path: margin-box;
+    background: var(--primitive-100);
+  }
+
+  .button:hover {
+    cursor: pointer;
   }
 
   .button-bg {
@@ -754,29 +805,45 @@
   }
 
   .navbar {
-    background: var(--primitive-300);
-    border-bottom: 1px solid var(--primitive-100);
-    &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: -1;
-      margin: -1px;
-      border-radius: 9px;
-      box-shadow: 0px 1px 4px var(--primitive-100);
-      background: linear-gradient(
-        0deg,
-        var(--primitive-200),
-        var(--primitive-800)
-      );
-    }
+    background: rgba(12, 16, 28, 0.46);
+    box-shadow: 0 12px 32px -22px
+      color-mix(in oklch, var(--shadow-default) 60%, transparent);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+
+  .navbar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      to bottom,
+      var(--navbar-border-lit) 0%,
+      color-mix(in oklch, var(--navbar-border-lit) 30%, transparent) 45%,
+      transparent 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  :root[class~="light"] .navbar {
+    background: rgba(12, 16, 28, 0.34);
+    box-shadow: 0 18px 36px -24px
+      color-mix(in oklch, var(--primitive-900) 16%, transparent);
+  }
+
+  :root[class~="dark"] .navbar {
+    background: rgba(12, 16, 28, 0.46);
   }
 
   .navbar-button {
-    backdrop-filter: blur(6px);
+    backdrop-filter: none;
   }
 
   .navbar-button:not(.is-active):hover {
@@ -840,7 +907,8 @@
     /* Light mode: make navbar background lighter and soften the inner gradient */
     .navbar {
       background: var(--primitive-100);
-      border-bottom: 1px solid var(--primitive-300);
+      /* Remove solid border in favor of gradient outline */
+      border: 0;
 
       &:before {
         box-shadow: 0px 1px 4px var(--primitive-300);
@@ -850,6 +918,16 @@
           var(--primitive-400)
         );
       }
+    }
+
+    /* Stronger top highlight and faster fade for light mode */
+    .navbar::after {
+      background: linear-gradient(
+        to bottom,
+        var(--navbar-border-lit) 0%,
+        color-mix(in oklch, var(--navbar-border-lit) 35%, transparent) 40%,
+        transparent 100%
+      );
     }
 
     .badge {

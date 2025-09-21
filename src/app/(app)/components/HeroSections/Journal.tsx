@@ -1,23 +1,14 @@
 import Text from "../Text";
-import { LexicalBlock } from "@/app/(app)/types";
-import { renderLexicalContent } from "@/lib/helpers";
-
-import config from "@payload-config";
-import { getPayload } from "payload";
-const payload = await getPayload({ config });
+import {LexicalBlock} from "@/app/(app)/types";
+import {extractLexicalHeading, renderLexicalContent} from "@/lib/helpers";
+import {getPageData} from "@/lib/payload-actions";
 
 const JournalHero = async () => {
-  const { docs } = await payload.find({
-    collection: "pages",
-    where: {
-      name: {
-        equals: "Journal",
-      },
-    },
-  });
+  const page = await getPageData("Journal");
 
-  const title = docs ? docs[0].name : "No title";
-  const copy = docs[0].intro?.root.children as LexicalBlock;
+  const blocks = (page?.intro?.root.children ?? []) as LexicalBlock;
+  const {heading, rest} = extractLexicalHeading(blocks);
+  const title = heading || page?.name || "Journal";
 
   return (
     <div className="flex flex-col gap-4px">
@@ -25,7 +16,7 @@ const JournalHero = async () => {
         {title}
       </Text>
 
-      {copy.length ? renderLexicalContent(copy) : null}
+      {rest.length ? renderLexicalContent(rest) : null}
     </div>
   );
 };

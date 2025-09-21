@@ -71,6 +71,10 @@ const AssistantInput = ({
   const hasValue = value.trim().length > 0;
   const canSend = !isStreaming && !sessionLocked && hasValue;
   const isActive = isFocused || hasValue || isStreaming || sessionLocked;
+  const containerBorderColor =
+    expanded || isActive || isPointerInside
+      ? "var(--assistant-input-border-active)"
+      : "var(--assistant-input-border)";
 
   return (
     <form
@@ -92,7 +96,7 @@ const AssistantInput = ({
       <motion.div
         layout
         layoutId={layoutId}
-        className={`relative w-full ${expanded ? "h-[60vh] translate-y-[-90px]" : "h-[60px] translate-x-[0px]"}  transition-colors ease-in-out duration-300 border-border-default/40 flex ${expanded ? "flex-col items-stretch" : "items-center hover:border-border-inverse/10"} overflow-hidden cursor-text`}
+        className={`relative w-full ${expanded ? "h-[60vh] translate-y-[-90px]" : "h-[60px] translate-x-[0px]"} transition-colors ease-in-out duration-300 border flex ${expanded ? "flex-col items-stretch" : "items-center"} overflow-hidden cursor-text`}
         onClick={() => inputRef.current?.focus()}
         onPointerEnter={() => setIsPointerInside(true)}
         onPointerLeave={() => setIsPointerInside(false)}
@@ -119,6 +123,9 @@ const AssistantInput = ({
         style={{
           backgroundColor: containerBackground,
           boxShadow: containerShadow,
+          borderColor: containerBorderColor,
+          borderWidth: 1,
+          borderStyle: "solid",
           willChange: "height, transform, border-radius, translateY",
         }}
       >

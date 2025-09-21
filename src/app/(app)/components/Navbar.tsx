@@ -7,23 +7,22 @@ import {Slot} from "@radix-ui/react-slot";
 
 import Text from "@/components/Text";
 import {Home, Palette, NotebookText, User, Images} from "lucide-react";
-import ThemeToggle from "@/app/(app)/components/ThemeToggle";
 
 const NavbarContainerCVA = cva([
-  "sticky z-20 bottom-40px mx-auto w-fit h-40px",
+  "sticky z-30 bottom-40px mx-auto w-fit h-40px",
 ]);
 
 const NavbarCVA = cva([
   "navbar",
   "relative",
-  "flex flex-row gap-8px md:gap-0px items-center p-4px rounded-8px",
+  "flex flex-row gap-8px md:gap-0px items-center p-4px rounded-12px",
 ]);
 
 const NavbarButtonCVA = cva(
   [
     "navbar-button",
     "inline-flex cursor-pointer",
-    "p-8px md:px-12px rounded-6px",
+    "p-8px md:px-12px rounded-8px",
     "border border-transparent",
     "transition-colors ease-in-out duration-200",
   ],
@@ -69,7 +68,6 @@ const Navbar = () => {
           url="/about-me"
           active={slug === "/about-me"}
         />
-        <ThemeToggle className="ml-4px" />
       </div>
     </nav>
   );
@@ -90,7 +88,9 @@ const NavbarButton = ({
   return (
     <Link prefetch href={url} as={url} aria-label={label}>
       <div className={NavbarButtonStyle}>
-        <Slot className="text-fg-default w-24px h-24px block md:hidden">{<Icon />}</Slot>
+        <Slot className="text-fg-default w-24px h-24px block md:hidden">
+          {<Icon />}
+        </Slot>
         <Text size="body" className="text-nowrap hidden md:block">
           {label}
         </Text>

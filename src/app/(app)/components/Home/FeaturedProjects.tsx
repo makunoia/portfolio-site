@@ -226,7 +226,7 @@ const ProgressBar = ({progress}: {progress: number}) => {
   const styles = cva([
     "w-0px h-2px",
     "absolute bottom-0px left-0px z-10",
-    "bg-bg-inverse",
+    "bg-bg-brand",
   ]);
 
   return (

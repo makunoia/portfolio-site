@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import {ArrowLeft} from "lucide-react";
 import Text from "@/components/Text";
 
 const BackButton = () => {
@@ -9,7 +9,7 @@ const BackButton = () => {
         <ArrowLeft size={16} className="text-fg-default" />
         <Text
           size="body"
-          className="opacity-40 group-hover:opacity-100 transition-opacity ease-in-out duration-500"
+          className="opacity-80 group-hover:opacity-100 transition-opacity ease-in-out duration-500"
         >
           Back to all projects
         </Text>

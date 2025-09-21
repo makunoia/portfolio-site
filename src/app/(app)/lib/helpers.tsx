@@ -108,6 +108,30 @@ export const formatDate = (date: Date): string => {
   return new Intl.DateTimeFormat("en-US", options).format(date);
 };
 
+export const extractLexicalHeading = (
+  blocks: LexicalBlock,
+  target: "h1" | "h3" = "h1"
+) => {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return {heading: null as string | null, rest: [] as LexicalBlock};
+  }
+
+  let heading: string | null = null;
+  const rest = blocks.filter((node) => {
+    if (!heading && node.type === "heading" && node.tag === target) {
+      heading = node.children
+        ?.map((child) => child.text)
+        .join("")
+        .trim() || null;
+      return false;
+    }
+
+    return true;
+  }) as LexicalBlock;
+
+  return {heading, rest};
+};
+
 export const renderLexicalContent = (root: LexicalBlock) => {
   return root
     ? root.map((child, i) => {

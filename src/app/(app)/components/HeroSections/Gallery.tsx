@@ -1,35 +1,23 @@
 import Text from "../Text";
 import {LexicalBlock} from "@/app/(app)/types";
-import {renderLexicalContent} from "@/lib/helpers";
-
-import config from "@payload-config";
-import {getPayload} from "payload";
-
-const payload = await getPayload({config});
+import {extractLexicalHeading, renderLexicalContent} from "@/lib/helpers";
+import {getPageData} from "@/lib/payload-actions";
 
 const GalleryHero = async () => {
-  const {docs} = await payload.find({
-    collection: "pages",
-    where: {
-      name: {
-        equals: "Gallery",
-      },
-    },
-  });
+  const page = await getPageData("Gallery");
 
-  const page = docs?.[0];
-  const title = page?.name ?? "Gallery";
-  const copy = (page?.intro?.root.children ?? []) as LexicalBlock;
+  const blocks = (page?.intro?.root.children ?? []) as LexicalBlock;
+  const {heading, rest} = extractLexicalHeading(blocks);
+  const title = heading || page?.name || "Gallery";
 
   return (
     <div className="flex flex-col gap-4px">
       <Text as="h1" size="heading" weight="normal">
         {title}
       </Text>
-      {copy.length ? renderLexicalContent(copy) : null}
+      {rest.length ? renderLexicalContent(rest) : null}
     </div>
   );
 };
 
 export default GalleryHero;
-
