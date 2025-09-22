@@ -27,7 +27,7 @@ const NavbarCVA = cva(
 
 const NavbarButtonCVA = cva(
   [
-    "relative z-10 inline-flex cursor-pointer items-center gap-2 overflow-hidden rounded-8px px-2.5 py-2 md:px-3",
+    "relative z-10 inline-flex cursor-pointer items-center gap-0 overflow-hidden rounded-8px px-2.5 py-2 md:gap-2 md:px-3",
     "text-fg-default",
     "transition-colors duration-200 ease-in-out",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:color-mix(in_oklch,var(--navbar-button-hover-border)_75%,transparent)] focus-visible:ring-offset-0",
@@ -273,11 +273,14 @@ const NavbarButton = ({
       ref={setRef}
     >
       <Slot
-        className={`text-fg-default w-24px h-24px md:hidden${activeAccentClass}`}
+        className={`text-fg-default w-24px h-24px block md:hidden${activeAccentClass}`}
       >
         {<Icon />}
       </Slot>
-      <Text size="body" className={`text-nowrap${activeAccentClass}`}>
+      <Text
+        size="body"
+        className={`hidden text-nowrap md:inline-flex${activeAccentClass}`}
+      >
         {label}
       </Text>
     </Link>
