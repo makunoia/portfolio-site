@@ -1,20 +1,50 @@
 import type {CollectionBeforeValidateHook, CollectionConfig} from "payload";
+import payload from "payload";
+import {HeadObjectCommand, S3Client} from "@aws-sdk/client-s3";
 import {invalidateCacheTags} from "../lib/revalidateTags";
 import {
   handleCloudflareDelete,
   handleCloudflareUpload,
 } from "./hooks/cloudflareStorage";
 
+const detectCategoryFromFile = (
+  mimeType?: string | null,
+  filename?: string | null
+) => {
+  const mt = (mimeType || "").toLowerCase();
+  if (mt.startsWith("image/")) return "photo" as const;
+  if (mt.startsWith("video/")) return "video" as const;
+
+  const ext = (filename || "").split(".").pop()?.toLowerCase();
+  if (!ext) return undefined;
+
+  const imageExts = new Set([
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "webp",
+    "avif",
+    "heic",
+    "heif",
+    "tiff",
+    "bmp",
+  ]);
+  const videoExts = new Set(["mp4", "m4v", "webm", "mov", "avi", "mkv"]);
+
+  if (imageExts.has(ext)) return "photo" as const;
+  if (videoExts.has(ext)) return "video" as const;
+  return undefined;
+};
+
 const autoCategorize: CollectionBeforeValidateHook = ({data}) => {
-  if (!data?.category && data?.mimeType) {
-    if (data.mimeType.startsWith("image/")) {
-      data.category = "photo";
-    } else if (data.mimeType.startsWith("video/")) {
-      data.category = "video";
-    }
+  const draft: any = data ?? {};
+  const inferred = detectCategoryFromFile(draft?.mimeType, draft?.filename);
+  if (inferred) {
+    draft.category = inferred;
   }
 
-  return data;
+  return draft;
 };
 
 const getAdminThumbnail = ({doc}: {doc: any}) => {
@@ -66,7 +96,6 @@ const GalleryItems: CollectionConfig = {
       required: true,
       options: [
         {label: "Photo", value: "photo"},
-        {label: "Reel", value: "reel"},
         {label: "Video", value: "video"},
       ],
       defaultValue: "photo",
@@ -77,6 +106,14 @@ const GalleryItems: CollectionConfig = {
       type: "textarea",
     },
     {
+      label: "Date Taken",
+      name: "dateTaken",
+      type: "date",
+      admin: {
+        position: "sidebar",
+      },
+    },
+    {
       type: "row",
       fields: [
         {
@@ -85,8 +122,7 @@ const GalleryItems: CollectionConfig = {
           type: "relationship",
           relationTo: "assets",
           admin: {
-            condition: (data) =>
-              data?.category === "reel" || data?.category === "video",
+            condition: (data) => data?.category === "video",
           },
         },
         {
@@ -114,12 +150,79 @@ const GalleryItems: CollectionConfig = {
   hooks: {
     beforeValidate: [handleCloudflareUpload, autoCategorize],
     afterChange: [
-      async () => {
-        invalidateCacheTags([
-          "gallery-items",
-          "collection:gallery-items",
-          "gallery",
-        ]);
+      async ({doc, operation}) => {
+        // Fill dateTaken automatically if missing
+        try {
+          if (
+            !doc?.dateTaken &&
+            (operation === "create" || operation === "update")
+          ) {
+            const filename = doc?.filename as string | undefined;
+            const mimeType = doc?.mimeType as string | undefined;
+            let extracted: string | undefined;
+
+            if (mimeType?.startsWith("image/") && filename) {
+              const url = `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/${filename}`;
+              try {
+                const res = await fetch(url);
+                if (res.ok) {
+                  const buf = await res.arrayBuffer();
+                  const exifr = await import("exifr");
+                  const meta: any = await exifr.parse(buf, {
+                    tiff: true,
+                    ifd0: true,
+                    xmp: true,
+                    pick: ["DateTimeOriginal", "CreateDate", "ModifyDate"],
+                  });
+                  const dt =
+                    meta?.DateTimeOriginal ||
+                    meta?.CreateDate ||
+                    meta?.ModifyDate;
+                  if (dt) extracted = new Date(dt).toISOString();
+                }
+              } catch {}
+            }
+
+            // Fallback for videos or if EXIF not available: use object LastModified
+            if (!extracted && filename) {
+              try {
+                const s3 = new S3Client({
+                  region: process.env.CLOUDFLARE_REGION,
+                  endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+                  credentials: {
+                    accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID as string,
+                    secretAccessKey: process.env
+                      .CLOUDFLARE_SECRET_ACCESS_KEY as string,
+                  },
+                });
+                const head = await s3.send(
+                  new HeadObjectCommand({
+                    Bucket: process.env.CLOUDFLARE_BUCKET_NAME as string,
+                    Key: filename,
+                  })
+                );
+                if (head?.LastModified) {
+                  extracted = new Date(head.LastModified).toISOString();
+                }
+              } catch {}
+            }
+
+            if (extracted) {
+              await (payload.update as any)({
+                collection: "gallery-items",
+                id: doc.id,
+                data: {dateTaken: extracted},
+              });
+            }
+          }
+        } finally {
+          // Invalidate caches regardless
+          await invalidateCacheTags([
+            "gallery-items",
+            "collection:gallery-items",
+            "gallery",
+          ]);
+        }
       },
     ],
     afterDelete: [

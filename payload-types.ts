@@ -294,8 +294,9 @@ export interface Asset {
 export interface GalleryItem {
   id: string;
   title: string;
-  category: 'photo' | 'reel' | 'video';
+  category: 'photo' | 'video';
   description?: string | null;
+  dateTaken?: string | null;
   poster?: (string | null) | Asset;
   externalUrl?: string | null;
   sortOrder?: number | null;
@@ -637,6 +638,7 @@ export interface GalleryItemsSelect<T extends boolean = true> {
   title?: T;
   category?: T;
   description?: T;
+  dateTaken?: T;
   poster?: T;
   externalUrl?: T;
   sortOrder?: T;

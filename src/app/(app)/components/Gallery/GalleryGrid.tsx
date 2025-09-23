@@ -1,6 +1,6 @@
 "use client";
 
-import {useCallback, useMemo, useRef} from "react";
+import {useCallback, useEffect, useMemo, useRef} from "react";
 import type React from "react";
 import Image from "next/image";
 import {LazyMotion, domAnimation, m, Variants} from "motion/react";
@@ -64,7 +64,6 @@ const GalleryGrid = ({items}: GalleryGridProps) => {
 
 const categoryLabel = {
   photo: "Photo",
-  reel: "Reel",
   video: "Video",
 } satisfies Record<GalleryEntry["category"], string>;
 
@@ -74,34 +73,39 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
   const rafRef = useRef<number | null>(null);
 
   const isHorizontalMedia = useMemo(() => {
+    // Treat videos as non-horizontal to avoid landscape spanning
+    if (item.category !== "photo") return false;
     if (item.width && item.height) {
       return item.width / item.height >= 1.35;
     }
-
-    if (item.category !== "photo") return true;
     return false;
   }, [item.width, item.height, item.category]);
 
-  const isPortraitMedia = useMemo(() => {
-    if (item.width && item.height) {
-      return item.width / item.height <= 0.8;
+  // Deterministic pseudo-random row span (1 or 2). Videos are forced to 2 for portrait look.
+  const rowSpan = useMemo(() => {
+    if (item.category !== "photo") return 2;
+    const id = String(item.id ?? "");
+    let hash = 0;
+    for (let i = 0; i < id.length; i++) {
+      hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
     }
-    return item.category === "photo" ? true : false;
-  }, [item.width, item.height, item.category]);
+    return (hash % 2) + 1; // 1 or 2
+  }, [item.category, item.id]);
 
-  const handleMouseEnter = useCallback(() => {
+  // Ensure videos start playing on mount to paint first frame even if poster is missing
+  useEffect(() => {
     if (item.category === "photo") return;
     const node = videoRef.current;
     if (!node) return;
+    node.muted = true;
     node.play().catch(() => {});
-  }, [item.category]);
-
-  const handleMouseLeave = useCallback(() => {
-    if (item.category === "photo") return;
-    const node = videoRef.current;
-    if (!node) return;
-    node.pause();
-    node.currentTime = 0;
+    return () => {
+      try {
+        node.pause();
+        node.currentTime = 0;
+      } catch {}
+    };
+    // Only depends on category to avoid replays on unrelated prop changes
   }, [item.category]);
 
   const onMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -155,13 +159,18 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
           <video
             ref={videoRef}
             muted
+            autoPlay
             playsInline
             loop
-            preload="metadata"
+            preload="auto"
             poster={item.poster?.url}
+            controls={false}
+            controlsList="nodownload noplaybackrate nofullscreen"
+            disablePictureInPicture
             className="h-full w-full object-cover"
+            crossOrigin="anonymous"
           >
-            <source src={item.url} type={item.mimeType} />
+            <source src={item.url} type={item.mimeType || "video/mp4"} />
           </video>
         )}
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 via-black/15 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 dark:from-bg-default/80 dark:via-bg-default/20">
@@ -196,9 +205,7 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     whileTap: {scale: 0.98},
     className: `group block h-full ${
       isHorizontalMedia ? "sm:col-span-2 lg:col-span-2 xl:col-span-2" : ""
-    } ${isPortraitMedia ? "row-span-2" : "row-span-1"}`,
-    onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave,
+    } ${rowSpan === 2 ? "row-span-2" : "row-span-1"}`,
   };
 
   if (item.externalUrl) {
