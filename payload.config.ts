@@ -1,11 +1,11 @@
 import path from "path";
-import { fileURLToPath } from "url";
+import {fileURLToPath} from "url";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-import { s3Storage } from "@payloadcms/storage-s3";
-import { mongooseAdapter } from "@payloadcms/db-mongodb";
-import { buildConfig } from "payload";
+import {s3Storage} from "@payloadcms/storage-s3";
+import {mongooseAdapter} from "@payloadcms/db-mongodb";
+import {buildConfig} from "payload";
 
 import Pages from "@/app/(payload)/collections/Pages";
 import Projects from "@/app/(payload)/collections/Projects";
@@ -18,7 +18,7 @@ import MyRoles from "@/app/(payload)/collections/tags/MyRoles";
 import JournalEntryTags from "@/app/(payload)/collections/tags/JournalEntryTags";
 import Globals from "@/app/(payload)/collections/Globals";
 
-import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
+import {nodemailerAdapter} from "@payloadcms/email-nodemailer";
 
 import {
   lexicalEditor,
@@ -37,7 +37,7 @@ import sharp from "sharp";
 import Showcase from "@/app/(payload)/blocks/Showcase";
 import EntrySection from "@/app/(payload)/blocks/EntrySection";
 
-const { EMAIL_USER, GMAIL_PASS } = process.env;
+const {EMAIL_USER, GMAIL_PASS} = process.env;
 
 const transportOptions = {
   service: "gmail",
@@ -50,7 +50,7 @@ const transportOptions = {
 export default buildConfig({
   editor: lexicalEditor({
     features: () => [
-      HeadingFeature({ enabledHeadingSizes: ["h1", "h3"] }),
+      HeadingFeature({enabledHeadingSizes: ["h1", "h3"]}),
       BoldFeature(),
       ItalicFeature(),
       UnderlineFeature(),
@@ -84,14 +84,14 @@ export default buildConfig({
     s3Storage({
       collections: {
         assets: {
-          generateFileURL: ({ filename }) => {
+          generateFileURL: ({filename}) => {
             return `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/${filename}`;
           },
           disableLocalStorage: true,
           disablePayloadAccessControl: true,
         },
         "gallery-items": {
-          generateFileURL: ({ filename }) => {
+          generateFileURL: ({filename}) => {
             return `${process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK}/${filename}`;
           },
           disableLocalStorage: true,
