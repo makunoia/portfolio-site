@@ -111,13 +111,17 @@ const AssistantPanel = ({
         let currentText = "";
         let structuredData: any = null;
         const decoder = new TextDecoder();
+        let carry = "";
 
         while (true) {
           const {done, value} = await reader.read();
           if (done) break;
 
           const chunk = decoder.decode(value, {stream: true});
-          const lines = chunk.split("\n").filter((line) => line.trim());
+          carry += chunk;
+          const parts = carry.split("\n");
+          carry = parts.pop() ?? "";
+          const lines = parts.filter((line) => line.trim());
 
           for (const line of lines) {
             try {

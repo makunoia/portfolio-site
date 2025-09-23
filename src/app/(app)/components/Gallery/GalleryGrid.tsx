@@ -1,6 +1,7 @@
 "use client";
 
 import {useCallback, useMemo, useRef} from "react";
+import type React from "react";
 import Image from "next/image";
 import {LazyMotion, domAnimation, m, Variants} from "motion/react";
 
@@ -44,7 +45,7 @@ const GalleryGrid = ({items}: GalleryGridProps) => {
         className="flex flex-col gap-24px"
       >
         {preparedItems.length ? (
-          <div className="grid grid-cols-1 gap-16px sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-12px sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-[180px] sm:auto-rows-[200px] lg:auto-rows-[220px]">
             {preparedItems.map((item) => (
               <GalleryCard key={item.id} item={item} />
             ))}
@@ -69,6 +70,8 @@ const categoryLabel = {
 
 const GalleryCard = ({item}: {item: GalleryEntry}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const tiltRef = useRef<HTMLDivElement | null>(null);
+  const rafRef = useRef<number | null>(null);
 
   const isHorizontalMedia = useMemo(() => {
     if (item.width && item.height) {
@@ -79,7 +82,12 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     return false;
   }, [item.width, item.height, item.category]);
 
-  const aspectRatio = "1 / 1";
+  const isPortraitMedia = useMemo(() => {
+    if (item.width && item.height) {
+      return item.width / item.height <= 0.8;
+    }
+    return item.category === "photo" ? true : false;
+  }, [item.width, item.height, item.category]);
 
   const handleMouseEnter = useCallback(() => {
     if (item.category === "photo") return;
@@ -96,14 +104,43 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     node.currentTime = 0;
   }, [item.category]);
 
+  const onMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const el = tiltRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = x / rect.width - 0.5;
+    const py = y / rect.height - 0.5;
+    const max = 8; // max tilt in degrees
+    const rx = -(py * max);
+    const ry = px * max;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+  }, []);
+
+  const onLeave = useCallback(() => {
+    const el = tiltRef.current;
+    if (!el) return;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    el.style.transform = `perspective(900px) rotateX(0deg) rotateY(0deg)`;
+  }, []);
+
   const body = (
-    <div className="relative overflow-hidden rounded-16px border-[12px] border-white bg-white shadow-[0_16px_36px_-20px_rgba(15,23,42,0.22)] dark:border-white dark:bg-neutral-200 dark:shadow-[0_12px_24px_-12px_rgba(0,0,0,0.45)]">
+    <div
+      className="relative h-full overflow-hidden rounded-16px border border-border-subtle bg-bg-subtle/40 shadow-[0_8px_20px_-14px_color-mix(in_oklch,var(--shadow-default)_45%,transparent)]"
+      ref={tiltRef}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{transform: "perspective(900px) rotateX(0deg) rotateY(0deg)", transition: "transform 180ms ease-out"}}
+    >
       <m.div
         variants={mediaVariants}
         initial="rest"
         animate="rest"
-        className="relative"
-        style={{aspectRatio}}
+        className="relative h-full"
       >
         {item.category === "photo" ? (
           <Image
@@ -127,8 +164,8 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
             <source src={item.url} type={item.mimeType} />
           </video>
         )}
-        <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/75 via-black/25 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 dark:from-bg-default/90 dark:via-bg-default/25">
-          <div className="flex flex-col gap-6px p-14px text-white drop-shadow-sm dark:text-fg-default">
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 via-black/15 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 dark:from-bg-default/80 dark:via-bg-default/20">
+          <div className="flex flex-col gap-6px p-12px text-white drop-shadow-sm dark:text-fg-default">
             <Text as="h3" size="body-large" weight="medium">
               {item.title}
             </Text>
@@ -156,10 +193,10 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     animate: "visible" as const,
     exit: "exit" as const,
     whileHover: "hover" as const,
-    whileTap: {scale: 0.97},
-    className: `group block ${
+    whileTap: {scale: 0.98},
+    className: `group block h-full ${
       isHorizontalMedia ? "sm:col-span-2 lg:col-span-2 xl:col-span-2" : ""
-    }`,
+    } ${isPortraitMedia ? "row-span-2" : "row-span-1"}`,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
   };

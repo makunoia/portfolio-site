@@ -1,5 +1,5 @@
 import {openai} from "@ai-sdk/openai";
-import {streamText, Output} from "ai";
+import {Output, Experimental_Agent as Agent} from "ai";
 import {getPersonalContext} from "../../../(app)/lib/vector-db";
 import {headers} from "next/headers";
 import {z} from "zod";
@@ -41,6 +41,14 @@ const responseSchema = z.object({
     )
     .optional()
     .describe("Array of useful links related to the response"),
+});
+
+// Reusable Agent instance
+const chatAgent = new Agent({
+  model: openai("gpt-4o-mini"),
+  experimental_output: Output.object({
+    schema: responseSchema,
+  }),
 });
 
 export async function POST(req: Request) {
@@ -111,27 +119,17 @@ ${personalContext ? `\nCONTEXT:\n${personalContext}` : ""}
 
 Remember: Only respond based on the provided context. If the question isn't related to Mark's professional background, politely redirect.`;
 
-  // Prepare messages with system context
+  // Prepare messages with system context (system goes in the first message)
   const messagesWithContext = [
-    {
-      role: "system" as const,
-      content: systemPrompt,
-    },
-    ...messages.map((m) => ({
-      role: m.role,
-      content: m.text,
-    })),
+    {role: "system" as const, content: systemPrompt},
+    ...messages.map((m) => ({role: m.role, content: m.text})),
   ];
 
-  const result = streamText({
-    model: openai("gpt-4o-mini"),
+  const result = chatAgent.stream({
     messages: messagesWithContext,
-    experimental_output: Output.object({
-      schema: responseSchema,
-    }),
   });
 
-  // For experimental_output, we need to handle the stream differently
+  // For experimental_output, stream partial structured output as JSON lines
   return new Response(
     new ReadableStream({
       start(controller) {
