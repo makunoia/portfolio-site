@@ -34,7 +34,33 @@ const mediaVariants: Variants = {
 };
 
 const GalleryGrid = ({items}: GalleryGridProps) => {
-  const preparedItems = useMemo(() => items ?? [], [items]);
+  const preparedItems = useMemo(() => {
+    const arr = items ?? [];
+    if (arr.length < 2) return arr;
+
+    const photos: GalleryEntry[] = [];
+    const videos: GalleryEntry[] = [];
+    for (const it of arr) {
+      if (it.category === "photo") photos.push(it);
+      else videos.push(it);
+    }
+
+    if (videos.length <= 1) return arr;
+
+    const segmentCount = videos.length + 1;
+    const segments: GalleryEntry[][] = Array.from({length: segmentCount}, () => []);
+    for (let i = 0; i < photos.length; i++) {
+      segments[i % segmentCount].push(photos[i]);
+    }
+
+    const result: GalleryEntry[] = [];
+    for (let i = 0; i < videos.length; i++) {
+      result.push(...segments[i], videos[i]);
+    }
+    result.push(...segments[segmentCount - 1]);
+
+    return result;
+  }, [items]);
 
   return (
     <LazyMotion features={domAnimation} strict>
