@@ -210,7 +210,6 @@ export const getGalleryItems = unstable_cache(
         title: item.title,
         category: item.category,
         description: item.description,
-        externalUrl: item.externalUrl,
         renderHint: item.renderHint ?? null,
         url,
         mimeType:

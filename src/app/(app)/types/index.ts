@@ -119,7 +119,6 @@ export type GalleryEntry = {
   title: string;
   category: GalleryItem["category"];
   description?: string | null;
-  externalUrl?: string | null;
   renderHint?:
     | "auto"
     | "square"

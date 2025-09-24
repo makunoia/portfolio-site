@@ -400,7 +400,7 @@ const AssistantPanel = ({
       </motion.h1>
 
       <motion.div
-        className={"w-full"}
+        className="w-full"
         layout="position"
         transition={{type: "spring", stiffness: 400, damping: 40, mass: 0.8}}
       >
@@ -432,7 +432,7 @@ const AssistantPanel = ({
                   layoutScroll
                 >
                   {/* Render chat thread with bottom reference for sticky chevron */}
-                  <div className="flex flex-col px-20px">
+                  <div className="flex flex-col pl-20px pr-24px">
                     {thread.map((m, index) => {
                       if (m.role === "user") {
                         return (

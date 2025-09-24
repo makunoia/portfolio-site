@@ -180,7 +180,7 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     el.style.transform = `perspective(900px) rotateX(0deg) rotateY(0deg)`;
   }, []);
 
-  const sourceUrl = item.url || item.externalUrl || "";
+  const sourceUrl = item.url || "";
   const isMediaAvailable = Boolean(sourceUrl);
 
   const body = (
@@ -245,7 +245,7 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
               <span className="rounded-9999 bg-white/15 px-10px py-4px uppercase tracking-wide">
                 {categoryLabel[item.category]}
               </span>
-              {/* external links are displayed inline only; no link-out indicator */}
+              
             </div>
           </div>
         </div>

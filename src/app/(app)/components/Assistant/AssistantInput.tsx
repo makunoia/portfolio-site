@@ -118,7 +118,7 @@ const AssistantInput = ({
       <motion.div
         layout
         layoutId={layoutId}
-        className={`relative w-full ${expanded ? "h-[60vh] translate-y-[-90px]" : "h-[60px] translate-x-[0px]"} transition-colors ease-in-out duration-300 border flex ${expanded ? "flex-col items-stretch" : "items-center"} overflow-hidden cursor-text`}
+        className={`relative shadow-md w-full ${expanded ? "h-[60vh] translate-y-[-90px]" : "h-[60px] translate-x-[0px]"} transition-colors ease-in-out duration-300 border flex ${expanded ? "flex-col items-stretch" : "items-center"} overflow-hidden cursor-text`}
         onClick={() => inputRef.current?.focus()}
         onPointerEnter={() => setIsPointerInside(true)}
         onPointerLeave={() => setIsPointerInside(false)}

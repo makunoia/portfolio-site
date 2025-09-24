@@ -300,10 +300,6 @@ export interface GalleryItem {
    * Optional: Guides how this asset should occupy the grid layout.
    */
   renderHint?: ('auto' | 'square' | 'landscape' | 'portrait_4_5' | 'portrait_9_16') | null;
-  /**
-   * Optional external link to display when no file is uploaded or to link out.
-   */
-  externalUrl?: string | null;
   dateTaken?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -643,7 +639,6 @@ export interface GalleryItemsSelect<T extends boolean = true> {
   category?: T;
   description?: T;
   renderHint?: T;
-  externalUrl?: T;
   dateTaken?: T;
   updatedAt?: T;
   createdAt?: T;

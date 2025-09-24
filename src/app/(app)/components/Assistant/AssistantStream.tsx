@@ -11,7 +11,7 @@ import {StructuredChatResponse} from "@/app/(app)/types";
 import {cn} from "@/lib/utils";
 
 const assistantProse = cva(
-  "group mt-6 max-w-none break-words overflow-visible text-body-large [word-break:break-word]",
+  "group max-w-none break-words overflow-visible text-body-large [word-break:break-word]",
 );
 
 const loadingText = cva(

@@ -25,18 +25,15 @@ const UsefulLinks = ({links}: UsefulLinksProps) => {
             href={link.resource_link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-4px py-4px px-8px rounded-8px border transition-all duration-200 shadow-sm hover:shadow-md no-underline"
+            className="flex items-center gap-4px py-4px px-8px rounded-8px transition-all duration-200 shadow-sm hover:shadow-md no-underline"
             style={{
-              borderColor: "var(--border-default)",
               backgroundColor: "var(--primitive-200)",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = "var(--primitive-300)";
-              e.currentTarget.style.borderColor = "var(--border-hover)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "var(--primitive-200)";
-              e.currentTarget.style.borderColor = "var(--border-default)";
             }}
             initial={{opacity: 0, y: 8}}
             animate={{opacity: 1, y: 0}}

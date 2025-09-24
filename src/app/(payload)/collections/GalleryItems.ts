@@ -7,14 +7,13 @@ import {
 
 const detectCategoryFromFile = (
   mimeType?: string | null,
-  filename?: string | null,
-  externalUrl?: string | null
+  filename?: string | null
 ) => {
   const mt = (mimeType || "").toLowerCase();
   if (mt.startsWith("image/")) return "photo" as const;
   if (mt.startsWith("video/")) return "video" as const;
 
-  const srcForExt = filename || externalUrl || "";
+  const srcForExt = filename || "";
   const ext = srcForExt.split(".").pop()?.toLowerCase();
   if (!ext) return undefined;
 
@@ -39,11 +38,7 @@ const detectCategoryFromFile = (
 
 const autoCategorize: CollectionBeforeValidateHook = ({data}) => {
   const draft: any = data ?? {};
-  const inferred = detectCategoryFromFile(
-    draft?.mimeType,
-    draft?.filename,
-    draft?.externalUrl
-  );
+  const inferred = detectCategoryFromFile(draft?.mimeType, draft?.filename);
   if (inferred) {
     draft.category = inferred;
   }
@@ -92,22 +87,6 @@ const getAdminThumbnail = ({doc}: {doc: any}) => {
     return `${publicLink}/${doc.filename}`;
   }
 
-  // Fallback to externalUrl if it points to an image
-  const ext = (doc?.externalUrl || "").split(".").pop()?.toLowerCase();
-  const imageExts = new Set([
-    "jpg",
-    "jpeg",
-    "png",
-    "gif",
-    "webp",
-    "avif",
-    "heic",
-    "heif",
-    "tiff",
-    "bmp",
-  ]);
-  if (doc?.externalUrl && ext && imageExts.has(ext)) return doc.externalUrl;
-
   if (publicLink && doc?.filename) return `${publicLink}/${doc.filename}`;
 
   return null;
@@ -126,6 +105,22 @@ const GalleryItems: CollectionConfig = {
     disableLocalStorage: true,
     mimeTypes: ["image/*", "video/*"],
     adminThumbnail: getAdminThumbnail,
+    pasteURL: {
+      allowList: [
+        {
+          hostname: "assets.marknoya.me",
+          pathname: "/*",
+          protocol: "https",
+        },
+      ],
+    },
+    skipSafeFetch: [
+      {
+        hostname: "assets.marknoya.me",
+        pathname: "/*",
+        protocol: "https",
+      },
+    ],
   },
   access: {
     read: () => true,
@@ -183,7 +178,6 @@ const GalleryItems: CollectionConfig = {
         position: "sidebar",
       },
     },
-    // Removed Poster Image, External URL, Sort Order, and Published At fields
   ],
   hooks: {
     beforeValidate: [
