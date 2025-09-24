@@ -176,15 +176,6 @@ const GalleryItems: CollectionConfig = {
       defaultValue: "auto",
     },
     {
-      label: "External URL",
-      name: "externalUrl",
-      type: "text",
-      admin: {
-        description:
-          "Optional external link to display when no file is uploaded or to link out.",
-      },
-    },
-    {
       label: "Date Taken",
       name: "dateTaken",
       type: "date",

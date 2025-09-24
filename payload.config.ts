@@ -123,6 +123,10 @@ export default buildConfig({
   async onInit(payload) {
     //test connections here
   },
-
+  upload: {
+    limits: {
+      fileSize: 5000000,
+    },
+  },
   sharp,
 });
