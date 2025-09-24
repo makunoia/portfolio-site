@@ -120,6 +120,13 @@ export type GalleryEntry = {
   category: GalleryItem["category"];
   description?: string | null;
   externalUrl?: string | null;
+  renderHint?:
+    | "auto"
+    | "square"
+    | "landscape"
+    | "portrait_4_5"
+    | "portrait_9_16"
+    | null;
   url: string;
   mimeType: string;
   width?: number | null;

@@ -81,16 +81,38 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     return false;
   }, [item.width, item.height, item.category]);
 
-  // Deterministic pseudo-random row span (1 or 2). Videos are forced to 2 for portrait look.
-  const rowSpan = useMemo(() => {
-    if (item.category !== "photo") return 2;
+  // Determine spans based on optional renderHint, otherwise fallback to heuristics
+  const {colSpan, rowSpan} = useMemo(() => {
+    // Explicit hint overrides
+    switch (item.renderHint) {
+      case "square":
+        return {colSpan: 1, rowSpan: 1};
+      case "landscape":
+        return {colSpan: 2, rowSpan: 1};
+      case "portrait_4_5":
+        return {colSpan: 1, rowSpan: 2};
+      case "portrait_9_16":
+        return {colSpan: 1, rowSpan: 3};
+      case "auto":
+      case undefined:
+      case null:
+      default:
+        break;
+    }
+
+    // Fallback: previous behavior
+    const fallbackCol = isHorizontalMedia ? 2 : 1;
+    if (item.category !== "photo") {
+      return {colSpan: fallbackCol, rowSpan: 2};
+    }
     const id = String(item.id ?? "");
     let hash = 0;
     for (let i = 0; i < id.length; i++) {
       hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
     }
-    return (hash % 2) + 1; // 1 or 2
-  }, [item.category, item.id]);
+    const fallbackRow = (hash % 2) + 1; // 1 or 2
+    return {colSpan: fallbackCol, rowSpan: fallbackRow};
+  }, [item.renderHint, isHorizontalMedia, item.category, item.id]);
 
   // Ensure videos start playing on mount to paint first frame even if poster is missing
   useEffect(() => {
@@ -132,6 +154,9 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     el.style.transform = `perspective(900px) rotateX(0deg) rotateY(0deg)`;
   }, []);
 
+  const sourceUrl = item.url || item.externalUrl || "";
+  const isMediaAvailable = Boolean(sourceUrl);
+
   const body = (
     <div
       className="relative h-full overflow-hidden rounded-16px border border-border-subtle bg-bg-subtle/40 shadow-[0_8px_20px_-14px_color-mix(in_oklch,var(--shadow-default)_45%,transparent)]"
@@ -146,32 +171,38 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
         animate="rest"
         className="relative h-full"
       >
-        {item.category === "photo" ? (
+        {isMediaAvailable ? (
+          item.category === "photo" ? (
           <Image
-            src={item.url}
+            src={sourceUrl}
             alt={item.description || item.title}
             fill
             sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
             className="h-full w-full object-cover"
             priority={false}
           />
+          ) : (
+            <video
+              ref={videoRef}
+              muted
+              autoPlay
+              playsInline
+              loop
+              preload="auto"
+              poster={item.poster?.url}
+              controls={false}
+              controlsList="nodownload noplaybackrate nofullscreen"
+              disablePictureInPicture
+              className="h-full w-full object-cover"
+              crossOrigin="anonymous"
+            >
+              <source src={sourceUrl} type={item.mimeType || "video/mp4"} />
+            </video>
+          )
         ) : (
-          <video
-            ref={videoRef}
-            muted
-            autoPlay
-            playsInline
-            loop
-            preload="auto"
-            poster={item.poster?.url}
-            controls={false}
-            controlsList="nodownload noplaybackrate nofullscreen"
-            disablePictureInPicture
-            className="h-full w-full object-cover"
-            crossOrigin="anonymous"
-          >
-            <source src={item.url} type={item.mimeType || "video/mp4"} />
-          </video>
+          <div className="flex h-full w-full items-center justify-center bg-bg-subtle/60">
+            <Text as="p" size="body">No media available</Text>
+          </div>
         )}
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 via-black/15 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 dark:from-bg-default/80 dark:via-bg-default/20">
           <div className="flex flex-col gap-6px p-12px text-white drop-shadow-sm dark:text-fg-default">
@@ -188,7 +219,7 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
               <span className="rounded-9999 bg-white/15 px-10px py-4px uppercase tracking-wide">
                 {categoryLabel[item.category]}
               </span>
-              {item.externalUrl ? <span className="text-white">View ↗</span> : null}
+              {/* external links are displayed inline only; no link-out indicator */}
             </div>
           </div>
         </div>
@@ -204,22 +235,9 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     whileHover: "hover" as const,
     whileTap: {scale: 0.98},
     className: `group block h-full ${
-      isHorizontalMedia ? "sm:col-span-2 lg:col-span-2 xl:col-span-2" : ""
-    } ${rowSpan === 2 ? "row-span-2" : "row-span-1"}`,
+      colSpan > 1 ? "sm:col-span-2 lg:col-span-2 xl:col-span-2" : ""
+    } ${rowSpan === 3 ? "row-span-3" : rowSpan === 2 ? "row-span-2" : "row-span-1"}`,
   };
-
-  if (item.externalUrl) {
-    return (
-      <m.a
-        {...motionProps}
-        href={item.externalUrl}
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        {body}
-      </m.a>
-    );
-  }
 
   return <m.div {...motionProps}>{body}</m.div>;
 };

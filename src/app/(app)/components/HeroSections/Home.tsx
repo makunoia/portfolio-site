@@ -11,7 +11,7 @@ import {cva} from "class-variance-authority";
 
 const endConversationButton = cva(
   [
-    "rounded-16px border px-16px py-10px text-body transition-all duration-200 ease-in-out shadow-sm text-fg-default",
+    "rounded-16px cursor-pointer border px-16px py-10px text-body transition-all duration-200 ease-in-out shadow-sm text-fg-default",
     "bg-[linear-gradient(135deg,color-mix(in_oklch,var(--utility-danger)_var(--danger-alpha1),var(--danger-base)),color-mix(in_oklch,var(--utility-danger)_var(--danger-alpha2),var(--danger-base)))]",
     "border-[color:color-mix(in_oklch,var(--utility-danger)_var(--danger-border),transparent)]",
     "[--danger-base:transparent] [--danger-alpha1:12%] [--danger-alpha2:6%] [--danger-border:35%]",

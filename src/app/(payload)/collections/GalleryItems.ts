@@ -7,13 +7,15 @@ import {
 
 const detectCategoryFromFile = (
   mimeType?: string | null,
-  filename?: string | null
+  filename?: string | null,
+  externalUrl?: string | null
 ) => {
   const mt = (mimeType || "").toLowerCase();
   if (mt.startsWith("image/")) return "photo" as const;
   if (mt.startsWith("video/")) return "video" as const;
 
-  const ext = (filename || "").split(".").pop()?.toLowerCase();
+  const srcForExt = filename || externalUrl || "";
+  const ext = srcForExt.split(".").pop()?.toLowerCase();
   if (!ext) return undefined;
 
   const imageExts = new Set([
@@ -37,7 +39,11 @@ const detectCategoryFromFile = (
 
 const autoCategorize: CollectionBeforeValidateHook = ({data}) => {
   const draft: any = data ?? {};
-  const inferred = detectCategoryFromFile(draft?.mimeType, draft?.filename);
+  const inferred = detectCategoryFromFile(
+    draft?.mimeType,
+    draft?.filename,
+    draft?.externalUrl
+  );
   if (inferred) {
     draft.category = inferred;
   }
@@ -86,9 +92,23 @@ const getAdminThumbnail = ({doc}: {doc: any}) => {
     return `${publicLink}/${doc.filename}`;
   }
 
-  if (publicLink) {
-    return `${publicLink}/${doc.filename}`;
-  }
+  // Fallback to externalUrl if it points to an image
+  const ext = (doc?.externalUrl || "").split(".").pop()?.toLowerCase();
+  const imageExts = new Set([
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "webp",
+    "avif",
+    "heic",
+    "heif",
+    "tiff",
+    "bmp",
+  ]);
+  if (doc?.externalUrl && ext && imageExts.has(ext)) return doc.externalUrl;
+
+  if (publicLink && doc?.filename) return `${publicLink}/${doc.filename}`;
 
   return null;
 };
@@ -98,7 +118,7 @@ const GalleryItems: CollectionConfig = {
   admin: {
     group: "Collections",
     useAsTitle: "title",
-    defaultColumns: ["title", "category", "publishedAt"],
+    defaultColumns: ["title", "category", "dateTaken"],
   },
   upload: {
     crop: false,
@@ -132,6 +152,37 @@ const GalleryItems: CollectionConfig = {
       label: "Description",
       name: "description",
       type: "textarea",
+    },
+    {
+      label: "Render Hint",
+      name: "renderHint",
+      type: "select",
+      required: false,
+      admin: {
+        position: "sidebar",
+        description:
+          "Optional: Guides how this asset should occupy the grid layout.",
+      },
+      options: [
+        {label: "Auto (let grid decide)", value: "auto"},
+        {label: "Square (1x1)", value: "square"},
+        {label: "Landscape (span 2 columns)", value: "landscape"},
+        {label: "Portrait 4:5 (tall in one column)", value: "portrait_4_5"},
+        {
+          label: "Portrait 9:16 (taller, span more rows)",
+          value: "portrait_9_16",
+        },
+      ],
+      defaultValue: "auto",
+    },
+    {
+      label: "External URL",
+      name: "externalUrl",
+      type: "text",
+      admin: {
+        description:
+          "Optional external link to display when no file is uploaded or to link out.",
+      },
     },
     {
       label: "Date Taken",

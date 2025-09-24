@@ -13,53 +13,53 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | 'Pacific/Midway'
-  | 'Pacific/Niue'
-  | 'Pacific/Honolulu'
-  | 'Pacific/Rarotonga'
-  | 'America/Anchorage'
-  | 'Pacific/Gambier'
-  | 'America/Los_Angeles'
-  | 'America/Tijuana'
-  | 'America/Denver'
-  | 'America/Phoenix'
-  | 'America/Chicago'
-  | 'America/Guatemala'
-  | 'America/New_York'
-  | 'America/Bogota'
-  | 'America/Caracas'
-  | 'America/Santiago'
-  | 'America/Buenos_Aires'
-  | 'America/Sao_Paulo'
-  | 'Atlantic/South_Georgia'
-  | 'Atlantic/Azores'
-  | 'Atlantic/Cape_Verde'
-  | 'Europe/London'
-  | 'Europe/Berlin'
-  | 'Africa/Lagos'
-  | 'Europe/Athens'
-  | 'Africa/Cairo'
-  | 'Europe/Moscow'
-  | 'Asia/Riyadh'
-  | 'Asia/Dubai'
-  | 'Asia/Baku'
-  | 'Asia/Karachi'
-  | 'Asia/Tashkent'
-  | 'Asia/Calcutta'
-  | 'Asia/Dhaka'
-  | 'Asia/Almaty'
-  | 'Asia/Jakarta'
-  | 'Asia/Bangkok'
-  | 'Asia/Shanghai'
-  | 'Asia/Singapore'
-  | 'Asia/Tokyo'
-  | 'Asia/Seoul'
-  | 'Australia/Brisbane'
-  | 'Australia/Sydney'
-  | 'Pacific/Guam'
-  | 'Pacific/Noumea'
-  | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | "Pacific/Midway"
+  | "Pacific/Niue"
+  | "Pacific/Honolulu"
+  | "Pacific/Rarotonga"
+  | "America/Anchorage"
+  | "Pacific/Gambier"
+  | "America/Los_Angeles"
+  | "America/Tijuana"
+  | "America/Denver"
+  | "America/Phoenix"
+  | "America/Chicago"
+  | "America/Guatemala"
+  | "America/New_York"
+  | "America/Bogota"
+  | "America/Caracas"
+  | "America/Santiago"
+  | "America/Buenos_Aires"
+  | "America/Sao_Paulo"
+  | "Atlantic/South_Georgia"
+  | "Atlantic/Azores"
+  | "Atlantic/Cape_Verde"
+  | "Europe/London"
+  | "Europe/Berlin"
+  | "Africa/Lagos"
+  | "Europe/Athens"
+  | "Africa/Cairo"
+  | "Europe/Moscow"
+  | "Asia/Riyadh"
+  | "Asia/Dubai"
+  | "Asia/Baku"
+  | "Asia/Karachi"
+  | "Asia/Tashkent"
+  | "Asia/Calcutta"
+  | "Asia/Dhaka"
+  | "Asia/Almaty"
+  | "Asia/Jakarta"
+  | "Asia/Bangkok"
+  | "Asia/Shanghai"
+  | "Asia/Singapore"
+  | "Asia/Tokyo"
+  | "Asia/Seoul"
+  | "Australia/Brisbane"
+  | "Australia/Sydney"
+  | "Pacific/Guam"
+  | "Pacific/Noumea"
+  | "Pacific/Auckland"
+  | "Pacific/Fiji";
 
 export interface Config {
   auth: {
@@ -69,33 +69,41 @@ export interface Config {
   collections: {
     users: User;
     projects: Project;
-    'gallery-items': GalleryItem;
+    "gallery-items": GalleryItem;
     pages: Page;
-    'project-tags': ProjectTag;
-    'my-roles': MyRole;
-    'journal-entries': JournalEntry;
-    'journal-entry-tags': JournalEntryTag;
+    "project-tags": ProjectTag;
+    "my-roles": MyRole;
+    "journal-entries": JournalEntry;
+    "journal-entry-tags": JournalEntryTag;
     assets: Asset;
     globals: Global;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
+    "payload-locked-documents": PayloadLockedDocument;
+    "payload-preferences": PayloadPreference;
+    "payload-migrations": PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
-    'gallery-items': GalleryItemsSelect<false> | GalleryItemsSelect<true>;
+    "gallery-items": GalleryItemsSelect<false> | GalleryItemsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    'project-tags': ProjectTagsSelect<false> | ProjectTagsSelect<true>;
-    'my-roles': MyRolesSelect<false> | MyRolesSelect<true>;
-    'journal-entries': JournalEntriesSelect<false> | JournalEntriesSelect<true>;
-    'journal-entry-tags': JournalEntryTagsSelect<false> | JournalEntryTagsSelect<true>;
+    "project-tags": ProjectTagsSelect<false> | ProjectTagsSelect<true>;
+    "my-roles": MyRolesSelect<false> | MyRolesSelect<true>;
+    "journal-entries": JournalEntriesSelect<false> | JournalEntriesSelect<true>;
+    "journal-entry-tags":
+      | JournalEntryTagsSelect<false>
+      | JournalEntryTagsSelect<true>;
     assets: AssetsSelect<false> | AssetsSelect<true>;
     globals: GlobalsSelect<false> | GlobalsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    "payload-locked-documents":
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
+    "payload-preferences":
+      | PayloadPreferencesSelect<false>
+      | PayloadPreferencesSelect<true>;
+    "payload-migrations":
+      | PayloadMigrationsSelect<false>
+      | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: string;
@@ -104,7 +112,7 @@ export interface Config {
   globalsSelect: {};
   locale: null;
   user: User & {
-    collection: 'users';
+    collection: "users";
   };
   jobs: {
     tasks: unknown;
@@ -170,7 +178,7 @@ export interface Project {
    */
   desc: string;
   slug: string;
-  status: 'ONGOING' | 'DONE' | 'SUNSET';
+  status: "ONGOING" | "DONE" | "SUNSET";
   yearDone?: string | null;
   role: string | MyRole;
   tag: string | ProjectTag;
@@ -221,7 +229,7 @@ export interface Project {
   isArchived?: boolean | null;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  _status?: ("draft" | "published") | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -265,7 +273,7 @@ export interface Showcase {
   tag?: string | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'showcase';
+  blockType: "showcase";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -294,13 +302,19 @@ export interface Asset {
 export interface GalleryItem {
   id: string;
   title: string;
-  category: 'photo' | 'video';
+  category: "photo" | "video";
   description?: string | null;
-  dateTaken?: string | null;
-  poster?: (string | null) | Asset;
+  /**
+   * Optional: Guides how this asset should occupy the grid layout.
+   */
+  renderHint?:
+    | ("auto" | "square" | "landscape" | "portrait_4_5" | "portrait_9_16")
+    | null;
+  /**
+   * Optional external link to display when no file is uploaded or to link out.
+   */
   externalUrl?: string | null;
-  sortOrder?: number | null;
-  publishedAt?: string | null;
+  dateTaken?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -319,7 +333,7 @@ export interface GalleryItem {
  */
 export interface Page {
   id: string;
-  name: 'Home' | 'Projects' | 'Gallery' | 'Journal' | 'About Me';
+  name: "Home" | "Projects" | "Gallery" | "Journal" | "About Me";
   intro?: {
     root: {
       type: string;
@@ -328,8 +342,8 @@ export interface Page {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
       indent: number;
       version: number;
     };
@@ -338,7 +352,7 @@ export interface Page {
   /**
    * Your status will be displayed as a badge on the home page hero section
    */
-  status?: ('employed' | 'open') | null;
+  status?: ("employed" | "open") | null;
   pagePhotos?: {
     portrait: string | Asset;
     cover: string | Asset;
@@ -346,7 +360,7 @@ export interface Page {
   sections?:
     | {
         title: string;
-        layout: 'stack' | 'two-col';
+        layout: "stack" | "two-col";
         content: (InfoItem | BooleanItem | MediaItem)[];
         id?: string | null;
       }[]
@@ -365,7 +379,7 @@ export interface InfoItem {
   image?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'info-item';
+  blockType: "info-item";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -376,7 +390,7 @@ export interface BooleanItem {
   value: boolean;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'boolean-item';
+  blockType: "boolean-item";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -389,7 +403,7 @@ export interface MediaItem {
   poster?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'media-item';
+  blockType: "media-item";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -410,8 +424,8 @@ export interface JournalEntry {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
       indent: number;
       version: number;
     };
@@ -419,7 +433,7 @@ export interface JournalEntry {
   };
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  _status?: ("draft" | "published") | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -437,8 +451,8 @@ export interface JournalEntryTag {
  */
 export interface Global {
   id: string;
-  name: 'resume' | 'lockedProjectPassword';
-  type: 'Text' | 'File';
+  name: "resume" | "lockedProjectPassword";
+  type: "Text" | "File";
   value?: string | null;
   document?: (string | null) | Asset;
   updatedAt: string;
@@ -452,48 +466,48 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
-        relationTo: 'users';
+        relationTo: "users";
         value: string | User;
       } | null)
     | ({
-        relationTo: 'projects';
+        relationTo: "projects";
         value: string | Project;
       } | null)
     | ({
-        relationTo: 'gallery-items';
+        relationTo: "gallery-items";
         value: string | GalleryItem;
       } | null)
     | ({
-        relationTo: 'pages';
+        relationTo: "pages";
         value: string | Page;
       } | null)
     | ({
-        relationTo: 'project-tags';
+        relationTo: "project-tags";
         value: string | ProjectTag;
       } | null)
     | ({
-        relationTo: 'my-roles';
+        relationTo: "my-roles";
         value: string | MyRole;
       } | null)
     | ({
-        relationTo: 'journal-entries';
+        relationTo: "journal-entries";
         value: string | JournalEntry;
       } | null)
     | ({
-        relationTo: 'journal-entry-tags';
+        relationTo: "journal-entry-tags";
         value: string | JournalEntryTag;
       } | null)
     | ({
-        relationTo: 'assets';
+        relationTo: "assets";
         value: string | Asset;
       } | null)
     | ({
-        relationTo: 'globals';
+        relationTo: "globals";
         value: string | Global;
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: string | User;
   };
   updatedAt: string;
@@ -506,7 +520,7 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: string | User;
   };
   key?: string | null;
@@ -638,11 +652,9 @@ export interface GalleryItemsSelect<T extends boolean = true> {
   title?: T;
   category?: T;
   description?: T;
-  dateTaken?: T;
-  poster?: T;
+  renderHint?: T;
   externalUrl?: T;
-  sortOrder?: T;
-  publishedAt?: T;
+  dateTaken?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -677,9 +689,9 @@ export interface PagesSelect<T extends boolean = true> {
         content?:
           | T
           | {
-              'info-item'?: T | InfoItemSelect<T>;
-              'T-item'?: T | BooleanItemSelect<T>;
-              'media-item'?: T | MediaItemSelect<T>;
+              "info-item"?: T | InfoItemSelect<T>;
+              "T-item"?: T | BooleanItemSelect<T>;
+              "media-item"?: T | MediaItemSelect<T>;
             };
         id?: T;
       };
@@ -834,7 +846,7 @@ export interface EntrySection {
   content: string;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'entry-section';
+  blockType: "entry-section";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -844,7 +856,6 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-
-declare module 'payload' {
+declare module "payload" {
   export interface GeneratedTypes extends Config {}
 }

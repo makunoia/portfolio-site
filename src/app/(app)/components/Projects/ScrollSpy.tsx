@@ -15,7 +15,7 @@ export type ScrollSpyType = {
 };
 
 const accordionItem = cva(
-  "flex w-full cursor-pointer flex-col gap-8px transition-all ease-in-out",
+  "flex w-full cursor-pointer flex-col gap-8px transition-all ease-in-out"
 );
 
 const spyContainer = cva(
@@ -23,11 +23,11 @@ const spyContainer = cva(
     "relative overflow-hidden pl-[2px] pt-[2px]",
     "data-[state=open]:animate-[slideDown_300ms_cubic-bezier(0.9,0,0.4,1)_forwards]",
     "data-[state=closed]:animate-[slideUp_300ms_cubic-bezier(0.9,0,0.4,1)_forwards]",
-  ].join(" "),
+  ].join(" ")
 );
 
 const spyItem = cva(
-  "group relative flex w-fit items-start pl-[18px]",
+  "group relative flex w-fit items-start pl-[18px] cursor-pointer",
   {
     variants: {
       isActive: {
@@ -128,7 +128,7 @@ const ScrollSpyItem = ({
           onClick={() => scrollToViewHandler(id)}
         >
           <Text
-            className={`text-wrap text-left transition-colors duration-300 ease-in-out ${
+            className={`text-wrap cursor-pointer text-left transition-colors duration-300 ease-in-out ${
               inView.section === id
                 ? "text-fg-default font-medium"
                 : "text-fg-subtle/60 hover:text-fg-subtle"
@@ -163,7 +163,9 @@ const ScrollSpyItem = ({
               />
               <Text
                 className={`transition-color duration-300 ease-in-out group-hover:text-fg-default text-wrap ${
-                  inView.block == htmlID ? "text-fg-default" : "text-fg-subtle/40 "
+                  inView.block == htmlID
+                    ? "text-fg-default"
+                    : "text-fg-subtle/40 "
                 }`}
               >
                 {lead}

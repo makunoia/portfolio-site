@@ -105,15 +105,19 @@ export const getCollection = async ({
   )();
 };
 
-export const getEntries = unstable_cache(async () => {
-  const {docs} = await payload.find({
-    collection: "journal-entries",
-  });
+export const getEntries = unstable_cache(
+  async () => {
+    const {docs} = await payload.find({
+      collection: "journal-entries",
+    });
 
-  return GroupByYear(docs);
-}, ["journalEntries"], {
-  tags: ["journalEntries", "collection:journal-entries"],
-});
+    return GroupByYear(docs);
+  },
+  ["journalEntries"],
+  {
+    tags: ["journalEntries", "collection:journal-entries"],
+  }
+);
 
 export const getProjects = unstable_cache(
   async () => {
@@ -191,39 +195,15 @@ export const getGalleryItems = unstable_cache(
       collection: "gallery-items",
       depth: 1,
       limit: 200,
-      sort: "-publishedAt",
+      sort: "-createdAt",
     });
 
     const publicLink = process.env.CLOUDFLARE_BUCKET_PUBLIC_LINK;
 
     const items = (docs as GalleryItem[]).map((item) => {
-      const posterDoc =
-        item.poster && typeof item.poster === "object"
-          ? item.poster
-          : null;
-
       const url =
         item.url ||
-        (item.filename && publicLink
-          ? `${publicLink}/${item.filename}`
-          : "");
-
-      const resolvedPosterUrl = posterDoc
-        ? posterDoc.url ||
-          (posterDoc.filename && publicLink
-            ? `${publicLink}/${posterDoc.filename}`
-            : null)
-        : null;
-
-      const poster =
-        posterDoc && resolvedPosterUrl
-          ? {
-              url: resolvedPosterUrl,
-              alt: posterDoc.alt,
-              width: posterDoc.width,
-              height: posterDoc.height,
-            }
-          : null;
+        (item.filename && publicLink ? `${publicLink}/${item.filename}` : "");
 
       const mapped: GalleryEntry = {
         id: item.id,
@@ -231,33 +211,21 @@ export const getGalleryItems = unstable_cache(
         category: item.category,
         description: item.description,
         externalUrl: item.externalUrl,
+        renderHint: item.renderHint ?? null,
         url,
         mimeType:
-          item.mimeType || (item.category === "photo" ? "image/jpeg" : "video/mp4"),
+          item.mimeType ||
+          (item.category === "photo" ? "image/jpeg" : "video/mp4"),
         width: item.width,
         height: item.height,
-        poster,
+        poster: null,
         createdAt: item.createdAt,
-        sortOrder: item.sortOrder,
-        publishedAt: item.publishedAt,
       };
 
       return mapped;
     });
 
-    return items.sort((a, b) => {
-      const orderA = a.sortOrder ?? Number.MAX_SAFE_INTEGER;
-      const orderB = b.sortOrder ?? Number.MAX_SAFE_INTEGER;
-
-      if (orderA !== orderB) {
-        return orderA - orderB;
-      }
-
-      const dateA = a.publishedAt || a.createdAt;
-      const dateB = b.publishedAt || b.createdAt;
-
-      return new Date(dateB).getTime() - new Date(dateA).getTime();
-    });
+    return items;
   },
   ["gallery-items"],
   {

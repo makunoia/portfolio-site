@@ -61,10 +61,10 @@
 // RND
 // ✅ Optimize Speed (Should have RND on this)
 
-// Phase 2
+// Phase 2: 2025
 // Project page: Contributors with links to their linkedIn or portfolio
-// Light/Dark Mode trigger with icon animation
-// Gallery Page
+// ✅ Light/Dark Mode trigger with icon animation
+// ✅ Gallery Page
 // Multiverse Update
 
 // Nice to haves
