@@ -2,6 +2,8 @@
 
 import {useEffect, useRef, useState} from "react";
 
+import {trackEvent} from "@/app/(app)/lib/mixpanel-browser";
+
 // Global guard (window-scoped) to ensure only one active assistant session at a time, survives remounts
 const getWindowSessionLock = (): boolean => {
   if (typeof window === "undefined") return false;
@@ -54,6 +56,7 @@ const AssistantPanel = ({
   }, [isUserScrolling]);
 
   const trySendMessage = (text: string): boolean => {
+    // Prompt tracking handled by `AssistantInput`
     // If previously collapsed, expand to reveal history on next interaction
     if (isCollapsed) setIsCollapsed(false);
     // Synchronous lock to prevent race conditions from rapid Enter presses
@@ -108,6 +111,11 @@ const AssistantPanel = ({
         const reader = res.body?.getReader();
         if (!reader) return;
 
+        trackEvent("Assistant Response Started", {
+          prompt_length: text.length,
+          conversation_length: thread.length,
+        });
+
         let currentText = "";
         let structuredData: any = null;
         const decoder = new TextDecoder();
@@ -149,7 +157,16 @@ const AssistantPanel = ({
             }
           }
         }
-      } catch {
+
+        trackEvent("Assistant Response Completed", {
+          response_length: currentText.length,
+          useful_links: structuredData?.usefulLinks?.length ?? 0,
+        });
+      } catch (error) {
+        trackEvent("Assistant Response Error", {
+          message: error instanceof Error ? error.message : "unknown",
+        });
+        throw error;
       } finally {
         setAbortCtrl(null);
         isLockedRef.current = false;

@@ -14,6 +14,9 @@ import ScrollSpy, {ScrollSpyType} from "@/components/Projects/ScrollSpy";
 import BackButton from "@/app/(app)/components/Projects/BackButton";
 
 const AnalyticsTracker = lazy(() => import("@/components/AnalyticsTracker"));
+const MixpanelProjectTracker = lazy(
+  () => import("@/components/Projects/Trackers/ProjectViewTracker")
+);
 
 import {InViewProvider} from "@/contexts/InViewContext";
 import {Archive} from "lucide-react";
@@ -43,6 +46,7 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
   return (
     <>
       <AnalyticsTracker page={`${project.title}`} />
+      <MixpanelProjectTracker project={project} />
 
       <InViewProvider>
         {sections?.length ? (

@@ -1,8 +1,11 @@
-import {handleMouseEvents} from "@/lib/helpers";
-import Text from "../Text";
+import {MouseEvent} from "react";
 import Link from "next/link";
 import {Lock} from "lucide-react";
+
+import {handleMouseEvents} from "@/lib/helpers";
 import AccessGateButton from "@/components/AccessGateButton";
+import {trackEvent} from "@/app/(app)/lib/mixpanel-browser";
+import Text from "../Text";
 
 const LockedProjectContent = ({
   title,
@@ -74,6 +77,14 @@ const ProjectItem = ({
   | {locked: true; codename: string}
   | {locked: false; codename?: undefined}
 )) => {
+  const handleTrackClick = (event: MouseEvent) => {
+    trackEvent("Project Card Clicked", {
+      slug,
+      title,
+      locked,
+    });
+  };
+
   if (locked) {
     return (
       <div
@@ -86,7 +97,10 @@ const ProjectItem = ({
           description="Enter the shared password to view this project."
           redirectPath={`/projects/${slug}`}
           trigger={
-            <div className="flex flex-row gap-24px justify-between items-center cursor-pointer w-full">
+            <div
+              className="flex flex-row gap-24px justify-between items-center cursor-pointer w-full"
+              onClick={handleTrackClick}
+            >
               <div className="flex flex-col gap-4px">
                 <div className="flex gap-4px">
                   <Text size="body">{codename || title}</Text>
@@ -115,6 +129,7 @@ const ProjectItem = ({
       className="page-list-item transition-opacity duration-300 ease-in-out"
       onMouseEnter={handleMouseEvents}
       onMouseLeave={handleMouseEvents}
+      onClick={handleTrackClick}
     >
       <UnlockedProjectContent title={title} desc={desc} tag={tag} />
     </Link>

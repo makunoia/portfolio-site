@@ -7,6 +7,7 @@ import {redirectTo, validateLockedProjectPassword} from "@/lib/actions";
 import {toast} from "sonner";
 import {Cookie, Eye, EyeOff} from "lucide-react";
 import {track} from "@vercel/analytics";
+import {trackEvent} from "@/app/(app)/lib/mixpanel-browser";
 
 const LockedProjectForm = ({
   onSuccess,
@@ -40,12 +41,14 @@ const LockedProjectForm = ({
           description: "You now have access to private content.",
         });
         track("Authorization attempt", {valid: true});
+        trackEvent("Access Granted", {accessType});
         if (onSuccess) {
           onSuccess();
         }
         await redirectTo(redirectPath);
       } else {
         track("Authorization attempt", {valid: false});
+        trackEvent("Access Denied", {accessType});
         toast.error("Wrong password.");
       }
     } catch (error) {

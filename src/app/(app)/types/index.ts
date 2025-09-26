@@ -107,6 +107,8 @@ export type ChatMessage = {
   structuredData?: StructuredChatResponse;
 };
 
+export type MixpanelEventPayload = Record<string, unknown>;
+
 export type GalleryPoster = {
   url: string;
   alt?: string | null;

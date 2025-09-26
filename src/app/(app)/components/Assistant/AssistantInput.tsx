@@ -6,6 +6,7 @@ import {cva} from "class-variance-authority";
 
 import {cn} from "@/lib/utils";
 import {SendHorizonal, CircleStop} from "lucide-react";
+import {trackEvent} from "@/app/(app)/lib/mixpanel-browser";
 
 type AssistantInputProps = {
   placeholder?: string;
@@ -56,6 +57,10 @@ const AssistantInput = ({
     if (!trimmed) return;
     const accepted = onSubmit?.(trimmed) ?? false;
     if (accepted) {
+      trackEvent("Assistant Prompt Submitted", {
+        length: trimmed.length,
+        words: trimmed.split(/\s+/).filter(Boolean).length,
+      });
       setValue("");
     }
   };
