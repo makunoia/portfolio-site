@@ -2,15 +2,18 @@ import Text from "@/components/Text";
 import ListContainer from "./ListContainer";
 import {JournalEntry, Project} from "payload-types";
 import {motion} from "motion/react";
+import React from "react";
 
 const PageSection = ({
   title,
   link,
   items,
+  children,
 }: {
   title: string;
   link: string;
   items: Project[] | JournalEntry[];
+  children?: React.ReactNode;
 }) => {
   return (
     <motion.section
@@ -33,6 +36,7 @@ const PageSection = ({
         transition={{duration: 0.3, ease: "easeInOut"}}
       >
         <ListContainer link={link} items={items} />
+        {children}
       </motion.div>
     </motion.section>
   );

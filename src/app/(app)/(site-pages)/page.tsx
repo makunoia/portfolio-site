@@ -44,12 +44,15 @@ const Page = async () => {
   // Fetch all data in parallel
   const pageData = getPageData("Home");
   const featuredProjects = getFeaturedProjects();
-  const archivedProjects = getCollection({
+  const unarchivedProjects = getCollection({
     collection: "projects",
     sort: "-year",
-    limit: 3,
+    limit: 6,
     where: {
       isFeatured: {
+        not_equals: true,
+      },
+      isArchived: {
         not_equals: true,
       },
     },
@@ -58,7 +61,7 @@ const Page = async () => {
   const [data, featProjects, projects] = await Promise.all([
     pageData,
     featuredProjects,
-    archivedProjects,
+    unarchivedProjects,
   ]);
 
   if (data) {

@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import {NextResponse} from "next/server";
+import type {NextRequest} from "next/server";
 
 export const getLockedPages = () => {
   const allLockedPages = {
@@ -16,7 +16,7 @@ export const getLockedPages = () => {
 };
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const {pathname} = request.nextUrl;
   const authCookie = request.cookies.get("auth");
   const isPageView = request.headers.get("purpose") !== "prefetch";
   const lockedProjects: string[] = getLockedPages();
@@ -35,6 +35,12 @@ export async function middleware(request: NextRequest) {
       response.cookies.set("redirectTo", pathname);
 
       request.cookies.set;
+      return response;
+    }
+    if (!authCookie && pathname.startsWith("/projects/archive")) {
+      const url = new URL("/authorization", request.url);
+      const response = NextResponse.redirect(url);
+      response.cookies.set("redirectTo", pathname);
       return response;
     }
   } else {

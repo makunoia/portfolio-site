@@ -4,12 +4,27 @@ import {LexicalBlock} from "@/app/(app)/types";
 import {extractLexicalHeading, renderLexicalContent} from "@/lib/helpers";
 import {getPageData} from "@/lib/payload-actions";
 
-const ProjectsHero = async () => {
+const ProjectsHero = async ({
+  titleOverride,
+  descriptionOverride,
+}: {
+  titleOverride?: string;
+  descriptionOverride?: string;
+} = {}) => {
   const page = await getPageData("Projects");
 
   const blocks = (page?.intro?.root.children ?? []) as LexicalBlock;
   const {heading, rest} = extractLexicalHeading(blocks);
-  const title = heading || page?.name || "Projects";
+  const title = titleOverride || heading || page?.name || "Projects";
+
+  const description = descriptionOverride
+    ? [
+        {
+          type: "paragraph",
+          children: [{type: "text", text: descriptionOverride}],
+        },
+      ]
+    : rest;
 
   return (
     <div className="flex flex-col gap-4px">
@@ -17,7 +32,9 @@ const ProjectsHero = async () => {
         {title}
       </Text>
 
-      {rest.length ? renderLexicalContent(rest) : null}
+      {description?.length
+        ? renderLexicalContent(description as LexicalBlock)
+        : null}
     </div>
   );
 };

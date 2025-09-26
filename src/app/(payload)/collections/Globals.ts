@@ -1,5 +1,5 @@
-import { CollectionConfig } from "payload";
-import { invalidateCacheTags } from "../lib/revalidateTags";
+import {CollectionConfig} from "payload";
+import {invalidateCacheTags} from "../lib/revalidateTags";
 
 const Globals: CollectionConfig = {
   slug: "globals",
@@ -31,10 +31,14 @@ const Globals: CollectionConfig = {
           label: "Name",
           type: "select",
           options: [
-            { label: "Resume", value: "resume" },
+            {label: "Resume", value: "resume"},
             {
               label: "Locked Project Password",
               value: "lockedProjectPassword",
+            },
+            {
+              label: "Locked Archives Password",
+              value: "lockedArchivesPassword",
             },
           ],
           name: "name",

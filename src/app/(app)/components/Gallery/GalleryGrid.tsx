@@ -240,13 +240,6 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
                 {item.description}
               </Text>
             ) : null}
-
-            <div className="flex items-center justify-between text-caption text-white/70 dark:text-fg-subtle">
-              <span className="rounded-9999 bg-white/15 px-10px py-4px uppercase tracking-wide">
-                {categoryLabel[item.category]}
-              </span>
-              
-            </div>
           </div>
         </div>
       </m.div>

@@ -10,7 +10,7 @@ import Text from "@/components/Text";
 import {Home, Palette, NotebookText, User, Images} from "lucide-react";
 
 const NavbarContainerCVA = cva([
-  "sticky bottom-40px z-30 mx-auto h-[40px] w-fit",
+  "sticky bottom-40px z-20 mx-auto h-[40px] w-fit",
 ]);
 
 const NavbarCVA = cva(
@@ -47,6 +47,8 @@ const Navbar = () => {
   const NavbarStyle = NavbarCVA();
   const slug = usePathname();
 
+  const isProjectsPath = slug?.startsWith("/projects");
+
   const items = React.useMemo(
     () => [
       {label: "Home", icon: Home, url: "/", active: slug === "/"},
@@ -54,7 +56,7 @@ const Navbar = () => {
         label: "Projects",
         icon: Palette,
         url: "/projects",
-        active: slug === "/projects",
+        active: Boolean(isProjectsPath),
       },
       {
         label: "Gallery",
@@ -75,7 +77,7 @@ const Navbar = () => {
         active: slug === "/about-me",
       },
     ],
-    [slug]
+    [slug, isProjectsPath]
   );
 
   const activeItemUrl = React.useMemo(

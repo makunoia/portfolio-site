@@ -132,6 +132,12 @@ export const getProjects = unstable_cache(
   {tags: ["allProjects", "collection:projects"]}
 );
 
+const buildProjectsByYear = (projects: Project[]): ProjectsByYear => {
+  const grouped = GroupByYear(projects) as ProjectsByYear;
+
+  return grouped;
+};
+
 export const getAllProjectsByYear = unstable_cache(
   async () => {
     const req = await payload.find({
@@ -139,11 +145,11 @@ export const getAllProjectsByYear = unstable_cache(
       sort: "-year",
     });
 
-    const projects: Project[] = req.docs;
+    const projects: Project[] = req.docs.filter(
+      (project) => !project.isArchived
+    );
 
-    const AllProjectsByYear = GroupByYear(projects) as ProjectsByYear;
-
-    return AllProjectsByYear;
+    return buildProjectsByYear(projects);
   },
   ["projectsByYear"],
   {tags: ["projectsByYear", "collection:projects"]}
@@ -187,6 +193,28 @@ export const getLockedProjects = unstable_cache(
     tags: ["lockedProjects", "collection:projects"],
     revalidate: 3600,
   }
+);
+
+export const getArchivedProjectsByYear = unstable_cache(
+  async () => {
+    const req = await payload.find({
+      collection: "projects",
+      sort: "-year",
+      where: {
+        isArchived: {
+          equals: true,
+        },
+      },
+    });
+
+    const projects: Project[] = req.docs.filter(
+      (project) => project.isArchived
+    );
+
+    return buildProjectsByYear(projects);
+  },
+  ["archivedProjectsByYear"],
+  {tags: ["archivedProjectsByYear", "collection:projects"]}
 );
 
 export const getGalleryItems = unstable_cache(

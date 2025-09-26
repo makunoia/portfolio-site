@@ -437,7 +437,7 @@ export interface JournalEntryTag {
  */
 export interface Global {
   id: string;
-  name: 'resume' | 'lockedProjectPassword';
+  name: 'resume' | 'lockedProjectPassword' | 'lockedArchivesPassword';
   type: 'Text' | 'File';
   value?: string | null;
   document?: (string | null) | Asset;

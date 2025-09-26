@@ -37,7 +37,7 @@ const overlayVariants = cva(
 );
 
 const AssistantInput = ({
-  placeholder = "Is there anything you want to know about Mark?",
+  placeholder = "Ask a question",
   onSubmit,
   className = "",
   layoutId,

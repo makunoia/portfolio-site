@@ -2,13 +2,21 @@
 
 import * as Form from "@radix-ui/react-form";
 import Text from "@/components/Text";
-import { FormEvent, useState } from "react";
-import { redirectTo, validatePassword } from "@/lib/actions";
-import { toast } from "sonner";
-import { Cookie } from "lucide-react";
-import { track } from "@vercel/analytics";
+import {FormEvent, useState} from "react";
+import {redirectTo, validateLockedProjectPassword} from "@/lib/actions";
+import {toast} from "sonner";
+import {Cookie} from "lucide-react";
+import {track} from "@vercel/analytics";
 
-const LockedProjectForm = () => {
+const LockedProjectForm = ({
+  onSuccess,
+  redirectPath,
+  autoFocus,
+}: {
+  onSuccess?: () => void;
+  redirectPath?: string;
+  autoFocus?: boolean;
+}) => {
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -18,16 +26,19 @@ const LockedProjectForm = () => {
       setIsFormSubmitting(true);
 
       const formData = new FormData(event.currentTarget);
-      const isValid = await validatePassword(formData);
+      const isValid = await validateLockedProjectPassword(formData);
 
       if (isValid) {
         toast.success("Access granted!", {
           description: "You now have access to private content.",
         });
-        track("Authorization attempt", { valid: true });
-        redirectTo();
+        track("Authorization attempt", {valid: true});
+        if (onSuccess) {
+          onSuccess();
+        }
+        await redirectTo(redirectPath);
       } else {
-        track("Authorization attempt", { valid: false });
+        track("Authorization attempt", {valid: false});
         toast.error("Wrong password.");
       }
     } catch (error) {
@@ -60,6 +71,7 @@ const LockedProjectForm = () => {
               name="password"
               autoComplete="off"
               disabled={isFormSubmitting}
+              autoFocus={autoFocus}
               className="w-full pl-8px h-fit text-fg-default bg-bg-subtle/0 text-body-large outline-none autofill:bg-bg-subtle/0"
               required
             />

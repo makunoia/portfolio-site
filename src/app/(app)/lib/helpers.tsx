@@ -10,9 +10,7 @@ import {MouseEventHandler} from "react";
 import EntrySection from "../components/Journal/EntrySection";
 
 //Mouse Event handler for List Items on Projects and Journal page
-export const handleMouseEvents: MouseEventHandler<HTMLAnchorElement> = (
-  event
-) => {
+export const handleMouseEvents: MouseEventHandler<HTMLElement> = (event) => {
   event.stopPropagation();
   const items = document.getElementsByClassName("page-list-item");
   const target = event.currentTarget as HTMLElement;
@@ -119,10 +117,11 @@ export const extractLexicalHeading = (
   let heading: string | null = null;
   const rest = blocks.filter((node) => {
     if (!heading && node.type === "heading" && node.tag === target) {
-      heading = node.children
-        ?.map((child) => child.text)
-        .join("")
-        .trim() || null;
+      heading =
+        node.children
+          ?.map((child) => child.text)
+          .join("")
+          .trim() || null;
       return false;
     }
 
