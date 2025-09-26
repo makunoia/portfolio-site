@@ -17,7 +17,10 @@ export const getLockedPages = () => {
 
 export async function middleware(request: NextRequest) {
   const {pathname} = request.nextUrl;
-  const authCookie = request.cookies.get("auth");
+  const projectAccessCookie =
+    request.cookies.get("authLockedProjects") ?? request.cookies.get("auth");
+  const archiveAccessCookie =
+    request.cookies.get("authLockedArchives") ?? request.cookies.get("auth");
   const isPageView = request.headers.get("purpose") !== "prefetch";
   const lockedProjects: string[] = getLockedPages();
 
@@ -29,7 +32,7 @@ export async function middleware(request: NextRequest) {
   const isLocked = lockedProjects.includes(pathname.split("/").pop() as string);
 
   if (isPageView) {
-    if (!authCookie && isLocked) {
+    if (!projectAccessCookie && isLocked) {
       const url = new URL("/authorization", request.url);
       const response = NextResponse.redirect(url);
       response.cookies.set("redirectTo", pathname);
@@ -37,7 +40,7 @@ export async function middleware(request: NextRequest) {
       request.cookies.set;
       return response;
     }
-    if (!authCookie && pathname.startsWith("/projects/archive")) {
+    if (!archiveAccessCookie && pathname.startsWith("/projects/archive")) {
       const url = new URL("/authorization", request.url);
       const response = NextResponse.redirect(url);
       response.cookies.set("redirectTo", pathname);

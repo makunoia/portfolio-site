@@ -10,6 +10,7 @@ const AccessGateButton = ({
   title = "Protected content",
   description = "Enter the shared password to continue.",
   redirectPath = "/projects/archive",
+  accessType = "project",
   buttonProps,
   trigger,
   children,
@@ -18,6 +19,7 @@ const AccessGateButton = ({
   title?: string;
   description?: string;
   redirectPath?: string;
+  accessType?: "project" | "archive";
   buttonProps?: Omit<ButtonProps, "label">;
   trigger?: React.ReactElement;
   children?: React.ReactNode;
@@ -25,12 +27,15 @@ const AccessGateButton = ({
   const [open, setOpen] = useState(false);
   const [hasAccess, setHasAccess] = useState(false);
 
+  const cookieName =
+    accessType === "archive" ? "authLockedArchives" : "authLockedProjects";
+
   useEffect(() => {
     const cookiePresent = document.cookie
       .split("; ")
-      .some((row) => row.startsWith("auth="));
+      .some((row) => row.startsWith(`${cookieName}=`));
     setHasAccess(cookiePresent);
-  }, []);
+  }, [cookieName]);
 
   const redirectIfAuthorized = () => {
     window.location.href = redirectPath;
@@ -47,7 +52,7 @@ const AccessGateButton = ({
 
     const cookiePresent = document.cookie
       .split("; ")
-      .some((row) => row.startsWith("auth="));
+      .some((row) => row.startsWith(`${cookieName}=`));
 
     if (cookiePresent) {
       event.preventDefault();
@@ -98,6 +103,7 @@ const AccessGateButton = ({
       <AuthorizationForm
         autoFocus
         redirectPath={redirectPath}
+        accessType={accessType}
         onSuccess={handleSuccess}
       />
     </Modal>

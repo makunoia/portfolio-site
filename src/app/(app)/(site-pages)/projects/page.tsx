@@ -50,7 +50,7 @@ const Page = async () => {
             prompt.
           </Text>
         </div>
-        <AccessGateButton />
+        <AccessGateButton accessType="archive" />
       </section>
     </main>
   );

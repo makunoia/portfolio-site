@@ -5,19 +5,22 @@ import Text from "@/components/Text";
 import {FormEvent, useState} from "react";
 import {redirectTo, validateLockedProjectPassword} from "@/lib/actions";
 import {toast} from "sonner";
-import {Cookie} from "lucide-react";
+import {Cookie, Eye, EyeOff} from "lucide-react";
 import {track} from "@vercel/analytics";
 
 const LockedProjectForm = ({
   onSuccess,
   redirectPath,
   autoFocus,
+  accessType = "project",
 }: {
   onSuccess?: () => void;
   redirectPath?: string;
   autoFocus?: boolean;
+  accessType?: "project" | "archive";
 }) => {
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,6 +29,10 @@ const LockedProjectForm = ({
       setIsFormSubmitting(true);
 
       const formData = new FormData(event.currentTarget);
+      if (accessType && !formData.has("accessType")) {
+        formData.append("accessType", accessType);
+      }
+
       const isValid = await validateLockedProjectPassword(formData);
 
       if (isValid) {
@@ -69,18 +76,28 @@ const LockedProjectForm = ({
             <input
               id="password-field"
               name="password"
+              type={showPassword ? "text" : "password"}
               autoComplete="off"
               disabled={isFormSubmitting}
               autoFocus={autoFocus}
-              className="w-full pl-8px h-fit text-fg-default bg-bg-subtle/0 text-body-large outline-none autofill:bg-bg-subtle/0"
+              className="w-full pl-8px pr-8px h-fit text-fg-default bg-bg-subtle/0 text-body-large outline-none autofill:bg-bg-subtle/0"
               required
             />
           </Form.Control>
 
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="cursor-pointer flex items-center justify-center p-2px mr-8px text-fg-subtle hover:text-fg-default transition-colors ease-in-out duration-300"
+            tabIndex={-1}
+          >
+            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+          </button>
+
           <Form.Submit asChild>
             <button
               disabled={isFormSubmitting}
-              className="bg-bg-default hover:bg-bg-subtle disabled:bg-bg-subtle/20 disabled:text-fg-subtle/70 transition-colors ease-in-out duration-300 px-8px py-4px rounded-4px"
+              className="cursor-pointer bg-bg-default hover:bg-bg-subtle disabled:bg-bg-subtle/20 disabled:text-fg-subtle/70 transition-colors ease-in-out duration-300 px-8px py-4px rounded-4px"
             >
               <Text size="caption" weight="medium" className="text-fg-default">
                 <Text className="text-fg-default text-nowrap">

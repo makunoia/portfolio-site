@@ -16,7 +16,8 @@ import JournalEntries from "@/app/(payload)/collections/JournalEntries";
 import ProjectTags from "@/app/(payload)/collections/tags/ProjectTags";
 import MyRoles from "@/app/(payload)/collections/tags/MyRoles";
 import JournalEntryTags from "@/app/(payload)/collections/tags/JournalEntryTags";
-import Globals from "@/app/(payload)/collections/Globals";
+import AccessPasswords from "@/app/(payload)/globals/AccessPasswords";
+import Resume from "@/app/(payload)/globals/Resume";
 
 import {nodemailerAdapter} from "@payloadcms/email-nodemailer";
 
@@ -78,8 +79,8 @@ export default buildConfig({
     JournalEntries,
     JournalEntryTags,
     Assets,
-    Globals,
   ],
+  globals: [AccessPasswords, Resume],
   plugins: [
     s3Storage({
       collections: {
@@ -119,7 +120,17 @@ export default buildConfig({
   admin: {
     user: Users.slug,
   },
-  cors: "*",
+  cors:
+    process.env.NODE_ENV === "production"
+      ? [
+          process.env.PAYLOAD_ADMIN_URL || "",
+          process.env.NEXT_PUBLIC_SITE_URL || "",
+        ].filter(Boolean)
+      : "*",
+  csrf:
+    process.env.NODE_ENV === "production"
+      ? [process.env.PAYLOAD_ADMIN_URL || ""].filter(Boolean)
+      : undefined,
   async onInit(payload) {
     //test connections here
   },

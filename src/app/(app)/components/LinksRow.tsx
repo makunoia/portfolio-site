@@ -1,24 +1,14 @@
 import LinkButton from "@/components/LinkButton";
+import {getResumeGlobal} from "@/app/(app)/lib/globals";
 
-import config from "@payload-config";
-import { getPayload } from "payload";
-import { Asset } from "payload-types";
+const getResume = async (): Promise<string> => {
+  const {resume} = await getResumeGlobal();
 
-const getResume = async () => {
-  const payload = await getPayload({ config });
-  const { docs } = await payload.find({
-    collection: "globals",
-    where: {
-      name: {
-        equals: "resume",
-      },
-    },
-  });
+  if (resume && typeof resume !== "string") {
+    return resume.url ?? "";
+  }
 
-  const document = docs[0]?.document as Asset;
-  const link = document ? document.url : "";
-
-  return link;
+  return "";
 };
 
 const LinksRow = async () => {

@@ -91,7 +91,7 @@ const Modal = ({
 
                       <Dialog.Close asChild>
                         <button
-                          className="rounded-8px p-6px text-fg-subtle transition-colors hover:bg-bg-subtle/70 hover:text-fg-default"
+                          className="cursor-pointer rounded-8px p-6px text-fg-subtle transition-colors hover:bg-bg-subtle/70 hover:text-fg-default"
                           aria-label="Close"
                         >
                           <X size={16} />
