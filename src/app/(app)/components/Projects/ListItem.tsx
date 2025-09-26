@@ -125,7 +125,7 @@ const ProjectItem = ({
   return (
     <Link
       prefetch
-      href={`projects/${slug}`}
+      href={`/projects/${slug}`}
       className="page-list-item transition-opacity duration-300 ease-in-out"
       onMouseEnter={handleMouseEvents}
       onMouseLeave={handleMouseEvents}

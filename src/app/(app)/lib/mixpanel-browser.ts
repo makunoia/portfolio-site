@@ -39,6 +39,11 @@ export const initMixpanel = (tokenOverride?: string) => {
     ignore_dnt: true,
   });
 
+  try {
+    (window as typeof window & {mixpanel?: typeof mixpanel}).mixpanel =
+      mixpanel;
+  } catch {}
+
   isInitialized = true;
 };
 
@@ -52,6 +57,20 @@ const ensureInit = () => {
 export const identifyUser = (distinctId: string | undefined | null) => {
   if (!distinctId || !ensureInit()) return;
   mixpanel.identify(distinctId);
+};
+
+export const aliasUser = (
+  distinctId: string | undefined | null,
+  originalId?: string | null
+) => {
+  if (!distinctId || !ensureInit()) return;
+  try {
+    mixpanel.alias(distinctId, originalId ?? undefined);
+  } catch (error) {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("Mixpanel alias failed", error);
+    }
+  }
 };
 
 export const registerOnce = (props: Record<string, unknown>) => {
@@ -76,6 +95,11 @@ export const trackPageView = (properties?: EventProperties) => {
 export const getMixpanel = () => {
   if (!ensureInit()) return null;
   return mixpanel;
+};
+
+export const resetMixpanel = () => {
+  if (!ensureInit()) return;
+  mixpanel.reset();
 };
 
 export const getDistinctIdFromCookie = () => {
