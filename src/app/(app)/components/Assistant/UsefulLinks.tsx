@@ -25,6 +25,7 @@ const UsefulLinks = ({links}: UsefulLinksProps) => {
             href={link.resource_link}
             target="_blank"
             rel="noopener noreferrer"
+            data-assistant-source="useful_links"
             className="flex items-center gap-4px py-4px px-8px rounded-8px transition-all duration-200 shadow-sm hover:shadow-md no-underline"
             style={{
               backgroundColor: "var(--primitive-200)",

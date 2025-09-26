@@ -14,7 +14,7 @@ import {JournalEntry, JournalEntryTag} from "payload-types";
 import {formatDate, handleMouseEvents} from "@/lib/helpers";
 
 import ContentContainer from "./ContentContainer";
-import {track} from "@vercel/analytics";
+import {trackEvent} from "../../lib/mixpanel-browser";
 
 const JournalPage = ({
   content,
@@ -68,7 +68,7 @@ const JournalPage = ({
   };
 
   const OpenPageOrchestration = async () => {
-    track("Viewed", {page: `${data.title}`});
+    trackEvent("Journal Page Viewed", {page: `${data.title}`});
     setIsPageOpen(true);
     await delay(500);
     setIsContentOpen(true);

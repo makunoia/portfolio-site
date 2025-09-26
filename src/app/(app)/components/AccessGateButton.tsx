@@ -105,7 +105,7 @@ const AccessGateButton = ({
       open={open}
       onOpenChange={setOpen}
       trigger={renderTrigger()}
-      title={title}
+      title={title ?? "Protected content"}
       description={description}
     >
       <AuthorizationForm

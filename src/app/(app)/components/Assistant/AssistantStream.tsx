@@ -62,6 +62,7 @@ const AssistantStream = ({
           )}
           target="_blank"
           rel="noreferrer noopener"
+          data-assistant-source="markdown"
         />
       ),
       code: ({className, children, ...rest}) => (

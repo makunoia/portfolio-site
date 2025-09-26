@@ -28,7 +28,7 @@ const resolveAccessType = (
   return "project";
 };
 
-export const validateLockedProjectPassword = async (
+export const validatePassword = async (
   formData: FormData
 ): Promise<boolean> => {
   const cookieStore = await cookies();

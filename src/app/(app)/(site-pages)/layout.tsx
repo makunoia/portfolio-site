@@ -21,7 +21,12 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <Suspense fallback={null}>
-            <MixpanelProvider>
+            <MixpanelProvider
+              token={
+                (process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ??
+                  process.env.MIXPANEL_TOKEN) as string
+              }
+            >
               <VercelAnalytics />
               <div className="absolute inset-0 -z-10 overflow-hidden">
                 <div

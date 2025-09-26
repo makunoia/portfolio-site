@@ -40,14 +40,14 @@ const Page = async () => {
         <ProjectsList projects={projects} />
       </Suspense>
 
-      <section className="flex flex-col gap-16px rounded-12px border border-border-subtle bg-bg-subtle/60 p-20px">
+      <section className="flex flex-col gap-16px rounded-12px bg-bg-subtle/60 p-20px">
         <div className="flex flex-col gap-8px">
           <Text size="body-large" weight="medium">
             Need an older case study?
           </Text>
           <Text size="body" className="text-fg-subtle">
-            Unlock a separate archive of prior collaborations using the password
-            prompt.
+            Unlock a separate archive of prior collaborations using a secret
+            password provided to you.
           </Text>
         </div>
         <AccessGateButton accessType="archive" />

@@ -3,13 +3,12 @@
 import * as Form from "@radix-ui/react-form";
 import Text from "@/components/Text";
 import {FormEvent, useState} from "react";
-import {redirectTo, validateLockedProjectPassword} from "@/lib/actions";
+import {redirectTo, validatePassword} from "@/lib/actions";
 import {toast} from "sonner";
 import {Cookie, Eye, EyeOff} from "lucide-react";
-import {track} from "@vercel/analytics";
 import {trackEvent} from "@/app/(app)/lib/mixpanel-browser";
 
-const LockedProjectForm = ({
+const PasswordForm = ({
   onSuccess,
   redirectPath,
   autoFocus,
@@ -34,20 +33,18 @@ const LockedProjectForm = ({
         formData.append("accessType", accessType);
       }
 
-      const isValid = await validateLockedProjectPassword(formData);
+      const isValid = await validatePassword(formData);
 
       if (isValid) {
         toast.success("Access granted!", {
-          description: "You now have access to private content.",
+          description: "You now have access to the page.",
         });
-        track("Authorization attempt", {valid: true});
         trackEvent("Access Granted", {accessType});
         if (onSuccess) {
           onSuccess();
         }
         await redirectTo(redirectPath);
       } else {
-        track("Authorization attempt", {valid: false});
         trackEvent("Access Denied", {accessType});
         toast.error("Wrong password.");
       }
@@ -122,4 +119,4 @@ const LockedProjectForm = ({
   );
 };
 
-export default LockedProjectForm;
+export default PasswordForm;

@@ -1,16 +1,26 @@
-import { Suspense } from "react";
-import { Lock } from "lucide-react";
+import {Suspense} from "react";
+import {Lock} from "lucide-react";
+import {cookies} from "next/headers";
 
 import Text from "@/components/Text";
 import PageListSkeleton from "@/components/Skeletons/PageList";
 import ListContainer from "@/components/Home/ListContainer";
 import AuthorizationForm from "@/components/Authorization/Form";
 
-import { Project } from "payload-types";
+import {Project} from "payload-types";
 import BackButton from "@/app/(app)/components/Projects/BackButton";
-import { getCollection } from "@/lib/payload-actions";
+import {getCollection} from "@/lib/payload-actions";
 
 const Authenticate = async () => {
+  const cookieStore = await cookies();
+  const redirectCookie = cookieStore.get("redirectTo");
+  const redirectPath = redirectCookie?.value.startsWith("/")
+    ? redirectCookie.value
+    : undefined;
+  const accessType = redirectPath?.startsWith("/projects/archive")
+    ? "archive"
+    : "project";
+
   const projects = await getCollection({
     collection: "projects",
     limit: 5,
@@ -24,6 +34,9 @@ const Authenticate = async () => {
 
   const items = projects as Project[];
 
+  const title =
+    accessType === "archive" ? "the Archived Projects" : "a locked project";
+
   return (
     <main className="max-w-[500px] mx-auto my-[80px] flex flex-col gap-40px">
       <div className="flex flex-col gap-8px">
@@ -35,7 +48,7 @@ const Authenticate = async () => {
               <Text size="caption">Locked</Text>
             </div>
             <div className="flex flex-row gap-12px items-center ">
-              <Text size="lead">You're trying to access a private page.</Text>
+              <Text size="lead">{`You're trying to access ${title} page.`}</Text>
             </div>
           </div>
         </div>
@@ -46,7 +59,7 @@ const Authenticate = async () => {
         </Text>
       </div>
 
-      <AuthorizationForm />
+      <AuthorizationForm redirectPath={redirectPath} accessType={accessType} />
 
       <hr />
       <div className="flex flex-col gap-24px">

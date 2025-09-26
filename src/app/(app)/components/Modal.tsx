@@ -6,6 +6,7 @@ import {cn} from "@/lib/utils";
 import Text from "@/components/Text";
 import {m, LazyMotion, domAnimation, AnimatePresence} from "motion/react";
 import {useState} from "react";
+import {Root as VisuallyHidden} from "@radix-ui/react-visually-hidden";
 
 type ModalProps = {
   trigger: React.ReactNode;
@@ -28,6 +29,8 @@ const Modal = ({
   const isControlled = open !== undefined;
   const currentOpen = isControlled ? open : internalOpen;
   const resolvedTitle = title?.trim();
+  const a11yTitle =
+    resolvedTitle && resolvedTitle.length > 0 ? resolvedTitle : "Dialog";
 
   const handleOpenChange = (value: boolean) => {
     if (!isControlled) {
@@ -53,7 +56,11 @@ const Modal = ({
                   className="fixed inset-0 z-[60] bg-[rgba(10,14,24,0.65)] backdrop-blur-md"
                 />
               </Dialog.Overlay>
-              <Dialog.Content asChild forceMount>
+              <Dialog.Content
+                asChild
+                forceMount
+                {...(!description ? {"aria-describedby": undefined} : {})}
+              >
                 <m.div
                   key="modal-content"
                   initial={{opacity: 0, y: 16}}
@@ -70,11 +77,17 @@ const Modal = ({
                   <div className="flex flex-col gap-16px">
                     <div className="flex items-start justify-between gap-12px">
                       <div className="flex flex-col gap-8px">
-                        <Dialog.Title asChild>
-                          <Text as="h2" size="lead" weight="medium">
-                            {resolvedTitle}
-                          </Text>
-                        </Dialog.Title>
+                        {resolvedTitle ? (
+                          <Dialog.Title>
+                            <Text size="lead" weight="medium">
+                              {resolvedTitle}
+                            </Text>
+                          </Dialog.Title>
+                        ) : (
+                          <VisuallyHidden asChild>
+                            <Dialog.Title>{a11yTitle}</Dialog.Title>
+                          </VisuallyHidden>
+                        )}
                         {description ? (
                           <Dialog.Description asChild>
                             <Text

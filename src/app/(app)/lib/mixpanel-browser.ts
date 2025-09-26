@@ -36,6 +36,7 @@ export const initMixpanel = (tokenOverride?: string) => {
     persistence: "localStorage",
     track_pageview: true,
     record_sessions_percent: 100,
+    ignore_dnt: true,
   });
 
   isInitialized = true;

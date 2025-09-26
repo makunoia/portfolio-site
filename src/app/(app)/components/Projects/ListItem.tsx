@@ -102,7 +102,7 @@ const ProjectItem = ({
               onClick={handleTrackClick}
             >
               <div className="flex flex-col gap-4px">
-                <div className="flex gap-4px">
+                <div className="flex gap-4px items-center">
                   <Text size="body">{codename || title}</Text>
                   <Lock size={14} className="text-fg-default" />
                 </div>

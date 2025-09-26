@@ -4,7 +4,7 @@ import Text from "./Text";
 import Link from "next/link";
 import {cva} from "class-variance-authority";
 import {ArrowUpRight} from "lucide-react";
-import {track} from "@vercel/analytics";
+import { trackEvent } from "../lib/mixpanel-browser";
 
 const ButtonCVA = cva([
   "group cursor-pointer",
@@ -24,7 +24,7 @@ const LinkButton = ({
     <Link
       href={href}
       target="_blank"
-      onClick={() => track(`Accessed ${label}`)}
+      onClick={() => trackEvent("Link Button Clicked", {label, href})}
     >
       <button className={`${ButtonStyle}`}>
         <Text
