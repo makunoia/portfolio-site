@@ -6,7 +6,6 @@ const AccessPasswords: GlobalConfig = {
   label: "Access Passwords",
   admin: {
     group: "Settings",
-    description: "Manage passwords for locked content",
   },
   hooks: {
     afterChange: [

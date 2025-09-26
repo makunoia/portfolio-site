@@ -78,14 +78,22 @@ const AccessGateButton = ({
         },
       } as any);
     }
-
     return (
       <div
         onClick={(event) =>
           handleTriggerClick(event as unknown as React.MouseEvent<HTMLElement>)
         }
       >
-        <Button label={label} size="md" {...buttonProps}>
+        <Button
+          label={hasAccess ? "Access page" : label}
+          size="md"
+          className={
+            hasAccess
+              ? "bg-bg-success/80 hover:bg-bg-success active:bg-bg-success/50 transition-colors ease-in-out duration-300"
+              : ""
+          }
+          {...buttonProps}
+        >
           {children}
         </Button>
       </div>

@@ -798,8 +798,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * Manage passwords for locked content
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "access-passwords".
  */
