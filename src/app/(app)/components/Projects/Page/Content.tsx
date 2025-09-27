@@ -1,4 +1,4 @@
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 import React from "react";
 
 import lazy from "next/dynamic";
@@ -33,10 +33,8 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
   }
 
   const cookieStore = await cookies();
-  const projectAccessCookie =
-    cookieStore.get("authLockedProjects") ?? cookieStore.get("auth");
-  const archiveAccessCookie =
-    cookieStore.get("authLockedArchives") ?? cookieStore.get("auth");
+  const projectAccessCookie = cookieStore.get("authLockedProjects");
+  const archiveAccessCookie = cookieStore.get("authLockedArchives");
 
   const target = `/projects/${project.slug}`;
 
@@ -76,7 +74,11 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
 
         <main className="mx-auto my-[80px] grid w-full max-w-[1200px] grid-cols-1 gap-y-20 gap-x-8 md:grid-cols-[1fr_minmax(300px,700px)_1fr]">
           <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
-            <BackButton />
+            <BackButton
+              label={
+                archived ? "Back to archived projects" : "Back to all projects"
+              }
+            />
             <div
               id="page-title"
               className="flex flex-col md:flex-row gap-40px justify-between"

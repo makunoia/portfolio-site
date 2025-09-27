@@ -33,8 +33,7 @@ export function generateMetadata() {
 
 const ArchivedProjectsPage = async () => {
   const cookieStore = await cookies();
-  const archiveAccessCookie =
-    cookieStore.get("authLockedArchives") ?? cookieStore.get("auth");
+  const archiveAccessCookie = cookieStore.get("authLockedArchives");
 
   if (!archiveAccessCookie) {
     redirect(
