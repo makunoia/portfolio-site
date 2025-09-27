@@ -33,13 +33,20 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
   }
 
   const cookieStore = await cookies();
+  const projectAccessCookie =
+    cookieStore.get("authLockedProjects") ?? cookieStore.get("auth");
   const archiveAccessCookie =
-    cookieStore.get("authLockedArchives") ??
-    cookieStore.get("authLockedProjects") ??
-    cookieStore.get("auth");
+    cookieStore.get("authLockedArchives") ?? cookieStore.get("auth");
 
-  if (!archiveAccessCookie && project.isArchived) {
-    const target = `/projects/${project.slug}`;
+  const target = `/projects/${project.slug}`;
+
+  if (project.isLocked && !projectAccessCookie) {
+    redirect(
+      `/authorization?redirect=${encodeURIComponent(target)}&accessType=project`
+    );
+  }
+
+  if (project.isArchived && !archiveAccessCookie) {
     redirect(
       `/authorization?redirect=${encodeURIComponent(target)}&accessType=archive`
     );

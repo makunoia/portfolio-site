@@ -17,12 +17,11 @@ export const getLockedPages = () => {
 
 export async function middleware(request: NextRequest) {
   const {pathname} = request.nextUrl;
-  const projectAccessCookie =
-    request.cookies.get("authLockedProjects") ?? request.cookies.get("auth");
-  const archiveAccessCookie =
-    request.cookies.get("authLockedArchives") ?? request.cookies.get("auth");
+  const projectAccessCookie = request.cookies.get("authLockedProjects");
+  const archiveAccessCookie = request.cookies.get("authLockedArchives");
   const isPageView = request.headers.get("purpose") !== "prefetch";
   const lockedProjects: string[] = getLockedPages();
+  const redirectTarget = `${pathname}${request.nextUrl.search}`;
 
   // Used for api fetches for lockedPages
   // const protocol = request.headers.get("x-forwarded-proto") || "http";
@@ -34,16 +33,29 @@ export async function middleware(request: NextRequest) {
   if (isPageView) {
     if (!projectAccessCookie && isLocked) {
       const url = new URL("/authorization", request.url);
-      const response = NextResponse.redirect(url);
-      response.cookies.set("redirectTo", pathname);
+      url.searchParams.set("redirect", redirectTarget);
+      url.searchParams.set("accessType", "project");
 
-      request.cookies.set;
+      const response = NextResponse.redirect(url);
+      response.cookies.set("redirectTo", redirectTarget, {
+        path: "/",
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+      });
+
       return response;
     }
     if (!archiveAccessCookie && pathname.startsWith("/projects/archive")) {
       const url = new URL("/authorization", request.url);
+      url.searchParams.set("redirect", redirectTarget);
+      url.searchParams.set("accessType", "archive");
+
       const response = NextResponse.redirect(url);
-      response.cookies.set("redirectTo", pathname);
+      response.cookies.set("redirectTo", redirectTarget, {
+        path: "/",
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+      });
       return response;
     }
   } else {

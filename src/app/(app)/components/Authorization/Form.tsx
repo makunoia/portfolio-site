@@ -41,9 +41,10 @@ const PasswordForm = ({
         });
         trackEvent("Access Granted", {accessType});
         if (onSuccess) {
-          onSuccess();
+          await onSuccess();
+        } else {
+          await redirectTo(redirectPath);
         }
-        await redirectTo(redirectPath);
       } else {
         trackEvent("Access Denied", {accessType});
         toast.error("Wrong password.");
