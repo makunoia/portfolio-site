@@ -11,15 +11,31 @@ import {Project} from "payload-types";
 import BackButton from "@/app/(app)/components/Projects/BackButton";
 import {getCollection} from "@/lib/payload-actions";
 
-const Authenticate = async () => {
+const Authenticate = async (props: {
+  searchParams: Promise<{redirect?: string; accessType?: string}>;
+}) => {
+  const searchParams = await props.searchParams;
   const cookieStore = await cookies();
   const redirectCookie = cookieStore.get("redirectTo");
-  const redirectPath = redirectCookie?.value.startsWith("/")
-    ? redirectCookie.value
+  const queryRedirect =
+    typeof searchParams?.redirect === "string"
+      ? decodeURIComponent(searchParams.redirect)
+      : undefined;
+
+  const normalizedQueryRedirect = queryRedirect?.startsWith("/")
+    ? queryRedirect
     : undefined;
-  const accessType = redirectPath?.startsWith("/projects/archive")
-    ? "archive"
-    : "project";
+
+  const redirectPath =
+    normalizedQueryRedirect ??
+    (redirectCookie?.value.startsWith("/") ? redirectCookie.value : undefined);
+
+  const queryAccessType =
+    searchParams?.accessType === "archive" ? "archive" : undefined;
+
+  const accessType =
+    queryAccessType ??
+    (redirectPath?.startsWith("/projects/archive") ? "archive" : "project");
 
   const projects = await getCollection({
     collection: "projects",

@@ -2,7 +2,8 @@ export const dynamic = "force-static";
 import React from "react";
 
 import lazy from "next/dynamic";
-import {notFound} from "next/navigation";
+import {notFound, redirect} from "next/navigation";
+import {cookies} from "next/headers";
 
 import Text from "@/components/Text";
 import Pagination from "@/components/Projects/Pagination";
@@ -29,6 +30,19 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
 
   if (!project) {
     notFound();
+  }
+
+  const cookieStore = await cookies();
+  const archiveAccessCookie =
+    cookieStore.get("authLockedArchives") ??
+    cookieStore.get("authLockedProjects") ??
+    cookieStore.get("auth");
+
+  if (!archiveAccessCookie && project.isArchived) {
+    const target = `/projects/${project.slug}`;
+    redirect(
+      `/authorization?redirect=${encodeURIComponent(target)}&accessType=archive`
+    );
   }
 
   const {sections} = project;
