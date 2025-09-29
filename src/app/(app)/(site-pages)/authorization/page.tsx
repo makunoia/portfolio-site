@@ -45,6 +45,9 @@ const Authenticate = async (props: {
       isLocked: {
         equals: false,
       },
+      _status: {
+        equals: "published",
+      },
     },
   });
 

@@ -189,7 +189,7 @@ export function personalInfoToChunks(personalInfo) {
             const metricsPairs = Object.entries(impact.metrics).map(
               ([k, v]) => `${k}: ${v}`
             );
-            if (metricsParts.length)
+            if (metricsPairs.length)
               impactParts.push(`Metrics: ${metricsPairs.join(", ")}`);
           }
           if (Array.isArray(impact.highlights))

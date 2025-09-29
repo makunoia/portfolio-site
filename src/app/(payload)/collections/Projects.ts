@@ -391,7 +391,7 @@ const Projects: CollectionConfig = {
                 description:
                   "Archived projects adds a section on the project page",
                 condition: (data) =>
-                  data.status === "DONE" || "SUNSET" ? true : false,
+                  data.status === "DONE" || data.status === "SUNSET",
               },
             },
           ],
