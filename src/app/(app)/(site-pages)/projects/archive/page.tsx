@@ -1,6 +1,4 @@
 import React, {lazy, Suspense} from "react";
-import {cookies} from "next/headers";
-import {redirect} from "next/navigation";
 import ProjectsHero from "@/components/HeroSections/Projects";
 import ProjectsList from "@/components/Projects/ProjectsList/Server";
 import PageListSkeleton from "@/components/Skeletons/PageList";
@@ -32,15 +30,6 @@ export function generateMetadata() {
 }
 
 const ArchivedProjectsPage = async () => {
-  const cookieStore = await cookies();
-  const archiveAccessCookie = cookieStore.get("authLockedArchives");
-
-  if (!archiveAccessCookie) {
-    redirect(
-      `/authorization?redirect=${encodeURIComponent("/projects/archive")}&accessType=archive`
-    );
-  }
-
   const archivedProjects = await getArchivedProjectsByYear();
 
   return (

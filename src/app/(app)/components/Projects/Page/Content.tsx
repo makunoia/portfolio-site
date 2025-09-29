@@ -2,8 +2,7 @@ export const dynamic = "force-dynamic";
 import React from "react";
 
 import lazy from "next/dynamic";
-import {notFound, redirect} from "next/navigation";
-import {cookies} from "next/headers";
+import {notFound} from "next/navigation";
 
 import Text from "@/components/Text";
 import Pagination from "@/components/Projects/Pagination";
@@ -30,24 +29,6 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
 
   if (!project) {
     notFound();
-  }
-
-  const cookieStore = await cookies();
-  const projectAccessCookie = cookieStore.get("authLockedProjects");
-  const archiveAccessCookie = cookieStore.get("authLockedArchives");
-
-  const target = `/projects/${project.slug}`;
-
-  if (project.isLocked && !projectAccessCookie) {
-    redirect(
-      `/authorization?redirect=${encodeURIComponent(target)}&accessType=project`
-    );
-  }
-
-  if (project.isArchived && !archiveAccessCookie) {
-    redirect(
-      `/authorization?redirect=${encodeURIComponent(target)}&accessType=archive`
-    );
   }
 
   const {sections} = project;
