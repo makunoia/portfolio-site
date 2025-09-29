@@ -1,4 +1,4 @@
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 import React from "react";
 
 import lazy from "next/dynamic";
@@ -14,6 +14,9 @@ import ScrollSpy, {ScrollSpyType} from "@/components/Projects/ScrollSpy";
 import BackButton from "@/app/(app)/components/Projects/BackButton";
 
 const AnalyticsTracker = lazy(() => import("@/components/AnalyticsTracker"));
+const MixpanelProjectTracker = lazy(
+  () => import("@/components/Projects/Trackers/ProjectViewTracker")
+);
 
 import {InViewProvider} from "@/contexts/InViewContext";
 import {Archive} from "lucide-react";
@@ -43,15 +46,20 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
   return (
     <>
       <AnalyticsTracker page={`${project.title}`} />
+      <MixpanelProjectTracker project={project} />
 
       <InViewProvider>
         {sections?.length ? (
           <ContentObserver content={project.sections} />
         ) : null}
 
-        <main className="project-page-grid mx-auto my-[80px]">
+        <main className="mx-auto my-[80px] grid w-full max-w-[1200px] grid-cols-1 gap-y-20 gap-x-8 md:grid-cols-[1fr_minmax(300px,700px)_1fr]">
           <div className="flex flex-col mb-20px md:mb-60px md:col-start-2 md:col-end-3 gap-40px">
-            <BackButton />
+            <BackButton
+              label={
+                archived ? "Back to archived projects" : "Back to all projects"
+              }
+            />
             <div
               id="page-title"
               className="flex flex-col md:flex-row gap-40px justify-between"
@@ -72,7 +80,7 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
                     size="lead"
                     weight="normal"
                     multiline
-                    className="text inline-flex md:hidden"
+                    className="text-fg-default inline-flex md:hidden"
                   >
                     {project.desc}
                   </Text>
@@ -98,7 +106,7 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
                 size="lead"
                 weight="normal"
                 multiline
-                className="text hidden md:inline-flex lg:min-w-[250px]"
+                className="text-fg-default hidden md:inline-flex lg:min-w-[250px]"
               >
                 {project.desc}
               </Text>
@@ -115,23 +123,23 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
 
           {archived ? (
             <div className="flex flex-col gap-16px md:col-start-2 md:col-end-3 w-full items-center">
-              <div className="p-12px bg-subtle shadow-lg shadow-neutral-200 w-fit h-fit rounded-12px bg-gradient-to-b from-neutral-200 to-neutral-100">
-                <Archive size={40} className="text" />
+              <div className="p-12px bg-bg-subtle shadow-lg shadow-neutral-200 w-fit h-fit rounded-12px bg-gradient-to-b from-neutral-200 to-neutral-100">
+                <Archive size={40} className="text-fg-default" />
               </div>
               <div className="flex flex-col gap-12px items-center">
                 <div className="flex flex-col gap-4px">
                   <Text
                     size="caption"
-                    className="text-subtle text-center uppercase tracking-[.1em]"
+                    className="text-fg-subtle text-center uppercase tracking-[.1em]"
                   >
                     {`${status[project.status]} in ${project.yearDone}`}
                   </Text>
-                  <Text size="lead" className="text">
+                  <Text size="lead" className="text-fg-default">
                     This project is archived
                   </Text>
                 </div>
 
-                <Text size="body" className="text-subtle">
+                <Text size="body" className="text-fg-subtle">
                   You can learn more about this project by reaching out.
                 </Text>
               </div>

@@ -1,14 +1,12 @@
 import React from "react";
 import List from "./Client";
-import { getAllProjectsByYear } from "@/lib/payload-actions";
+import {ProjectsByYear} from "@/app/(app)/types";
 
-const ProjectsList = async () => {
-  const AllProjectsByYear = await getAllProjectsByYear();
-
-  return AllProjectsByYear ? (
-    <List projects={AllProjectsByYear} />
+const ProjectsList = async ({projects}: {projects: ProjectsByYear}) => {
+  return projects?.length ? (
+    <List projects={projects} />
   ) : (
-    <div className="text">No Projects found.</div>
+    <div className="text-fg-default">No Projects found.</div>
   );
 };
 

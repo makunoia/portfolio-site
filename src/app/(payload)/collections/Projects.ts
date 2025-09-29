@@ -1,5 +1,6 @@
-import { CollectionConfig } from "payload";
+import {CollectionConfig} from "payload";
 import Showcase from "../blocks/Showcase";
+import {invalidateCacheTags} from "../lib/revalidateTags";
 
 const Projects: CollectionConfig = {
   slug: "projects",
@@ -9,6 +10,36 @@ const Projects: CollectionConfig = {
   labels: {
     singular: "Project",
     plural: "Projects",
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        invalidateCacheTags([
+          "project",
+          "allProjects",
+          "projectsByYear",
+          "featuredProjects",
+          "lockedProjects",
+          "lockedPages",
+          "collection",
+          "collection:projects",
+        ]);
+      },
+    ],
+    afterDelete: [
+      async () => {
+        invalidateCacheTags([
+          "project",
+          "allProjects",
+          "projectsByYear",
+          "featuredProjects",
+          "lockedProjects",
+          "lockedPages",
+          "collection",
+          "collection:projects",
+        ]);
+      },
+    ],
   },
   admin: {
     useAsTitle: "title",
@@ -87,7 +118,7 @@ const Projects: CollectionConfig = {
                   },
                 ],
                 beforeValidate: [
-                  ({ siblingData, value }) => {
+                  ({siblingData, value}) => {
                     // Create a slug from the first Project Title entered.
                     if (
                       !value ||
@@ -116,9 +147,9 @@ const Projects: CollectionConfig = {
                   name: "status",
                   type: "select",
                   options: [
-                    { label: "Ongoing Project", value: "ONGOING" },
-                    { label: "Done", value: "DONE" },
-                    { label: "Sunset", value: "SUNSET" },
+                    {label: "Ongoing Project", value: "ONGOING"},
+                    {label: "Done", value: "DONE"},
+                    {label: "Sunset", value: "SUNSET"},
                   ],
                   admin: {
                     width: "50%",
@@ -192,7 +223,7 @@ const Projects: CollectionConfig = {
                   },
                   hooks: {
                     beforeValidate: [
-                      ({ siblingData, value }) => {
+                      ({siblingData, value}) => {
                         const id = `html-${siblingData.title
                           .replaceAll(" ", "-")
                           .toLowerCase()}`;
@@ -231,7 +262,7 @@ const Projects: CollectionConfig = {
                       },
                       hooks: {
                         beforeValidate: [
-                          ({ siblingData, value }) => {
+                          ({siblingData, value}) => {
                             const id = `html-${siblingData.lead
                               .replaceAll(" ", "-")
                               .toLowerCase()}`;
@@ -359,7 +390,8 @@ const Projects: CollectionConfig = {
               admin: {
                 description:
                   "Archived projects adds a section on the project page",
-                condition: (data) => (data.status === "DONE" ? true : false),
+                condition: (data) =>
+                  data.status === "DONE" || "SUNSET" ? true : false,
               },
             },
           ],

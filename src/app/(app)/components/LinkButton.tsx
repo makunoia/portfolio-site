@@ -1,13 +1,13 @@
 "use client";
-import React, { HTMLAttributes } from "react";
+import React, {HTMLAttributes} from "react";
 import Text from "./Text";
 import Link from "next/link";
-import { cva } from "class-variance-authority";
-import { ArrowUpRight } from "lucide-react";
-import { track } from "@vercel/analytics";
+import {cva} from "class-variance-authority";
+import {ArrowUpRight} from "lucide-react";
+import { trackEvent } from "../lib/mixpanel-browser";
 
 const ButtonCVA = cva([
-  "group",
+  "group cursor-pointer",
   "inline-flex justify-center items-center",
   "shadow-neutral-800",
 ]);
@@ -24,16 +24,21 @@ const LinkButton = ({
     <Link
       href={href}
       target="_blank"
-      onClick={() => track(`Accessed ${label}`)}
+      onClick={() => trackEvent("Link Button Clicked", {label, href})}
     >
       <button className={`${ButtonStyle}`}>
-        <Text as="span" size="caption" weight="medium" className="text">
+        <Text
+          as="span"
+          size="caption"
+          weight="medium"
+          className="text-fg-default"
+        >
           {label}
         </Text>
         <ArrowUpRight
           size={16}
           strokeWidth={1}
-          className="transition-colors ease-in-out duration-150 stroke-neutral-700 group-hover:stroke-neutral-1100"
+          className="transition-colors ease-in-out duration-150 stroke-neutral-800 group-hover:stroke-neutral-1100"
         />
       </button>
     </Link>

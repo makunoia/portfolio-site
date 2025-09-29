@@ -2,7 +2,7 @@
 import {ProjectsByYear} from "@/app/(app)/types";
 import SectionDivider from "../../SectionDivider";
 import ProjectItem from "../ListItem";
-import {m, LazyMotion, domAnimation} from "framer-motion";
+import {m, LazyMotion, domAnimation} from "motion/react";
 import {AnimationVariants} from "@/lib/helpers";
 
 const ProjectsList = ({projects}: {projects: ProjectsByYear}) => {

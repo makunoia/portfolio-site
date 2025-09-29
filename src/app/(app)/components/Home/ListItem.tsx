@@ -1,8 +1,9 @@
 import React from "react";
 import Text from "../Text";
-import { cva } from "class-variance-authority";
-import { ArrowUpRight, Lock } from "lucide-react";
+import {cva} from "class-variance-authority";
+import {ArrowUpRight, Lock} from "lucide-react";
 import Link from "next/link";
+import AccessGateButton from "@/components/AccessGateButton";
 
 const ListItemCVA = cva([
   "w-full relative group",
@@ -11,7 +12,7 @@ const ListItemCVA = cva([
 ]);
 
 const BackgroundCVA = cva([
-  "bg-subtle rounded-16px",
+  "bg-bg-subtle rounded-16px",
   "absolute -z-10 ",
   "-inset-y-[8px] -inset-x-12px",
   "opacity-0 group-hover:opacity-40",
@@ -31,25 +32,36 @@ const ListItem = ({
   date: string;
   url: string;
 } & (
-  | { locked: true; codename: string }
-  | { locked: false; codename?: undefined }
+  | {locked: true; codename: string}
+  | {locked: false; codename?: undefined}
 )) => {
   const ListItemStyle = ListItemCVA();
   const BackgroundStyle = BackgroundCVA();
 
-  return (
-    <Link prefetch href={url} className={ListItemStyle}>
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      event.currentTarget.click();
+    }
+  };
+
+  const content = (
+    <>
       <div className="flex flex-row items-center gap-4px">
         <Text
-          className="text text-nowrap overflow-hidden text-ellipsis max-w-[200px]"
+          className="text-fg-default text-nowrap overflow-hidden text-ellipsis max-w-[200px]"
           weight="medium"
           size="body"
         >
           {locked ? codename : title}
         </Text>
-        {locked && <Lock size={14} className="text" />}
+        {locked && <Lock size={14} className="text-fg-default" />}
         {tag && (
-          <Text className="text-subtle text-nowrap" size="body" weight="normal">
+          <Text
+            className="text-fg-subtle text-nowrap"
+            size="body"
+            weight="normal"
+          >
             {tag}
           </Text>
         )}
@@ -61,13 +73,40 @@ const ListItem = ({
       </div>
       <hr />
       <Text
-        className="hidden sm:inline-block text-subtle text-nowrap"
+        className="hidden sm:inline-block text-fg-subtle text-nowrap"
         size="body"
         weight="normal"
       >
         {date}
       </Text>
       <div className={BackgroundStyle} />
+    </>
+  );
+
+  if (locked) {
+    return (
+      <AccessGateButton
+        title={codename || title}
+        description="Enter the shared password to view this project."
+        redirectPath={url}
+        trigger={
+          <div
+            className={ListItemStyle}
+            role="button"
+            tabIndex={0}
+            aria-label={`Unlock ${title}`}
+            onKeyDown={handleKeyDown}
+          >
+            {content}
+          </div>
+        }
+      />
+    );
+  }
+
+  return (
+    <Link prefetch href={url} className={ListItemStyle}>
+      {content}
     </Link>
   );
 };

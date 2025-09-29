@@ -1,7 +1,35 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
+import {cva} from "class-variance-authority";
+
+const tracklineVariants = cva(
+  [
+    "absolute bottom-[calc(100%-8px)] left-0",
+    "w-[12px] rounded-bl-[8px] border border-r-0 border-t-0",
+    "border-[color:var(--trackline)]",
+    "pointer-events-none",
+    "transition-[border-color] duration-300 ease-in-out",
+    "mix-blend-normal dark:mix-blend-lighten",
+    "z-[1]",
+  ].join(" "),
+  {
+    variants: {
+      hovered: {
+        true: "border-[color:var(--trackline-hover)] z-[2]",
+        false: "",
+      },
+      active: {
+        true: "border-[color:var(--trackline-active)] z-[3]",
+        false: "",
+      },
+    },
+    defaultVariants: {
+      hovered: false,
+      active: false,
+    },
+  }
+);
 
 const ScrollSpyTrackline = ({
   hoveredItemIndex,
@@ -17,8 +45,6 @@ const ScrollSpyTrackline = ({
   childID: string;
 }) => {
   const [tracklineHeight, setTracklineHeight] = useState(0);
-  const [hoverStyle, setHoverStyle] = useState<string>("");
-  const [activeStyle, setActiveStyle] = useState<string>("");
 
   const getTracklineHeight = (parentID: string, childID: string) => {
     const parent = document.getElementById(parentID);
@@ -35,38 +61,17 @@ const ScrollSpyTrackline = ({
     } else return 0;
   };
 
-  const getPathHoverStyle = (i: number) => {
-    if (hoveredItemIndex !== undefined) {
-      return cn(hoveredItemIndex == i && "hovered");
-    } else return "";
-  };
-
-  const getPathActiveStyle = (i: number) => {
-    if (activeItemIndex !== undefined) {
-      return cn(activeItemIndex == i && "active");
-    } else return "";
-  };
-
   useEffect(() => {
     const height = getTracklineHeight(parentID, childID);
     setTracklineHeight(height);
   }, []);
 
-  useEffect(() => {
-    const hoverStyle = getPathHoverStyle(index);
-    const activeStyle = getPathActiveStyle(index);
-
-    setHoverStyle(hoverStyle);
-    setActiveStyle(activeStyle);
-  }, [index]);
-
   return (
     <div
-      className={cn(
-        "trackline",
-        `${getPathHoverStyle(index)}`,
-        `${getPathActiveStyle(index)}`
-      )}
+      className={tracklineVariants({
+        hovered: hoveredItemIndex === index,
+        active: activeItemIndex === index,
+      })}
       style={{
         height: tracklineHeight,
       }}

@@ -1,20 +1,20 @@
 "use client";
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, {ReactNode, useEffect, useRef, useState} from "react";
 import {
   motion,
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
-} from "framer-motion";
+} from "motion/react";
 import Text from "@/components/Text";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { XIcon } from "lucide-react";
-import { JournalEntry, JournalEntryTag } from "payload-types";
-import { formatDate, handleMouseEvents } from "@/lib/helpers";
+import {usePathname} from "next/navigation";
+import {XIcon} from "lucide-react";
+import {JournalEntry, JournalEntryTag} from "payload-types";
+import {formatDate, handleMouseEvents} from "@/lib/helpers";
 
 import ContentContainer from "./ContentContainer";
-import { track } from "@vercel/analytics";
+import {trackEvent} from "../../lib/mixpanel-browser";
 
 const JournalPage = ({
   content,
@@ -26,7 +26,7 @@ const JournalPage = ({
   const page = useRef<HTMLDivElement>(null);
 
   const currPath = usePathname();
-  const { scrollY } = useScroll({ container: page });
+  const {scrollY} = useScroll({container: page});
   const [isPageOpen, setIsPageOpen] = useState(false);
   const [isContentOpen, setIsContentOpen] = useState(false);
   const [showScrollHeader, setShowScrollHeader] = useState(false);
@@ -68,7 +68,7 @@ const JournalPage = ({
   };
 
   const OpenPageOrchestration = async () => {
-    track("Viewed", { page: `${data.title}` });
+    trackEvent("Journal Page Viewed", {page: `${data.title}`});
     setIsPageOpen(true);
     await delay(500);
     setIsContentOpen(true);
@@ -81,9 +81,9 @@ const JournalPage = ({
       id={`journal-page-${data.slug}`}
       className={`${
         isPageOpen
-          ? "fixed top-0px sm:top-40px z-50 bg border shadow overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[15%] md:mx-[10%]"
+          ? "fixed top-0px sm:top-40px z-50 bg-bg-default border shadow overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[15%] md:mx-[10%]"
           : "relative h-fit"
-      } group sm:min-w-[500px] w-full sm:w-fit max-h-[80%] rounded-none sm:rounded-12px text flex flex-col transition-colors duration-600 ease-in-out pointer-events-auto`}
+      } group sm:min-w-[500px] w-full sm:w-fit max-h-[80%] rounded-none sm:rounded-12px text-fg-default flex flex-col transition-colors duration-600 ease-in-out pointer-events-auto`}
     >
       {isPageOpen && showScrollHeader && (
         <ScrollHeader
@@ -113,7 +113,7 @@ const JournalPage = ({
           <motion.div layout="position" className={`flex flex-col gap-4px`}>
             <motion.h2
               layout="position"
-              className={`text ${
+              className={`text-fg-default ${
                 isPageOpen ? "text-lead" : "text-body"
               } transition-all ease-linear`}
             >
@@ -121,7 +121,7 @@ const JournalPage = ({
             </motion.h2>
             <motion.div
               layout="position"
-              className={`text-caption text-subtle`}
+              className={`text-caption text-fg-subtle`}
             >
               {EntryDate}
             </motion.div>
@@ -135,9 +135,9 @@ const JournalPage = ({
               layout="position"
               className={`${
                 isPageOpen ? "invisible md:visible" : "visible"
-              } h-fit flex items-center rounded-10px px-10px py-8px transition-colors duration-500 ease-in-out bg-subtle/40`}
+              } h-fit flex items-center rounded-10px px-10px py-8px transition-colors duration-500 ease-in-out bg-bg-subtle/40`}
             >
-              <Text size="caption" className="text-subtle text-nowrap">
+              <Text size="caption" className="text-fg-subtle text-nowrap">
                 {EntryTag.name as string}
               </Text>
             </motion.div>
@@ -157,15 +157,15 @@ const JournalPage = ({
   );
 };
 
-const CloseButton = ({ onClick }: { onClick: () => {} }) => {
+const CloseButton = ({onClick}: {onClick: () => {}}) => {
   return (
     <motion.div
       onClick={() => onClick()}
       layout="position"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="close-button p-2px flex rounded-4px h-fit bg hover:bg-subtle border shadow-sm cursor-pointer pointer-events-auto"
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
+      className="close-button p-2px flex rounded-4px h-fit bg-bg-default hover:bg-bg-subtle border shadow-sm cursor-pointer pointer-events-auto"
     >
       <XIcon size={20} />
     </motion.div>
@@ -184,10 +184,10 @@ const ScrollHeader = ({
   return (
     <motion.div
       layout="position"
-      initial={{ opacity: 0, top: "0px" }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className={`journal-page-header w-full sticky z-10 -mb-[48px] flex px-24px py-12px bg shadow-2xl`}
+      initial={{opacity: 0, top: "0px"}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
+      className="sticky z-10 -mb-[48px] flex w-full px-24px py-12px bg-bg-default shadow-2xl"
     >
       <motion.div layout className="w-full">
         <motion.div
@@ -196,14 +196,14 @@ const ScrollHeader = ({
         >
           <motion.h2
             layout
-            className={`text-body-large font-medium ease-linear text`}
+            className={`text-body-large font-medium ease-linear text-fg-default`}
           >
             {title}
           </motion.h2>
           <Link href="/journal" onClick={() => onCloseHandler()}>
             <motion.div
               layout
-              className="cursor-pointer hover:bg-subtle flex flex-row items-center gap-4px text-caption pl-4px border p-4px rounded-4px bg shadow-sm"
+              className="cursor-pointer hover:bg-bg-subtle flex flex-row items-center gap-4px text-caption pl-4px border p-4px rounded-4px bg-bg-default shadow-sm"
             >
               Close
               <XIcon size={12} />

@@ -17,7 +17,7 @@ import {
   AnimationVariants,
 } from "@/lib/helpers";
 
-import {m, LazyMotion, domAnimation} from "framer-motion";
+import {m, LazyMotion, domAnimation} from "motion/react";
 
 const ListContainer = ({
   link,
@@ -94,7 +94,7 @@ const ListContainer = ({
             </m.div>
           </m.div>
         ) : (
-          <div className="text">No records found.</div>
+          <div className="text-fg-default">No records found.</div>
         )}
       </LazyMotion>
     </>

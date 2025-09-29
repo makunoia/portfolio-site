@@ -7,11 +7,11 @@ const Overline = ({ label, value }: { label: string; value: string }) => {
         as="span"
         size="caption"
         weight="medium"
-        className="text-subtle text-nowrap"
+        className="text-fg-subtle text-nowrap"
       >
         {label}
       </Text>
-      <Text as="span" size="body" className="text text-nowrap">
+      <Text as="span" size="body" className="text-fg-default text-nowrap">
         {value}
       </Text>
     </div>

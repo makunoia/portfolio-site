@@ -1,13 +1,13 @@
 import Text from "@/components/Text";
 import Image from "next/image";
-import React, { Suspense } from "react";
+import React, {Suspense} from "react";
 import AboutMeHero from "@/components/HeroSections/AboutMe";
 import Sections from "@/components/AboutMe/Sections";
 import LinksRowSkeleton from "@/components/Skeletons/LinksRow";
 
-import { Asset } from "payload-types";
+import {Asset} from "payload-types";
 import LinksRow from "@/components/LinksRow";
-import { getPageData } from "@/lib/payload-actions";
+import {getPageData} from "@/lib/payload-actions";
 
 const Page = async () => {
   const data = await getPageData("About Me");
@@ -29,13 +29,13 @@ const Page = async () => {
           style={{
             objectFit: "cover",
           }}
-          className="h-full rounded-12px bg/70"
+          className="h-full rounded-12px bg-bg-default/70"
         />
         <Image
           priority
           src={profilePhotoSrc.url as string}
           alt={profilePhotoSrc.alt as string}
-          className="absolute -left-8px -bottom-24px rounded-full border-inverse border-[4px] bg"
+          className="absolute -left-8px -bottom-24px rounded-full border-white border-[4px] bg-bg-default"
           sizes="(max-width: 1200px) 100px, 150px"
           style={{
             objectFit: "fill",
@@ -56,9 +56,9 @@ const Page = async () => {
             size="body"
             weight="normal"
             multiline
-            className="text-subtle"
+            className="text-fg-subtle"
           >
-            Nice to meet me
+            Thanks for stopping by! 🤗
           </Text>
         </div>
 

@@ -1,6 +1,6 @@
-import React, { ReactElement } from "react";
-import { cva } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import React, {ReactElement} from "react";
+import {cva} from "class-variance-authority";
+import {cn} from "@/lib/utils";
 
 type TextType = {
   children: string | ReactElement;
@@ -19,7 +19,7 @@ type TextType = {
   className?: string;
 };
 
-const TextStyles = cva("text", {
+const TextStyles = cva("text-fg-default", {
   variants: {
     size: {
       caption: "text-caption tracking-wide",
@@ -45,10 +45,10 @@ const TextStyles = cva("text", {
     },
   },
   compoundVariants: [
-    { multiline: true, size: "caption", class: "leading-4" },
-    { multiline: true, size: "body", class: "leading-5" },
-    { multiline: true, size: "body-large", class: "leading-6" },
-    { multiline: true, size: "lead", class: "leading-8" },
+    {multiline: true, size: "caption", class: "leading-4"},
+    {multiline: true, size: "body", class: "leading-5"},
+    {multiline: true, size: "body-large", class: "leading-6"},
+    {multiline: true, size: "lead", class: "leading-8"},
   ],
 });
 
@@ -61,7 +61,7 @@ const Text = ({
   weight = "normal",
   multiline,
 }: TextType) => {
-  const styles = cn(TextStyles({ size, weight, multiline, type }), className);
+  const styles = cn(TextStyles({size, weight, multiline, type}), className);
 
   return <Component className={styles}>{children}</Component>;
 };

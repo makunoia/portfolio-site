@@ -31,7 +31,7 @@ export default async function NotFound() {
         <BackButton />
         <div className="flex flex-col gap-4px">
           <Text size="heading">You might be lost</Text>
-          <Text size="body" className="text-subtle" multiline>
+          <Text size="body" className="text-fg-subtle" multiline>
             What you're looking for does not exist
           </Text>
         </div>

@@ -69,13 +69,13 @@ export interface Config {
   collections: {
     users: User;
     projects: Project;
+    'gallery-items': GalleryItem;
     pages: Page;
     'project-tags': ProjectTag;
     'my-roles': MyRole;
     'journal-entries': JournalEntry;
     'journal-entry-tags': JournalEntryTag;
     assets: Asset;
-    globals: Global;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -84,13 +84,13 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    'gallery-items': GalleryItemsSelect<false> | GalleryItemsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'project-tags': ProjectTagsSelect<false> | ProjectTagsSelect<true>;
     'my-roles': MyRolesSelect<false> | MyRolesSelect<true>;
     'journal-entries': JournalEntriesSelect<false> | JournalEntriesSelect<true>;
     'journal-entry-tags': JournalEntryTagsSelect<false> | JournalEntryTagsSelect<true>;
     assets: AssetsSelect<false> | AssetsSelect<true>;
-    globals: GlobalsSelect<false> | GlobalsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -98,8 +98,14 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'access-passwords': AccessPassword;
+    resume: Resume;
+  };
+  globalsSelect: {
+    'access-passwords': AccessPasswordsSelect<false> | AccessPasswordsSelect<true>;
+    resume: ResumeSelect<false> | ResumeSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -287,11 +293,37 @@ export interface Asset {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-items".
+ */
+export interface GalleryItem {
+  id: string;
+  title: string;
+  category: 'photo' | 'video';
+  description?: string | null;
+  /**
+   * Optional: Guides how this asset should occupy the grid layout.
+   */
+  renderHint?: ('auto' | 'square' | 'landscape' | 'portrait_4_5' | 'portrait_9_16') | null;
+  dateTaken?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
   id: string;
-  name: 'Home' | 'Projects' | 'Journal' | 'About Me';
+  name: 'Home' | 'Projects' | 'Gallery' | 'Journal' | 'About Me';
   intro?: {
     root: {
       type: string;
@@ -405,19 +437,6 @@ export interface JournalEntryTag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "globals".
- */
-export interface Global {
-  id: string;
-  name: 'resume' | 'lockedProjectPassword';
-  type: 'Text' | 'File';
-  value?: string | null;
-  document?: (string | null) | Asset;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -430,6 +449,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: string | Project;
+      } | null)
+    | ({
+        relationTo: 'gallery-items';
+        value: string | GalleryItem;
       } | null)
     | ({
         relationTo: 'pages';
@@ -454,10 +477,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'assets';
         value: string | Asset;
-      } | null)
-    | ({
-        relationTo: 'globals';
-        value: string | Global;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -600,6 +619,28 @@ export interface ShowcaseSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-items_select".
+ */
+export interface GalleryItemsSelect<T extends boolean = true> {
+  title?: T;
+  category?: T;
+  description?: T;
+  renderHint?: T;
+  dateTaken?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
@@ -726,18 +767,6 @@ export interface AssetsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "globals_select".
- */
-export interface GlobalsSelect<T extends boolean = true> {
-  name?: T;
-  type?: T;
-  value?: T;
-  document?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
@@ -767,6 +796,51 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "access-passwords".
+ */
+export interface AccessPassword {
+  id: string;
+  lockedProjectPassword: string;
+  lockedArchivesPassword: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resume".
+ */
+export interface Resume {
+  id: string;
+  /**
+   * Upload a your latest resume
+   */
+  resume?: (string | null) | Asset;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "access-passwords_select".
+ */
+export interface AccessPasswordsSelect<T extends boolean = true> {
+  lockedProjectPassword?: T;
+  lockedArchivesPassword?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resume_select".
+ */
+export interface ResumeSelect<T extends boolean = true> {
+  resume?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

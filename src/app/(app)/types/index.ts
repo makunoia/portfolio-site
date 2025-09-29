@@ -1,6 +1,7 @@
 import {
   BooleanItem,
   EntrySection,
+  GalleryItem,
   InfoItem,
   JournalEntry,
   MediaItem,
@@ -15,10 +16,7 @@ type ProjectListItem = {
   desc: string;
   tag: string;
   slug: string;
-} & (
-  | { locked: true; codename: string }
-  | { locked: false; codename?: undefined }
-);
+} & ({locked: true; codename: string} | {locked: false; codename?: undefined});
 
 export type FeaturedProject = {
   id: string;
@@ -48,8 +46,8 @@ export type LockedProject = {
 };
 
 export type ContentType = Project["sections"];
-export type ProjectsByYear = { year: string; projects: ProjectListItem[] }[];
-export type JournalEntriesByYear = { year: string; entries: JournalEntry[] }[];
+export type ProjectsByYear = {year: string; projects: ProjectListItem[]}[];
+export type JournalEntriesByYear = {year: string; entries: JournalEntry[]}[];
 
 // Lexical Root.Children
 export type LexicalBlock = (
@@ -72,7 +70,7 @@ export type LexicalBlock = (
         type: "text" | "linebreak";
       }[];
     }
-  | { type: "horizontalrule" }
+  | {type: "horizontalrule"}
 )[];
 
 export type AboutMeSection = {
@@ -88,4 +86,54 @@ export const LexicalStyleMap = {
   9: "bold and underlined",
   10: "italic",
   11: "italic and bold",
+};
+
+// Chat Assistant Types
+export type UsefulLink = {
+  resource_name: string;
+  resource_link: string;
+};
+
+export type StructuredChatResponse = {
+  text: string;
+  usefulLinks?: UsefulLink[];
+};
+
+export type ChatMessage = {
+  id: string;
+  text: string;
+  role: "user" | "assistant";
+  stopped?: boolean;
+  structuredData?: StructuredChatResponse;
+};
+
+export type MixpanelEventPayload = Record<string, unknown>;
+
+export type GalleryPoster = {
+  url: string;
+  alt?: string | null;
+  width?: number | null;
+  height?: number | null;
+};
+
+export type GalleryEntry = {
+  id: string;
+  title: string;
+  category: GalleryItem["category"];
+  description?: string | null;
+  renderHint?:
+    | "auto"
+    | "square"
+    | "landscape"
+    | "portrait_4_5"
+    | "portrait_9_16"
+    | null;
+  url: string;
+  mimeType: string;
+  width?: number | null;
+  height?: number | null;
+  poster?: GalleryPoster | null;
+  createdAt: string;
+  sortOrder?: number | null;
+  publishedAt?: string | null;
 };

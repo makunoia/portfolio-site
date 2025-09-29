@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
-import { Asset } from "payload-types";
-import { UnfoldHorizontal } from "lucide-react";
+import React, {useState} from "react";
+import {Asset} from "payload-types";
+import {UnfoldHorizontal} from "lucide-react";
 
 const ImageRevealer = ({
   beforeImage,
@@ -20,7 +20,7 @@ const ImageRevealer = ({
   };
 
   return (
-    <div className="bg relative overflow-hidden w-fullh-auto aspect-[5/3] md:h-[400px] rounded-8px pointer-events-auto">
+    <div className="relative aspect-[5/3] h-auto w-full overflow-hidden rounded-8px bg-bg-default pointer-events-auto md:h-[400px]">
       <Image
         priority
         className="showcase-before-photo absolute"
@@ -57,12 +57,45 @@ const ImageRevealer = ({
         max="100"
         value={position}
         onChange={handleRangeChange}
-        className="image-revealer"
+        className="image-revealer absolute inset-0 z-10 h-full w-full cursor-pointer appearance-none bg-transparent"
       />
-      <div className="img-revealer-line" style={{ left: `${position}%` }} />
-      <div className="img-revealer-handle" style={{ left: `${position}%` }}>
-        <UnfoldHorizontal className="text" />
+      <div
+        className="pointer-events-none absolute h-full w-[4px] -translate-x-1/2 bg-bg-default"
+        style={{left: `${position}%`, boxShadow: "var(--shadow-default)"}}
+      />
+      <div
+        className="absolute top-1/2 flex -translate-y-1/2 -translate-x-1/2 items-center justify-center rounded-full bg-bg-default p-2"
+        style={{left: `${position}%`}}
+      >
+        <UnfoldHorizontal className="text-fg-default" />
       </div>
+      <style jsx>{`
+        input[type="range"].image-revealer::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          height: 60px;
+          width: 60px;
+          border-radius: 9999px;
+          background: transparent;
+          cursor: ew-resize;
+          opacity: 0;
+        }
+        input[type="range"].image-revealer::-moz-range-thumb {
+          height: 60px;
+          width: 60px;
+          border-radius: 9999px;
+          background: transparent;
+          cursor: ew-resize;
+          opacity: 0;
+        }
+        input[type="range"].image-revealer::-ms-thumb {
+          height: 60px;
+          width: 60px;
+          border-radius: 9999px;
+          background: transparent;
+          cursor: ew-resize;
+          opacity: 0;
+        }
+      `}</style>
     </div>
   );
 };

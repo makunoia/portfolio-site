@@ -1,120 +1,12 @@
-import type { Config } from "tailwindcss";
+import type {Config} from "tailwindcss";
+import animate from "tailwindcss-animate";
 
-const config: Config = {
+export default {
   darkMode: "selector",
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
-    fontFamily: {
-      sans: [
-        "var(--font-neue-montreal)",
-        "-apply-system",
-        "Helvetica",
-        "Arial",
-      ],
-      mono: ["var(--font-neue-montreal-mono)", "Roboto Mono"],
-    },
-    opacity: {
-      "0": "var(--opacity-0)",
-      "10": "var(--opacity-10)",
-      "20": "var(--opacity-20)",
-      "30": "var(--opacity-30)",
-      "40": "var(--opacity-40)",
-      "50": "var(--opacity-50)",
-      "60": "var(--opacity-60)",
-      "70": "var(--opacity-70)",
-      "80": "var(--opacity-80)",
-      "90": "var(--opacity-90)",
-      "100": "var(--opacity-100)",
-    },
-    colors: {
-      neutral: {
-        100: "hsl(var(--primitive-100) / <alpha-value>)",
-        200: "hsl(var(--primitive-200) / <alpha-value>)",
-        300: "hsl(var(--primitive-300) / <alpha-value>)",
-        400: "hsl(var(--primitive-400) / <alpha-value>)",
-        500: "hsl(var(--primitive-500) / <alpha-value>)",
-        600: "hsl(var(--primitive-600) / <alpha-value>)",
-        700: "hsl(var(--primitive-700) / <alpha-value>)",
-        800: "hsl(var(--primitive-800) / <alpha-value>)",
-        900: "hsl(var(--primitive-900) / <alpha-value>)",
-        1000: "hsl(var(--primitive-1000) / <alpha-value>)",
-        1100: "hsl(var(--primitive-1100) / <alpha-value>)",
-        1200: "hsl(var(--primitive-1200) / <alpha-value>)",
-      },
-    },
-    backgroundColor: {
-      DEFAULT: "hsl(var(--bg-default) / <alpha-value>)",
-      subtle: "hsl(var(--bg-subtle) / <alpha-value>)",
-      inverse: "hsl(var(--bg-inverse) / <alpha-value>)",
-
-      success: "hsl(var(--utility-success) / <alpha-value>)",
-      info: "hsl(var(--utility-info) / <alpha-value>)",
-      danger: "hsl(var(--utility-danger) / <alpha-value>)",
-    },
-    textColor: {
-      DEFAULT: "hsl(var(--fg-default) / <alpha-value>)",
-      subtle: "hsl(var(--fg-subtle) / <alpha-value>)",
-      inverse: "hsl(var(--fg-inverse) / <alpha-value>)",
-
-      success: "hsl(var(--utility-success) / <alpha-value>)",
-      info: "hsl(var(--utility-info) / <alpha-value>)",
-      danger: "hsl(var(--utility-danger) / <alpha-value>)",
-    },
-    fill: {
-      DEFAULT: "hsl(var(--fg-default) / <alpha-value>)",
-      subtle: "hsl(var(--fg-subtle) / <alpha-value>)",
-      inverse: "hsl(var(--fg-inverse) / <alpha-value>)",
-    },
-    borderRadius: {
-      none: "0",
-      "2px": "2px",
-      "4px": "4px",
-      "6px": "6px",
-      "8px": "8px",
-      "10px": "10px",
-      "12px": "12px",
-      "14px": "14px",
-      "16px": "16px",
-      "20px": "20px",
-      "24px": "24px",
-      full: "100%",
-    },
-    borderColor: {
-      DEFAULT: "hsl(var(--border-default)/ <alpha-value>)",
-      inverse: "hsl(var(--border-inverse) / <alpha-value>)",
-    },
-    fontSize: {
-      caption: ["0.75rem", "0.875rem"],
-      body: ["0.875rem", "1rem"],
-      "body-large": ["1rem", "1.125rem"],
-      lead: ["1.375rem", "1.5rem"],
-      heading: ["1.75rem", "2.625rem"],
-      display: ["2.875rem", "3.25rem"],
-    },
-    spacing: {
-      "0px": "var(--spacing-0px)",
-      "2px": "var(--spacing-2px)",
-      "4px": "var(--spacing-4px)",
-      "6px": "var(--spacing-6px)",
-      "8px": "var(--spacing-8px)",
-      "10px": "var(--spacing-10px)",
-      "12px": "var(--spacing-12px)",
-      "14px": "var(--spacing-14px)",
-      "16px": "var(--spacing-16px)",
-      "18px": "var(--spacing-18px)",
-      "20px": "var(--spacing-20px)",
-      "24px": "var(--spacing-24px)",
-      "28px": "var(--spacing-28px)",
-      "30px": "var(--spacing-30px)",
-      "40px": "var(--spacing-40px)",
-      "60px": "var(--spacing-60px)",
-      "80px": "var(--spacing-80px)",
-    },
-  },
-  plugins: [require("tailwindcss-animate")],
-};
-export default config;
+  plugins: [animate],
+} satisfies Config;

@@ -6,7 +6,7 @@ export default ({ lead, content }: { lead: string; content: string }) => {
       <Text size="body-large" weight="medium">
         {lead}
       </Text>
-      <Text size="body" className="text-subtle whitespace-pre-line" multiline>
+      <Text size="body" className="text-fg-subtle whitespace-pre-line" multiline>
         {content}
       </Text>
     </div>

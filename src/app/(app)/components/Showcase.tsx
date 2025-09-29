@@ -15,10 +15,10 @@ const Showcase = ({
   const showcaseImage: Asset = image as Asset;
 
   return (
-    <div className="bg-subtle/40 flex flex-col gap-4px rounded-12px p-12px">
+    <div className="bg-bg-subtle/40 flex flex-col gap-4px rounded-12px p-12px">
       <div className="flex flex-col gap-10px">
         {!isRevealer ? (
-          <div className="bg relative overflow-hidden w-full h-auto aspect-[5/3] md:h-[400px] rounded-8px">
+          <div className="bg-bg-default relative overflow-hidden w-full h-auto aspect-[5/3] md:h-[400px] rounded-8px">
             <Image
               src={showcaseImage.url as string}
               alt={showcaseImage.alt || title}
@@ -52,12 +52,12 @@ const Showcase = ({
           </Text>
 
           {tag ? (
-            <div className="inline-flex py-4px px-8px bg rounded-4px">
+            <div className="inline-flex py-4px px-8px bg-bg-default rounded-4px">
               <Text
                 as="span"
                 type="mono"
                 size="caption"
-                className="text opacity-70 uppercase tracking-wide"
+                className="text-fg-default opacity-70 uppercase tracking-wide"
               >
                 {tag as string}
               </Text>
@@ -66,7 +66,7 @@ const Showcase = ({
         </div>
       </div>
       {desc ? (
-        <Text size="caption" className="text-subtle" multiline>
+        <Text size="caption" className="text-fg-subtle" multiline>
           {desc}
         </Text>
       ) : null}

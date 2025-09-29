@@ -1,0 +1,480 @@
+{
+  "name": "Mark Noya",
+  "bio": "Product Designer & Design Systems Lead with 5+ years of experience creating user-friendly, visually appealing web and mobile interfaces across diverse sectors. Skilled in high-fidelity prototyping, usability heuristics, design systems, and bridging design-to-development workflows.",
+  "location": "Metro Manila, Philippines",
+  "birthday": "June 9, 1998",
+  "age": 27,
+  "email": "markbriannoya@gmail.com",
+  "website": "https://www.marknoya.me",
+  "linkedin": "https://ph.linkedin.com/in/mark-noya",
+  "github": "https://github.com/makunoia",
+  "cv_resume": "https://assets.marknoya.me/Mark%20Noya%20-%202025%20CV.pdf",
+  "experience": [
+    {
+      "title": "Product Designer, Design Systems Lead",
+      "company": "Multisys Technologies Corporation",
+      "aliases": ["Multisys", "Multisys Tech"],
+      "duration": "October 2019 – Present",
+      "dates": {"start": "2019-10", "end": null},
+      "location": "Metro Manila, Philippines",
+      "employment_type": "Full-time",
+      "description": "Leading design systems initiatives; designing web platforms, mobile apps, marketing sites. Collaborating with cross-functional teams to optimize user flows, perform UI/UX audits, and ensure consistent experiences. Facilitated design handoff to engineering, and led adoption of tools / processes across projects.",
+      "skills": [
+        "Design Systems",
+        "React",
+        "High-Fidelity Prototyping",
+        "Usability Heuristics",
+        "Motion Design",
+        "Design-to-Development Handoff"
+      ],
+      "tools": ["Figma", "Rive", "Hotjar"]
+    },
+    {
+      "title": "Web Developer & Graphics Designer",
+      "company": "InnoXcell (Hong Kong)",
+      "aliases": ["InnoXcell", "InnoXcell HK"],
+      "duration": "November 2018 – September 2019",
+      "dates": {"start": "2018-11", "end": "2019-09"},
+      "location": "Hong Kong",
+      "employment_type": "Full-time",
+      "description": "Created marketing materials, web graphics, banners, and managed website updates. Worked under tight deadlines, collaborated with event producers, maintained UX and brand consistency across event-related collateral.",
+      "skills": [
+        "Web Design",
+        "Graphics",
+        "HTML/CSS",
+        "Workflow Under Pressure",
+        "Collaboration"
+      ],
+      "tools": ["WordPress", "Adobe Photoshop", "Adobe Illustrator"]
+    },
+    {
+      "title": "Junior Front-End Developer",
+      "company": "Tanda",
+      "aliases": ["Tanda Philippines"],
+      "duration": "July 2018 – September 2018",
+      "dates": {"start": "2018-07", "end": "2018-09"},
+      "location": "Philippines",
+      "employment_type": "Full-time",
+      "description": "Built and maintained marketing-site web pages using front-end technologies. Ensured responsive layouts and collaborated with design / content teams.",
+      "skills": ["Front-End Web", "HTML/CSS", "Responsive Design", "Teamwork"],
+      "tools": ["WordPress", "Adobe Photoshop", "Adobe Illustrator"]
+    },
+    {
+      "title": "Designer & Web Developer Intern",
+      "company": "ReconTech Solutions",
+      "aliases": ["ReconTech", "Recon Tech"],
+      "duration": "December 2017 – March 2018",
+      "dates": {"start": "2017-12", "end": "2018-03"},
+      "location": "Philippines",
+      "employment_type": "Internship",
+      "description": "Interned as designer/developer; worked on WordPress sites, social media graphics, layout design. Learned fundamentals of UI/UX, web layout, content design in live projects.",
+      "skills": ["WordPress", "Graphic Design", "Web Layouts"],
+      "tools": ["WordPress", "Adobe Photoshop", "Adobe Illustrator"]
+    }
+  ],
+  "skills": {
+    "core": [
+      "Design Systems",
+      "UI/UX Design",
+      "Prototyping",
+      "Motion Design",
+      "UX Audits",
+      "Accessibility",
+      "Web Development with React",
+      "AI integration in the design process",
+      "Leadership",
+      "Mentorship",
+      "Team Management",
+      "Project Management",
+      "Time Management",
+      "Discipline",
+      "Academic Excellence",
+      "English Proficiency",
+      "Essay Writing"
+    ],
+    "tools": [
+      "Figma",
+      "Rive",
+      "React",
+      "Adobe XD",
+      "HTML5",
+      "CSS3",
+      "JavaScript"
+    ],
+    "methodologies": [
+      "Usability Heuristics",
+      "Design-to-Dev Handoff",
+      "Responsive Design",
+      "High-Fidelity Prototyping",
+      "Collaborative Workshops"
+    ]
+  },
+  "achievements": {
+    "academic": [
+      {
+        "title": "Graduated Cum Laude",
+        "institution": "STI College Ortigas-Cainta",
+        "year": 2018,
+        "description": "Finished Bachelor of Science in Information Technology with honors (Cum Laude)",
+        "skillsDeveloped": ["Discipline", "Time Management", "Academic Rigor"]
+      },
+      {
+        "title": "Dean's List",
+        "institution": "STI College Ortigas-Cainta",
+        "year": 2018,
+        "description": "Consistently received Dean's List awards for academic excellence",
+        "skillsDeveloped": [
+          "Academic Excellence",
+          "Time Management",
+          "Discipline"
+        ]
+      },
+      {
+        "title": "President of Brilliant Youth for Technological Excellence Society (BYTES)",
+        "institution": "STI College Ortigas-Cainta",
+        "year": 2018,
+        "description": "Led a team of 10+ students in organizing tech events and workshops, mentored senior high school students in programming and design",
+        "skillsDeveloped": ["Leadership", "Team Management", "Mentorship"]
+      },
+      {
+        "title": "Essay Writing Champion",
+        "institution": "STI College Ortigas-Cainta",
+        "year": 2018,
+        "description": "Recognized competitor and champion for essay writing competitions from junior to senior year college",
+        "skillsDeveloped": ["Essay Writing", "English Proficiency"]
+      },
+      {
+        "title": "Leadership Award, Student Council President",
+        "institution": "The Academy of Christian Excellence Montessori",
+        "year": 2018,
+        "description": "Recognized for leadership and academic excellence as Student Council President",
+        "skillsDeveloped": ["Leadership", "Academic Excellence"]
+      }
+    ],
+    "career": [
+      {
+        "title": "Design Systems Leadership at Multisys",
+        "company": "Multisys Technologies Corporation",
+        "yearRange": "2022-2025",
+        "description": "Led design system efforts across multiple product teams, improved consistency and reduced UI bugs and rework in production",
+        "impact": {"reducedUIErrors": "-30%", "teamAdoptionCount": 8},
+        "skillsDeveloped": [
+          "Design Systems Architecture",
+          "Cross-Team Collaboration",
+          "Mentorship"
+        ]
+      },
+      {
+        "title": "Launch of AppendPay",
+        "company": "Multisys Technologies Corporation",
+        "year": 2024,
+        "description": "Designed and released the an eFinance platform",
+        "impact": {
+          "userSatisfactionIncrease": "20%",
+          "timeToTicketPurchaseReduction": "50%"
+        },
+        "skillsDeveloped": ["UX Flows", "Mobile Payments", "User Research"]
+      }
+    ],
+    "personalGrowth": [
+      {
+        "title": "French Language B1 Level",
+        "year": 2023,
+        "description": "Learned French language to meet immigration requirements",
+        "skillsDeveloped": [
+          "French Language",
+          "Self Learning",
+          "Discipline",
+          "Dedication"
+        ]
+      }
+    ]
+  },
+  "education": [
+    {
+      "degree": "Bachelor of Science in Information Technology, Cum Laude",
+      "institution": "STI College Ortigas-Cainta",
+      "year": "2018"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Foundations of User Experience Design",
+      "organization": "Google Certificate Program",
+      "year": "2023"
+    },
+    {
+      "name": "The UX Design Process",
+      "organization": "Google Certificate Program",
+      "year": "2023"
+    },
+    {
+      "name": "User Experience Design Masterclass",
+      "organization": "Filament",
+      "year": "2021"
+    }
+  ],
+  "projects": [
+    {
+      "type": "Project",
+      "source": "Projects",
+      "id": "multiverse-ui",
+      "title": "Multiverse UI",
+      "summary": "Internal design system for Multisys; Figma library, tokens/variables, dark mode, and Storybook docs used across many products.",
+      "detailedText": "Proposed and led an org-wide design system: workshops, UI inventory, Figma migration/training, variables-based theming, and a Storybook site to bridge design→code. Adoption tracked with Figma Analytics; kit used in 20+ projects.",
+      "role": ["Lead Designer", "Design Engineer"],
+      "impact": {
+        "adoptionProjects": "20+",
+        "improvedDesignDevParity": true
+      },
+      "domain": "design-system",
+      "tags": [
+        "design-system",
+        "figma-variables",
+        "storybook",
+        "documentation"
+      ],
+      "dates": {"start": "2025-01", "end": null},
+      "features": "Figma library • Tokens/variables • Dark mode • Storybook docs • Dev contribution workflow",
+      "stack": ["Figma", "Storybook", "GitHub"],
+      "links": {
+        "caseStudy": "/projects/multiverse-ui",
+        "live": null
+      },
+      "media": {"cover": null},
+      "status": "ongoing",
+      "privacy": "public",
+      "client": "Multisys (Internal)",
+      "collaborators": [],
+      "lastUpdated": "2025-09-12"
+    },
+    {
+      "type": "Project",
+      "source": "Projects",
+      "id": "transpopay",
+      "title": "TranspoPay",
+      "summary": "eTicketing suite: Admin portal, consumer app (GCash Mini Program), and conductor app.",
+      "detailedText": "Designed an entry into PH public transport: admin routes/fare matrix & analytics, consumer ticket purchase inside GCash via Mini Program, and a conductor scanning app. Delivered and later used for reskins.",
+      "role": ["Product Designer"],
+      "impact": {
+        "distribution": "GCash integration",
+        "handoffCompleted": true
+      },
+      "domain": "eTicketing",
+      "tags": ["eticketing", "admin-portal", "miniprogram", "transport"],
+      "dates": {"start": "2024-01", "end": "2024-12"},
+      "features": "Routes & fares • Ticket purchase • Favorites • QR validation (conductor)",
+      "stack": ["Figma"],
+      "links": {
+        "caseStudy": "/projects/transpopay",
+        "live": null
+      },
+      "media": {"cover": null},
+      "status": "done",
+      "privacy": "public",
+      "client": "Multisys (with GCash integration)",
+      "collaborators": [],
+      "lastUpdated": "2025-09-12"
+    },
+    {
+      "type": "Project",
+      "source": "Projects",
+      "id": "appendpay",
+      "title": "AppendPay",
+      "summary": "Mobile payment and microfinance app redesign for APPEND Inc.; refreshed brand and UI; mobile, admin, and partner portals.",
+      "detailedText": "Led the 3rd-iteration redesign: accessibility (larger targets, contrast), simplified aesthetic, new AP wallet branding, and prototypes for loans, receive money, load, payments, history; plus admin and partner portals. Initial release shipped Aug 2024; more features planned.",
+      "role": ["Product Designer"],
+      "impact": {
+        "initialRelease": "2024-08",
+        "accessibilityImprovements": true
+      },
+      "domain": "eFinance",
+      "tags": [
+        "fintech",
+        "microfinance",
+        "admin-portal",
+        "partner-portal",
+        "branding"
+      ],
+      "dates": {"start": "2024-04", "end": null},
+      "features": "Loans • Receive/QR • Prepaid load • Payment channels • Transaction history • Admin KYC • Partner onboarding",
+      "stack": ["Figma"],
+      "links": {
+        "caseStudy": "/projects/appendpay",
+        "live": null
+      },
+      "media": {"cover": null},
+      "status": "ongoing",
+      "privacy": "public",
+      "client": "APPEND Inc. (with Multisys)",
+      "collaborators": [],
+      "lastUpdated": "2025-02-05"
+    },
+    {
+      "type": "Project",
+      "source": "Projects",
+      "id": "eventful-ph",
+      "title": "Eventful Philippines",
+      "summary": "Google UX capstone evolved into startup attempt: vendor marketplace + planning tools; later sunset.",
+      "detailedText": "User research (DIY planners & pro coordinators), personas/journeys, competitive audit, value props; prototyped Wedly → Eventful marketplace, vendor pages, booking requests, events dashboard, vendor portal; built side tools (wedding reception seating, retreat check-in).",
+      "role": ["Designer", "Developer"],
+      "impact": {
+        "validatedNeed": true,
+        "spinoutSideApps": ["Reception App", "Retreat Check-in"]
+      },
+      "domain": "marketplace",
+      "tags": ["events", "marketplace", "research", "prototyping"],
+      "dates": {"start": "2023-01", "end": "2023-12"},
+      "features": "Vendor search • Booking requests • Event tracking • Vendor onboarding",
+      "stack": ["Figma"],
+      "links": {
+        "caseStudy": "/projects/eventful-ph",
+        "live": null
+      },
+      "media": {"cover": null},
+      "status": "sunset",
+      "privacy": "public",
+      "client": "Self-initiated",
+      "collaborators": [],
+      "lastUpdated": "2025-09-12"
+    },
+    {
+      "type": "Project",
+      "source": "Projects",
+      "id": "project-red",
+      "title": "Project Red",
+      "summary": "Design overhaul for a high-traffic e-government site (details locked).",
+      "detailedText": "Private case study; page requires authorization. Public listing mentions an overhaul for a site with millions of users in the eGovernment domain.",
+      "role": ["Product Designer"],
+      "impact": {},
+      "domain": "eGovernment",
+      "tags": ["redesign", "high-traffic"],
+      "dates": {"start": "2023-01", "end": "2023-12"},
+      "features": "",
+      "stack": [],
+      "links": {
+        "caseStudy": "/projects/project-red",
+        "live": null
+      },
+      "media": {"cover": null},
+      "status": "done",
+      "privacy": "private",
+      "client": "Undisclosed",
+      "collaborators": [],
+      "lastUpdated": "2025-09-12"
+    },
+    {
+      "type": "Project",
+      "source": "Projects",
+      "id": "new-world-carpets",
+      "title": "New World Carpets",
+      "summary": "Shopify Hydrogen e-commerce build: brand + site for a Canadian carpet dropshipper.",
+      "detailedText": "Named and branded the business, designed logo and palette, then built/deployed a Hydrogen storefront (homepage, catalog, PDP, order tracking).",
+      "role": ["Designer", "Developer"],
+      "impact": {
+        "handoffSupportDuration": "2 years"
+      },
+      "domain": "eCommerce",
+      "tags": ["shopify-hydrogen", "branding", "react", "vercel"],
+      "dates": {"start": "2022-01", "end": "2022-12"},
+      "features": "Catalog • PDP • Order tracking",
+      "stack": ["Figma", "React", "Shopify Hydrogen", "Vercel"],
+      "links": {
+        "caseStudy": "/projects/new-world-carpets",
+        "live": null
+      },
+      "media": {"cover": null},
+      "status": "done",
+      "privacy": "public",
+      "client": "Private client (Canada)",
+      "collaborators": [],
+      "lastUpdated": "2025-09-12"
+    },
+    {
+      "type": "Project",
+      "source": "Projects",
+      "id": "multistore",
+      "title": "Multistore",
+      "summary": "Self-serve store builder for SMEs; hackathon → agile iterations; launched Q4’21, sunset 2023.",
+      "detailedText": "Led UX from conception with CEO/devs, delivered merchant portal (onboarding, products, orders, website builder, POS) and themes. Ran surveys/audits; launch saw big signups, but retention issues led to pivot and eventual sunset.",
+      "role": ["Product Designer"],
+      "impact": {
+        "initialLaunch": "Q4 2021",
+        "retentionIssuesAddressed": "surveys & audits run"
+      },
+      "domain": "eCommerce",
+      "tags": ["saas", "store-builder", "merchant-portal", "pos"],
+      "dates": {"start": "2021-10", "end": "2023-01"},
+      "features": "Onboarding • Products • Orders • Website builder • POS • Themes",
+      "stack": ["Figma"],
+      "links": {
+        "caseStudy": "/projects/multistore",
+        "live": null
+      },
+      "media": {"cover": null},
+      "status": "sunset",
+      "privacy": "public",
+      "client": "Multisys",
+      "collaborators": [],
+      "lastUpdated": "2025-09-12"
+    },
+    {
+      "type": "Project",
+      "source": "Projects",
+      "id": "dingdong",
+      "title": "Dingdong",
+      "summary": "Marketplace ecosystem for PH SMEs: merchant portal, admin, and multi-platform consumer marketplace.",
+      "detailedText": "Designed merchant tools (orders, ops), admin portal (ops/merchant onboarding), and mobile/web marketplace with ordering and tracking. Engagement data not disclosed post-engagement; later informed Multistore efforts.",
+      "role": ["Product Designer"],
+      "impact": {
+        "focusGroupRun": true,
+        "clientCollaboration": "Figma feedback loops"
+      },
+      "domain": "eCommerce",
+      "tags": ["marketplace", "merchant-portal", "admin-portal"],
+      "dates": {"start": "2021-01", "end": "2021-12"},
+      "features": "Merchant ops • Admin ops • Consumer marketplace",
+      "stack": ["Figma"],
+      "links": {
+        "caseStudy": "/projects/dingdong",
+        "live": null
+      },
+      "media": {"cover": null},
+      "status": "done",
+      "privacy": "public",
+      "client": "Dingdong",
+      "collaborators": [],
+      "lastUpdated": "2025-09-12"
+    }
+  ],
+  "languages": [
+    {
+      "language": "Tagalog",
+      "proficiency": "Native"
+    },
+    {
+      "language": "English",
+      "proficiency": "Professional / Fluent"
+    },
+    {
+      "language": "French",
+      "proficiency": "Early Intermediate"
+    }
+  ],
+  "availability": {
+    "status": "Open to opportunities",
+    "remote_work": true,
+    "relocation": false,
+    "preferred_locations": ["Metro Manila", "Remote"]
+  },
+  "faq": [
+    {
+      "question": "What's your availability for new projects?",
+      "answer": "I'm currently open to opportunities and available for both full-time roles and freelance projects. Feel free to reach out!"
+    },
+    {
+      "question": "What's your preferred tech stack?",
+      "answer": "I work primarily with React, Next.js, TypeScript, and Figma for design systems. I'm also experienced with Tailwind CSS and modern deployment platforms."
+    }
+  ]
+}

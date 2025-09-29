@@ -17,7 +17,7 @@ const MediaItem = ({
   return (
     <li className="flex justify-between items-center">
       <div className="flex items-center gap-12px">
-        <div className="w-[55px] h-80px relative overflow-clip bg-subtle rounded-8px">
+        <div className="w-[55px] h-80px relative overflow-clip bg-bg-subtle rounded-8px">
           <Image
             src={image ? (image.url as string) : PlaceholderImage}
             alt={image ? (image.alt as string) : "Media Poster"}
@@ -33,14 +33,14 @@ const MediaItem = ({
           <Text as="span" size="body" weight="medium">
             {label}
           </Text>
-          <Text as="span" size="caption" className="text-subtle">
+          <Text as="span" size="caption" className="text-fg-subtle">
             {desc}
           </Text>
         </div>
       </div>
 
       {tag && (
-        <Text as="span" size="caption" className="text-subtle text-nowrap">
+        <Text as="span" size="caption" className="text-fg-subtle text-nowrap">
           {tag}
         </Text>
       )}

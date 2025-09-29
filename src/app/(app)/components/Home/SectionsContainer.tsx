@@ -2,49 +2,48 @@ import FeatuedProjectsSkeleton from "@/components/Skeletons/FeaturedProjects";
 import HomeListSkeleton from "@/components/Skeletons/HomeList";
 import FeaturedProjects from "./FeaturedProjects";
 import PageSection from "./Section";
+import {Suspense} from "react";
+import {FeaturedProject} from "@/types";
+import {Project} from "payload-types";
+import {motion, LayoutGroup} from "motion/react";
 
-import { getCollection, getFeaturedProjects } from "@/lib/payload-actions";
-import { Suspense } from "react";
+type SectionsContainerProps = {
+  featuredProjects: FeaturedProject[];
+  archivedProjects: Project[];
+};
 
-//Homepage sections parallel fetching
-export default async () => {
-  const featuredProjects = getFeaturedProjects();
-  const cachedArchivedProjects = await getCollection({
-    collection: "projects",
-    sort: "-year",
-    limit: 3,
-    where: {
-      isFeatured: {
-        not_equals: true,
-      },
-    },
-  });
-
-  const cachedJournalItems = await getCollection({
-    collection: "journal-entries",
-    sort: "-createdAt",
-    limit: 3,
-  });
-
-  const [featProjects, projects, journalEntries] = await Promise.all([
-    featuredProjects,
-    cachedArchivedProjects,
-    cachedJournalItems,
-  ]);
-
+//Homepage sections with data passed as props
+export default ({
+  featuredProjects,
+  archivedProjects,
+}: SectionsContainerProps) => {
   return (
-    <>
-      <Suspense fallback={<FeatuedProjectsSkeleton />}>
-        <FeaturedProjects projects={featProjects} />
-      </Suspense>
+    <LayoutGroup>
+      <div className="flex flex-col gap-[60px]">
+        <motion.div
+          key="featured-projects"
+          layout
+          transition={{duration: 0.3, ease: "easeInOut"}}
+        >
+          <Suspense fallback={<FeatuedProjectsSkeleton />}>
+            <FeaturedProjects projects={featuredProjects} />
+          </Suspense>
+        </motion.div>
 
-      <Suspense fallback={<HomeListSkeleton />}>
-        <PageSection title="Projects" link="/projects" items={projects} />
-      </Suspense>
-
-      <Suspense fallback={<HomeListSkeleton />}>
-        <PageSection title="Journal" link="/journal" items={journalEntries} />
-      </Suspense>
-    </>
+        <motion.div
+          key="projects-section"
+          layout
+          transition={{duration: 0.3, ease: "easeInOut"}}
+        >
+          <Suspense fallback={<HomeListSkeleton />}>
+            <PageSection
+              title="Projects"
+              link="/projects"
+              items={archivedProjects}
+            />
+          </Suspense>
+        </motion.div>
+      </div>
+    </LayoutGroup>
   );
 };

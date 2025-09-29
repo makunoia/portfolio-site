@@ -7,17 +7,17 @@ import Image from "next/image";
 import {cva} from "class-variance-authority";
 import {FeaturedProject} from "@/types";
 import {ArrowUpRight, ChevronLeft, ChevronRight} from "lucide-react";
-import {m, LazyMotion, domAnimation} from "framer-motion";
-import {track} from "@vercel/analytics";
+import {m, LazyMotion, domAnimation} from "motion/react";
+import { trackEvent } from "../../lib/mixpanel-browser";
 import {cn} from "../../lib/utils";
 
 const style = cva([
   "w-full h-[270px] sm:h-[300px]",
   "relative group cursor-pointer",
   "flex flex-row place-content-end",
-  "rounded-4px sm:rounded-12px bg-subtle/20 overflow-hidden",
-  "shadow-md shadow-neutral-200/0 hover:shadow-neutral-300",
-  "outline outline-neutral-100/0 hover:outline-neutral-200",
+  "rounded-4px sm:rounded-12px bg-bg-subtle/20 overflow-hidden",
+  "shadow-md shadow-default/0 hover:shadow-default/80",
+  "outline outline-border-default/10 hover:outline-border-default/40",
   "transition-all ease-in duration-300",
 ]);
 
@@ -33,7 +33,7 @@ const imageStyle = cva(
   {
     variants: {
       shown: {
-        true: "opacity-1 translate-y-8px delay-200",
+        true: "opacity-100 translate-y-8px delay-200",
         false: "opacity-0 translate-y-40px",
       },
     },
@@ -106,11 +106,11 @@ const FeaturedProjects = ({projects}: {projects: FeaturedProject[]}) => {
           <div className="flex flex-row gap-4px">
             <ChevronLeft
               onClick={() => GoToPreviousItem()}
-              className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
+              className="text-fg-subtle/40 hover:text-fg-default cursor-pointer duration-150 transition-colors ease-in-out"
             />
             <ChevronRight
               onClick={() => GoToNextItem()}
-              className="text-subtle/40 hover:text cursor-pointer duration-150 transition-colors ease-in-out"
+              className="text-fg-subtle/40 hover:text-fg-default cursor-pointer duration-150 transition-colors ease-in-out"
             />
           </div>
         ) : null}
@@ -124,7 +124,7 @@ const FeaturedProjects = ({projects}: {projects: FeaturedProject[]}) => {
           id="featured-projects-container"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          onClick={() => track(`Clicked Featured Project: ${link}`)}
+          onClick={() => trackEvent("Featured Project Clicked", {link})}
         >
           <LazyMotion features={domAnimation}>
             <m.div
@@ -198,7 +198,12 @@ const FeaturedProjects = ({projects}: {projects: FeaturedProject[]}) => {
                   >
                     {project.title}
                   </Text>
-                  <Text className="text-subtle" as="p" size="caption" multiline>
+                  <Text
+                    className="text-fg-subtle"
+                    as="p"
+                    size="caption"
+                    multiline
+                  >
                     {project.desc}
                   </Text>
                 </div>
@@ -211,7 +216,7 @@ const FeaturedProjects = ({projects}: {projects: FeaturedProject[]}) => {
           {showArrowsAndBar ? <ProgressBar progress={progress} /> : null}
         </Link>
       ) : (
-        <div className="text">No projects</div>
+        <div className="text-fg-default">No projects</div>
       )}
     </section>
   );
@@ -221,7 +226,7 @@ const ProgressBar = ({progress}: {progress: number}) => {
   const styles = cva([
     "w-0px h-2px",
     "absolute bottom-0px left-0px z-10",
-    "bg-inverse",
+    "bg-bg-brand",
   ]);
 
   return (
@@ -242,12 +247,12 @@ const ArrowButton = () => {
     "opacity-0 group-hover:opacity-100",
     "absolute top-24px right-24px -z-10",
     "transition-opacity ease-in-out duration-300",
-    "border border-inverse text",
+    "border border-border-inverse text-fg-default",
   ]);
 
   return (
     <div className={styles()}>
-      <ArrowUpRight size={28} className="fill-inverse" />
+      <ArrowUpRight size={28} className="fill-fg-inverse" />
     </div>
   );
 };
