@@ -146,7 +146,7 @@ export const getAllProjectsByYear = unstable_cache(
     });
 
     const projects: Project[] = req.docs.filter(
-      (project) => !project.isArchived
+      (project) => project._status !== "draft" && !project.isArchived
     );
 
     return buildProjectsByYear(projects);
@@ -208,7 +208,7 @@ export const getArchivedProjectsByYear = unstable_cache(
     });
 
     const projects: Project[] = req.docs.filter(
-      (project) => project.isArchived
+      (project) => project._status !== "draft" && project.isArchived
     );
 
     return buildProjectsByYear(projects);

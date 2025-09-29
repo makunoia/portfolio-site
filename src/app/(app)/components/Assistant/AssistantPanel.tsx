@@ -413,7 +413,7 @@ const AssistantPanel = ({
         aria-hidden={!(!hasStarted || isCollapsed)}
         style={{contain: "layout paint", willChange: "transform, opacity"}}
       >
-        Anything I can help you with?
+        Ask my assistant
       </motion.h1>
 
       <motion.div

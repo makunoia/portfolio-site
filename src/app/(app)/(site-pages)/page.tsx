@@ -55,6 +55,9 @@ const Page = async () => {
       isArchived: {
         not_equals: true,
       },
+      _status: {
+        equals: "published",
+      },
     },
   }) as Promise<Project[]>;
 
