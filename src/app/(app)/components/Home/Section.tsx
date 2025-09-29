@@ -15,6 +15,10 @@ const PageSection = ({
   items: Project[] | JournalEntry[];
   children?: React.ReactNode;
 }) => {
+  if (!items?.length) {
+    return null;
+  }
+
   return (
     <motion.section
       className="w-full mt-40px flex flex-col gap-16px md:flex-row md:gap-0px justify-between"
