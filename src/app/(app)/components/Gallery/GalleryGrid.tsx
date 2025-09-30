@@ -48,7 +48,10 @@ const GalleryGrid = ({items}: GalleryGridProps) => {
     if (videos.length <= 1) return arr;
 
     const segmentCount = videos.length + 1;
-    const segments: GalleryEntry[][] = Array.from({length: segmentCount}, () => []);
+    const segments: GalleryEntry[][] = Array.from(
+      {length: segmentCount},
+      () => []
+    );
     for (let i = 0; i < photos.length; i++) {
       segments[i % segmentCount].push(photos[i]);
     }
@@ -189,7 +192,10 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
       ref={tiltRef}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      style={{transform: "perspective(900px) rotateX(0deg) rotateY(0deg)", transition: "transform 180ms ease-out"}}
+      style={{
+        transform: "perspective(900px) rotateX(0deg) rotateY(0deg)",
+        transition: "transform 180ms ease-out",
+      }}
     >
       <m.div
         variants={mediaVariants}
@@ -199,14 +205,14 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
       >
         {isMediaAvailable ? (
           item.category === "photo" ? (
-          <Image
-            src={sourceUrl}
-            alt={item.description || item.title}
-            fill
-            sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-            className="h-full w-full object-cover"
-            priority={false}
-          />
+            <Image
+              src={sourceUrl}
+              alt={item.description || item.title}
+              fill
+              sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+              className="h-full w-full object-cover"
+              priority={false}
+            />
           ) : (
             <video
               ref={videoRef}
@@ -220,14 +226,15 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
               controlsList="nodownload noplaybackrate nofullscreen"
               disablePictureInPicture
               className="h-full w-full object-cover"
-              crossOrigin="anonymous"
             >
               <source src={sourceUrl} type={item.mimeType || "video/mp4"} />
             </video>
           )
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-bg-subtle/60">
-            <Text as="p" size="body">No media available</Text>
+            <Text as="p" size="body">
+              No media available
+            </Text>
           </div>
         )}
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 via-black/15 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 dark:from-bg-default/80 dark:via-bg-default/20">
@@ -236,7 +243,12 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
               {item.title}
             </Text>
             {item.description ? (
-              <Text as="p" size="body" multiline className="text-white/80 dark:text-fg-subtle">
+              <Text
+                as="p"
+                size="body"
+                multiline
+                className="text-white/80 dark:text-fg-subtle"
+              >
                 {item.description}
               </Text>
             ) : null}
