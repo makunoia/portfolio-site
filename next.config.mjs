@@ -3,8 +3,8 @@ import bundleAnalyzer from "@next/bundle-analyzer";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactCompiler: false,
   experimental: {
-    reactCompiler: false,
     optimizePackageImports: ["moment-timezone", "moment"],
   },
   images: {

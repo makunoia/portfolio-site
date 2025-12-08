@@ -71,7 +71,7 @@ const getProjectSlugFromPath = (pathname: string): string | undefined => {
   return slug;
 };
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const {pathname: rawPathname} = request.nextUrl;
   const pathname = normalisePathname(rawPathname);
   const projectAccessCookie = request.cookies.get("authLockedProjects");

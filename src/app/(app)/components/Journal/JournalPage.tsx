@@ -81,7 +81,7 @@ const JournalPage = ({
       id={`journal-page-${data.slug}`}
       className={`${
         isPageOpen
-          ? "fixed top-0px sm:top-40px z-50 bg-bg-default border shadow overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[15%] md:mx-[10%]"
+          ? "fixed no-scrollbar top-0px sm:top-40px z-50 bg-bg-default border-0 border-border-subtle/35 shadow-default overflow-y-scroll overflow-x-hidden mx-0px sm:mx-[15%] md:mx-[10%]"
           : "relative h-fit"
       } group sm:min-w-[500px] w-full sm:w-fit max-h-[80%] rounded-none sm:rounded-12px text-fg-default flex flex-col transition-colors duration-600 ease-in-out pointer-events-auto`}
     >
@@ -165,7 +165,7 @@ const CloseButton = ({onClick}: {onClick: () => {}}) => {
       initial={{opacity: 0}}
       animate={{opacity: 1}}
       exit={{opacity: 0}}
-      className="close-button p-2px flex rounded-4px h-fit bg-bg-default hover:bg-bg-subtle border shadow-sm cursor-pointer pointer-events-auto"
+      className="close-button p-2px flex rounded-4px h-fit bg-bg-default hover:bg-bg-subtle border border-border-subtle/35 shadow-sm cursor-pointer pointer-events-auto"
     >
       <XIcon size={20} />
     </motion.div>
@@ -203,7 +203,7 @@ const ScrollHeader = ({
           <Link href="/journal" onClick={() => onCloseHandler()}>
             <motion.div
               layout
-              className="cursor-pointer hover:bg-bg-subtle flex flex-row items-center gap-4px text-caption pl-4px border p-4px rounded-4px bg-bg-default shadow-sm"
+              className="cursor-pointer hover:bg-bg-subtle flex flex-row items-center gap-4px text-caption pl-4px border border-border-subtle/35 p-4px rounded-4px bg-bg-default shadow-sm"
             >
               Close
               <XIcon size={12} />

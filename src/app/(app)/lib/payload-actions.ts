@@ -261,7 +261,7 @@ export const getGalleryItems = unstable_cache(
   }
 );
 
-// Currently unused by middleware
+// Currently unused by proxy
 export const getLockedPages = unstable_cache(
   async (host: string) => {
     const res = await fetch(

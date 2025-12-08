@@ -303,8 +303,8 @@
     --fg-inverse: var(--primitive-100);
     --fg-brand: var(--brand);
 
-    --border-default: var(--primitive-400);
-    --border-subtle: var(--primitive-300);
+    --border-default: var(--primitive-600);
+    --border-subtle: var(--primitive-500);
     --border-inverse: var(--primitive-1200);
     --border-brand: var(--brand);
 
@@ -412,8 +412,9 @@
   }
 
   hr {
-    border-color: var(--border-default);
-    border-width: 0.5px;
+    border-color: var(--border-subtle);
+    border-width: 0.2px;
+    opacity: 0.2;
     width: 100%;
   }
 
@@ -457,5 +458,18 @@
   }
   to {
     height: 0;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 }

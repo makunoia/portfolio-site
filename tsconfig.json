@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -11,7 +15,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -19,15 +23,33 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/fonts": ["./src/app/(app)/styles/fonts"],
-      "@/components/*": ["./src/app/(app)/components/*"],
-      "@/contexts/*": ["./src/app/(app)/contexts/*"],
-      "@/hooks/*": ["./src/app/(app)/hooks/*"],
-      "@/lib/*": ["./src/app/(app)/lib/*"],
-      "@/assets/*": ["./src/app/(app)/assets/*"],
-      "@/types": ["./src/app/(app)/types"],
-      "@payload-config": ["./payload.config.ts"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/fonts": [
+        "./src/app/(app)/styles/fonts"
+      ],
+      "@/components/*": [
+        "./src/app/(app)/components/*"
+      ],
+      "@/contexts/*": [
+        "./src/app/(app)/contexts/*"
+      ],
+      "@/hooks/*": [
+        "./src/app/(app)/hooks/*"
+      ],
+      "@/lib/*": [
+        "./src/app/(app)/lib/*"
+      ],
+      "@/assets/*": [
+        "./src/app/(app)/assets/*"
+      ],
+      "@/types": [
+        "./src/app/(app)/types"
+      ],
+      "@payload-config": [
+        "./payload.config.ts"
+      ]
     },
     "target": "ES2017"
   },
@@ -36,7 +58,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(payload)/admin/importMap.js"
+    "src/app/(payload)/admin/importMap.js",
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
