@@ -1,6 +1,6 @@
 "use client";
 import { useFormFields } from "@payloadcms/ui";
-Text;
+
 const SlugField = () => {
   const title = useFormFields(([fields, dispatch]) => fields.title);
   const value: string = title.value as string;

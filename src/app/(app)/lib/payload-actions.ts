@@ -84,20 +84,22 @@ export const getCollection = async ({
   limit: number;
   where?: {};
 }) => {
-  const {docs} = await payload.find({
-    collection,
-    limit,
-    sort,
-    where,
-  });
-
   return unstable_cache(
-    async () => docs as Project[] | JournalEntry[],
+    async () => {
+      const {docs} = await payload.find({
+        collection,
+        limit,
+        sort,
+        where,
+      });
+      return docs as Project[] | JournalEntry[];
+    },
     [
       "collection",
       `collection:${collection}`,
       `collectionLimit:${limit}`,
       `collectionSort:${sort}`,
+      where ? JSON.stringify(where) : "no-where",
     ],
     {
       tags: ["collection", `collection:${collection}`],

@@ -238,7 +238,7 @@ const AssistantStream = ({
               assistantProse(),
               "overflow-x-auto"
             )}
-            style={{contain: "layout paint", willChange: "contents"}}
+            style={{contain: "layout paint"}}
           >
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}

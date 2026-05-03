@@ -131,9 +131,6 @@ export default buildConfig({
     process.env.NODE_ENV === "production"
       ? [process.env.PAYLOAD_ADMIN_URL || ""].filter(Boolean)
       : undefined,
-  async onInit(payload) {
-    //test connections here
-  },
   upload: {
     limits: {
       fileSize: 20000000,

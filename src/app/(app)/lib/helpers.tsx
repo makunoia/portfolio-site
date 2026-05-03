@@ -325,12 +325,10 @@ export const AnimationVariants = {
       opacity: 1,
       filter: "blur(0px)",
       y: 0,
-      animate: {
-        type: "spring",
+      transition: {
+        type: "spring" as const,
         stiffness: 400,
         damping: 80,
-      },
-      transition: {
         duration: 0.6,
       },
     },

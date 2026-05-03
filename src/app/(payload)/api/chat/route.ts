@@ -25,7 +25,6 @@ function checkRateLimit(ip: string, limit = 10, windowMs = 60000) {
 }
 
 export const maxDuration = 30;
-export const runtime = "edge";
 
 type IncomingMessage = {role: "user" | "assistant"; text: string};
 

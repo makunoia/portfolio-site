@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-export const runtime = "edge";
 
 // Image metadata
 export const alt = "Mark Noya | Product Designer";
@@ -40,12 +39,11 @@ export default async function Image() {
           src={image}
           width="100%"
           height="100%"
-          style={{ position: "absolute", zIndex: 1, objectFit: "cover" }}
+          style={{ position: "absolute", objectFit: "cover" }}
         />
         <div
           style={{
             position: "absolute",
-            zIndex: 2,
             bottom: 90,
             left: 85,
             display: "flex",

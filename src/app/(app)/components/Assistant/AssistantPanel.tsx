@@ -429,24 +429,11 @@ const AssistantPanel = ({
           expanded={hasStarted && !isCollapsed}
           aboveContent={
             hasStarted && !isCollapsed ? (
-              <motion.div
-                layout
-                className="relative w-full flex flex-col min-h-0 h-full"
-                transition={{
-                  layout: {
-                    type: "spring",
-                    stiffness: 420,
-                    damping: 40,
-                    mass: 0.7,
-                  },
-                }}
-              >
-                <motion.div
-                  layout
+              <div className="relative w-full flex flex-col min-h-0 h-full">
+                <div
                   className="flex-1 min-h-0 overflow-y-auto"
                   ref={scrollRef}
                   onScroll={handleScroll}
-                  layoutScroll
                 >
                   {/* Render chat thread with bottom reference for sticky chevron */}
                   <div className="flex flex-col pl-20px pr-24px">
@@ -464,7 +451,7 @@ const AssistantPanel = ({
                               mass: 0.8,
                             }}
                             layout="position"
-                            className="w-full flex-col justify-items-end pt-24px"
+                            className="w-full flex justify-end pt-24px"
                           >
                             <ChatBubble message={m.text} />
                             <div className="h-40px" />
@@ -501,7 +488,7 @@ const AssistantPanel = ({
                     })}
                     <div ref={bottomRef} className="h-4px mt-20px pt-[50px]" />
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Chevron overlayed (absolute) so it does not affect scroll height */}
                 <AnimatePresence initial={false} mode="popLayout">
@@ -536,7 +523,7 @@ const AssistantPanel = ({
                     </motion.button>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             ) : null
           }
         />

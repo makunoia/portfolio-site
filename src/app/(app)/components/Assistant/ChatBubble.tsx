@@ -5,7 +5,7 @@ import {cva} from "class-variance-authority";
 
 const bubble = cva(
   [
-    "max-w-[75%] rounded-24px border px-16px py-10px shadow-sm transition-all duration-200 ease-in-out",
+    "w-fit max-w-[75%] rounded-24px border px-16px py-10px shadow-sm transition-all duration-200 ease-in-out",
     "bg-[linear-gradient(135deg,color-mix(in_oklch,var(--brand)_var(--cb-alpha1),var(--cb-base)),color-mix(in_oklch,var(--brand)_var(--cb-alpha2),var(--cb-base)))]",
     "border-[color:color-mix(in_oklch,var(--brand)_var(--cb-border),transparent)]",
     "[--cb-base:transparent] [--cb-alpha1:20%] [--cb-alpha2:12%] [--cb-border:22%]",

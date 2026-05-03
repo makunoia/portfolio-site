@@ -1,4 +1,7 @@
+import {MetadataSeed} from "@/app/(app)/lib/metadata";
 import Navbar from "@/components/Navbar";
+
+export const metadata = MetadataSeed;
 import Footer from "@/app/(app)/components/Footer/Index";
 import {Toaster} from "@/app/(app)/components/Sonner";
 import {ThemeProvider} from "@/app/(app)/components/ThemeProvider";

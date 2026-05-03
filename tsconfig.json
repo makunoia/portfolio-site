@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "lib": [
       "dom",
       "dom.iterable",
@@ -49,6 +48,9 @@
       ],
       "@payload-config": [
         "./payload.config.ts"
+      ],
+      "payload-types": [
+        "./payload-types.ts"
       ]
     },
     "target": "ES2017"
