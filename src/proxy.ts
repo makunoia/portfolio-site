@@ -8,28 +8,14 @@ type ProtectedPages = {
   archived: string[];
 };
 
-const getProtectedPages = (): ProtectedPages => {
-  // Update these lists whenever new locked or archived project slugs are introduced.
-  const sharedArchived = [
-    "new-world-carpets",
-    "multistore",
-    "dingdong",
-  ];
-
-  const allProtected: Record<"staging" | "production", ProtectedPages> = {
-    staging: {
-      locked: ["project-mark-lviii", "project-red"],
-      archived: sharedArchived,
-    },
-    production: {
-      locked: ["project-red"],
-      archived: sharedArchived,
-    },
-  };
-
-  return allProtected[
-    process.env.VERCEL_ENV === "production" ? "production" : "staging"
-  ];
+const getProtectedPages = async (origin: string): Promise<ProtectedPages> => {
+  try {
+    const res = await fetch(`${origin}/api/protected-slugs`);
+    if (!res.ok) return {locked: [], archived: []};
+    return res.json();
+  } catch {
+    return {locked: [], archived: []};
+  }
 };
 
 const buildRedirectResponse = (
@@ -83,7 +69,7 @@ export async function proxy(request: NextRequest) {
   }
 
   const {locked: lockedProjects, archived: archivedProjects} =
-    getProtectedPages();
+    await getProtectedPages(request.nextUrl.origin);
   const slug = getProjectSlugFromPath(pathname);
   const isLocked = !!slug && lockedProjects.includes(slug);
   const isArchivedPage = pathname === "/projects/archive";

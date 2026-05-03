@@ -21,6 +21,7 @@ const Projects: CollectionConfig = {
           "featuredProjects",
           "lockedProjects",
           "lockedPages",
+          "protectedSlugs",
           "collection",
           "collection:projects",
         ]);
@@ -35,6 +36,7 @@ const Projects: CollectionConfig = {
           "featuredProjects",
           "lockedProjects",
           "lockedPages",
+          "protectedSlugs",
           "collection",
           "collection:projects",
         ]);
