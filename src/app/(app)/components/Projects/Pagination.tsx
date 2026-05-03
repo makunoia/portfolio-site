@@ -15,6 +15,9 @@ const getPages = async (currSlug: string) => {
       isArchived: {
         not_equals: true,
       },
+      _status: {
+        not_equals: "draft",
+      },
     },
   });
 

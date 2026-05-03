@@ -11,7 +11,6 @@ type ProtectedPages = {
 const getProtectedPages = (): ProtectedPages => {
   // Update these lists whenever new locked or archived project slugs are introduced.
   const sharedArchived = [
-    "eventful-ph",
     "new-world-carpets",
     "multistore",
     "dingdong",
