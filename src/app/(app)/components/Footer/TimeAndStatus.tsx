@@ -8,8 +8,29 @@ export default function TimeAndStatus() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    const timerID = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timerID);
+    let timerID: ReturnType<typeof setInterval> | null = null;
+
+    const start = () => {
+      if (timerID !== null) return;
+      timerID = setInterval(() => setTime(new Date()), 1000);
+    };
+    const stop = () => {
+      if (timerID === null) return;
+      clearInterval(timerID);
+      timerID = null;
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) stop();
+      else start();
+    };
+
+    start();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   const formatTime = (date: Date) => {

@@ -149,7 +149,9 @@ const Navbar = () => {
     });
   }, []);
 
-  React.useLayoutEffect(() => {
+  // useEffect instead of useLayoutEffect — the spring animation absorbs the
+  // one-frame delay and avoids blocking paint on every hover/navigation.
+  React.useEffect(() => {
     updateHighlightRect(highlightSlug);
   }, [highlightSlug, updateHighlightRect]);
 
@@ -158,10 +160,15 @@ const Navbar = () => {
       return;
     }
 
-    const handleResize = () => updateHighlightRect(highlightSlug);
-    window.addEventListener("resize", handleResize);
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => updateHighlightRect(highlightSlug), 100);
+    };
+    window.addEventListener("resize", handleResize, {passive: true});
     return () => {
       window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimer);
     };
   }, [highlightSlug, updateHighlightRect]);
 
@@ -175,13 +182,18 @@ const Navbar = () => {
       return;
     }
 
+    let raf: number;
     const observer = new ResizeObserver(() => {
-      updateHighlightRect(highlightSlug);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => updateHighlightRect(highlightSlug));
     });
 
     observer.observe(container);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(raf);
+    };
   }, [highlightSlug, updateHighlightRect]);
 
   const resetHighlight = React.useCallback(() => {

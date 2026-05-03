@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useCallback, useEffect, useState} from "react";
+import React, {startTransition, useCallback, useEffect, useState} from "react";
 import Text from "@/components/Text";
 import Link from "next/link";
 import Image from "next/image";
@@ -74,12 +74,14 @@ const FeaturedProjects = ({projects}: {projects: FeaturedProject[]}) => {
 
     if (!isPaused) {
       timer = setInterval(() => {
-        setProgress((oldProgress) => {
-          if (oldProgress >= 100) {
-            GoToNextItem();
-            return 0;
-          }
-          return oldProgress + 100 / (duration / 100);
+        startTransition(() => {
+          setProgress((oldProgress) => {
+            if (oldProgress >= 100) {
+              GoToNextItem();
+              return 0;
+            }
+            return oldProgress + 100 / (duration / 100);
+          });
         });
       }, 100);
     }

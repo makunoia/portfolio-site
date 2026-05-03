@@ -148,7 +148,7 @@ const Page = async ({projectSlug}: {projectSlug: string}) => {
 
           <section className="md:col-start-2 md:col-end-3 flex flex-col gap-30px">
             <hr />
-            <Pagination currSlug={project.slug} />
+            <Pagination currSlug={project.slug} isArchived={!!archived} />
           </section>
         </main>
       </InViewProvider>

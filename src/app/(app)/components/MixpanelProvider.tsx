@@ -65,29 +65,34 @@ const MixpanelProvider = ({children, userId, token}: MixpanelProviderProps) => {
       const anchor = target.closest("a");
       if (!anchor) return;
 
+      // Read all DOM values synchronously before the anchor navigates away
       const href = anchor.getAttribute("href") ?? "";
       const text = anchor.textContent?.trim() ?? undefined;
       const isExternal = anchor.host && anchor.host !== window.location.host;
       const assistantSource =
         anchor.getAttribute("data-assistant-source") ?? undefined;
+      const anchorTarget = anchor.getAttribute("target") ?? undefined;
 
-      if (assistantSource) {
-        trackEvent("Assistant Link Clicked", {
+      // Defer the tracking call so it doesn't block the interaction response
+      setTimeout(() => {
+        if (assistantSource) {
+          trackEvent("Assistant Link Clicked", {
+            href,
+            text,
+            is_external: isExternal,
+            target: anchorTarget,
+            assistant_source: assistantSource,
+          });
+          return;
+        }
+
+        trackEvent("Link Clicked", {
           href,
           text,
           is_external: isExternal,
-          target: anchor.getAttribute("target") ?? undefined,
-          assistant_source: assistantSource,
+          target: anchorTarget,
         });
-        return;
-      }
-
-      trackEvent("Link Clicked", {
-        href,
-        text,
-        is_external: isExternal,
-        target: anchor.getAttribute("target") ?? undefined,
-      });
+      }, 0);
     };
 
     window.addEventListener("click", handleLinkClick, true);

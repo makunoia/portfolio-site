@@ -5,16 +5,16 @@ import { GroupByYear } from "@/lib/helpers";
 import { ProjectsByYear } from "@/types";
 import { Project } from "payload-types";
 
-const getPages = async (currSlug: string) => {
+const getPages = async (currSlug: string, isArchived: boolean) => {
   const payload = await getPayload({ config });
 
   const req = await payload.find({
     collection: "projects",
     sort: "-year",
     where: {
-      isArchived: {
-        not_equals: true,
-      },
+      isArchived: isArchived
+        ? { equals: true }
+        : { not_equals: true },
       _status: {
         not_equals: "draft",
       },
@@ -42,8 +42,14 @@ const getPages = async (currSlug: string) => {
   };
 };
 
-const Pagination = async ({ currSlug }: { currSlug: string }) => {
-  const pages = await getPages(currSlug);
+const Pagination = async ({
+  currSlug,
+  isArchived = false,
+}: {
+  currSlug: string;
+  isArchived?: boolean;
+}) => {
+  const pages = await getPages(currSlug, isArchived);
 
   const { prevProject, nextProject } = pages;
 

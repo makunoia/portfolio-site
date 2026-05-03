@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {cva} from "class-variance-authority";
 
 const tracklineVariants = cva(
@@ -46,25 +46,30 @@ const ScrollSpyTrackline = ({
 }) => {
   const [tracklineHeight, setTracklineHeight] = useState(0);
 
-  const getTracklineHeight = (parentID: string, childID: string) => {
+  const measureHeight = useCallback(() => {
     const parent = document.getElementById(parentID);
     const child = document.getElementById(childID);
-
-    if (parent && child) {
-      const parentRect = parent?.getBoundingClientRect();
-      const childRect = child?.getBoundingClientRect();
-
-      // Calculate the distance
-      const distance =
-        childRect.bottom - parentRect.top - childRect.height * 0.5;
-      return distance;
-    } else return 0;
-  };
+    if (!parent || !child) return;
+    const parentRect = parent.getBoundingClientRect();
+    const childRect = child.getBoundingClientRect();
+    setTracklineHeight(childRect.bottom - parentRect.top - childRect.height * 0.5);
+  }, [parentID, childID]);
 
   useEffect(() => {
-    const height = getTracklineHeight(parentID, childID);
-    setTracklineHeight(height);
-  }, []);
+    measureHeight();
+    const parent = document.getElementById(parentID);
+    if (!parent || typeof ResizeObserver === "undefined") return;
+    let raf: number;
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(measureHeight);
+    });
+    observer.observe(parent);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [measureHeight, parentID]);
 
   return (
     <div

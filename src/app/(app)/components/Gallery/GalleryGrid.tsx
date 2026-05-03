@@ -100,6 +100,7 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const tiltRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
+  const rectRef = useRef<DOMRect | null>(null);
 
   const isHorizontalMedia = useMemo(() => {
     // Treat videos as non-horizontal to avoid landscape spanning
@@ -143,6 +144,18 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     return {colSpan: fallbackCol, rowSpan: fallbackRow};
   }, [item.renderHint, isHorizontalMedia, item.category, item.id]);
 
+  // Cache bounding rect so mousemove never forces a layout read
+  useEffect(() => {
+    const el = tiltRef.current;
+    if (!el) return;
+    rectRef.current = el.getBoundingClientRect();
+    const observer = new ResizeObserver(() => {
+      rectRef.current = el.getBoundingClientRect();
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Ensure videos start playing on mount to paint first frame even if poster is missing
   useEffect(() => {
     if (item.category === "photo") return;
@@ -162,7 +175,7 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
   const onMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const el = tiltRef.current;
     if (!el) return;
-    const rect = el.getBoundingClientRect();
+    const rect = rectRef.current ?? el.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const px = x / rect.width - 0.5;

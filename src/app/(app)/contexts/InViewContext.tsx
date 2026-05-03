@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, createContext, ReactNode } from "react";
+import React, { useState, useMemo, createContext, ReactNode } from "react";
 
 interface InViewContextType {
   inView: {
@@ -24,9 +24,10 @@ const InViewContext = createContext<InViewContextType>(defaultValues);
 
 export function InViewProvider({ children }: { children: ReactNode }) {
   const [inView, setInView] = useState({ section: "", block: "" });
+  const value = useMemo(() => ({ inView, setInView }), [inView]);
 
   return (
-    <InViewContext.Provider value={{ inView, setInView }}>
+    <InViewContext.Provider value={value}>
       {children}
     </InViewContext.Provider>
   );
