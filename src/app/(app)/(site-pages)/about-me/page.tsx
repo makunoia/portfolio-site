@@ -22,9 +22,9 @@ const Page = async () => {
           priority
           src={coverPhotoSrc?.url as string}
           alt={coverPhotoSrc.alt as string}
-          sizes="(max-width: 1200px) 40vw, 60vw"
+          sizes="100vw"
           quality={100}
-          width={500}
+          width={1920}
           height={140}
           style={{
             objectFit: "cover",

@@ -11,6 +11,11 @@ const getPages = async (currSlug: string) => {
   const req = await payload.find({
     collection: "projects",
     sort: "-year",
+    where: {
+      isArchived: {
+        not_equals: true,
+      },
+    },
   });
 
   const projects: Project[] = req.docs;
