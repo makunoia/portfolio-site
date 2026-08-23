@@ -1,7 +1,6 @@
 "use client";
 
-import {useCallback, useEffect, useMemo, useRef} from "react";
-import type React from "react";
+import {useEffect, useMemo, useRef} from "react";
 import Image from "next/image";
 import {LazyMotion, domAnimation, m, Variants} from "motion/react";
 
@@ -26,11 +25,6 @@ const cardVariants: Variants = {
     transition: {type: "spring", stiffness: 200, damping: 28},
   },
   exit: {opacity: 0, y: 20, scale: 0.95, transition: {duration: 0.18}},
-};
-
-const mediaVariants: Variants = {
-  rest: {scale: 1, transition: {duration: 0.35, ease: "easeOut"}},
-  hover: {scale: 1.03, transition: {duration: 0.35, ease: "easeOut"}},
 };
 
 const GalleryGrid = ({items}: GalleryGridProps) => {
@@ -98,9 +92,6 @@ const categoryLabel = {
 
 const GalleryCard = ({item}: {item: GalleryEntry}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const tiltRef = useRef<HTMLDivElement | null>(null);
-  const rafRef = useRef<number | null>(null);
-  const rectRef = useRef<DOMRect | null>(null);
 
   const isHorizontalMedia = useMemo(() => {
     // Treat videos as non-horizontal to avoid landscape spanning
@@ -144,18 +135,6 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     return {colSpan: fallbackCol, rowSpan: fallbackRow};
   }, [item.renderHint, isHorizontalMedia, item.category, item.id]);
 
-  // Cache bounding rect so mousemove never forces a layout read
-  useEffect(() => {
-    const el = tiltRef.current;
-    if (!el) return;
-    rectRef.current = el.getBoundingClientRect();
-    const observer = new ResizeObserver(() => {
-      rectRef.current = el.getBoundingClientRect();
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   // Ensure videos start playing on mount to paint first frame even if poster is missing
   useEffect(() => {
     if (item.category === "photo") return;
@@ -172,50 +151,14 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     // Only depends on category to avoid replays on unrelated prop changes
   }, [item.category]);
 
-  const onMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const el = tiltRef.current;
-    if (!el) return;
-    const rect = rectRef.current ?? el.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const px = x / rect.width - 0.5;
-    const py = y / rect.height - 0.5;
-    const max = 8; // max tilt in degrees
-    const rx = -(py * max);
-    const ry = px * max;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => {
-      el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-    });
-  }, []);
-
-  const onLeave = useCallback(() => {
-    const el = tiltRef.current;
-    if (!el) return;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    el.style.transform = `perspective(900px) rotateX(0deg) rotateY(0deg)`;
-  }, []);
-
   const sourceUrl = item.url || "";
   const isMediaAvailable = Boolean(sourceUrl);
 
   const body = (
     <div
       className="relative h-full overflow-hidden rounded-16px border border-border-subtle bg-bg-subtle/40 shadow-[0_8px_20px_-14px_color-mix(in_oklch,var(--shadow-default)_45%,transparent)]"
-      ref={tiltRef}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      style={{
-        transform: "perspective(900px) rotateX(0deg) rotateY(0deg)",
-        transition: "transform 180ms ease-out",
-      }}
     >
-      <m.div
-        variants={mediaVariants}
-        initial="rest"
-        animate="rest"
-        className="relative h-full"
-      >
+      <div className="relative h-full">
         {isMediaAvailable ? (
           item.category === "photo" ? (
             <Image
@@ -267,7 +210,7 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
             ) : null}
           </div>
         </div>
-      </m.div>
+      </div>
     </div>
   );
 
@@ -276,7 +219,10 @@ const GalleryCard = ({item}: {item: GalleryEntry}) => {
     initial: "hidden" as const,
     animate: "visible" as const,
     exit: "exit" as const,
-    whileHover: "hover" as const,
+    whileHover: {
+      scale: 1.015,
+      transition: {duration: 0.25, ease: "easeOut" as const},
+    },
     whileTap: {scale: 0.98},
     className: `group block h-full ${
       colSpan > 1 ? "sm:col-span-2 lg:col-span-2 xl:col-span-2" : ""
